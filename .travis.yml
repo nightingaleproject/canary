@@ -1,0 +1,22 @@
+sudo: required
+dist: trusty
+language: ruby
+env: DISPLAY=':99.0'
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+rvm:
+  - 2.3.4
+  - 2.4.1
+services: postgresql
+before_script:
+  - psql -c 'create database canary_test;' -U postgres
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+script:
+  - bundle exec bundle-audit check --update
+  - bundle exec brakeman -qAzw1
+  - bundle exec rake
