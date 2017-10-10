@@ -1,0 +1,7 @@
+{
+  "name": "canary",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "4.0.0-beta"
+  }
+}
