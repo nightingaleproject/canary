@@ -1,0 +1,31 @@
+.canary-container {
+  max-width: 1200px;
+  width: 90%;
+}
+
+.rjsf {
+  flex: 1;
+}
+
+.canary-no-padding {
+  padding: 0;
+}
+
+.canary-full-width {
+  flex: 1;
+}
+
+.canary-full-height {
+  min-height: 100%;
+  height: 100%;
+}
+
+.canary-nav-link {
+  color: white !important;
+  opacity: 1 !important;
+}
+
+a.canary-nav-link:hover {
+  color: white !important;
+  opacity: 0.5 !important;
+}

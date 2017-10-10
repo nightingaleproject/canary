@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Canary</title>
+    <title>Canary EDRS Testing Framework</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
+    <% if !current_user.nil? && user_signed_in? %>
+      <%= render "layouts/header" %>
+      <div class="container canary-container canary-no-padding">
+        <%= yield %>
+      </div>
+      <%= render "layouts/footer" %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

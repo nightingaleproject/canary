@@ -22,6 +22,16 @@ gem 'turbolinks', '~> 5'
 # Authentication
 gem 'devise'
 
+# Bootstrap 4
+gem 'tether-rails'
+gem 'bootstrap', '= 4.0.0.alpha6'
+
+# Font Awesome
+gem 'font-awesome-rails'
+
+# jQuery
+gem 'jquery-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
