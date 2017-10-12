@@ -1,0 +1,47 @@
+<fieldset>
+  <legend>Data Export Results</legend>
+  <div class="row mt-2 pb-2">
+    <div class="col-4">
+      <div class="canary-sub-header">
+        <h5>IJE Export</h5>
+      </div>
+      <div class="mt-3 text-center">
+        Recent Results (<a href="#">view all</a>)
+      </div>
+      <div class="mt-2">
+        <%= column_chart ije_export_snapshot_system_path, min: 0, max: 100, colors: ['#226891'], ytitle: 'Test Score' %>
+      </div>
+      <div class="mt-3 text-center">
+        <button type="button" class="btn btn-primary"><span class="fa fa-magic"></span> Start New Test</button>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="canary-sub-header">
+        <h5>FHIR Export</h5>
+      </div>
+      <div class="mt-3 text-center">
+        Recent Results (<a href="#">view all</a>)
+      </div>
+      <div class="mt-2">
+        <%= column_chart fhir_export_snapshot_system_path, min: 0, max: 100, colors: ['#AB4642'], ytitle: 'Test Score' %>
+      </div>
+      <div class="mt-3 text-center">
+        <button type="button" class="btn btn-primary"><span class="fa fa-magic"></span> Start New Test</button>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="canary-sub-header">
+        <h5>CDA Export</h5>
+      </div>
+      <div class="mt-3 text-center">
+        Recent Results (<a href="#">view all</a>)
+      </div>
+      <div class="mt-2">
+        <%= column_chart cda_export_snapshot_system_path, min: 0, max: 100, colors: ['#3A7539'], ytitle: 'Test Score' %>
+      </div>
+      <div class="mt-3 text-center">
+        <button type="button" class="btn btn-primary"><span class="fa fa-magic"></span> Start New Test</button>
+      </div>
+    </div>
+  </div>
+</fieldset>

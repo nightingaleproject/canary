@@ -1,0 +1,21 @@
+.canary-sub-header {
+  border-bottom: 1px solid $btn-secondary-border;
+  padding-bottom: 0;
+}
+
+.c100.canary-color .bar, .c100.canary-color .fill {
+  border-color: $brand-primary !important;
+}
+.c100.canary-color:hover > span {
+  color: $brand-primary;
+}
+.c100.canary-color.dark .bar, .c100.canary-color.dark .fill {
+  border-color: $brand-primary !important;
+}
+.c100.canary-color.dark:hover > span {
+  color: $brand-primary;
+}
+
+.no-border {
+  border: 0 !important;
+}

@@ -10,10 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010145918) do
+ActiveRecord::Schema.define(version: 20171011192745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cda_export_results", force: :cascade do |t|
+    t.bigint "system_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_cda_export_results_on_system_id"
+  end
+
+  create_table "cda_import_results", force: :cascade do |t|
+    t.bigint "system_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_cda_import_results_on_system_id"
+  end
+
+  create_table "fhir_export_results", force: :cascade do |t|
+    t.bigint "system_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_fhir_export_results_on_system_id"
+  end
+
+  create_table "fhir_import_results", force: :cascade do |t|
+    t.bigint "system_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_fhir_import_results_on_system_id"
+  end
+
+  create_table "ije_export_results", force: :cascade do |t|
+    t.bigint "system_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_ije_export_results_on_system_id"
+  end
+
+  create_table "ije_import_results", force: :cascade do |t|
+    t.bigint "system_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_ije_import_results_on_system_id"
+  end
+
+  create_table "systems", force: :cascade do |t|
+    t.bigint "creator_id"
+    t.string "name"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_systems_on_creator_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,6 +80,8 @@ ActiveRecord::Schema.define(version: 20171010145918) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

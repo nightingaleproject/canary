@@ -12,6 +12,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
 
+      t.string :first_name, null: false, default: ""
+      t.string :last_name, null: false, default: ""
+
       t.timestamps null: false
     end
 
