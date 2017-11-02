@@ -1,0 +1,25 @@
+<% if @test.complete %>
+  <div class="no-pad-no-marg c100 large canary-color p<%= @test.score %>">
+    <span><%= @test.score %>%</span>
+    <div class="slice">
+      <div class="bar"></div>
+      <div class="fill"></div>
+    </div>
+  </div><br /><br /><br /><br /><br /><br /><br /><br />
+<% else %>
+  <h4 class="mt-3 mb-3">Download the provided IJE file and import it into the EDRS. When complete, check off each value if it appears in the EDRS. Click submit at the bottom of the page when finished.</h4>
+  <%= link_to "Download IJE file", download_ije_path(id: @test.id, test_type: @type, system_id: params['system_id']) %>
+  <br /><br />
+<% end %>
+
+<%= form_tag({action: :submit_checks, test_type: @type, system_id: params['system_id']}) do |f| %>
+  <% @test.data.each do |key, value| %>
+    <strong><%= value['description'] %></strong><br />
+    <% if !@test.complete %><%= check_box_tag 'canary-option' + key %><% end %> <%= value['value'] %>
+    <br /><br />
+  <% end %>
+  <% if !@test.complete %>
+    <%= submit_tag "Submit!", class: "btn btn-primary", id: @test.id, test_type: @type, system_id: params['system_id'] %>
+  <% end %>
+  <br /><br /><br />
+<% end %>

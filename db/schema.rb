@@ -15,52 +15,59 @@ ActiveRecord::Schema.define(version: 20171011192745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cda_export_results", force: :cascade do |t|
+  create_table "cda_export_tests", force: :cascade do |t|
     t.bigint "system_id"
-    t.integer "score"
+    t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_id"], name: "index_cda_export_results_on_system_id"
+    t.index ["system_id"], name: "index_cda_export_tests_on_system_id"
   end
 
-  create_table "cda_import_results", force: :cascade do |t|
+  create_table "cda_import_tests", force: :cascade do |t|
     t.bigint "system_id"
-    t.integer "score"
+    t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_id"], name: "index_cda_import_results_on_system_id"
+    t.index ["system_id"], name: "index_cda_import_tests_on_system_id"
   end
 
-  create_table "fhir_export_results", force: :cascade do |t|
+  create_table "fhir_export_tests", force: :cascade do |t|
     t.bigint "system_id"
-    t.integer "score"
+    t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_id"], name: "index_fhir_export_results_on_system_id"
+    t.index ["system_id"], name: "index_fhir_export_tests_on_system_id"
   end
 
-  create_table "fhir_import_results", force: :cascade do |t|
+  create_table "fhir_import_tests", force: :cascade do |t|
     t.bigint "system_id"
-    t.integer "score"
+    t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_id"], name: "index_fhir_import_results_on_system_id"
+    t.index ["system_id"], name: "index_fhir_import_tests_on_system_id"
   end
 
-  create_table "ije_export_results", force: :cascade do |t|
+  create_table "ije_export_tests", force: :cascade do |t|
     t.bigint "system_id"
-    t.integer "score"
+    t.integer "score", default: 0
+    t.boolean "complete", default: false
+    t.json "data", default: {}
+    t.json "problems", default: {}
+    t.text "ije", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_id"], name: "index_ije_export_results_on_system_id"
+    t.index ["system_id"], name: "index_ije_export_tests_on_system_id"
   end
 
-  create_table "ije_import_results", force: :cascade do |t|
+  create_table "ije_import_tests", force: :cascade do |t|
     t.bigint "system_id"
-    t.integer "score"
+    t.integer "score", default: 0
+    t.boolean "complete", default: false
+    t.json "data", default: {}
+    t.string "filename", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_id"], name: "index_ije_import_results_on_system_id"
+    t.index ["system_id"], name: "index_ije_import_tests_on_system_id"
   end
 
   create_table "systems", force: :cascade do |t|

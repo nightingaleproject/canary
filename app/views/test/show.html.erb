@@ -1,0 +1,10 @@
+<script>
+</script>
+<%= render 'layouts/breadcrumbs', crumbs: {'Dashboard' => root_path, 'Test' => nil} %>
+<% if @type == 'ije_export' %>
+  <%= render 'test/ije_export_test' %>
+<% elsif @type == 'ije_import' %>
+  <%= render 'test/ije_import_test' %>
+<% else %>
+  Not yet implemented.
+<% end %>

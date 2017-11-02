@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :systems, only: [:show, :index, :new, :destroy] do
+  resources :systems, only: [:show, :index, :new, :destroy, :create] do
     member do
       get :ije_export_snapshot
       get :fhir_export_snapshot
@@ -11,6 +11,15 @@ Rails.application.routes.draw do
       get :cda_import_snapshot
     end
   end
+
+  resources :test, only: [:show, :index, :new] do
+    member do
+      post :upload
+      post :submit_checks
+    end
+  end
+
+  get 'download_ije', to: "test#download_ije"
 
   root to: 'systems#index'
 end
