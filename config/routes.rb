@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'send_fhir', to: "test#send_fhir"
   get 'download_ije', to: "test#download_ije"
 
   root to: 'systems#index'

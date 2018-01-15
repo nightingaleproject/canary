@@ -1,6 +1,8 @@
+require 'rest-client'
+
 class TestController < ApplicationController
   before_action :new_test, only: [:new]
-  before_action :set_test, only: [:show, :upload, :download_ije, :submit_checks]
+  before_action :set_test, only: [:show, :upload, :download_ije, :submit_checks, :send_fhir]
   before_action :set_tests, only: [:index]
 
   # Show all tests.
@@ -19,6 +21,17 @@ class TestController < ApplicationController
 
   def download_ije
     send_file "#{Rails.root}/public/" + @test.filename, x_sendfile: true
+  end
+
+  def send_fhir
+    target = params[:endpoint]
+
+    # Generate FHIR from test fake data
+    fhir = FhirProducerHelper.to_fhir(@test.data, @test.id)
+
+    # Post FHIR to given endpoint
+    # TODO: Assuming certain param structure (for Nightingale); also assuming JSON!
+    RestClient.post target, {fhir: fhir.to_json, email: 'doc1@example.com'}
   end
 
   def submit_checks
@@ -40,16 +53,19 @@ class TestController < ApplicationController
       @good_record = IJE::MortalityFormat.new(@test.data.transform_values { |v| v['value'] })
       good = 0
       problems = []
+      successes = []
       @test.data.keys.each do |k|
         if @uploaded_record.send(k) == @good_record.send(k)
           good = good + 1
+          successes.push("Found the correct value \"#{@uploaded_record.send(k)}\" for \"#{@test.data[k]['description']}\".")
           @test.data[k]['result'] = true
         else
-          problems.push('Expected ' + @good_record.send(k) + ' but found ' + @uploaded_record.send(k) + ' for ' + @test.data[k]['description'])
+          problems.push("Expected \"#{@good_record.send(k)}\" but found \"#{@uploaded_record.send(k)}\" for \"#{@test.data[k]['description']}\".")
           @test.data[k]['result'] = false
         end
       end
       @test.problems = {'problems': problems}
+      @test.successes = {'successes': successes}
       @test.complete = true
       @test.score = ((good.to_f / @test.data.keys.count.to_f) * 100).to_i
     rescue Exception => e
@@ -74,6 +90,10 @@ class TestController < ApplicationController
       @test = IjeImportTest.create
       @test.populate_fake_data
       edrs.ije_import_tests << @test
+    when 'fhir_import'
+      @test = FhirImportTest.create
+      @test.populate_fake_data
+      edrs.fhir_import_tests << @test
     else
       raise 'Not yet implemented.'
     end
@@ -86,6 +106,8 @@ class TestController < ApplicationController
       @test = current_user.created_systems.find_by(id: params[:system_id]).ije_export_tests.find_by(id: params[:id])
     when 'ije_import'
       @test = current_user.created_systems.find_by(id: params[:system_id]).ije_import_tests.find_by(id: params[:id])
+    when 'fhir_import'
+      @test = current_user.created_systems.find_by(id: params[:system_id]).fhir_import_tests.find_by(id: params[:id])
     else
       raise 'Not yet implemented.'
     end
@@ -97,6 +119,8 @@ class TestController < ApplicationController
       @tests = current_user.created_systems.find_by(id: params[:system_id]).ije_export_tests
     when 'ije_import'
       @tests = current_user.created_systems.find_by(id: params[:system_id]).ije_import_tests
+    when 'ije_import'
+      @tests = current_user.created_systems.find_by(id: params[:system_id]).fhir_import_tests
     else
       raise 'Not yet implemented.'
     end
