@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(version: 20171011192745) do
   create_table "fhir_export_tests", force: :cascade do |t|
     t.bigint "system_id"
     t.integer "score", default: 0
+    t.boolean "complete", default: false
+    t.json "data", default: {}
+    t.text "diffs", default: ""
+    t.text "good_fhir", default: ""
+    t.string "filename", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["system_id"], name: "index_fhir_export_tests_on_system_id"
@@ -42,6 +47,11 @@ ActiveRecord::Schema.define(version: 20171011192745) do
   create_table "fhir_import_tests", force: :cascade do |t|
     t.bigint "system_id"
     t.integer "score", default: 0
+    t.boolean "complete", default: false
+    t.json "data", default: {}
+    t.json "problems", default: {}
+    t.json "successes", default: {}
+    t.string "filename", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["system_id"], name: "index_fhir_import_tests_on_system_id"
@@ -53,6 +63,7 @@ ActiveRecord::Schema.define(version: 20171011192745) do
     t.boolean "complete", default: false
     t.json "data", default: {}
     t.json "problems", default: {}
+    t.json "successes", default: {}
     t.text "ije", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -4,7 +4,7 @@ class IjeExportTest < ApplicationRecord
   belongs_to :system, class_name: 'System'
 
   def populate_fake_data
-    self.data = IjeHelper.generate_fake_data
+    self.data = DataHelper.generate_fake_data
     self.save
 
     # temp save ije

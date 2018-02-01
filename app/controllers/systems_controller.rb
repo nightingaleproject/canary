@@ -29,7 +29,7 @@ class SystemsController < ApplicationController
   def ije_export_snapshot
     ije_export_data = {}
     @system.ije_export_tests.limit(7).each do |r|
-      ije_export_data.merge!(r.created_at.strftime("%m/%d/%Y") => r.score)
+      ije_export_data.merge!(r.created_at.strftime("%m/%d/%Y %r") => r.score)
     end
     render json: ije_export_data
   end
@@ -38,7 +38,7 @@ class SystemsController < ApplicationController
   def fhir_export_snapshot
     fhir_export_data = {}
     @system.fhir_export_tests.limit(7).each do |r|
-      fhir_export_data.merge!(r.created_at.strftime("%m/%d/%Y") => r.score)
+      fhir_export_data.merge!(r.created_at.strftime("%m/%d/%Y %r") => r.score)
     end
     render json: fhir_export_data
   end
@@ -47,7 +47,7 @@ class SystemsController < ApplicationController
   def cda_export_snapshot
     cda_export_data = {}
     @system.cda_export_tests.limit(7).each do |r|
-      cda_export_data.merge!(r.created_at.strftime("%m/%d/%Y") => r.score)
+      cda_export_data.merge!(r.created_at.strftime("%m/%d/%Y %r") => r.score)
     end
     render json: cda_export_data
   end
@@ -56,7 +56,7 @@ class SystemsController < ApplicationController
   def ije_import_snapshot
     ije_import_data = {}
     @system.ije_import_tests.limit(7).each do |r|
-      ije_import_data.merge!(r.created_at.strftime("%m/%d/%Y") => r.score)
+      ije_import_data.merge!(r.created_at.strftime("%m/%d/%Y %r") => r.score)
     end
     render json: ije_import_data
   end
@@ -65,7 +65,7 @@ class SystemsController < ApplicationController
   def fhir_import_snapshot
     fhir_import_data = {}
     @system.fhir_import_tests.limit(7).each do |r|
-      fhir_import_data.merge!(r.created_at.strftime("%m/%d/%Y") => r.score)
+      fhir_import_data.merge!(r.created_at.strftime("%m/%d/%Y %r") => r.score)
     end
     render json: fhir_import_data
   end
@@ -74,7 +74,7 @@ class SystemsController < ApplicationController
   def cda_import_snapshot
     cda_import_data = {}
     @system.cda_import_tests.limit(7).each do |r|
-      cda_import_data.merge!(r.created_at.strftime("%m/%d/%Y") => r.score)
+      cda_import_data.merge!(r.created_at.strftime("%m/%d/%Y %r") => r.score)
     end
     render json: cda_import_data
   end

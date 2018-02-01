@@ -26,7 +26,7 @@
         <%= column_chart fhir_export_snapshot_system_path, min: 0, max: 100, colors: ['#AB4642'], ytitle: 'Test Score' %>
       </div>
       <div class="mt-3 text-center">
-        <button type="button" class="btn btn-primary disabled">Start New Test</button>
+        <%= link_to "Start New Test", new_test_path(system_id: @system.id, test_type: 'fhir_export'), class: "btn btn-primary" %>
       </div>
     </div>
     <div class="col-4">
@@ -34,7 +34,7 @@
         <h5>CDA Export</h5>
       </div>
       <div class="mt-3 text-center">
-        
+
       </div>
       <div class="mt-2">
         <%= column_chart cda_export_snapshot_system_path, min: 0, max: 100, colors: ['#3A7539'], ytitle: 'Test Score' %>

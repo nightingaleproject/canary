@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/fhir-crucible/fhir_models
+  revision: 01e843da5441842622263115d440a294e0a23179
+  specs:
+    fhir_models (3.0.2)
+      bcp47 (>= 0.3)
+      date_time_precision (>= 0.8)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.6)
+
+GIT
   remote: https://github.com/nightingaleproject/ije
   revision: 603b044e3a3eaf12285485b48c0e27e3e865e2c0
   specs:
@@ -47,6 +57,8 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.1.5)
       execjs
+    bcp47 (0.3.3)
+      i18n
     bcrypt (3.1.11)
     bindex (0.5.0)
     bootstrap (4.0.0.alpha6)
@@ -61,12 +73,16 @@ GEM
     chartkick (2.2.4)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
+    date_time_precision (0.8.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    diffy (3.2.0)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.0)
     execjs (2.7.0)
     faker (1.8.4)
@@ -78,6 +94,8 @@ GEM
       activesupport (>= 4.2.0)
     groupdate (3.2.0)
       activesupport (>= 3)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (0.8.6)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
@@ -113,6 +131,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
+    netrc (0.11.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -152,6 +171,10 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     ruby_dep (1.5.0)
     sass (3.5.2)
       sass-listen (~> 4.0.0)
@@ -188,6 +211,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -209,7 +235,9 @@ DEPENDENCIES
   byebug
   chartkick
   devise
+  diffy
   faker
+  fhir_models!
   font-awesome-rails
   groupdate
   ije!
@@ -220,6 +248,7 @@ DEPENDENCIES
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.4)
+  rest-client
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

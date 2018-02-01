@@ -15,10 +15,12 @@ Rails.application.routes.draw do
   resources :test, only: [:show, :index, :new] do
     member do
       post :upload
+      post :upload_fhir
       post :submit_checks
     end
   end
 
+  post 'send_fhir', to: "test#send_fhir"
   get 'download_ije', to: "test#download_ije"
 
   root to: 'systems#index'
