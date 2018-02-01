@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :test, only: [:show, :index, :new] do
     member do
       post :upload
+      post :upload_fhir
       post :submit_checks
     end
   end

@@ -48,6 +48,8 @@ gem 'fhir_models', git: 'https://github.com/fhir-crucible/fhir_models'
 
 gem 'rest-client'
 
+gem 'diffy'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

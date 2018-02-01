@@ -2,7 +2,7 @@ require 'rest-client'
 
 class TestController < ApplicationController
   before_action :new_test, only: [:new]
-  before_action :set_test, only: [:show, :upload, :download_ije, :submit_checks, :send_fhir]
+  before_action :set_test, only: [:show, :upload, :upload_fhir, :download_ije, :submit_checks, :send_fhir]
   before_action :set_tests, only: [:index]
 
   # Show all tests.
@@ -31,13 +31,33 @@ class TestController < ApplicationController
 
     # Post FHIR to given endpoint
     # TODO: Assuming certain param structure (for Nightingale); also assuming JSON!
-    RestClient.post target, {fhir: fhir.to_json, email: 'doc1@example.com'}
+    RestClient.post target, fhir.to_json, {content_type: :json}
   end
 
   def submit_checks
     good = params.keys.select { |k| k.include? 'canary-option' }.count
     @test.complete = true
     @test.score = ((good.to_f / @test.data.keys.count.to_f) * 100).to_i
+    @test.save
+    redirect_to test_path @test, system_id: params['system_id'], test_type: params['test_type']
+  end
+
+  def upload_fhir
+    uploaded_io = params[:fhir]
+    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
+    contents = File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'rb').read
+    debugger
+    doc1 = Nokogiri::XML(contents).to_xml(indent: 3, indent_text: ' ')
+    doc2 = Nokogiri::XML(@test.good_fhir).to_xml(indent: 3, indent_text: ' ')
+    diffs = Diffy::Diff.new(doc1, doc2).to_s(:html)
+    if diffs.length == 24
+      diffs = ''
+    end
+    @test.diffs = diffs
+    @test.complete = true
+    @test.score = if diffs.empty? then 100 else 0 end
     @test.save
     redirect_to test_path @test, system_id: params['system_id'], test_type: params['test_type']
   end
@@ -90,6 +110,12 @@ class TestController < ApplicationController
       @test = IjeImportTest.create
       @test.populate_fake_data
       edrs.ije_import_tests << @test
+    when 'fhir_export'
+      @test = FhirExportTest.create
+      @test.populate_fake_data
+      edrs.fhir_export_tests << @test
+      @test.good_fhir = FhirProducerHelper.to_fhir(@test.data, @test.id).to_xml.to_s
+      @test.save
     when 'fhir_import'
       @test = FhirImportTest.create
       @test.populate_fake_data
@@ -106,6 +132,8 @@ class TestController < ApplicationController
       @test = current_user.created_systems.find_by(id: params[:system_id]).ije_export_tests.find_by(id: params[:id])
     when 'ije_import'
       @test = current_user.created_systems.find_by(id: params[:system_id]).ije_import_tests.find_by(id: params[:id])
+    when 'fhir_export'
+      @test = current_user.created_systems.find_by(id: params[:system_id]).fhir_export_tests.find_by(id: params[:id])
     when 'fhir_import'
       @test = current_user.created_systems.find_by(id: params[:system_id]).fhir_import_tests.find_by(id: params[:id])
     else
@@ -119,7 +147,9 @@ class TestController < ApplicationController
       @tests = current_user.created_systems.find_by(id: params[:system_id]).ije_export_tests
     when 'ije_import'
       @tests = current_user.created_systems.find_by(id: params[:system_id]).ije_import_tests
-    when 'ije_import'
+    when 'fhir_export'
+      @tests = current_user.created_systems.find_by(id: params[:system_id]).fhir_export_tests
+    when 'fhir_import'
       @tests = current_user.created_systems.find_by(id: params[:system_id]).fhir_import_tests
     else
       raise 'Not yet implemented.'

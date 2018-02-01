@@ -5,6 +5,8 @@
   <%= render 'test/ije_export_test' %>
 <% elsif @type == 'ije_import' %>
   <%= render 'test/ije_import_test' %>
+<% elsif @type == 'fhir_export' %>
+  <%= render 'test/fhir_export_test' %>
 <% elsif @type == 'fhir_import' %>
   <%= render 'test/fhir_import_test' %>
 <% else %>

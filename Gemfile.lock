@@ -80,6 +80,7 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    diffy (3.2.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.0)
@@ -234,6 +235,7 @@ DEPENDENCIES
   byebug
   chartkick
   devise
+  diffy
   faker
   fhir_models!
   font-awesome-rails
