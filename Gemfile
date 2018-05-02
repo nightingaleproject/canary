@@ -50,6 +50,9 @@ gem 'rest-client'
 
 gem 'diffy'
 
+gem 'ruby-fhir-death-record', git: 'https://github.com/nightingaleproject/ruby-fhir-death-record.git'
+#gem 'ruby-fhir-death-record', path: '../ruby-fhir-death-record'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

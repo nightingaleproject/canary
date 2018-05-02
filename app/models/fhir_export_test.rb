@@ -5,6 +5,7 @@ class FhirExportTest < ApplicationRecord
 
   def populate_fake_data
     self.data = DataHelper.generate_fake_data_fhir
+    self.fhir_mappings = DataHelper.generate_fake_data_fhir_mappings(self.data)
     self.save
   end
 end

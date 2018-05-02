@@ -1,4 +1,5 @@
 require 'rest-client'
+require 'fhirdeathrecord'
 
 class TestController < ApplicationController
   before_action :new_test, only: [:new]
@@ -27,7 +28,7 @@ class TestController < ApplicationController
     target = params[:endpoint]
 
     # Generate FHIR from test fake data
-    fhir = FhirProducerHelper.to_fhir(@test.data, @test.id)
+    fhir = FhirDeathRecord::Producer.to_fhir({'contents': @test.fhir_mappings, id: '1234567890', certifier_id: '1234567890'})
 
     # Post FHIR to given endpoint
     # TODO: Assuming certain param structure (for Nightingale); also assuming JSON!
@@ -114,7 +115,7 @@ class TestController < ApplicationController
       @test = FhirExportTest.create
       @test.populate_fake_data
       edrs.fhir_export_tests << @test
-      @test.good_fhir = FhirProducerHelper.to_fhir(@test.data, @test.id).to_xml.to_s
+      @test.good_fhir = FhirDeathRecord::Producer.to_fhir({'contents': @test.fhir_mappings, id: '1234567890', certifier_id: '1234567890'}).to_xml.to_s
       @test.save
     when 'fhir_import'
       @test = FhirImportTest.create

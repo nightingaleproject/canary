@@ -14,6 +14,14 @@ GIT
   specs:
     ije (0.0.1)
 
+GIT
+  remote: https://github.com/nightingaleproject/ruby-fhir-death-record.git
+  revision: c7b398db399a20fb276cca01648fb99320bfd76d
+  specs:
+    ruby-fhir-death-record (0.1.0)
+      activesupport
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,7 +80,7 @@ GEM
     byebug (9.1.0)
     chartkick (2.2.4)
     concurrent-ruby (1.0.5)
-    crass (1.0.2)
+    crass (1.0.4)
     date_time_precision (0.8.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -120,7 +128,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.2.1)
+    loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
@@ -133,7 +141,7 @@ GEM
     minitest (5.10.3)
     netrc (0.11.0)
     nio4r (2.1.0)
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
@@ -156,8 +164,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
     railties (5.1.4)
       actionpack (= 5.1.4)
       activesupport (= 5.1.4)
@@ -249,6 +257,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.4)
   rest-client
+  ruby-fhir-death-record!
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -259,4 +268,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.1

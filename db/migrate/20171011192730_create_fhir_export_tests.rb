@@ -6,6 +6,7 @@ class CreateFhirExportTests < ActiveRecord::Migration[5.1]
       t.integer :score, default: 0
       t.boolean :complete, default: false
       t.json :data, default: {}
+      t.json :fhir_mappings, default: {}
       t.text :diffs, default: ''
       t.text :good_fhir, default: ''
       t.string :filename, default: ''

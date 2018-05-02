@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20171011192745) do
     t.integer "score", default: 0
     t.boolean "complete", default: false
     t.json "data", default: {}
+    t.json "fhir_mappings", default: {}
     t.text "diffs", default: ""
     t.text "good_fhir", default: ""
     t.string "filename", default: ""
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 20171011192745) do
     t.integer "score", default: 0
     t.boolean "complete", default: false
     t.json "data", default: {}
+    t.json "fhir_mappings", default: {}
     t.json "problems", default: {}
     t.json "successes", default: {}
     t.string "filename", default: ""
