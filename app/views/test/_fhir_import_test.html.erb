@@ -1,22 +1,49 @@
-<h1><%= @test.system.name %></h1>
-<h3><%= @test.system.notes %></h3>
-<br /><br />
 <% if @test.complete %>
-  <h3>EDRS Ingestion of FHIR Data Test Results</h3>
-  <br />
-  <div class="no-pad-no-marg c100 large canary-color p<%= @test.score %>">
-    <span><%= @test.score %>%</span>
-    <div class="slice">
-      <div class="bar"></div>
-      <div class="fill"></div>
+  <div class="card text-center mb-4">
+    <div class="card-header">
+      <h3>FHIR Import Test Results (Test ID: <%= @test.id %>)</h3>
     </div>
-  </div><br /><br /><br /><br /><br /><br /><br /><br />
-  <% @test.problems['problems'].each do |problem| %>
-    <i class="fa fa-times text-warning" aria-hidden="true"></i> <%= problem %><br />
-  <% end %><br />
-  <% @test.successes['successes'].each do |success| %>
-    <i class="fa fa-check text-success" aria-hidden="true"></i> <%= success %><br />
-  <% end %><br />
+    <div class="card-block">
+      <h4 class="card-title"><%= @test.successes['successes'].count %> out of <%= @test.successes['successes'].count + @test.problems['problems'].count %> data elements reported successfully.</h2></h4>
+      <div class="container-fluid">
+        <div class="row justify-content-center p-3">
+          <div class="no-pad-no-marg c100 large canary-color p<%= @test.score %>">
+              <span><%= @test.score %>%</span>
+              <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="card-footer text-muted">
+      Completed <%= time_ago_in_words(@test.updated_at) %> ago.
+    </div>
+  </div>
+  <div id="accordion" role="tablist" aria-multiselectable="true" class="container-fluid no-pad-no-marg">
+    <% @test.problems['problems'].each do |problem| %>
+      <div id="<%= problem['id'] %>" data-toggle="collapse" data-target="#collapse<%= problem['id'] %>" aria-expanded="true" aria-controls="collapse<%= problem['id'] %>" class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5><i class="fa fa-times text-danger" aria-hidden="true"></i><span class="pl-2"><%= problem['description'] %></span></h5>
+        Expected to find <strong><%= problem['test_value'] %></strong> but instead found <strong><%= problem['uploaded_value'] %></strong>.
+
+      </div>
+    <% end %>
+    <% @test.successes['successes'].each do |success| %>
+      <div id="<%= success['id'] %>" data-toggle="collapse" data-target="#collapse<%= success['id'] %>" aria-expanded="true" aria-controls="collapse<%= success['id'] %>" class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5><i class="fa fa-check text-success" aria-hidden="true"></i><span class="pl-2"><%= success['description'] %></span></h5>
+        Found expected value of <strong><%= success['test_value'] %></strong>.
+
+      </div>
+    <% end %>
+  </div>
+  <div class="pb-4"></div>
 <% else %>
   <h2>EDRS Ingestion of FHIR Data Test Procedure</h2>
   <h4>

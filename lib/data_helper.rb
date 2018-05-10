@@ -1,4 +1,5 @@
 module DataHelper
+  # Generate fake (IJE) data.
   def self.generate_fake_data
     return {
       date_of_death_year: {value: DateTime.now.strftime("%Y"), description: "Date of Death--Year"},
@@ -76,13 +77,13 @@ module DataHelper
       county_of_injury_literal: {value: Faker::Address.city, description: "County of Injury - literal"},
       town_city_of_injury_literal: {value: Faker::Address.city, description: "Town/city of Injury - literal"},
       state_us_territory_or_canadian_province_of_injury_code: {value: Faker::Address.state_abbr, description: "State, U.S. Territory or Canadian Province of Injury - code"},
-      cause_of_death_part_i_line_a: {value: 'Rupture of myocardium', description: "Cause of Death Part I Line a"},
+      cause_of_death_part_i_line_a: {value: 'Rupture of myocardium' + rand(1..99).to_s, description: "Cause of Death Part I Line a"},
       cause_of_death_part_i_interval_line_a: {value: "#{rand(1..59)} minutes", description: "Cause of Death Part I Interval, Line a"},
-      cause_of_death_part_i_line_b: {value: 'Acute myocardial infarction', description: "Cause of Death Part I Line b"},
+      cause_of_death_part_i_line_b: {value: 'Acute myocardial infarction' + rand(1..99).to_s, description: "Cause of Death Part I Line b"},
       cause_of_death_part_i_interval_line_b: {value: "#{rand(1..59)} days", description: "Cause of Death Part I Interval, Line b"},
-      cause_of_death_part_i_line_c: {value: 'Coronary artery thrombosis', description: "Cause of Death Part I Line c"},
+      cause_of_death_part_i_line_c: {value: 'Coronary artery thrombosis' + rand(1..99).to_s, description: "Cause of Death Part I Line c"},
       cause_of_death_part_i_interval_line_c: {value: "#{rand(1..59)} days", description: "Cause of Death Part I Interval, Line c"},
-      cause_of_death_part_i_line_d: {value: 'Atherosclerotic coronary artery disease', description: "Cause of Death Part I Line d"},
+      cause_of_death_part_i_line_d: {value: 'Atherosclerotic coronary artery disease' + rand(1..99).to_s, description: "Cause of Death Part I Line d"},
       cause_of_death_part_i_interval_line_d: {value: "#{rand(1..59)} years", description: "Cause of Death Part I Interval, Line d"},
       spouses_middle_name: {value: Faker::Name.first_name.truncate(50), description: "Spouse's Middle Name"},
       spouses_suffix: {value: Faker::Name.suffix, description: "Spouse's Suffix"},
@@ -179,7 +180,7 @@ module DataHelper
                                         :occupation_literal_optional)
   end
 
-  # Create mappings from that fake data for use by ruby-fhir-death-record structure
+  # Create a ruby-fhir-death-record friendly version of the fake data.
   def self.generate_fake_data_fhir_mappings(fake_data)
     fake_data = Hash[ fake_data.collect { |k, v| [k, v['value']] } ]
     fake_data.symbolize_keys!
@@ -241,6 +242,13 @@ module DataHelper
     }
   end
 
+  # Create mappings from IJE fields to FHIR paths.
+  def self.generate_ije_to_fhir_paths
+    {
+
+    }
+  end
+
   def self.to_yes_no(val)
     val == 'Y' ? 'Yes' : 'No'
   end
@@ -291,82 +299,5 @@ module DataHelper
 
   def self.to_place_of_death(val)
     val.to_s == '1' ? 'Death in hospital' : 'Death in home'
-  end
-
-  def self.to_full_state(val)
-    {
-      "Alabama" => "AL",
-    	"Alaska" => "AK",
-      "American Samoa" => "AS",
-    	"Arizona" => "AZ",
-    	"Arkansas" => "AR",
-    	"California" => "CA",
-    	"Colorado" => "CO",
-    	"Connecticut" => "CT",
-    	"Delaware" => "DE",
-    	"District of Columbia" => "DC",
-    	"Florida" => "FL",
-    	"Georgia" => "GA",
-      "Guam" => "GU",
-    	"Hawaii" => "HI",
-    	"Idaho" => "ID",
-    	"Illinois" => "IL",
-    	"Indiana" => "IN",
-    	"Iowa" => "IA",
-    	"Kansas" => "KS",
-    	"Kentucky" => "KY",
-    	"Louisiana" => "LA",
-    	"Maine" => "ME",
-    	"Maryland" => "MD",
-    	"Massachusetts" => "MA",
-    	"Michigan" => "MI",
-    	"Minnesota" => "MN",
-    	"Mississippi" => "MS",
-    	"Missouri" => "MO",
-    	"Montana" => "MT",
-    	"Nebraska" => "NE",
-    	"Nevada" => "NV",
-    	"New Hampshire" => "NH",
-    	"New Jersey" => "NJ",
-    	"New Mexico" => "NM",
-    	"New York" => "NY",
-      "New York City" => "YC",
-    	"North Carolina" => "NC",
-    	"North Dakota" => "ND",
-      "Northern Mariana Islands" => "MP",
-    	"Ohio" => "OH",
-    	"Oklahoma" => "OK",
-    	"Oregon" => "OR",
-    	"Pennsylvania" => "PA",
-      "Puerto Rico" => "PR",
-    	"Rhode Island" => "RI",
-    	"South Carolina" => "SC",
-    	"South Dakota" => "SD",
-    	"Tennessee" => "TN",
-    	"Texas" => "TX",
-    	"Utah" => "UT",
-    	"Vermont" => "VT",
-      "Virgin Islands" => "VI",
-    	"Virginia" => "VA",
-    	"Washington" => "WA",
-    	"West Virginia" => "WV",
-    	"Wisconsin" => "WI",
-    	"Wyoming" => "WY",
-      "British Columbia" => "BC",
-      "Ontario" => "ON",
-      "Newfoundland and Labrador" => "NL",
-      "Northwest Territories" => "NT",
-      "Nova Scotia" => "NS",
-      "Prince Edward Island" => "PE",
-      "New Brunswick" => "NB",
-      "Quebec" => "QC",
-      "Manitoba" => "MB",
-      "Saskatchewan" => "SK",
-      "Alberta" => "AB",
-      "Nunavut" => "NU",
-      "Yukon" => "YT",
-      "Unknown Territory" => "ZZ",
-      "Country is Known But Not U.S. Or Canada" => "XX"
-    }.key(val)
   end
 end

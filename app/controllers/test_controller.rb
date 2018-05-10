@@ -28,7 +28,7 @@ class TestController < ApplicationController
     target = params[:endpoint]
 
     # Generate FHIR from test fake data
-    fhir = FhirDeathRecord::Producer.to_fhir({'contents': @test.fhir_mappings, id: '1234567890', certifier_id: '1234567890'})
+    fhir = @test.fhir_data
 
     # Post FHIR to given endpoint
     # TODO: Assuming certain param structure (for Nightingale); also assuming JSON!
@@ -78,10 +78,26 @@ class TestController < ApplicationController
       @test.data.keys.each do |k|
         if @uploaded_record.send(k) == @good_record.send(k)
           good = good + 1
-          successes.push("Found the correct value \"#{@uploaded_record.send(k)}\" for \"#{@test.data[k]['description']}\".")
+          found_val = @uploaded_record.send(k)
+          found_val = 'nothing' if found_val.blank?
+          successes << {
+            'summary' => "Found the correct value \"#{found_val}\" for \"#{@test.data[k]['description']}\".",
+            'uploaded_value' => found_val,
+            'test_value' => @good_record.send(k),
+            'description' => @test.data[k]['description'],
+            'id' => Digest::MD5.hexdigest(@test.data[k]['description'])
+          }
           @test.data[k]['result'] = true
         else
-          problems.push("Expected \"#{@good_record.send(k)}\" but found \"#{@uploaded_record.send(k)}\" for \"#{@test.data[k]['description']}\".")
+          found_val = @uploaded_record.send(k)
+          found_val = 'nothing' if found_val.blank?
+          problems << {
+            'summary' => "Expected \"#{@good_record.send(k)}\" but found \"#{found_val}\" for \"#{@test.data[k]['description']}\".",
+            'uploaded_value' => found_val,
+            'test_value' => @good_record.send(k),
+            'description' => @test.data[k]['description'],
+            'id' => Digest::MD5.hexdigest(@test.data[k]['description'])
+          }
           @test.data[k]['result'] = false
         end
       end
