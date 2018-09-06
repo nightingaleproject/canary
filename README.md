@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nightingaleproject/canary.svg?branch=master)](https://travis-ci.org/nightingaleproject/canary)
+
 ## Canary EDRS Testing Framework
 
 Canary is a testing framework for electronic death registration systems (EDRS). Canary can be used to test support for various mortality related data formats.
