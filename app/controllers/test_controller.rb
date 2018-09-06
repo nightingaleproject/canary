@@ -32,6 +32,7 @@ class TestController < ApplicationController
 
     # Post FHIR to given endpoint
     # TODO: Assuming certain param structure (for Nightingale); also assuming JSON!
+    # TODO: Need to handle 404s, 500s, etc (and tell the user).
     RestClient.post target, fhir.to_json, {content_type: :json}
   end
 
@@ -48,17 +49,12 @@ class TestController < ApplicationController
     File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
       file.write(uploaded_io.read)
     end
-    contents = File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'rb').read
-    debugger
-    doc1 = Nokogiri::XML(contents).to_xml(indent: 3, indent_text: ' ')
+    doc1 = Nokogiri::XML(File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename))).to_xml(indent: 3, indent_text: ' ')
     doc2 = Nokogiri::XML(@test.good_fhir).to_xml(indent: 3, indent_text: ' ')
-    diffs = Diffy::Diff.new(doc1, doc2).to_s(:html)
-    if diffs.length == 24
-      diffs = ''
-    end
-    @test.diffs = diffs
+    diffs = Diffy::Diff.new(doc2, doc1, :include_plus_and_minus_in_html => true)
+    @test.diffs = diffs.to_s(:html)
     @test.complete = true
-    @test.score = if diffs.empty? then 100 else 0 end
+    @test.score = if diffs.count == 0 then 100 else ((diffs.count.to_f / (doc1.lines.count.to_f + doc2.lines.count.to_f)) * 100).to_i end
     @test.save
     redirect_to test_path @test, system_id: params['system_id'], test_type: params['test_type']
   end
@@ -138,7 +134,7 @@ class TestController < ApplicationController
       @test.populate_fake_data
       edrs.fhir_import_tests << @test
     else
-      raise 'Not yet implemented.'
+      raise 'Unknown test type.'
     end
     edrs.save
   end
@@ -154,7 +150,7 @@ class TestController < ApplicationController
     when 'fhir_import'
       @test = current_user.created_systems.find_by(id: params[:system_id]).fhir_import_tests.find_by(id: params[:id])
     else
-      raise 'Not yet implemented.'
+      raise 'Unknown test type.'
     end
   end
 
@@ -169,7 +165,7 @@ class TestController < ApplicationController
     when 'fhir_import'
       @tests = current_user.created_systems.find_by(id: params[:system_id]).fhir_import_tests
     else
-      raise 'Not yet implemented.'
+      raise 'Unknown test type.'
     end
   end
 end

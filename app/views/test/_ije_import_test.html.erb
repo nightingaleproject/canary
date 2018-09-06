@@ -19,7 +19,7 @@
     <br /><br />
   <% end %>
   <% if !@test.complete %>
-    <%= submit_tag "Submit!", class: "btn btn-primary", id: @test.id, test_type: @type, system_id: params['system_id'] %>
+    <%= submit_tag "Submit", class: "btn btn-primary", id: @test.id, test_type: @type, system_id: params['system_id'] %>
   <% end %>
   <br /><br /><br />
 <% end %>

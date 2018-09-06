@@ -1,5 +1,13 @@
 ## Change Log
 
+### v0.4.0 - 2018-09-07
+
+* Refactored user interface
+* Removed unecessary project files
+* Changed target Ruby version to 2.4.4
+* Updated README.md
+* Various dependency updates
+
 ### v0.3.0 - 2018-05-10
 
 * Updated FHIR implementations to use latest Death on FHIR profiles

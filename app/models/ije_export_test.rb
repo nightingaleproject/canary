@@ -12,5 +12,4 @@ class IjeExportTest < ApplicationRecord
     record = IJE::MortalityFormat.new(aaa)
     File.open('test.MOR', 'w') { |file| file.write(IJE::MortalityFormat.write([record])) }
   end
-
 end

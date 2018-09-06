@@ -3,8 +3,6 @@ class System < ApplicationRecord
 
   has_many :ije_export_tests, class_name: 'IjeExportTest', foreign_key: 'system_id'
   has_many :fhir_export_tests, class_name: 'FhirExportTest', foreign_key: 'system_id'
-  has_many :cda_export_tests, class_name: 'CdaExportTest', foreign_key: 'system_id'
   has_many :ije_import_tests, class_name: 'IjeImportTest', foreign_key: 'system_id'
   has_many :fhir_import_tests, class_name: 'FhirImportTest', foreign_key: 'system_id'
-  has_many :cda_import_tests, class_name: 'CdaImportTest', foreign_key: 'system_id'
 end
