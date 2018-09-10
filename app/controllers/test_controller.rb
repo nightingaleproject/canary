@@ -81,7 +81,7 @@ class TestController < ApplicationController
             'uploaded_value' => found_val,
             'test_value' => @good_record.send(k),
             'description' => @test.data[k]['description'],
-            'id' => Digest::MD5.hexdigest(@test.data[k]['description'])
+            'id' => SHA256.hexdigest(@test.data[k]['description'])
           }
           @test.data[k]['result'] = true
         else
@@ -92,7 +92,7 @@ class TestController < ApplicationController
             'uploaded_value' => found_val,
             'test_value' => @good_record.send(k),
             'description' => @test.data[k]['description'],
-            'id' => Digest::MD5.hexdigest(@test.data[k]['description'])
+            'id' => SHA256.hexdigest(@test.data[k]['description'])
           }
           @test.data[k]['result'] = false
         end
