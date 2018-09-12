@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nightingaleproject/canary.svg?branch=master)](https://travis-ci.org/nightingaleproject/canary)
+
 ## Canary EDRS Testing Framework
 
 Canary is a testing framework for electronic death registration systems (EDRS). Canary can be used to test support for various mortality related data formats.
@@ -14,7 +16,7 @@ To work with the application, you will need to install some prerequisites:
 * [Bundler](http://bundler.io/)
 * [Postgres](http://www.postgresql.org/)
 
-Once the prerequisites are available, Nightingale can be installed and demonstration data can be loaded.
+Once the prerequisites are available, Canary can be installed and demonstration data can be loaded.
 
 #### Setup
 
@@ -26,11 +28,11 @@ Once the prerequisites are available, Nightingale can be installed and demonstra
 
     `cd canary`
 
-* Install ruby gem dependencies
+* Install Ruby gem dependencies
 
     `bundle install`
 
-* Create the database
+* Set up the database tables
 
     `bundle exec rake db:drop db:create db:migrate db:setup RAILS_ENV=development`
 
@@ -38,7 +40,7 @@ Once the prerequisites are available, Nightingale can be installed and demonstra
 
     `bundle exec rake canary:demo:setup`
 
-  * This will initialize Canary with a demonstration account, user@example.com
+  * This will initialize Canary with a demonstration account, `user@example.com` (with a password of `123456`).
 
 * Run the application server
 
@@ -66,6 +68,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ### Contact Information
 
-For questions or comments about Nightingale EDRS, please send email to
+For questions or comments about Canary or the Nightingale EDRS, please send email to
 
     cdc-nvss-feedback-list@lists.mitre.org

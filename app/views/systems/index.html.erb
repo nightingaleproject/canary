@@ -5,38 +5,28 @@
   <div class="card-block no-border">
     <div class="row">
       <div class="col16-md-4">
-        <button type="button" class="btn btn-primary mt-2 pull-left" data-toggle="modal" data-target="#startNewRecord"><span class="fa fa-magic"></span> Start New Record</button>
+        <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#startNewRecord"><span class="fa fa-magic"></span> Create New System</button>
       </div>
-      <div class="col16-md-4 text-center canary-sub-header">
-        <strong>IJE</strong>
+      <div class="col16-md-6 text-center canary-sub-header">
+        <h4>IJE</h4>
       </div>
-      <div class="col16-md-4 text-center canary-sub-header">
-        <strong>FHIR</strong>
-      </div>
-      <div class="col16-md-4 text-center canary-sub-header">
-        <strong>CDA</strong>
+      <div class="col16-md-6 text-center canary-sub-header">
+        <h4>FHIR</h4>
       </div>
     </div>
     <div class="row mt-2">
       <div class="col16-md-4">
-
       </div>
-      <div class="col16-md-2 text-center">
+      <div class="col16-md-3 text-center">
         <strong>Export</strong>
       </div>
-      <div class="col16-md-2 text-center">
+      <div class="col16-md-3 text-center">
         <strong>Import</strong>
       </div>
-      <div class="col16-md-2 text-center">
+      <div class="col16-md-3 text-center">
         <strong>Export</strong>
       </div>
-      <div class="col16-md-2 text-center">
-        <strong>Import</strong>
-      </div>
-      <div class="col16-md-2 text-center">
-        <strong>Export</strong>
-      </div>
-      <div class="col16-md-2 text-center">
+      <div class="col16-md-3 text-center">
         <strong>Import</strong>
       </div>
     </div>
@@ -44,7 +34,7 @@
 </div>
 <% if @systems.count == 0 %>
 <div class="row justify-content-center mt-5">
-  You currently have no EDRS system records.
+  You have not yet completed any EDRS system tests.
 </div>
 <% end %>
 <% @systems.each do |system| %>
@@ -58,7 +48,7 @@
           <span class="fa fa-trash ml-3 mr-1"></span><%= link_to 'Delete', system_path(system), data: {confirm: 'Are you sure you want to delete this EDRS system?'}, method: :delete %>
         </div>
       </div>
-      <div class="col16-md-2 center-inner-div text-center">
+      <div class="col16-md-3 center-inner-div text-center">
         <% if system.ije_export_tests.count > 0 %>
           <div class="no-pad-no-marg c100 small canary-color p<%= system.ije_export_tests.first.score %>">
             <span><%= system.ije_export_tests.first.score %>%</span>
@@ -71,7 +61,7 @@
           None
         <% end %>
       </div>
-      <div class="col16-md-2 center-inner-div text-center">
+      <div class="col16-md-3 center-inner-div text-center">
         <% if system.ije_import_tests.count > 0 %>
           <div class="no-pad-no-marg c100 small canary-color p<%= system.ije_import_tests.first.score %>">
             <span><%= system.ije_import_tests.first.score %>%</span>
@@ -84,7 +74,7 @@
           None
         <% end %>
       </div>
-      <div class="col16-md-2 center-inner-div text-center">
+      <div class="col16-md-3 center-inner-div text-center">
         <% if system.fhir_export_tests.count > 0 %>
           <div class="no-pad-no-marg c100 small canary-color p<%= system.fhir_export_tests.first.score %>">
             <span><%= system.fhir_export_tests.first.score %>%</span>
@@ -97,36 +87,10 @@
           None
         <% end %>
       </div>
-      <div class="col16-md-2 center-inner-div text-center">
+      <div class="col16-md-3 center-inner-div text-center">
         <% if system.fhir_import_tests.count > 0 %>
           <div class="no-pad-no-marg c100 small canary-color p<%= system.fhir_import_tests.first.score %>">
             <span><%= system.fhir_import_tests.first.score %>%</span>
-            <div class="slice">
-              <div class="bar"></div>
-              <div class="fill"></div>
-            </div>
-          </div>
-        <% else %>
-          None
-        <% end %>
-      </div>
-      <div class="col16-md-2 center-inner-div text-center">
-        <% if system.cda_export_tests.count > 0 %>
-          <div class="no-pad-no-marg c100 small canary-color p<%= system.cda_export_tests.first.score %>">
-            <span><%= system.cda_export_tests.first.score %>%</span>
-            <div class="slice">
-              <div class="bar"></div>
-              <div class="fill"></div>
-            </div>
-          </div>
-        <% else %>
-          None
-        <% end %>
-      </div>
-      <div class="col16-md-2 center-inner-div">
-        <% if system.cda_import_tests.count > 0 %>
-          <div class="no-pad-no-marg c100 small canary-color p<%= system.cda_import_tests.first.score %>">
-            <span><%= system.cda_import_tests.first.score %>%</span>
             <div class="slice">
               <div class="bar"></div>
               <div class="fill"></div>
@@ -143,7 +107,6 @@
 <%= paginate @systems %>
 <div class="pb-3"></div>
 
-
 <div class="modal fade" id="startNewRecord" tabindex="-1" role="dialog" aria-labelledby="startNewRecordLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -154,18 +117,19 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label for="formGroupExampleInput">Name of EDRS system</label>
-          <input type="text" class="form-control" id="name" placeholder="" required>
-        </div>
-        <div class="form-group">
-          <label for="formGroupExampleInput2">Notes</label>
-          <textarea type="text" class="form-control" id="notes" placeholder=""></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <%= button_to "Create", {action: "create", remote: true, form: { "data-type" => "json" }}, {class: 'btn btn-primary'} %>
+        <%= form_tag({action: 'create'}, method: 'post') do %>
+          <div class="form-group">
+            <%= label_tag :name, 'Name of System' %>
+            <%= text_field_tag :name, '', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :notes, 'Notes' %>
+            <%= text_area_tag :notes, '', class: 'form-control' %>
+          </div>
+          <button type="submit" class="btn btn-primary float-right">
+            Create
+          </button>
+        <% end %>
       </div>
     </div>
   </div>

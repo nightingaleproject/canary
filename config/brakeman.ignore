@@ -1,0 +1,85 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "a380b9d7209bf5484e1a40ec4eb0c0d9a0275f181a0add89a9cb65075b4f7c11",
+      "check_name": "SendFile",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/test_controller.rb",
+      "line": 24,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file((\"#{Rails.root}/public/\" + (((current_user.created_systems.find_by(:id => params[:system_id]).ije_export_tests.find_by(:id => params[:id]) or current_user.created_systems.find_by(:id => params[:system_id]).ije_import_tests.find_by(:id => params[:id])) or current_user.created_systems.find_by(:id => params[:system_id]).fhir_export_tests.find_by(:id => params[:id])) or current_user.created_systems.find_by(:id => params[:system_id]).fhir_import_tests.find_by(:id => params[:id])).filename), :x_sendfile => true)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TestController",
+        "method": "download_ije"
+      },
+      "user_input": "params[:id]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "c7d0b58b0b34f192ebb32d7703698715219dc39b15c0ff410f415b6856efbc5d",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/test/_fhir_export_test.html.erb",
+      "line": 13,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(((current_user.created_systems.find_by(:id => params[:system_id]).ije_export_tests.find_by(:id => params[:id]) or current_user.created_systems.find_by(:id => params[:system_id]).ije_import_tests.find_by(:id => params[:id])) or current_user.created_systems.find_by(:id => params[:system_id]).fhir_export_tests.find_by(:id => params[:id])) or current_user.created_systems.find_by(:id => params[:system_id]).fhir_import_tests.find_by(:id => params[:id])).diffs",
+      "render_path": [{"type":"controller","class":"TestController","method":"show","line":16,"file":"app/controllers/test_controller.rb"},{"type":"template","name":"test/show","line":9,"file":"app/views/test/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "test/_fhir_export_test"
+      },
+      "user_input": "current_user.created_systems.find_by(:id => params[:system_id])",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "e5edff304cfb25381d2b0a98e2bbc6b1c2c8b528445f815cfb084de9ce51ae59",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/test_controller.rb",
+      "line": 49,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(Rails.root.join(\"public\", \"uploads\", params[:fhir].original_filename), \"wb\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TestController",
+        "method": "upload_fhir"
+      },
+      "user_input": "params[:fhir].original_filename",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "ec2c1059ff46af2d42c8f1aade9ab4bae2f298525f15cf80c1b58428357653a9",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/test_controller.rb",
+      "line": 64,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(Rails.root.join(\"public\", \"uploads\", params[:ije].original_filename), \"wb\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TestController",
+        "method": "upload"
+      },
+      "user_input": "params[:ije].original_filename",
+      "confidence": "Weak",
+      "note": ""
+    }
+  ],
+  "updated": "2018-09-10 14:51:54 -0400",
+  "brakeman_version": "4.0.1"
+}
