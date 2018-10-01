@@ -7,6 +7,7 @@ class CreateIjeImportTests < ActiveRecord::Migration[5.1]
       t.boolean :complete, default: false
       t.json :data, default: {}
       t.string :filename, default: ''
+      t.boolean :failed, default: false
 
       t.timestamps
     end

@@ -9,6 +9,7 @@ class CreateIjeExportTests < ActiveRecord::Migration[5.1]
       t.json :problems, default: {}
       t.json :successes, default: {}
       t.text :ije, default: ''
+      t.boolean :failed, default: false
 
       t.timestamps
     end

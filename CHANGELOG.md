@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.5.0 - 2018-10-01
+ * Upgraded Boostrap version
+
 ### v0.4.0 - 2018-09-07
 
 * Refactored user interface

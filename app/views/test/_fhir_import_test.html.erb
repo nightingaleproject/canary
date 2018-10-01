@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3>FHIR Import Test Results (Test ID: <%= @test.id %>)</h3>
     </div>
-    <div class="card-block">
+    <div class="card-body">
       <h4 class="card-title"><%= @test.successes['successes'].count %> out of <%= @test.successes['successes'].count + @test.problems['problems'].count %> data elements reported successfully.</h2></h4>
       <div class="container-fluid">
         <div class="row justify-content-center p-3">
@@ -21,6 +21,16 @@
       Completed <%= time_ago_in_words(@test.updated_at) %> ago.
     </div>
   </div>
+  <% if @test.failed %>
+    <div id="accordion" role="tablist" aria-multiselectable="true" class="container-fluid no-pad-no-marg">
+      <div id="failed" data-toggle="collapse" data-target="#collapsefailed" aria-expanded="true" aria-controls="collapsefailed" class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        Test Failed to complete. Reason: <%= @test.problems['problems'].first %>
+      </div>
+    </div>
+  <% else %>
   <div id="accordion" role="tablist" aria-multiselectable="true" class="container-fluid no-pad-no-marg">
     <% @test.problems['problems'].each do |problem| %>
       <div id="<%= problem['id'] %>" data-toggle="collapse" data-target="#collapse<%= problem['id'] %>" aria-expanded="true" aria-controls="collapse<%= problem['id'] %>" class="alert alert-danger alert-dismissible fade show">
@@ -43,6 +53,7 @@
       </div>
     <% end %>
   </div>
+  <% end %>
   <div class="pb-4"></div>
 <% else %>
   <h2>EDRS Ingestion of FHIR Data Test Procedure</h2>

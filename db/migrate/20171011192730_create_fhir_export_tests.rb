@@ -10,6 +10,7 @@ class CreateFhirExportTests < ActiveRecord::Migration[5.1]
       t.text :diffs, default: ''
       t.text :good_fhir, default: ''
       t.string :filename, default: ''
+      t.boolean :failed, default: false
 
       t.timestamps
     end

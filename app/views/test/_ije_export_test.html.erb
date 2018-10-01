@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3>IJE Import Test Results (Test ID: <%= @test.id %>)</h3>
     </div>
-    <div class="card-block">
+    <div class="card-body">
       <h4 class="card-title"><%= @test.successes['successes'].count %> out of <%= @test.successes['successes'].count + @test.problems['problems'].count %> data elements reported successfully.</h2></h4>
       <div class="container-fluid">
         <div class="row justify-content-center p-3">

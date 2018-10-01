@@ -12,6 +12,7 @@ class CreateFhirImportTests < ActiveRecord::Migration[5.1]
       t.json :problems, default: {}
       t.json :successes, default: {}
       t.string :filename, default: ''
+      t.boolean :failed, default: false
 
       t.timestamps
     end

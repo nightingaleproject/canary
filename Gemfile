@@ -21,7 +21,7 @@ gem 'devise'
 
 # Bootstrap 4
 gem 'tether-rails'
-gem 'bootstrap', '= 4.0.0.alpha6'
+gem 'bootstrap', '4.1.2'
 
 # Font Awesome
 gem 'font-awesome-rails'

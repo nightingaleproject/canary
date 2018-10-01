@@ -1,5 +1,6 @@
 require 'rest-client'
 require 'fhirdeathrecord'
+require 'digest'
 
 class TestController < ApplicationController
   before_action :new_test, only: [:new]
@@ -81,7 +82,7 @@ class TestController < ApplicationController
             'uploaded_value' => found_val,
             'test_value' => @good_record.send(k),
             'description' => @test.data[k]['description'],
-            'id' => SHA256.hexdigest(@test.data[k]['description'])
+            'id' => Digest::SHA256.hexdigest(@test.data[k]['description'])
           }
           @test.data[k]['result'] = true
         else
@@ -92,7 +93,7 @@ class TestController < ApplicationController
             'uploaded_value' => found_val,
             'test_value' => @good_record.send(k),
             'description' => @test.data[k]['description'],
-            'id' => SHA256.hexdigest(@test.data[k]['description'])
+            'id' => Digest::SHA256.hexdigest(@test.data[k]['description'])
           }
           @test.data[k]['result'] = false
         end
@@ -101,10 +102,13 @@ class TestController < ApplicationController
       @test.successes = {'successes': successes}
       @test.complete = true
       @test.score = ((good.to_f / @test.data.keys.count.to_f) * 100).to_i
+      @test.failed = false
     rescue Exception => e
       @test.complete = true
       @test.score = 0
+      @test.successes = {'successes': []}
       @test.problems = {'problems': [e.to_s]}
+      @test.failed = true
     end
     @test.save
     redirect_to test_path @test, system_id: params['system_id'], test_type: params['test_type']
