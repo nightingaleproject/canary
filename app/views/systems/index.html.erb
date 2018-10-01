@@ -2,7 +2,7 @@
 </script>
 <%= render 'layouts/breadcrumbs', crumbs: {'Dashboard' => nil} %>
 <div class="card no-border">
-  <div class="card-block no-border">
+  <div class="card-body no-border">
     <div class="row">
       <div class="col16-md-4">
         <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#startNewRecord"><span class="fa fa-magic"></span> Create New System</button>
@@ -39,7 +39,7 @@
 <% end %>
 <% @systems.each do |system| %>
 <div class="card mt-4 mb-4">
-  <div class="card-block">
+  <div class="card-body">
     <div class="row">
       <div class="col16-md-4 pl-4 pt-2">
         <div class="row mb-1"><%= system.name %></div>
