@@ -34,7 +34,10 @@ class TestController < ApplicationController
     # Post FHIR to given endpoint
     # TODO: Assuming certain param structure (for Nightingale); also assuming JSON!
     # TODO: Need to handle 404s, 500s, etc (and tell the user).
-    RestClient.post target, fhir.to_json, {content_type: :json}
+    begin
+      RestClient.post target, fhir.to_json, {content_type: :json}
+    rescue
+    end
   end
 
   def submit_checks
