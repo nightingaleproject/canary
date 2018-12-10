@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.6.0 - 2018-12-10
+ * Various dependency updates
+
 ### v0.5.0 - 2018-10-01
  * Upgraded Boostrap version
 
