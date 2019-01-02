@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: canary_production
-  username: canary
-  password: <%= ENV['CANARY_DATABASE_PASSWORD'] %>
+  username: postgres
+  host: db
