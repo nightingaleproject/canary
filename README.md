@@ -8,7 +8,7 @@ Canary is a testing framework for electronic death registration systems (EDRS). 
 
 Canary is a Ruby on Rails application that uses the PostgreSQL database for data storage.
 
-For information on how to deploy Nightingale as a Docker container, see [CONTAINERDELPOY.md](CONTAINERDELPOY.md).
+For information on how to deploy Nightingale as a Docker container, see [CONTAINERDEPLOY.md](CONTAINERDEPLOY.md).
 
 #### Prerequisites
 
