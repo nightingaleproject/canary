@@ -39,6 +39,12 @@ docker build -t canary .
 docker run -d -p 8080:80 --name mycanary canary
 ```
 
+If you prefer not to use Docker, you can run Canary from the root project directory using [.NET Core](https://dotnet.microsoft.com/download):
+
+```
+dotnet run
+```
+
 ### License
 
 Copyright 2017, 2018, 2019 The MITRE Corporation
