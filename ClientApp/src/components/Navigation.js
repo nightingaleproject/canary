@@ -14,7 +14,7 @@ export class Navigation extends Component {
           <Menu.Item header>
             <FontAwesomeIcon icon={faFeatherAlt} size="lg" fixedWidth />
             <span className="p-l-5">
-              Canary Testing Framework<small>{window.VERSION} (Feb 4, 2019)</small>
+              Canary Testing Framework<small>{window.VERSION} ({window.VERSION_DATE})</small>
             </span>
           </Menu.Item>
           <Menu.Menu position="right">

@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.8.0 - 2019-02-05
+ * Updated csharp-fhir-death-record library to v0.21.0
+
 ### v0.7.0 - 2019-02-04
  * Revamped Canary into a testing tool for all types of FHIR mortality data systems
 
