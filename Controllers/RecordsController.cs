@@ -1,0 +1,230 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using Hl7.Fhir.ElementModel;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using FhirDeathRecord;
+using canary.Models;
+
+namespace canary.Controllers
+{
+    [ApiController]
+    public class RecordsController : ControllerBase
+    {
+        private DataHelper MortalityData = DataHelper.Instance;
+
+        /// <summary>
+        /// Returns all records.
+        /// GET /api/records
+        /// </summary>
+        [HttpGet("Records")]
+        [HttpGet("Records/Index")]
+        public Record[] Index()
+        {
+            // Find the record in the database and return it
+            using (var db = new RecordContext())
+            {
+                return db.Records.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Given an id, returns the corresponding record.
+        /// GET /api/records/{id}
+        /// </summary>
+        [HttpGet("Records/{id:int}")]
+        [HttpGet("Records/Get/{id:int}")]
+        public Record Get(int id)
+        {
+            // Find the record in the database and return it
+            using (var db = new RecordContext())
+            {
+                return db.Records.Where(record => record.RecordId == id).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Creates a new synthetic death record, and returns it. Does not save it to the database.
+        /// GET /api/records/new
+        /// </summary>
+        [HttpGet("Records/New")]
+        public Record NewGet(string state, string type, string sex)
+        {
+            // Create new record from scratch
+            Record record = new Record();
+
+            // Populate the record with fake data
+            record.Populate(state, type, sex);
+
+            // Return the record
+            return record;
+        }
+
+        /// <summary>
+        /// Creates a new death record using the contents provided. Returns the record and any validation issues.
+        /// POST /api/records/new
+        /// </summary>
+        [HttpPost("Records/New")]
+        public (Record record, List<Dictionary<string, string>> issues) NewPost()
+        {
+            string input;
+            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                input = reader.ReadToEnd();
+            }
+            if (!String.IsNullOrEmpty(input))
+            {
+                if (input.StartsWith("<")) // XML?
+                {
+                    return Record.CheckGetXml(input, "yes" == "yes" ? true : false); // TODO strict mode
+                }
+                else if (input.StartsWith("{")) // JSON?
+                {
+                    return Record.CheckGetJson(input, "yes" == "yes" ? true : false);
+                }
+                else
+                {
+                    try // IJE?
+                    {
+                        if (input.Length != 5000)
+                        {
+                            return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid 5000 byte IJE record." } } });
+                        }
+                        IJEMortality ije = new IJEMortality(input);
+                        DeathRecord deathRecord = ije.ToDeathRecord();
+                        return (new Record(deathRecord), new List<Dictionary<string, string>> {} );
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
+                }
+            }
+            else
+            {
+                return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } });
+            }
+            return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be valid XML, JSON, or IJE." } } });
+        }
+
+        /// <summary>
+        /// Creates a new death record using the "description" contents provided. Returns the record.
+        /// POST /api/records/description/new
+        /// </summary>
+        [HttpPost("Records/Description/New")]
+        public Record NewDescriptionPost()
+        {
+            string input;
+            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                input = reader.ReadToEnd();
+            }
+            if (!String.IsNullOrEmpty(input))
+            {
+                DeathRecord record = DeathRecord.FromDescription(input);
+                return new Record(record);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Get's the DeathRecord "Description" structure.
+        /// GET /api/records/description
+        /// </summary>
+        [HttpGet("Records/Description")]
+        public string GetDescription()
+        {
+            DeathRecord record = new DeathRecord();
+            Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
+            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => ((Property)p.GetCustomAttributes().First()).Priority))
+            {
+                // Grab property annotation for this property
+                Property info = (Property)property.GetCustomAttributes().First();
+
+                // Skip properties that shouldn't be serialized.
+                if (!info.Serialize)
+                {
+                    continue;
+                }
+
+                // Add category if it doesn't yet exist
+                if (!description.ContainsKey(info.Category))
+                {
+                    description.Add(info.Category, new Dictionary<string, dynamic>());
+                }
+
+                // Add the new property to the category
+                Dictionary<string, dynamic> category = description[info.Category];
+                category[property.Name] = new Dictionary<string, dynamic>();
+
+                // Add the attributes of the property
+                category[property.Name]["Name"] = info.Name;
+                category[property.Name]["Type"] = info.Type.ToString();
+                category[property.Name]["Description"] = info.Description;
+
+                // Add the current value of the property
+                if (info.Type == Property.Types.Dictionary)
+                {
+                    // Special case for Dictionary; we want to be able to describe what each key means
+                    Dictionary<string, string> value = (Dictionary<string, string>)property.GetValue(record);
+                    Dictionary<string, Dictionary<string, string>> moreInfo = new Dictionary<string, Dictionary<string, string>>();
+                    foreach (PropertyParam parameter in property.GetCustomAttributes().Reverse().Skip(1).Reverse().Skip(1))
+                    {
+                        moreInfo[parameter.Key] = new Dictionary<string, string>();
+                        moreInfo[parameter.Key]["Description"] = parameter.Description;
+                        moreInfo[parameter.Key]["Value"] = null;
+                        if (value.ContainsKey(parameter.Key))
+                        {
+                            moreInfo[parameter.Key]["Value"] = value[parameter.Key];
+                        }
+                        else
+                        {
+                            moreInfo[parameter.Key]["Value"] = null;
+                        }
+
+                    }
+                    category[property.Name]["Value"] = moreInfo;
+                }
+                else
+                {
+                    category[property.Name]["Value"] = property.GetValue(record);
+                }
+            }
+            return JsonConvert.SerializeObject(description);
+        }
+
+        /// <summary>
+        /// Creates a new synthetic death record, saves it to the database, and returns it.
+        /// GET /api/records/new
+        /// </summary>
+        [HttpGet("Records/Create")]
+        public Record Create(string state, string type)
+        {
+            using (var db = new RecordContext())
+            {
+                // Create new record from scratch
+                Record record = new Record();
+
+                // Populate the record with fake data
+                record.Populate();
+
+                // Save the record to the database
+                db.Records.Add(record);
+                db.SaveChanges();
+
+                // Return the record
+                return record;
+            }
+        }
+    }
+}

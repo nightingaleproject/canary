@@ -1,20 +1,12 @@
+language: csharp
+mono: none
 sudo: required
-dist: trusty
-language: ruby
-env: DISPLAY=':99.0'
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-rvm:
-  - 2.4.4
-services: postgresql
-before_script:
-  - psql -c 'create database canary_test;' -U postgres
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
+dist: xenial
+dotnet: 2.2
+
+install:
+- dotnet restore
+
 script:
-  - bundle exec bundle-audit check --update
-  - bundle exec brakeman -qAzw1
+ - dotnet build
+ 

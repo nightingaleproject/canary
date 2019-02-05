@@ -1,0 +1,214 @@
+import React, { Component } from 'react';
+import { Record } from '../misc/Record';
+import { Grid, Breadcrumb, Dimmer, Loader, Container, Form, Divider, Header, Icon, Button, Statistic } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-semantic-toasts';
+import { FHIRInfo } from '../misc/info/FHIRInfo';
+import { Getter } from '../misc/Getter';
+
+export class EDRSRoundtripConsuming extends Component {
+  displayName = EDRSRoundtripConsuming.name;
+
+  constructor(props) {
+    super(props);
+    this.state = { ...this.props, ijeRecord: null, fhirRecord: null, loading: true, running: false, issues: [] };
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
+    this.runTest = this.runTest.bind(this);
+    this.updateRecord = this.updateRecord.bind(this);
+  }
+
+  componentDidMount() {
+    var self = this;
+    if (!!this.props.match.params.id) {
+      axios
+        .get(window.API_URL + '/tests/' + this.props.match.params.id)
+        .then(function(response) {
+          var test = response.data;
+          test.results = JSON.parse(test.results);
+          self.setState({ test: test, fhirRecord: test.referenceRecord, loading: false });
+        })
+        .catch(function(error) {
+          self.setState({ loading: false }, () => {
+            toast({
+              type: 'error',
+              icon: 'exclamation circle',
+              title: 'Error!',
+              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
+              time: 5000,
+            });
+          });
+        });
+    } else {
+      axios
+        .get(window.API_URL + '/tests/new')
+        .then(function(response) {
+          self.setState({ test: response.data, fhirRecord: response.data.referenceRecord, loading: false });
+        })
+        .catch(function(error) {
+          self.setState({ loading: false }, () => {
+            toast({
+              type: 'error',
+              icon: 'exclamation circle',
+              title: 'Error!',
+              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
+              time: 5000,
+            });
+          });
+        });
+    }
+  }
+
+  updateRecord(record, issues) {
+    this.setState({ ijeRecord: record, issues: issues });
+  }
+
+  setEmptyToNull(obj) {
+    const o = JSON.parse(JSON.stringify(obj));
+    Object.keys(o).forEach(key => {
+      if (o[key] && typeof o[key] === 'object') o[key] = this.setEmptyToNull(o[key]);
+      else if (o[key] === undefined || o[key] === null || (!!!o[key] && o['Type'] !== 'Bool')) o[key] = null;
+      else o[key] = o[key];
+    });
+    return o;
+  }
+
+  runTest() {
+    var self = this;
+    this.setState({ running: true }, () => {
+      axios
+        .post(window.API_URL + '/tests/roundtrip/consuming/run/' + this.state.test.testId, this.setEmptyToNull(this.state.ijeRecord.fhirInfo))
+        .then(function(response) {
+          var test = response.data;
+          test.results = JSON.parse(test.results);
+          self.setState({ test: test, running: false });
+        })
+        .catch(function(error) {
+          self.setState({ loading: false, running: false }, () => {
+            toast({
+              type: 'error',
+              icon: 'exclamation circle',
+              title: 'Error!',
+              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
+              time: 5000,
+            });
+          });
+        });
+    });
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <Grid id="scroll-to">
+          <Grid.Row>
+            <Breadcrumb>
+              <Breadcrumb.Section as={Link} to="/">
+                Dashboard
+              </Breadcrumb.Section>
+              <Breadcrumb.Divider icon="right chevron" />
+              <Breadcrumb.Section>Death Record Roundtrip (Consuming)</Breadcrumb.Section>
+            </Breadcrumb>
+          </Grid.Row>
+          {!!this.state.test && this.state.test.completedBool && (
+            <Grid.Row className="loader-height">
+              <Container>
+                <div className="p-b-10" />
+                <Statistic.Group widths="three">
+                  <Statistic size="large">
+                    <Statistic.Value>{this.state.test.total}</Statistic.Value>
+                    <Statistic.Label>Properties Checked</Statistic.Label>
+                  </Statistic>
+                  <Statistic size="large" color="green">
+                    <Statistic.Value>
+                      <Icon name="check circle" />
+                      {this.state.test.correct}
+                    </Statistic.Value>
+                    <Statistic.Label>Correct</Statistic.Label>
+                  </Statistic>
+                  <Statistic size="large" color="red">
+                    <Statistic.Value>
+                      <Icon name="times circle" />
+                      {this.state.test.incorrect}
+                    </Statistic.Value>
+                    <Statistic.Label>Incorrect</Statistic.Label>
+                  </Statistic>
+                </Statistic.Group>
+                <div className="p-b-20" />
+                <Form size="large">
+                  <FHIRInfo fhirInfo={this.state.test.results} editable={false} testMode={true} />
+                </Form>
+              </Container>
+            </Grid.Row>
+          )}
+          {!(!!this.state.test && this.state.test.completedBool) && !!this.state.loading && (
+            <Grid.Row className="loader-height">
+              <Container>
+                <Dimmer active inverted>
+                  {!!this.props.match.params.id && <Loader size="massive">Loading Test...</Loader>}
+                  {!!!this.props.match.params.id && <Loader size="massive">Initializing a New Test...</Loader>}
+                </Dimmer>
+              </Container>
+            </Grid.Row>
+          )}
+          {!(!!this.state.test && this.state.test.completedBool) && !!this.state.test && (
+            <React.Fragment>
+              <Grid.Row>
+                <Container fluid>
+                  <Divider horizontal />
+                  <Header as="h2" dividing id="step-1">
+                    <Icon name="download" />
+                    <Header.Content>
+                      Step 1: Import FHIR Record
+                      <Header.Subheader>
+                        Import the generated FHIR record into your system. The below prompt allows you to copy the record, download it as a file, or POST it to
+                        an endpoint.
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
+                  <div className="p-b-15" />
+                  <Record record={this.state.fhirRecord} showSave lines={20} hideIje />
+                </Container>
+              </Grid.Row>
+              <Grid.Row>
+                <Container fluid>
+                  <Divider horizontal />
+                  <Header as="h2" dividing id="step-1">
+                    <Icon name="keyboard" />
+                    <Header.Content>
+                      Step 2: Export IJE Record
+                      <Header.Subheader>
+                        Once you have imported the FHIR record into your system, export the same record as IJE, and import it into Canary using the below tool.
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
+                  <div className="p-b-10" />
+                  <Getter updateRecord={this.updateRecord} allowIje={true} ijeOnly={true} noFormat />
+                </Container>
+              </Grid.Row>
+              <Grid.Row>
+                <Container fluid>
+                  <Divider horizontal />
+                  <Header as="h2" dividing className="p-b-5" id="step-1">
+                    <Icon name="check circle" />
+                    <Header.Content>
+                      Step 3: Calculate Results
+                      <Header.Subheader>
+                        When you have imported the IJE record into Canary, click the button below and Canary will calculate the results of the test.
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
+                  <div className="p-b-10" />
+                  <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running}>
+                    I'm finished, show me the results!
+                  </Button>
+                </Container>
+              </Grid.Row>
+            </React.Fragment>
+          )}
+        </Grid>
+        <div className="p-b-100" />
+      </React.Fragment>
+    );
+  }
+}

@@ -2,59 +2,28 @@
 
 ## Canary EDRS Testing Framework
 
-Canary is a testing framework for electronic death registration systems (EDRS). Canary can be used to test support for various mortality related data formats.
+Canary is an open source testing framework that supports development of systems that perform standards based exchange of mortality data. Canary provides tests and tools to aid developers in implementing the FHIR death record format.
 
-### Installation and Setup for Development or Testing
+### Background
 
-Canary is a Ruby on Rails application that uses the PostgreSQL database for data storage.
+Mortality data is collected, analyzed, and shared by jurisdictions across the United States to provide insight into important trends in health, including the impact of chronic conditions, progress on reducing deaths due to motor vehicle accidents, and the evolving challenge of substance abuse. Numerous systems are used to collect and share information on decedents, including demographic data and medical information relevant to determining the cause of death. By connecting these systems using modern standards like FHIR we can implement processes that reduce the burden on certifiers, improve data quality, and improve timeliness of data collection and reporting. Canary supports the development of interoperable systems by providing tools for testing implementations and working with mortality data formats.
 
-For information on how to deploy Nightingale as a Docker container, see [CONTAINERDEPLOY.md](CONTAINERDEPLOY.md).
+### Running
 
-#### Prerequisites
+A [Dockerized](https://www.docker.com/get-started) version of Canary has been published to Docker Hub, so running Canary is as easy as:
 
-To work with the application, you will need to install some prerequisites:
+```
+docker run --rm -p 8080:80 adammitre/canary
+```
 
-* [Ruby](https://www.ruby-lang.org/)
-* [Bundler](http://bundler.io/)
-* [Postgres](http://www.postgresql.org/)
+This command will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080).
 
-Once the prerequisites are available, Canary can be installed and demonstration data can be loaded.
+If you want to build a Dockerized Canary from scratch (from source), you can do so by running (inside the project root directory):
 
-#### Setup
-
-* Retrieve the application source code
-
-    `git clone https://github.com/nightingaleproject/canary.git`
-
-* Change into the new directory
-
-    `cd canary`
-
-* Install Ruby gem dependencies
-
-    `bundle install`
-
-* Set up the database tables
-
-    `bundle exec rake db:drop db:create db:migrate db:setup RAILS_ENV=development`
-
-* Set up system with demonstration data
-
-    `bundle exec rake canary:demo:setup`
-
-  * This will initialize Canary with a demonstration account, `user@example.com` (with a password of `123456`).
-
-* Run the application server
-
-    `bundle exec rails server`
-
-    The server will be running at http://localhost:3000/
-
-### Version History
-
-This project adheres to [Semantic Versioning](http://semver.org/).
-
-Releases are documented in the [CHANGELOG](https://github.com/nightingaleproject/canary/blob/master/CHANGELOG.md).
+```
+docker build -t canary .
+docker run -d -p 8080:80 --name mycanary canary
+```
 
 ### License
 

@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.7.0 - 2019-02-04
+ * Revamped Canary into a testing tool for all types of FHIR mortality data systems
+
 ### v0.6.0 - 2018-12-10
  * Various dependency updates
 
