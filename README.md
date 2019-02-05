@@ -4,6 +4,20 @@
 
 Canary is an open source testing framework that supports development of systems that perform standards based exchange of mortality data. Canary provides tests and tools to aid developers in implementing the FHIR death record format.
 
+Canary can test a data providers ability to:
+- Produce FHIR Death Records
+- Consume FHIR Death Records
+- Convert between FHIR (Consuming) and the IJE Mortaility format (Producing)
+- Convert between the IJE Mortaility format (Consuming) and FHIR (Producing)
+
+Canary also includes the following utilities:
+- Generate Synthetic Death Records
+- Validate FHIR Death Records
+- Death Record Format Converter
+- FHIR Death Record Inspector
+- FHIR Death Record Creator
+- IJE Mortality Record Inspector
+
 ### Background
 
 Mortality data is collected, analyzed, and shared by jurisdictions across the United States to provide insight into important trends in health, including the impact of chronic conditions, progress on reducing deaths due to motor vehicle accidents, and the evolving challenge of substance abuse. Numerous systems are used to collect and share information on decedents, including demographic data and medical information relevant to determining the cause of death. By connecting these systems using modern standards like FHIR we can implement processes that reduce the burden on certifiers, improve data quality, and improve timeliness of data collection and reporting. Canary supports the development of interoperable systems by providing tools for testing implementations and working with mortality data formats.
