@@ -155,7 +155,7 @@ export class Record extends Component {
   }
 
   handleEndpointChange(event, data) {
-    this.setState({ endpoint: data.value });
+    this.setState({ endpoint: event.target.value });
   }
 
   render() {
