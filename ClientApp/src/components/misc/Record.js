@@ -116,23 +116,16 @@ export class Record extends Component {
     axios
       .post(this.state.endpoint, content, { headers: { 'Content-Type': type } })
       .then(function(response) {
+        let formattedResponse = "";
+        if (response && response.data) {
+          const responseChunks = response.data.replace(/\s*$/, "").match(/.{1,100}/g);
+          formattedResponse = responseChunks.join("\n");
+        }
         self.setState(
           {
             modalOpen: false,
-          },
-          () => {
-            toast({
-              type: 'success',
-              icon: 'check circle',
-              title: 'Success!',
-              description:
-                'The record was successfully POSTed to: "' +
-                self.state.endpoint +
-                '". The server responded with: "' +
-                (response.data && response.data.message ? response.data.message : response) +
-                '".',
-              time: 5000,
-            });
+            responseModalOpen: true,
+            formattedResponse: formattedResponse
           }
         );
       })
@@ -184,6 +177,19 @@ export class Record extends Component {
               }}
             />
             <Button positive icon="send" labelPosition="left" content="Submit" onClick={this.postRecord} />
+          </Modal.Actions>
+        </Modal>
+        <Modal dimmer="blurring" open={this.state.responseModalOpen} onClose={this.closeResponseModal}>
+          <Modal.Header>Server Response</Modal.Header>
+          <Modal.Content image>
+            <Modal.Description>
+              <h4>The record was successfully POSTed to: {this.state.endpoint}</h4>
+              <h4>The server responded with:</h4>
+              <pre>{this.state.formattedResponse}</pre>
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button positive icon="check" labelPosition="left" content="OK" onClick={() => this.setState({ responseModalOpen: false })} />
           </Modal.Actions>
         </Modal>
         {!!this.props.issues && this.props.issues.length > 0 && !!this.props.showIssues && (
