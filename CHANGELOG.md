@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.9.0 - 2019-02-07
+ * Updated csharp-fhir-death-record library to v0.22.0
+
 ### v0.8.0 - 2019-02-05
  * Updated csharp-fhir-death-record library to v0.21.0
 
