@@ -3,6 +3,7 @@ import { Segment, Container, Icon, Button, Label, Form, Dimmer, Loader, Header }
 import axios from 'axios';
 import { toast } from 'react-semantic-toasts';
 import AceEditor from 'react-ace';
+import _ from 'lodash';
 
 import 'brace/theme/chrome';
 import 'brace/mode/text';
@@ -12,7 +13,7 @@ export class Getter extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, activeItem: 'paste', pasteText: '', loading: false, endpoint: null };
+    this.state = { ...this.props, activeItem: 'paste', pasteText: '', loading: false, endpoint: null, endpointId: null, checking: false, waiting: false };
     this.pasteChange = this.pasteChange.bind(this);
     this.submitPaste = this.submitPaste.bind(this);
     this.tryFormat = this.tryFormat.bind(this);
@@ -113,7 +114,48 @@ export class Getter extends Component {
     axios
       .get(window.API_URL + '/endpoints/new')
       .then(function(response) {
-        self.setState({ endpoint: 'http://<hostname:port>/api/endpoints/record/' + response.data });
+        self.setState(
+          {
+            endpoint: window.location.protocol + '//' + window.location.host + '/endpoints/record/' + response.data,
+            endpointId: response.data,
+            checking: true,
+          },
+          () => {
+            var timerID = setInterval(() => {
+              if (!self.state.checking) {
+                clearInterval(timerID);
+              } else if (!self.state.waiting) {
+                self.setState({ waiting: true }, () => {
+                  axios
+                    .get(window.API_URL + '/endpoints/' + self.state.endpointId)
+                    .then(function(response) {
+                      if (response.data && response.data.finished) {
+                        self.setState({ checking: false, waiting: false }, () => {
+                          var record = null;
+                          if (response.data && response.data.record && _.isString(response.data.record)) {
+                            record = JSON.parse(record);
+                          } else if (response.data && response.data.record && _.isObject(response.data.record)) {
+                            record = response.data.record;
+                          }
+                          if (record && record.fhirInfo) {
+                            record.fhirInfo = JSON.parse(record.fhirInfo);
+                          }
+                          self.props.updateRecord(record, response.data.issues);
+                        });
+                      } else {
+                        self.setState({ waiting: false });
+                      }
+                    })
+                    .catch(function(error) {
+                      self.setState({ checking: false, waiting: false }, () => {
+                        console.error('Error checking endpoint: ' + JSON.stringify(error));
+                      });
+                    });
+                });
+              }
+            }, 3000);
+          }
+        );
       })
       .catch(function(error) {
         self.setState({ loading: false }, () => {
@@ -159,7 +201,7 @@ export class Getter extends Component {
               <Button
                 primary={this.state.activeItem === 'paste'}
                 onClick={() => {
-                  this.setState({ activeItem: 'paste' });
+                  this.setState({ activeItem: 'paste', checking: false });
                 }}
               >
                 <Icon name="clipboard" />
@@ -169,7 +211,7 @@ export class Getter extends Component {
               <Button
                 primary={this.state.activeItem === 'upload'}
                 onClick={() => {
-                  this.setState({ activeItem: 'upload' });
+                  this.setState({ activeItem: 'upload', checking: false });
                 }}
               >
                 <Icon name="upload" />
@@ -179,11 +221,10 @@ export class Getter extends Component {
               <Button
                 primary={this.state.activeItem === 'post'}
                 onClick={() => {
-                  this.setState({ activeItem: 'post' }, () => {
+                  this.setState({ activeItem: 'post', checking: false }, () => {
                     this.newEndpoint();
                   });
                 }}
-                disabled
               >
                 <Icon name="send" />
                 POST to Canary
@@ -252,7 +293,7 @@ export class Getter extends Component {
           <Segment>
             <Container textAlign="center" className="p-t-20 p-b-10">
               <Header as="h1" icon>
-                <Icon name="sync" loading circular />
+                <Icon name="sync" loading={this.state.checking} circular />
                 <span>{this.state.endpoint}</span>
                 <Header.Subheader className="p-t-10">
                   POST your record to the endpoint shown above, with the message body being the string representation of your record. Canary will update this

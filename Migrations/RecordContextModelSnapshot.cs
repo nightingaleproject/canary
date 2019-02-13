@@ -21,13 +21,13 @@ namespace canary.Migrations
                     b.Property<int>("EndpointId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Finished");
+
                     b.Property<string>("Issues");
 
-                    b.Property<int?>("RecordId");
+                    b.Property<string>("Record");
 
                     b.HasKey("EndpointId");
-
-                    b.HasIndex("RecordId");
 
                     b.ToTable("Endpoints");
                 });
@@ -80,13 +80,6 @@ namespace canary.Migrations
                     b.HasKey("TestId");
 
                     b.ToTable("Tests");
-                });
-
-            modelBuilder.Entity("canary.Models.Endpoint", b =>
-                {
-                    b.HasOne("canary.Models.Record", "Record")
-                        .WithMany()
-                        .HasForeignKey("RecordId");
                 });
 #pragma warning restore 612, 618
         }

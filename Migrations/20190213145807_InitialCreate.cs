@@ -8,6 +8,21 @@ namespace canary.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Endpoints",
+                columns: table => new
+                {
+                    EndpointId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Finished = table.Column<bool>(nullable: false),
+                    Record = table.Column<string>(nullable: true),
+                    Issues = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Endpoints", x => x.EndpointId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Records",
                 columns: table => new
                 {
@@ -45,31 +60,6 @@ namespace canary.Migrations
                 {
                     table.PrimaryKey("PK_Tests", x => x.TestId);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Endpoints",
-                columns: table => new
-                {
-                    EndpointId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RecordId = table.Column<int>(nullable: true),
-                    Issues = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Endpoints", x => x.EndpointId);
-                    table.ForeignKey(
-                        name: "FK_Endpoints_Records_RecordId",
-                        column: x => x.RecordId,
-                        principalTable: "Records",
-                        principalColumn: "RecordId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Endpoints_RecordId",
-                table: "Endpoints",
-                column: "RecordId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -78,10 +68,10 @@ namespace canary.Migrations
                 name: "Endpoints");
 
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "Records");
 
             migrationBuilder.DropTable(
-                name: "Records");
+                name: "Tests");
         }
     }
 }

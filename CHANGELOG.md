@@ -1,5 +1,12 @@
 ## Change Log
 
+### v0.10.0 - 2019-02-14
+ * Enabled ability to "POST" records into Canary
+ * FHIR Validator now shows all issues found in a record, instead of just the first
+ * Improvements made to record importing speed
+ * Tweaked navigation dropdowns to be more responsive
+ * Various dependency updates
+
 ### v0.9.0 - 2019-02-07
  * Updated csharp-fhir-death-record library to v0.22.0
 
