@@ -18,10 +18,15 @@ namespace canary.Models
     {
         public int EndpointId { get; set; }
 
+        public bool Finished { get; set; }
+
         public Record Record { get; set; }
 
         public List<Dictionary<string, string>> Issues { get; set; }
 
-        public Endpoint() {}
+        public Endpoint()
+        {
+            Finished = false;
+        }
     }
 }

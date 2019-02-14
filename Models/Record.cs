@@ -34,12 +34,16 @@ namespace canary.Models
         {
             optionsBuilder.UseSqlite("Data Source=canary.db");
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Endpoint>().Property(b => b.Issues).HasConversion(v => JsonConvert.SerializeObject(v),
                 v => JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(v));
+
+            modelBuilder.Entity<Endpoint>().Property(b => b.Record).HasConversion(v => JsonConvert.SerializeObject(v),
+                v => JsonConvert.DeserializeObject<Record>(v));
 
             modelBuilder.Entity<Record>().Property(b => b.IjeInfo).HasConversion(v => JsonConvert.SerializeObject(v),
                 v => JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(v));
@@ -56,6 +60,8 @@ namespace canary.Models
     {
         private DeathRecord record { get; set; }
 
+        private string ije { get; set; }
+
         public int RecordId { get; set; }
 
         public string Xml
@@ -67,6 +73,7 @@ namespace canary.Models
             set
             {
                 record = new DeathRecord(value);
+                ije = new IJEMortality(record).ToString();
             }
         }
 
@@ -79,6 +86,7 @@ namespace canary.Models
             set
             {
                 record = new DeathRecord(value);
+                ije = new IJEMortality(record).ToString();
             }
         }
 
@@ -86,11 +94,12 @@ namespace canary.Models
         {
             get
             {
-                return new IJEMortality(record).ToString();
+                return ije;
             }
             set
             {
                 record = new IJEMortality(value).ToDeathRecord();
+                ije = value;
             }
         }
 
@@ -103,7 +112,7 @@ namespace canary.Models
         {
             get
             {
-                string ijeString = new IJEMortality(record).ToString();
+                string ijeString = ije;
                 List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => ((IJEField)p.GetCustomAttributes().First()).Field).ToList();
                 List<Dictionary<string, string>> propList = new List<Dictionary<string, string>>();
                 foreach(PropertyInfo property in properties)
@@ -136,23 +145,32 @@ namespace canary.Models
             set
             {
                 record = DeathRecord.FromDescription(value);
+                ije = new IJEMortality(record).ToString();
             }
         }
 
         public Record()
         {
             record = new DeathRecord();
+            ije = new IJEMortality(record).ToString();
         }
 
         public Record(DeathRecord record)
         {
             this.record = record;
+            ije = new IJEMortality(this.record).ToString();
         }
 
         public Record(string record)
         {
-            // TODO: Handle "from" IJE here
             this.record = new DeathRecord(record, true);
+            ije = new IJEMortality(this.record).ToString();
+        }
+
+        public Record(string record, bool strict)
+        {
+            this.record = new DeathRecord(record, !strict);
+            ije = new IJEMortality(this.record).ToString();
         }
 
         /// <summary>Check the given FHIR XML record string and return a list of issues. Also returned
@@ -163,26 +181,27 @@ namespace canary.Models
             Record newRecord = null;
             try
             {
-                ParserSettings parserSettings = new ParserSettings { AcceptUnknownMembers = !strict, AllowUnrecognizedEnums = !strict };
-                FhirXmlParser parser = new FhirXmlParser(parserSettings);
-                Bundle bundle = parser.Parse<Bundle>(record);
-                ITypedElement node = bundle.ToTypedElement();
-                List<Hl7.Fhir.Utility.ExceptionNotification> problems = node.VisitAndCatch();
-                foreach (Hl7.Fhir.Utility.ExceptionNotification problem in problems)
+                // Grab all errors
+                ISourceNode node = FhirXmlNode.Parse(record);
+                foreach (Hl7.Fhir.Utility.ExceptionNotification problem in node.VisitAndCatch())
                 {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
                     entry.Add("message", problem.Message);
                     entry.Add("severity", problem.Severity.ToString());
                     entries.Add(entry);
                 }
-                newRecord = new Record(record);
+                // Try for a new record
+                newRecord = new Record(record, strict);
             }
             catch (Exception e)
             {
-                Dictionary<string, string> entry = new Dictionary<string, string>();
-                entry.Add("message", e.Message);
-                entry.Add("severity", Hl7.Fhir.Utility.ExceptionSeverity.Error.ToString());
-                entries.Add(entry);
+                if (e.ToString().Contains("Invalid Xml"))
+                {
+                    Dictionary<string, string> entry = new Dictionary<string, string>();
+                    entry.Add("message", e.Message);
+                    entry.Add("severity", Hl7.Fhir.Utility.ExceptionSeverity.Error.ToString());
+                    entries.Add(entry);
+                }
             }
             return (record: newRecord, issues: entries);
         }
@@ -195,26 +214,26 @@ namespace canary.Models
             Record newRecord = null;
             try
             {
-                ParserSettings parserSettings = new ParserSettings { AcceptUnknownMembers = !strict, AllowUnrecognizedEnums = !strict };
-                FhirJsonParser parser = new FhirJsonParser(parserSettings);
-                Bundle bundle = parser.Parse<Bundle>(record);
-                ITypedElement node = bundle.ToTypedElement();
-                List<Hl7.Fhir.Utility.ExceptionNotification> problems = node.VisitAndCatch();
-                foreach (Hl7.Fhir.Utility.ExceptionNotification problem in problems)
+                // Grab all errors
+                ISourceNode node = FhirJsonNode.Parse(record);
+                foreach (Hl7.Fhir.Utility.ExceptionNotification problem in node.VisitAndCatch())
                 {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
                     entry.Add("message", problem.Message);
                     entry.Add("severity", problem.Severity.ToString());
                     entries.Add(entry);
                 }
-                newRecord = new Record(record);
+                newRecord = new Record(record, strict);
             }
             catch (Exception e)
             {
-                Dictionary<string, string> entry = new Dictionary<string, string>();
-                entry.Add("message", e.Message);
-                entry.Add("severity", Hl7.Fhir.Utility.ExceptionSeverity.Error.ToString());
-                entries.Add(entry);
+                if (e.ToString().Contains("Invalid Json"))
+                {
+                    Dictionary<string, string> entry = new Dictionary<string, string>();
+                    entry.Add("message", e.Message);
+                    entry.Add("severity", Hl7.Fhir.Utility.ExceptionSeverity.Error.ToString());
+                    entries.Add(entry);
+                }
             }
             return (record: newRecord, issues: entries);
         }
@@ -719,6 +738,9 @@ namespace canary.Models
                 timingOfRecentPregnancyInRelationToDeath.Add("display", "Not pregnant within past year");
                 record.TimingOfRecentPregnancyInRelationToDeath = timingOfRecentPregnancyInRelationToDeath;
             }
+
+            // Update IJE
+            ije = new IJEMortality(record).ToString();
         }
     }
 

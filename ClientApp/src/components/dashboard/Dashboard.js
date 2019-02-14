@@ -26,8 +26,24 @@ export class Dashboard extends Component {
                 </Header>
               </Divider>
               <Segment size="huge" basic>
-                Canary is a testing framework that supports development of systems that perform standards based exchange of mortality data, providing tests and
-                tools to aid developers in implementing the FHIR death record format.
+                <Container>
+                  <p>
+                    Canary is a testing framework that supports development of systems that perform standards based exchange of mortality data, providing tests
+                    and tools to aid developers in implementing the FHIR death record format.
+                  </p>
+
+                  <p>
+                    Canary is developed by&nbsp;
+                    <a className="underline" href="http://www.mitre.org">
+                      The MITRE Corporation
+                    </a>
+                    &nbsp;/&nbsp;
+                    <a className="underline" href="https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are">
+                      the Health FFRDC
+                    </a>
+                    .
+                  </p>
+                </Container>
               </Segment>
               <Divider horizontal className="p-t-30">
                 <Header as="h2">

@@ -68,6 +68,7 @@ export class EDRSRoundtripProducing extends Component {
     Object.keys(o).forEach(key => {
       if (o[key] && typeof o[key] === 'object') o[key] = this.setEmptyToNull(o[key]);
       else if (o[key] === undefined || o[key] === null || (!!!o[key] && o['Type'] !== 'Bool')) o[key] = null;
+      // eslint-disable-next-line
       else o[key] = o[key];
     });
     return o;

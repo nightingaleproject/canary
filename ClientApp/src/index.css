@@ -63,6 +63,16 @@ legend {
     height: 200px;
 }
 
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
 .p-b-30 {
     padding-bottom: 30px !important;
 }
@@ -73,6 +83,10 @@ legend {
 
 .p-b-15 {
     padding-bottom: 15px !important;
+}
+
+.p-b-10 {
+    padding-bottom: 10px !important;
 }
 
 .p-b-20 {
@@ -191,6 +205,10 @@ small {
 
 .full-height {
     margin-bottom: 0 !important;
+}
+
+.underline {
+    text-decoration: underline;
 }
 
 .hidden {

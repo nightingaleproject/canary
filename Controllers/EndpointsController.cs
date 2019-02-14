@@ -59,8 +59,9 @@ namespace canary.Controllers
         /// POST /api/endpoints/record/{id:int}
         /// </summary>
         [HttpPost("Endpoints/Record/{id:int}")]
-        public IActionResult RecordPost(int id)
+        public int RecordPost(int id)
         {
+            (Record record, List<Dictionary<string, string>> issues) = (null, null);
             string input;
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
@@ -68,7 +69,6 @@ namespace canary.Controllers
             }
             if (!String.IsNullOrEmpty(input))
             {
-                (Record record, List<Dictionary<string, string>> issues) = (null, null);
                 if (input.StartsWith("<")) // XML?
                 {
                     (record, issues) = Record.CheckGetXml(input, "yes" == "yes" ? true : false); // TODO
@@ -83,34 +83,51 @@ namespace canary.Controllers
                     {
                         if (input.Length != 5000)
                         {
-                            throw new Exception(); // TODO: Investigate better ways to see if the input is IJE. Do this in the API!
+                            (record, issues) = (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid 5000 byte IJE record." } } });
                         }
-                        IJEMortality ije = new IJEMortality(input);
-                        DeathRecord deathRecord = ije.ToDeathRecord();
-                        (record, issues) = (new Record(deathRecord), new List<Dictionary<string, string>> {} );
+                        else
+                        {
+                            IJEMortality ije = new IJEMortality(input);
+                            DeathRecord deathRecord = ije.ToDeathRecord();
+                            (record, issues) = (new Record(deathRecord), new List<Dictionary<string, string>> {} );
+                        }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e.ToString());
                     }
                 }
-                // If here, likely no issues.
+                if (record != null)
+                {
+                    using (var db = new RecordContext())
+                    {
+                        Endpoint endpoint = db.Endpoints.Where(e => e.EndpointId == id).FirstOrDefault();
+                        endpoint.Record = record;
+                        endpoint.Issues = issues;
+                        endpoint.Finished = true;
+                        db.SaveChanges();
+                        return endpoint.EndpointId;
+                    }
+                }
+            }
+            else
+            {
+                issues = new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } };
+            }
+
+            if (record == null && issues != null)
+            {
                 using (var db = new RecordContext())
                 {
                     Endpoint endpoint = db.Endpoints.Where(e => e.EndpointId == id).FirstOrDefault();
-                    endpoint.Record = record;
                     endpoint.Issues = issues;
+                    endpoint.Finished = true;
                     db.SaveChanges();
+                    return endpoint.EndpointId;
                 }
             }
-            using (var db = new RecordContext())
-            {
-                Endpoint endpoint = db.Endpoints.Where(e => e.EndpointId == id).FirstOrDefault();
-                endpoint.Issues = new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be valid XML, JSON, or IJE." } } };
-                db.SaveChanges();
-            }
 
-            return Ok();
+            return 0;
         }
 
     }

@@ -14,7 +14,7 @@ export class Record extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, activeItem: 'XML', modalOpen: false, endpoint: 'http://localhost:3000/fhir/v1/death_records.json' };
+    this.state = { ...this.props, activeItem: 'XML', modalOpen: false, endpoint: 'http://localhost:3000/fhir/v1/death_records.json', sending: false };
     this.downloadAsFile = this.downloadAsFile.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
     this.handleEndpointChange = this.handleEndpointChange.bind(this);
@@ -113,45 +113,49 @@ export class Record extends Component {
       content = this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000);
     }
     var self = this;
-    axios
-      .post(this.state.endpoint, content, { headers: { 'Content-Type': type } })
-      .then(function(response) {
-        self.setState(
-          {
-            modalOpen: false,
-          },
-          () => {
-            toast({
-              type: 'success',
-              icon: 'check circle',
-              title: 'Success!',
-              description:
-                'The record was successfully POSTed to: "' +
-                self.state.endpoint +
-                '". The server responded with: "' +
-                (response.data && response.data.message ? response.data.message : response) +
-                '".',
-              time: 5000,
-            });
-          }
-        );
-      })
-      .catch(function(error) {
-        self.setState(
-          {
-            modalOpen: false,
-          },
-          () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error POSTing the record. The error was: "' + error + '"',
-              time: 5000,
-            });
-          }
-        );
-      });
+    this.setState({ sending: true }, () => {
+      axios
+        .post(this.state.endpoint, content, { headers: { 'Content-Type': type } })
+        .then(function(response) {
+          self.setState(
+            {
+              modalOpen: false,
+              sending: false,
+            },
+            () => {
+              toast({
+                type: 'success',
+                icon: 'check circle',
+                title: 'Success!',
+                description:
+                  'The record was successfully POSTed to: "' +
+                  self.state.endpoint +
+                  '". The server responded with: "' +
+                  (response.data && response.data.message ? response.data.message : response) +
+                  '".',
+                time: 5000,
+              });
+            }
+          );
+        })
+        .catch(function(error) {
+          self.setState(
+            {
+              modalOpen: false,
+              sending: false,
+            },
+            () => {
+              toast({
+                type: 'error',
+                icon: 'exclamation circle',
+                title: 'Error!',
+                description: 'There was an error POSTing the record. The error was: "' + error + '"',
+                time: 5000,
+              });
+            }
+          );
+        });
+    });
   }
 
   handleEndpointChange(event, data) {
@@ -183,15 +187,15 @@ export class Record extends Component {
                 this.setState({ modalOpen: false });
               }}
             />
-            <Button positive icon="send" labelPosition="left" content="Submit" onClick={this.postRecord} />
+            <Button positive icon="send" labelPosition="left" content="Submit" onClick={this.postRecord} loading={this.state.sending} />
           </Modal.Actions>
         </Modal>
         {!!this.props.issues && this.props.issues.length > 0 && !!this.props.showIssues && (
-          <div className="inherit-width">
+          <div className="inherit-width p-b-50">
             {this.props.issues.map(function(issue, index) {
               return (
                 <Transition key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
-                  <div className="inherit-width">
+                  <div className="inherit-width p-b-10">
                     <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'} warning={issue.severity.toLowerCase() === 'warning'}>
                       <Icon name="exclamation triangle" />
                       <Message.Content>{`${issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}: ${issue.message}`}</Message.Content>
