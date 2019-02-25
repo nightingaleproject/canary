@@ -14,7 +14,7 @@ export class Record extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, activeItem: 'XML', modalOpen: false, endpoint: 'http://localhost:3000/fhir/v1/death_records.json' };
+    this.state = { ...this.props, activeItem: 'XML', modalOpen: false, endpoint: 'http://localhost:8080/record.naaccr' };
     this.downloadAsFile = this.downloadAsFile.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
     this.handleEndpointChange = this.handleEndpointChange.bind(this);
@@ -100,6 +100,7 @@ export class Record extends Component {
   postRecord() {
     var type;
     var content;
+    this.setState({ submitting: true });
     if (this.state.activeItem === 'JSON') {
       type = 'application/json';
       content = this.props.record.json;
@@ -125,7 +126,8 @@ export class Record extends Component {
           {
             modalOpen: false,
             responseModalOpen: true,
-            formattedResponse: formattedResponse
+            formattedResponse: formattedResponse,
+            submitting: false
           }
         );
       })
@@ -133,6 +135,7 @@ export class Record extends Component {
         self.setState(
           {
             modalOpen: false,
+            submitting: false
           },
           () => {
             toast({
@@ -176,7 +179,7 @@ export class Record extends Component {
                 this.setState({ modalOpen: false });
               }}
             />
-            <Button positive icon="send" labelPosition="left" content="Submit" onClick={this.postRecord} />
+            <Button positive icon="send" loading={this.state.submitting} labelPosition="left" content="Submit" onClick={this.postRecord} />
           </Modal.Actions>
         </Modal>
         <Modal dimmer="blurring" open={this.state.responseModalOpen} onClose={this.closeResponseModal}>

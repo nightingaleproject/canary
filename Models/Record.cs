@@ -483,15 +483,16 @@ namespace canary.Models
                 record.DatePronouncedDead = deathUtc.AddHours(1).ToString("o");
 
                 // Randomly pick one of four possible natural causes
-                int choice = faker.Random.Number(3);
+                // TODO: TEMPORARY, HARDCODE TO FIRST FOR A CANCER CASE
+                int choice = 0;
                 if (choice == 0)
                 {
                     Tuple<string, string, Dictionary<string, string>>[] causes =
                     {
-                        Tuple.Create("Pulmonary embolism", "30 minutes", new Dictionary<string, string>()),
-                        Tuple.Create("Deep venuous thrombosis in left thigh", "3 days", new Dictionary<string, string>()),
-                        Tuple.Create("Acute hepatic failure", "3 days", new Dictionary<string, string>()),
-                        Tuple.Create("Moderately differentiated hepatocellular carcinoma", "over 3 months", new Dictionary<string, string>())
+                        Tuple.Create("Acute chronic hypoxic respiratory failure", "days", new Dictionary<string, string>()),
+                        Tuple.Create("Tumor progression and postobstructive pneumonia", "days to weeks", new Dictionary<string, string>()),
+                        Tuple.Create("Progressive lung cancer", "weeks to months", new Dictionary<string, string>()),
+                        Tuple.Create("H/OT4N2M0 left sided main bronchus and hilar squamous cell lung cancer", "weeks to months", new Dictionary<string, string>())
                     };
                     record.CausesOfDeath = causes;
 
