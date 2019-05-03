@@ -1,5 +1,8 @@
 ## Change Log
 
+### v1.0.0 - 2019-05-04
+ * 1.0.0 Release
+
 ### v0.10.0 - 2019-02-14
  * Enabled ability to "POST" records into Canary
  * FHIR Validator now shows all issues found in a record, instead of just the first
