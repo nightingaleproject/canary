@@ -83,7 +83,7 @@ namespace canary.Controllers
                     {
                         if (input.Length != 5000)
                         {
-                            (record, issues) = (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid 5000 byte IJE record." } } });
+                            (record, issues) = (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid record." } } });
                         }
                         else
                         {

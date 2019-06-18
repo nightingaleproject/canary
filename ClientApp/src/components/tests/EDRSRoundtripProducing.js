@@ -78,7 +78,7 @@ export class EDRSRoundtripProducing extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/roundtrip/producing/run/' + this.state.test.testId, this.setEmptyToNull(this.state.fhirRecord.fhirInfo))
+        .post(window.API_URL + '/tests/roundtrip/producing/run/' + this.state.test.testId, this.state.fhirRecord.fhirInfo)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -199,7 +199,7 @@ export class EDRSRoundtripProducing extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-10" />
-                  <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running}>
+                  <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running} disabled={!!!this.state.fhirRecord}>
                     I'm finished, show me the results!
                   </Button>
                 </Container>

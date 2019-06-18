@@ -143,8 +143,8 @@ namespace canary.Controllers
                 }
                 if (!String.IsNullOrEmpty(input))
                 {
-                   test.Run(input);
-                   test.Type = "RoundtripConsuming";
+                    test.Type = "RoundtripConsuming";
+                    test.Run(input);
                 }
                 db.SaveChanges();
                 return test;
@@ -168,8 +168,8 @@ namespace canary.Controllers
                 }
                 if (!String.IsNullOrEmpty(input))
                 {
-                   test.Run(input);
-                   test.Type = "RoundtripProducing";
+                    test.Type = "RoundtripProducing";
+                    test.Run(input);
                 }
                 db.SaveChanges();
                 return test;

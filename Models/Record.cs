@@ -68,6 +68,10 @@ namespace canary.Models
         {
             get
             {
+                if (record == null)
+                {
+                    return null;
+                }
                 return record.ToXML();
             }
             set
@@ -81,6 +85,10 @@ namespace canary.Models
         {
             get
             {
+                if (record == null)
+                {
+                    return null;
+                }
                 return record.ToJSON();
             }
             set
@@ -94,6 +102,10 @@ namespace canary.Models
         {
             get
             {
+                if (record == null)
+                {
+                    return null;
+                }
                 return ije;
             }
             set
@@ -140,6 +152,10 @@ namespace canary.Models
         {
             get
             {
+                if (record == null)
+                {
+                    return null;
+                }
                 return record.ToDescription();
             }
             set
@@ -163,13 +179,13 @@ namespace canary.Models
 
         public Record(string record)
         {
-            this.record = new DeathRecord(record, true);
+            this.record = new DeathRecord(record, false);
             ije = new IJEMortality(this.record).ToString();
         }
 
         public Record(string record, bool strict)
         {
-            this.record = new DeathRecord(record, !strict);
+            this.record = new DeathRecord(record, false);
             ije = new IJEMortality(this.record).ToString();
         }
 
@@ -195,13 +211,10 @@ namespace canary.Models
             }
             catch (Exception e)
             {
-                if (e.ToString().Contains("Invalid Xml"))
-                {
-                    Dictionary<string, string> entry = new Dictionary<string, string>();
-                    entry.Add("message", e.Message);
-                    entry.Add("severity", Hl7.Fhir.Utility.ExceptionSeverity.Error.ToString());
-                    entries.Add(entry);
-                }
+                Dictionary<string, string> entry = new Dictionary<string, string>();
+                entry.Add("message", e.Message);
+                entry.Add("severity", Hl7.Fhir.Utility.ExceptionSeverity.Error.ToString());
+                entries.Add(entry);
             }
             return (record: newRecord, issues: entries);
         }
@@ -254,37 +267,47 @@ namespace canary.Models
             // Full state name for reference
             string stateName = dataHelper.StateCodeToStateName(state);
 
-            ///////////////////////////////////////////////////////////////////
-            // Composition
-            ///////////////////////////////////////////////////////////////////
-
-            record.Id = Convert.ToString(faker.Random.Number(999999));
-            record.DateOfRegistration = faker.Date.Recent().ToString("o");
-
-
-            ///////////////////////////////////////////////////////////////////
-            // Decedent
-            ///////////////////////////////////////////////////////////////////
+            record.Identifier = Convert.ToString(faker.Random.Number(999999));
+            record.BundleIdentifier = Convert.ToString(faker.Random.Number(999999));
+            DateTime date = faker.Date.Recent();
+            record.CertifiedTime = date.ToString("o");
+            record.CreatedTime = new DateTimeOffset(date.AddDays(-1).Year, date.AddDays(-1).Month, date.AddDays(-1).Day, 0, 0, 0, TimeSpan.Zero).ToString("o");
 
             // Basic Decedent information
 
             record.GivenNames = new string[] { faker.Name.FirstName(gender), faker.Name.FirstName(gender) };
             record.FamilyName = faker.Name.LastName(gender);
+            record.Suffix = faker.Name.Suffix();
             if (gender == Bogus.DataSets.Name.Gender.Female && wasMarried)
             {
                 record.MaidenName = faker.Name.LastName(gender);
             }
+
+            record.FatherFamilyName = record.FamilyName;
+            record.FatherGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Male), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Male) };
+            record.FatherSuffix = faker.Name.Suffix();
+
+            record.MotherGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
+            record.MotherMaidenName = faker.Name.LastName(Bogus.DataSets.Name.Gender.Female);
+            record.MotherSuffix = faker.Name.Suffix();
+
+            record.SpouseGivenNames = new string[] { faker.Name.FirstName(), faker.Name.FirstName() };
+            record.SpouseFamilyName = record.FamilyName;
+            record.SpouseSuffix = faker.Name.Suffix();
+
+            record.BirthRecordId = Convert.ToString(faker.Random.Number(999999));
+
             record.Gender = gender.ToString().ToLower();
             record.SSN = faker.Person.Ssn().Replace("-", string.Empty);
             DateTime birth = faker.Date.Past(123, DateTime.Today.AddYears(-18));
             DateTime death = faker.Date.Recent();
-            DateTimeOffset birthUtc = new DateTimeOffset(birth.Year, birth.Month, birth.Day, birth.Hour, birth.Minute, birth.Second, TimeSpan.Zero);
-            DateTimeOffset deathUtc = new DateTimeOffset(death.Year, death.Month, death.Day, death.Hour, death.Minute, death.Second, TimeSpan.Zero);
+            DateTimeOffset birthUtc = new DateTimeOffset(birth.Year, birth.Month, birth.Day, 0, 0, 0, TimeSpan.Zero);
+            DateTimeOffset deathUtc = new DateTimeOffset(death.Year, death.Month, death.Day, 0, 0, 0, TimeSpan.Zero);
             record.DateOfBirth = birthUtc.ToString("o");
             record.DateOfDeath = deathUtc.ToString("o");
             int age = death.Year - birth.Year;
             if (birthUtc > deathUtc.AddYears(-age)) age--;
-            record.Age = age.ToString();
+            record.AgeAtDeath = new Dictionary<string, string>() { { "value", age.ToString() }, { "unit", "a" } };
 
             // Birthsex
 
@@ -298,47 +321,35 @@ namespace canary.Models
 
             Dictionary<string, string> residence = new Dictionary<string, string>();
             Tuple<string, string, string, string, string, string> residencePlace = dataHelper.StateCodeToRandomPlace(state);
-            residence.Add("residenceLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            residence.Add("residenceCity", residencePlace.Item4);
-            residence.Add("residenceCounty", residencePlace.Item2);
-            residence.Add("residenceState", stateName);
-            residence.Add("residenceCountry", "United States");
-            residence.Add("residenceInsideCityLimits", "True");
+            residence.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
+            residence.Add("addressCity", residencePlace.Item4);
+            residence.Add("addressCounty", residencePlace.Item2);
+            residence.Add("addressState", stateName);
+            residence.Add("addressCountry", "United States");
             record.Residence = residence;
 
             // Place of birth
 
             Dictionary<string, string> placeOfBirth = new Dictionary<string, string>();
             Tuple<string, string, string, string, string, string> placeOfBirthPlace = dataHelper.StateCodeToRandomPlace(state);
-            placeOfBirth.Add("placeOfBirthLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            placeOfBirth.Add("placeOfBirthCity", placeOfBirthPlace.Item4);
-            placeOfBirth.Add("placeOfBirthCounty", placeOfBirthPlace.Item2);
-            placeOfBirth.Add("placeOfBirthState", stateName);
-            placeOfBirth.Add("placeOfBirthCountry", "United States");
+            placeOfBirth.Add("addressCity", placeOfBirthPlace.Item4);
+            placeOfBirth.Add("addressCounty", placeOfBirthPlace.Item2);
+            placeOfBirth.Add("addressState", stateName);
+            placeOfBirth.Add("addressCountry", "United States");
             record.PlaceOfBirth = placeOfBirth;
 
             // Place of death
 
-            Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
             Tuple<string, string, string, string, string, string> placeOfDeathPlace = dataHelper.StateCodeToRandomPlace(state);
-            Tuple<string, string>[] placeOfDeathTypeCodes =
-            {
-                Tuple.Create("63238001", "Dead on arrival at hospital"),
-                Tuple.Create("16983000", "Death in hospital"),
-                Tuple.Create("450391000124102", "Death in hospital-based emergency department or outpatient department"),
-                Tuple.Create("450381000124100", "Death in nursing home or long term care facility"),
-            };
-            Tuple<string, string> placeOfDeathType = faker.Random.ArrayElement<Tuple<string, string>>(placeOfDeathTypeCodes);
-            placeOfDeath.Add("placeOfDeathTypeSystem", "http://snomed.info/sct");
-            placeOfDeath.Add("placeOfDeathTypeCode", placeOfDeathType.Item1);
-            placeOfDeath.Add("placeOfDeathTypeDisplay", placeOfDeathType.Item2);
-            placeOfDeath.Add("placeOfDeathFacilityName", $"{placeOfDeathPlace.Item4} Hospital");
-            placeOfDeath.Add("placeOfDeathLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            placeOfDeath.Add("placeOfDeathCity", placeOfDeathPlace.Item4);
-            placeOfDeath.Add("placeOfDeathCounty", placeOfDeathPlace.Item2);
-            placeOfDeath.Add("placeOfDeathState", stateName);
-            placeOfDeath.Add("placeOfDeathCountry", "United States");
-            record.PlaceOfDeath = placeOfDeath;
+            record.DeathLocationName = placeOfDeathPlace.Item4 + " Hospital";
+
+            Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
+            placeOfDeath.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
+            placeOfDeath.Add("addressCity", placeOfDeathPlace.Item4);
+            placeOfDeath.Add("addressCounty", placeOfDeathPlace.Item2);
+            placeOfDeath.Add("addressState", stateName);
+            placeOfDeath.Add("addressCountry", "United States");
+            record.DeathLocationAddress = placeOfDeath;
 
             // Marital status
 
@@ -392,27 +403,91 @@ namespace canary.Models
             Dictionary<string, string> education = new Dictionary<string, string>();
             Tuple<string, string>[] educationCodes =
             {
-                Tuple.Create("PHC1453", "Bachelor's Degree"),
-                Tuple.Create("PHC1454", "Master's Degree"),
-                Tuple.Create("PHC1448", "8th grade or less"),
-                Tuple.Create("PHC1451", "Some college credit, but no degree"),
+                Tuple.Create("BD", "College or baccalaureate degree complete"),
+                Tuple.Create("GD", "Graduate or professional Degree complete"),
+                Tuple.Create("SEC", "Some secondary or high school education"),
+                Tuple.Create("SCOL", "Some College education"),
             };
             Tuple<string, string> educationCode = faker.Random.ArrayElement<Tuple<string, string>>(educationCodes);
             education.Add("code", educationCode.Item1);
-            education.Add("system", "http://github.com/nightingaleproject/fhirDeathRecord/sdr/decedent/cs/EducationCS");
+            education.Add("system", "http://hl7.org/fhir/v3/EducationLevel");
             education.Add("display", educationCode.Item2);
-            record.Education = education;
+            record.EducationLevel = education;
 
-            // Occupation; Industry; Military Service
+            // Occupation
 
             Dictionary<string, string> occupation = new Dictionary<string, string>();
-            string[] industries = { "Manufacturing", "Telecommunications", "Mining", "Information Technology" };
-            occupation.Add("jobDescription", faker.Name.JobType());
-            occupation.Add("industryDescription", faker.Random.ArrayElement<string>(industries));
-            record.Occupation = occupation;
-            record.ServedInArmedForces = faker.Random.Bool();
+            Tuple<string, string>[] occupationCodes =
+            {
+                Tuple.Create("7280", "Accounting, tax preparation, bookkeeping, and payroll services"),
+                Tuple.Create("8850", "Adhesive bonding machine operators and tenders"),
+                Tuple.Create("7510", "Coin, vending, and amusement machine servicers and repairers"),
+            };
+            Tuple<string, string> occupationCode = faker.Random.ArrayElement<Tuple<string, string>>(occupationCodes);
+            occupation.Add("code", occupationCode.Item1);
+            occupation.Add("system", "http://www.hl7.org/fhir/ValueSet/Usual-occupation");
+            occupation.Add("display", occupationCode.Item2);
+            record.UsualOccupation = occupation;
 
-            // Disposition
+            // Industry
+
+            Dictionary<string, string> industry = new Dictionary<string, string>();
+            Tuple<string, string>[] industryCodes =
+            {
+                Tuple.Create("6070", "Air transportation"),
+                Tuple.Create("5590", "Electronic shopping"),
+                Tuple.Create("1070", "Animal food, grain and oilseed milling"),
+            };
+            Tuple<string, string> industryCode = faker.Random.ArrayElement<Tuple<string, string>>(industryCodes);
+            industry.Add("code", industryCode.Item1);
+            industry.Add("system", "http://www.hl7.org/fhir/ValueSet/Usual-occupation");
+            industry.Add("display", industryCode.Item2);
+            record.UsualIndustry = industry;
+
+            // Military Service
+
+            Dictionary<string, string> military = new Dictionary<string, string>();
+            Tuple<string, string>[] militaryCodes =
+            {
+                Tuple.Create("Y", "Yes"),
+                Tuple.Create("N", "No"),
+            };
+            Tuple<string, string> militaryCode = faker.Random.ArrayElement<Tuple<string, string>>(militaryCodes);
+            military.Add("code", militaryCode.Item1);
+            military.Add("system", "http://www.hl7.org/fhir/ValueSet/v2-0532");
+            military.Add("display", militaryCode.Item2);
+            record.MilitaryService = military;
+
+            // Funeral Home Name
+
+            record.FuneralHomeName = faker.Name.LastName() + " Funeral Home";
+
+            // Funeral Home Address
+
+            Dictionary<string, string> fha = new Dictionary<string, string>();
+            Tuple<string, string, string, string, string, string> fhaPlace = dataHelper.StateCodeToRandomPlace(state);
+            fha.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
+            fha.Add("addressCity", fhaPlace.Item4);
+            fha.Add("addressCounty", fhaPlace.Item2);
+            fha.Add("addressState", stateName);
+            fha.Add("addressCountry", "United States");
+            record.FuneralHomeAddress = fha;
+
+            // Disposition Location Name
+
+            record.DispositionLocationName = faker.Name.LastName() + " Cemetery";
+
+            // Disposition Location Address
+
+            Dictionary<string, string> dispLoc = new Dictionary<string, string>();
+            Tuple<string, string, string, string, string, string> dispLocPlace = dataHelper.StateCodeToRandomPlace(state);
+            dispLoc.Add("addressCity", dispLocPlace.Item4);
+            dispLoc.Add("addressCounty", dispLocPlace.Item2);
+            dispLoc.Add("addressState", stateName);
+            dispLoc.Add("addressCountry", "United States");
+            record.DispositionLocationAddress = dispLoc;
+
+            // Disposition Method
 
             Dictionary<string, string> disposition = new Dictionary<string, string>();
             Tuple<string, string>[] dispositionTypeCodes =
@@ -422,29 +497,17 @@ namespace canary.Models
                 Tuple.Create("449931000124108", "Entombment"),
             };
             Tuple<string, string> dispositionTypeCode = faker.Random.ArrayElement<Tuple<string, string>>(dispositionTypeCodes);
-            disposition.Add("dispositionTypeCode", dispositionTypeCode.Item1);
-            disposition.Add("dispositionTypeSystem", "http://snomed.info/sct");
-            disposition.Add("dispositionTypeDisplay", dispositionTypeCode.Item2);
-            Tuple<string, string, string, string, string, string> dispositionPlacePlace = dataHelper.StateCodeToRandomPlace(state);
-            disposition.Add("dispositionPlaceName", $"{dispositionPlacePlace.Item4} Cemetery");
-            disposition.Add("dispositionPlaceLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            disposition.Add("dispositionPlaceCity", dispositionPlacePlace.Item4);
-            disposition.Add("dispositionPlaceCounty", dispositionPlacePlace.Item2);
-            disposition.Add("dispositionPlaceState", stateName);
-            disposition.Add("dispositionPlaceCountry", "United States");
-            Tuple<string, string, string, string, string, string> funeralFacilityPlace = dataHelper.StateCodeToRandomPlace(state);
-            disposition.Add("funeralFacilityName", $"{faker.Name.LastName()} Funeral Home");
-            disposition.Add("funeralFacilityLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            disposition.Add("funeralFacilityCity", funeralFacilityPlace.Item4);
-            disposition.Add("funeralFacilityCounty", funeralFacilityPlace.Item2);
-            disposition.Add("funeralFacilityState", stateName);
-            disposition.Add("funeralFacilityCountry", "United States");
-            record.Disposition = disposition;
+            disposition.Add("code", dispositionTypeCode.Item1);
+            disposition.Add("system", "http://snomed.info/sct");
+            disposition.Add("display", dispositionTypeCode.Item2);
+            record.DecedentDispositionMethod = disposition;
 
+            // Mortician
 
-            ///////////////////////////////////////////////////////////////////
-            // Certifier
-            ///////////////////////////////////////////////////////////////////
+            record.MorticianFamilyName = faker.Name.LastName();
+            record.MorticianGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
+            record.MorticianSuffix = faker.Name.Suffix();
+            record.MorticianIdentifier = Convert.ToString(faker.Random.Number(999999));
 
             // Basic Certifier information
 
@@ -454,28 +517,20 @@ namespace canary.Models
 
             Dictionary<string, string> certifierAddress = new Dictionary<string, string>();
             Tuple<string, string, string, string, string, string> certifierAddressPlace = dataHelper.StateCodeToRandomPlace(state);
-            certifierAddress.Add("certifierAddressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            certifierAddress.Add("certifierAddressCity", certifierAddressPlace.Item4);
-            certifierAddress.Add("certifierAddressCounty", certifierAddressPlace.Item2);
-            certifierAddress.Add("certifierAddressState", stateName);
-            certifierAddress.Add("certifierAddressCountry", "United States");
+            certifierAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
+            certifierAddress.Add("addressCity", certifierAddressPlace.Item4);
+            certifierAddress.Add("addressCounty", certifierAddressPlace.Item2);
+            certifierAddress.Add("addressState", stateName);
+            certifierAddress.Add("addressCountry", "United States");
             record.CertifierAddress = certifierAddress;
 
             // Certifier type
 
             Dictionary<string, string> certifierType = new Dictionary<string, string>();
             certifierType.Add("system", "http://snomed.info/sct");
-            if (type == "Injury")
-            {
-                certifierType.Add("code", "440051000124108");
-                certifierType.Add("display", "Medical Examiner");
-            }
-            else
-            {
-                certifierType.Add("code", "434651000124107");
-                certifierType.Add("display", "Physician (Pronouncer and Certifier)");
-            }
-            record.CertifierType = certifierType;
+            certifierType.Add("code", "309343006");
+            certifierType.Add("display", "Physician");
+            record.CertifierRole = certifierType;
 
             // Certifier qualification
 
@@ -485,10 +540,18 @@ namespace canary.Models
             qualification.Add("display", "Doctor of Medicine");
             record.CertifierQualification = qualification;
 
-
-            ///////////////////////////////////////////////////////////////////
-            // Conditions and Observations
-            ///////////////////////////////////////////////////////////////////
+            // Interested Party
+            record.InterestedPartyName = faker.Name.LastName() + " LLC";
+            Dictionary<string, string> interestedPartyAddress = new Dictionary<string, string>();
+            Tuple<string, string, string, string, string, string> interestedPartyAddressPlace = dataHelper.StateCodeToRandomPlace(state);
+            interestedPartyAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
+            interestedPartyAddress.Add("addressCity", interestedPartyAddressPlace.Item4);
+            interestedPartyAddress.Add("addressCounty", interestedPartyAddressPlace.Item2);
+            interestedPartyAddress.Add("addressState", stateName);
+            interestedPartyAddress.Add("addressCountry", "United States");
+            record.InterestedPartyAddress = interestedPartyAddress;
+            record.InterestedPartyIdentifier = Convert.ToString(faker.Random.Number(999999));
+            record.InterestedPartyType = new Dictionary<string, string>() { { "code", "prov" }, { "system", "http://hl7.org/fhir/ValueSet/organization-type" }, { "display", "Healthcare Provider" } };
 
             if (type == "Natural")
             {
@@ -496,10 +559,10 @@ namespace canary.Models
                 mannerOfDeath.Add("code", "38605008");
                 mannerOfDeath.Add("system", "http://snomed.info/sct");
                 mannerOfDeath.Add("display", "Natural");
-                record.MannerOfDeath = mannerOfDeath;
+                record.MannerOfDeathType = mannerOfDeath;
 
-                record.ActualOrPresumedDateOfDeath = deathUtc.ToString("o");
-                record.DatePronouncedDead = deathUtc.AddHours(1).ToString("o");
+                record.DateOfDeath = deathUtc.ToString("o");
+                record.DateOfDeathPronouncement = deathUtc.AddHours(1).ToString("o");
 
                 // Randomly pick one of four possible natural causes
                 int choice = faker.Random.Number(3);
@@ -514,15 +577,11 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformed = false;
-                    record.AutopsyResultsAvailable = false;
-                    record.MedicalExaminerContacted = false;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };;
+                    record.ExaminerContacted = false;
 
-                    Dictionary<string, string> tobaccoUseContributedToDeath = new Dictionary<string, string>();
-                    tobaccoUseContributedToDeath.Add("code", "UNK");
-                    tobaccoUseContributedToDeath.Add("system", "http://hl7.org/fhir/v3/NullFlavor");
-                    tobaccoUseContributedToDeath.Add("display", "Unknown");
-                    record.TobaccoUseContributedToDeath = tobaccoUseContributedToDeath;
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
                 }
                 else if (choice == 1)
                 {
@@ -535,15 +594,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Carcinoma of cecum, Congestive heart failure";
 
-                    record.AutopsyPerformed = false;
-                    record.AutopsyResultsAvailable = false;
-                    record.MedicalExaminerContacted = false;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };;
+                    record.ExaminerContacted = false;
 
-                    Dictionary<string, string> tobaccoUseContributedToDeath = new Dictionary<string, string>();
-                    tobaccoUseContributedToDeath.Add("code", "373067005");
-                    tobaccoUseContributedToDeath.Add("system", "http://snomed.info/sct");
-                    tobaccoUseContributedToDeath.Add("display", "No");
-                    record.TobaccoUseContributedToDeath = tobaccoUseContributedToDeath;
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
                 }
                 else if (choice == 2)
                 {
@@ -557,15 +612,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Obesity, Hypertension, Congestive heart failure";
 
-                    record.AutopsyPerformed = false;
-                    record.AutopsyResultsAvailable = false;
-                    record.MedicalExaminerContacted = false;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };;
+                    record.ExaminerContacted = false;
 
-                    Dictionary<string, string> tobaccoUseContributedToDeath = new Dictionary<string, string>();
-                    tobaccoUseContributedToDeath.Add("code", "373066001");
-                    tobaccoUseContributedToDeath.Add("system", "http://snomed.info/sct");
-                    tobaccoUseContributedToDeath.Add("display", "Yes");
-                    record.TobaccoUseContributedToDeath = tobaccoUseContributedToDeath;
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
                 }
                 else if (choice == 3)
                 {
@@ -579,15 +630,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Cigarette smoking, Hypertension, Hypercholesterolemia, Coronary bypass surgery";
 
-                    record.AutopsyPerformed = true;
-                    record.AutopsyResultsAvailable = true;
-                    record.MedicalExaminerContacted = true;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };;
+                    record.ExaminerContacted = true;
 
-                    Dictionary<string, string> tobaccoUseContributedToDeath = new Dictionary<string, string>();
-                    tobaccoUseContributedToDeath.Add("code", "373066001");
-                    tobaccoUseContributedToDeath.Add("system", "http://snomed.info/sct");
-                    tobaccoUseContributedToDeath.Add("display", "Yes");
-                    record.TobaccoUseContributedToDeath = tobaccoUseContributedToDeath;
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
                 }
             }
             if (type == "Injury")
@@ -605,37 +652,32 @@ namespace canary.Models
 
                     record.ContributingConditions = "Terminal gastric adenocarcinoma, depression";
 
-                    record.AutopsyPerformed = true;
-                    record.AutopsyResultsAvailable = true;
-                    record.MedicalExaminerContacted = true;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };;
+                    record.ExaminerContacted = true;
 
-                    Dictionary<string, string> tobaccoUseContributedToDeath = new Dictionary<string, string>();
-                    tobaccoUseContributedToDeath.Add("code", "UNK");
-                    tobaccoUseContributedToDeath.Add("system", "http://hl7.org/fhir/v3/NullFlavor");
-                    tobaccoUseContributedToDeath.Add("display", "Unknown");
-                    record.TobaccoUseContributedToDeath = tobaccoUseContributedToDeath;
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "unknown" } };
 
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "44301001");
                     mannerOfDeath.Add("system", "http://snomed.info/sct");
                     mannerOfDeath.Add("display", "Suicide");
-                    record.MannerOfDeath = mannerOfDeath;
+                    record.MannerOfDeathType = mannerOfDeath;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
-                    detailsOfInjury.Add("detailsOfInjuryPlaceDescription", "Own home garage");
-                    detailsOfInjury.Add("detailsOfInjuryEffectiveDateTime", new DateTimeOffset(deathUtc.Year, deathUtc.Month, deathUtc.Day, 0, 0, 0, TimeSpan.Zero).ToString("o"));
-                    detailsOfInjury.Add("detailsOfInjuryDescription", "Inhaled carbon monoxide from auto exhaust through hose in an enclosed garage");
-                    detailsOfInjury.Add("detailsOfInjuryLine1", residence["residenceLine1"]);
-                    detailsOfInjury.Add("detailsOfInjuryCity", residencePlace.Item4);
-                    detailsOfInjury.Add("detailsOfInjuryCounty", residencePlace.Item2);
-                    detailsOfInjury.Add("detailsOfInjuryState", stateName);
-                    detailsOfInjury.Add("detailsOfInjuryCountry", "United States");
-                    record.DetailsOfInjury = detailsOfInjury;
+                    record.InjuryLocationName = "Own home garage";
+                    record.InjuryDate = new DateTimeOffset(deathUtc.Year, deathUtc.Month, deathUtc.Day, 0, 0, 0, TimeSpan.Zero).ToString("o");
+                    record.InjuryLocationDescription = "Inhaled carbon monoxide from auto exhaust through hose in an enclosed garage";
 
-                    record.ActualOrPresumedDateOfDeath = new DateTimeOffset(deathUtc.Year, deathUtc.Month, deathUtc.Day, 0, 0, 0, TimeSpan.Zero).ToString("o");
-                    record.DatePronouncedDead = deathUtc.AddHours(1).ToString("o");
+                    Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
+                    detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
+                    detailsOfInjuryAddr.Add("addressCity", residencePlace.Item4);
+                    detailsOfInjuryAddr.Add("addressCounty", residencePlace.Item2);
+                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressCountry", "United States");
+                    record.InjuryLocationAddress = detailsOfInjuryAddr;
 
-                    record.DeathFromWorkInjury = false;
+                    record.DateOfDeath = new DateTimeOffset(deathUtc.Year, deathUtc.Month, deathUtc.Day, 0, 0, 0, TimeSpan.Zero).ToString("o");
                 }
                 else if (choice == 1)
                 {
@@ -647,38 +689,31 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformed = true;
-                    record.AutopsyResultsAvailable = true;
-                    record.MedicalExaminerContacted = true;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
+                    record.ExaminerContacted = true;
 
-                    Dictionary<string, string> tobaccoUseContributedToDeath = new Dictionary<string, string>();
-                    tobaccoUseContributedToDeath.Add("code", "373067005");
-                    tobaccoUseContributedToDeath.Add("system", "http://snomed.info/sct");
-                    tobaccoUseContributedToDeath.Add("display", "No");
-                    record.TobaccoUseContributedToDeath = tobaccoUseContributedToDeath;
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
 
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "27935005");
                     mannerOfDeath.Add("system", "http://snomed.info/sct");
                     mannerOfDeath.Add("display", "Homicide");
-                    record.MannerOfDeath = mannerOfDeath;
+                    record.MannerOfDeathType = mannerOfDeath;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
+                    record.InjuryLocationName = "restaurant";
+                    record.InjuryDate = deathUtc.AddMinutes(-20).ToString("o");
+                    record.InjuryLocationDescription = "Shot by another person using a handgun";
+
+                    Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
                     Tuple<string, string, string, string, string, string> detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
-                    detailsOfInjury.Add("detailsOfInjuryPlaceDescription", "restaurant");
-                    detailsOfInjury.Add("detailsOfInjuryEffectiveDateTime", deathUtc.AddMinutes(-20).ToString("o"));
-                    detailsOfInjury.Add("detailsOfInjuryDescription", "Shot by another person using a handgun");
-                    detailsOfInjury.Add("detailsOfInjuryLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-                    detailsOfInjury.Add("detailsOfInjuryCity", detailsOfInjuryPlace.Item4);
-                    detailsOfInjury.Add("detailsOfInjuryCounty", detailsOfInjuryPlace.Item2);
-                    detailsOfInjury.Add("detailsOfInjuryState", stateName);
-                    detailsOfInjury.Add("detailsOfInjuryCountry", "United States");
-                    record.DetailsOfInjury = detailsOfInjury;
-
-                    record.ActualOrPresumedDateOfDeath = deathUtc.ToString("o");
-                    record.DatePronouncedDead = deathUtc.AddHours(1).ToString("o");
-
-                    record.DeathFromWorkInjury = false;
+                    detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
+                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.Item4);
+                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.Item2);
+                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressCountry", "United States");
+                    record.InjuryLocationAddress = detailsOfInjuryAddr;
                 }
                 else if (choice == 2)
                 {
@@ -690,53 +725,41 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformed = false;
-                    record.AutopsyResultsAvailable = false;
-                    record.MedicalExaminerContacted = true;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
+                    record.ExaminerContacted = true;
 
-                    Dictionary<string, string> tobaccoUseContributedToDeath = new Dictionary<string, string>();
-                    tobaccoUseContributedToDeath.Add("code", "373067005");
-                    tobaccoUseContributedToDeath.Add("system", "http://snomed.info/sct");
-                    tobaccoUseContributedToDeath.Add("display", "No");
-                    record.TobaccoUseContributedToDeath = tobaccoUseContributedToDeath;
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
 
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "7878000");
                     mannerOfDeath.Add("system", "http://snomed.info/sct");
                     mannerOfDeath.Add("display", "Accident");
-                    record.MannerOfDeath = mannerOfDeath;
+                    record.MannerOfDeathType = mannerOfDeath;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
+                    record.InjuryLocationName = "Highway";
+                    record.InjuryDate = deathUtc.ToString("o");
+                    record.InjuryLocationDescription = "Automobile accident. Car slid off wet road and struck tree.";
+
+                    Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
                     Tuple<string, string, string, string, string, string> detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
-                    detailsOfInjury.Add("detailsOfInjuryPlaceDescription", "Highway");
-                    detailsOfInjury.Add("detailsOfInjuryEffectiveDateTime", deathUtc.ToString("o"));
-                    detailsOfInjury.Add("detailsOfInjuryDescription", "Automobile accident. Car slid off wet road and struck tree.");
-                    detailsOfInjury.Add("detailsOfInjuryCity", detailsOfInjuryPlace.Item4);
-                    detailsOfInjury.Add("detailsOfInjuryCounty", detailsOfInjuryPlace.Item2);
-                    detailsOfInjury.Add("detailsOfInjuryState", stateName);
-                    detailsOfInjury.Add("detailsOfInjuryCountry", "United States");
-                    record.DetailsOfInjury = detailsOfInjury;
-
-                    record.DeathFromWorkInjury = false;
-
-                    record.ActualOrPresumedDateOfDeath = deathUtc.ToString("o");
-                    record.DatePronouncedDead = deathUtc.AddHours(2).ToString("o");
-
-                    Dictionary<string, string> deathFromTransportInjury = new Dictionary<string, string>();
-                    deathFromTransportInjury.Add("code", "236320001");
-                    deathFromTransportInjury.Add("system", "http://github.com/nightingaleproject/fhirDeathRecord/sdr/causeOfDeath/vs/TransportRelationshipsVS");
-                    deathFromTransportInjury.Add("display", "Vehicle driver");
-                    record.DeathFromTransportInjury = deathFromTransportInjury;
+                    detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
+                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.Item4);
+                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.Item2);
+                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressCountry", "United States");
+                    record.InjuryLocationAddress = detailsOfInjuryAddr;
                 }
             }
 
             if (gender == Bogus.DataSets.Name.Gender.Female)
             {
-                Dictionary<string, string> timingOfRecentPregnancyInRelationToDeath = new Dictionary<string, string>();
-                timingOfRecentPregnancyInRelationToDeath.Add("code", "PHC1260");
-                timingOfRecentPregnancyInRelationToDeath.Add("system", "http://github.com/nightingaleproject/fhirDeathRecord/sdr/causeOfDeath/vs/PregnancyStatusVS");
-                timingOfRecentPregnancyInRelationToDeath.Add("display", "Not pregnant within past year");
-                record.TimingOfRecentPregnancyInRelationToDeath = timingOfRecentPregnancyInRelationToDeath;
+                Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
+                pregnanacyStatus.Add("code", "PHC1260");
+                pregnanacyStatus.Add("system", "http://www.hl7.org/fhir/stu3/valueset-PregnancyStatusVS");
+                pregnanacyStatus.Add("display", "Not pregnant within past year");
+                record.PregnanacyStatus = pregnanacyStatus;
             }
 
             // Update IJE

@@ -129,10 +129,7 @@ export class Record extends Component {
                 title: 'Success!',
                 description:
                   'The record was successfully POSTed to: "' +
-                  self.state.endpoint +
-                  '". The server responded with: "' +
-                  (response.data && response.data.message ? response.data.message : response) +
-                  '".',
+                  self.state.endpoint,
                 time: 5000,
               });
             }

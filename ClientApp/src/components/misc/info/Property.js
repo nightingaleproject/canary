@@ -32,13 +32,14 @@ export class Property extends Component {
     });
   }
 
-  renderType(type, value, description, error) {
+  renderType(type, value, description, igurl, error) {
     if (type === 'String') {
       return (
         <StringType
           name={this.props.name}
           value={value}
           description={description}
+          igurl={igurl}
           updateProperty={this.updateProperty}
           editable={this.props.editable}
           testMode={this.props.testMode}
@@ -51,6 +52,7 @@ export class Property extends Component {
           name={this.props.name}
           value={value}
           description={description}
+          igurl={igurl}
           updateProperty={this.updateProperty}
           editable={this.props.editable}
           testMode={this.props.testMode}
@@ -63,6 +65,7 @@ export class Property extends Component {
           name={this.props.name}
           value={value}
           description={description}
+          igurl={igurl}
           updateProperty={this.updateProperty}
           editable={this.props.editable}
           testMode={this.props.testMode}
@@ -75,6 +78,7 @@ export class Property extends Component {
           name={this.props.name}
           value={value}
           description={description}
+          igurl={igurl}
           updateProperty={this.updateProperty}
           editable={this.props.editable}
           testMode={this.props.testMode}
@@ -87,6 +91,7 @@ export class Property extends Component {
           name={this.props.name}
           value={value}
           description={description}
+          igurl={igurl}
           updateProperty={this.updateProperty}
           editable={this.props.editable}
           testMode={this.props.testMode}
@@ -99,6 +104,7 @@ export class Property extends Component {
           name={this.props.name}
           value={value}
           description={description}
+          igurl={igurl}
           updateProperty={this.updateProperty}
           editable={this.props.editable}
           testMode={this.props.testMode}
@@ -111,6 +117,7 @@ export class Property extends Component {
           name={this.props.name}
           value={value}
           description={description}
+          igurl={igurl}
           updateProperty={this.updateProperty}
           editable={this.props.editable}
           testMode={this.props.testMode}
@@ -150,10 +157,7 @@ export class Property extends Component {
 
   tryFormat(content) {
     try {
-      if (content.startsWith('{')) {
-        if (this.props.property.Type === 'TupleCOD') {
-          return this.formatJson(content, 2);
-        }
+      if (content.startsWith('{') || content.startsWith('[')) {
         return this.formatJson(content, 2);
       } else if (content.startsWith('<')) {
         return this.formatXml(content, 2);
@@ -182,6 +186,7 @@ export class Property extends Component {
               this.props.property.Type,
               this.props.property.Value,
               this.props.property.Description,
+              this.props.property.IGUrl,
               !!this.props.testMode && this.props.property.Match === 'false'
             )}
             {!!this.props.testMode &&

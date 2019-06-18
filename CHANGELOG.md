@@ -1,5 +1,11 @@
 ## Change Log
 
+### v2.0.0 - 2019-06-14
+ * 2.0.0 Release
+ * Full support for the new balloted Vital Records Death Reporting FHIR Implementation Guide
+ * Links to IG profiles are now included for each record property
+ * Updated target C# FHIR library
+
 ### v1.0.0 - 2019-05-04
  * 1.0.0 Release
 

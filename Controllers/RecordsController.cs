@@ -98,7 +98,7 @@ namespace canary.Controllers
                     {
                         if (input.Length != 5000)
                         {
-                            return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid 5000 byte IJE record." } } });
+                            return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid record." } } });
                         }
                         IJEMortality ije = new IJEMortality(input);
                         DeathRecord deathRecord = ije.ToDeathRecord();
@@ -177,6 +177,10 @@ namespace canary.Controllers
                 {
                     // Special case for Dictionary; we want to be able to describe what each key means
                     Dictionary<string, string> value = (Dictionary<string, string>)property.GetValue(record);
+                    if (value == null)
+                    {
+                        continue;
+                    }
                     Dictionary<string, Dictionary<string, string>> moreInfo = new Dictionary<string, Dictionary<string, string>>();
                     foreach (PropertyParam parameter in property.GetCustomAttributes().Reverse().Skip(1).Reverse().Skip(1))
                     {

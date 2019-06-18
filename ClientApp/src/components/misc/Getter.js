@@ -268,7 +268,7 @@ export class Getter extends Component {
                     Format Input
                   </Button>
                 )}
-                <Button primary floated="right" className="m-t-10" onClick={this.submitPaste}>
+                <Button primary floated="right" className="m-t-10" onClick={this.submitPaste} disabled={!!!this.state.pasteText}>
                   <Icon name="send" />
                   Submit
                 </Button>
