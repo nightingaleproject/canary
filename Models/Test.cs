@@ -78,6 +78,12 @@ namespace canary.Models
                     continue;
                 }
 
+                // Skip properties that are lost in the IJE format (if the test is a roundtrip).
+                if (!info.CapturedInIJE && (Type != null && Type.Contains("Roundtrip")))
+                {
+                    continue;
+                }
+
                 // Add category if it doesn't yet exist
                 if (!description.ContainsKey(info.Category))
                 {
@@ -221,7 +227,7 @@ namespace canary.Models
                     {
                         moreInfo[parameter.Key] = new Dictionary<string, string>();
                         moreInfo[parameter.Key]["Description"] = parameter.Description;
-                        if (valueReference.ContainsKey(parameter.Key))
+                        if (valueReference != null && valueReference.ContainsKey(parameter.Key))
                         {
                             moreInfo[parameter.Key]["Value"] = valueReference[parameter.Key];
                         }
@@ -229,7 +235,7 @@ namespace canary.Models
                         {
                             moreInfo[parameter.Key]["Value"] = null;
                         }
-                        if (valueTest.ContainsKey(parameter.Key))
+                        if (valueTest != null && valueTest.ContainsKey(parameter.Key))
                         {
                             moreInfo[parameter.Key]["FoundValue"] = valueTest[parameter.Key];
                         }

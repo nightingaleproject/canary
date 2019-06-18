@@ -25,7 +25,7 @@ export class Dashboard extends Component {
                   Open Source FHIR Mortality Testing
                 </Header>
               </Divider>
-              <Segment size="huge" basic>
+              <Segment size="large" basic>
                 <Container>
                   <p>
                     Canary is a testing framework that supports development of systems that perform standards based exchange of mortality data, providing tests

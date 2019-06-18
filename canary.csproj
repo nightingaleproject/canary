@@ -15,8 +15,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0" />
-    <PackageReference Include="Hl7.Fhir.STU3" Version="1.1.2" />
-    <PackageReference Include="FHIRDeathRecord" Version="0.22.0" />
+    <PackageReference Include="Hl7.Fhir.STU3" Version="1.2.1" />
+    <PackageReference Include="FHIRDeathRecord" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

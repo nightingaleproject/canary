@@ -22,7 +22,7 @@ export class Navigation extends Component {
           </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item name="dashboard" as={Link} to="/" icon="dashboard" />
-            <Dropdown simple item text="Testing" direction="left">
+            <Dropdown item text="Testing" direction="left">
               <Dropdown.Menu>
                 <Dropdown.Item icon="upload" text="Producing FHIR Death Records" as={Link} to="test-fhir-producing" />
                 <Dropdown.Item icon="download" text="Consuming FHIR Death Records" as={Link} to="test-fhir-consuming" />
@@ -30,7 +30,7 @@ export class Navigation extends Component {
                 <Dropdown.Item icon="sync" text="Death Record Roundtrip (Producing)" as={Link} to="test-edrs-roundtrip-producing" />
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown simple item text="Tools" direction="left">
+            <Dropdown item text="Tools" direction="left">
               <Dropdown.Menu>
                 <Dropdown.Item icon="clipboard list" text="Generate Synthetic Death Records" as={Link} to="tool-record-generator" />
                 <Dropdown.Item icon="clipboard check" text="Validate FHIR Records" as={Link} to="tool-fhir-validator" />

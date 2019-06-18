@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Header } from 'semantic-ui-react';
 
 export class BoolType extends Component {
   displayName = BoolType.name;
@@ -25,6 +25,7 @@ export class BoolType extends Component {
     return (
       <React.Fragment>
         <Form.Field>
+          <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>
           <label>{this.props.description}</label>
           <div className="p-t-10" />
           <Button.Group>
