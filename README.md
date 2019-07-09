@@ -7,8 +7,8 @@ Canary is an open source testing framework that supports development of systems 
 Canary can test a data providers ability to:
 - Produce FHIR Death Records
 - Consume FHIR Death Records
-- Convert between FHIR (Consuming) and the IJE Mortaility format (Producing)
-- Convert between the IJE Mortaility format (Consuming) and FHIR (Producing)
+- Roundtrip: Convert between FHIR (Consuming) and the IJE Mortaility format (Producing)
+- Roundtrip: Convert between the IJE Mortaility format (Consuming) and FHIR (Producing)
 
 Canary also includes the following utilities:
 - Generate Synthetic Death Records
