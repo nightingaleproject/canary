@@ -157,9 +157,9 @@ export class Property extends Component {
 
   tryFormat(content) {
     try {
-      if (content.startsWith('{') || content.startsWith('[')) {
+      if (content.trim().startsWith('{') || content.trim().startsWith('[')) {
         return this.formatJson(content, 2);
-      } else if (content.startsWith('<')) {
+      } else if (content.trim().startsWith('<')) {
         return this.formatXml(content, 2);
       }
     } catch (err) {}
