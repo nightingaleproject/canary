@@ -69,11 +69,11 @@ namespace canary.Controllers
             }
             if (!String.IsNullOrEmpty(input))
             {
-                if (input.StartsWith("<")) // XML?
+                if (input.Trim().StartsWith("<")) // XML?
                 {
                     (record, issues) = Record.CheckGetXml(input, "yes" == "yes" ? true : false); // TODO
                 }
-                else if (input.StartsWith("{")) // JSON?
+                else if (input.Trim().StartsWith("{")) // JSON?
                 {
                     (record, issues) = Record.CheckGetJson(input, "yes" == "yes" ? true : false);
                 }

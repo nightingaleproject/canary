@@ -23,9 +23,9 @@ export class Getter extends Component {
 
   tryFormat() {
     try {
-      if (this.state.pasteText.startsWith('{')) {
+      if (this.state.pasteText.trim().startsWith('{')) {
         this.setState({ pasteText: this.formatJson(this.state.pasteText, 2) });
-      } else if (this.state.pasteText.startsWith('<')) {
+      } else if (this.state.pasteText.trim().startsWith('<')) {
         this.setState({ pasteText: this.formatXml(this.state.pasteText, 2) });
       } else if (this.state.pasteText.length === 5000) {
         this.setState({ pasteText: this.formatIje(this.state.pasteText) });
