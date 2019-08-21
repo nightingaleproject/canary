@@ -188,10 +188,23 @@ namespace canary.Models
             }
             catch (Exception e)
             {
-                Dictionary<string, string> entry = new Dictionary<string, string>();
-                entry.Add("message", e.Message);
-                entry.Add("severity", "error");
-                entries.Add(entry);
+                if (e.Message != null && e.Message.Contains(";"))
+                {
+                    foreach (string er in e.Message.Split(";"))
+                    {
+                        Dictionary<string, string> entry = new Dictionary<string, string>();
+                        entry.Add("message", er.Replace("Parser:", "").Trim());
+                        entry.Add("severity", "error");
+                        entries.Add(entry);
+                    }
+                }
+                else if (e.Message != null)
+                {
+                    Dictionary<string, string> entry = new Dictionary<string, string>();
+                    entry.Add("message", e.Message.Replace("Parser:", "").Trim());
+                    entry.Add("severity", "error");
+                    entries.Add(entry);
+                }
             }
             return (record: newRecord, issues: entries);
         }
