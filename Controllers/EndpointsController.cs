@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FhirDeathRecord;
 using canary.Models;
@@ -69,13 +66,9 @@ namespace canary.Controllers
             }
             if (!String.IsNullOrEmpty(input))
             {
-                if (input.Trim().StartsWith("<")) // XML?
+                if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
-                    (record, issues) = Record.CheckGetXml(input, "yes" == "yes" ? true : false); // TODO
-                }
-                else if (input.Trim().StartsWith("{")) // JSON?
-                {
-                    (record, issues) = Record.CheckGetJson(input, "yes" == "yes" ? true : false);
+                    (record, issues) = Record.CheckGet(input, false);
                 }
                 else
                 {
@@ -85,16 +78,13 @@ namespace canary.Controllers
                         {
                             (record, issues) = (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid record." } } });
                         }
-                        else
-                        {
-                            IJEMortality ije = new IJEMortality(input);
-                            DeathRecord deathRecord = ije.ToDeathRecord();
-                            (record, issues) = (new Record(deathRecord), new List<Dictionary<string, string>> {} );
-                        }
+                        IJEMortality ije = new IJEMortality(input);
+                        DeathRecord deathRecord = ije.ToDeathRecord();
+                        (record, issues) = (new Record(deathRecord), new List<Dictionary<string, string>> {} );
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.ToString());
+                        (record, issues) = (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", e.Message } } });
                     }
                 }
                 if (record != null)
