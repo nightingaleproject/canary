@@ -213,7 +213,7 @@ namespace canary.Models
         public void Populate(string state = "MA", string type = "Natural", string sex = "Male")
         {
             DeathRecordFaker faker = new DeathRecordFaker(state, type, sex);
-            record = faker.Generate();
+            record = faker.Generate(true);
             ije = new IJEMortality(record).ToString();
         }
     }

@@ -16,7 +16,7 @@ export class IJEInspector extends Component {
 
   updateRecord(record, issues) {
     if (record && record.ijeInfo) {
-      this.setState({ record: record, results: record.ijeInfo }, () => {
+      this.setState({ record: record, issues: [], results: record.ijeInfo }, () => {
         document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     } else if (issues && issues.length > 0) {
