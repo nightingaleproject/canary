@@ -195,7 +195,7 @@ export class Record extends Component {
                   <div className="inherit-width p-b-10">
                     <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'} warning={issue.severity.toLowerCase() === 'warning'}>
                       <Icon name="exclamation triangle" />
-                      <Message.Content>{`${issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}: ${issue.message}`}</Message.Content>
+                      <Message.Content>{`${issue.message}`}</Message.Content>
                     </Message>
                   </div>
                 </Transition>

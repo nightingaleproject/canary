@@ -1,18 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
-using Hl7.Fhir.ElementModel;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using FhirDeathRecord;
 using canary.Models;
 
@@ -21,8 +14,6 @@ namespace canary.Controllers
     [ApiController]
     public class RecordsController : ControllerBase
     {
-        private DataHelper MortalityData = DataHelper.Instance;
-
         /// <summary>
         /// Returns all records.
         /// GET /api/records
@@ -84,13 +75,9 @@ namespace canary.Controllers
             }
             if (!String.IsNullOrEmpty(input))
             {
-                if (input.Trim().StartsWith("<")) // XML?
+                if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
                 {
-                    return Record.CheckGetXml(input, "yes" == "yes" ? true : false); // TODO strict mode
-                }
-                else if (input.Trim().StartsWith("{")) // JSON?
-                {
-                    return Record.CheckGetJson(input, "yes" == "yes" ? true : false);
+                    return Record.CheckGet(input, false);
                 }
                 else
                 {
@@ -106,7 +93,7 @@ namespace canary.Controllers
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.ToString());
+                        return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", e.Message } } });
                     }
                 }
             }
@@ -114,7 +101,6 @@ namespace canary.Controllers
             {
                 return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } });
             }
-            return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be valid XML, JSON, or IJE." } } });
         }
 
         /// <summary>

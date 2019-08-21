@@ -16,9 +16,11 @@ export class FHIRInspector extends Component {
 
   updateRecord(record, issues) {
     if (record && record.fhirInfo) {
-      this.setState({ record: record, fhirInfo: record.fhirInfo, issues: issues }, () => {
-        document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+      this.setState({ record: null, fhirInfo: null, issues: null }, () => {
+        this.setState({ record: record, fhirInfo: record.fhirInfo, issues: issues }, () => {
+          document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      })
     } else if (issues && issues.length > 0) {
       this.setState({ issues: issues, fhirInfo: null });
     }

@@ -1,18 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
-using Hl7.Fhir.ElementModel;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using FhirDeathRecord;
 using canary.Models;
 

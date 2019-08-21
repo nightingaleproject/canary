@@ -1,5 +1,14 @@
 ## Change Log
 
+### v2.1.0 - 2019-08-20
+ * 2.1.0 Release
+ * Upgrading to csharp-fhir-death-record v2.4.0
+ * Simplified backend to utilize more csharp-fhir-death-record functionality
+ * Removed unnecessary imports
+ * Improved error display style in frontend
+ * Major frontend dependency updates
+ * Updated Dockerfile
+
 ### v2.0.0 - 2019-06-14
  * 2.0.0 Release
  * Full support for the new balloted Vital Records Death Reporting FHIR Implementation Guide
