@@ -1,6 +1,6 @@
 {
   "name": "canary",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
@@ -13,12 +13,12 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.3.1",
     "react-router-hash-link": "^1.2.1",
-    "react-scripts": "2.1.5",
+    "react-scripts": "3.1.1",
     "react-semantic-toasts": "^0.4.1",
     "rimraf": "^2.6.2",
     "semantic-ui-calendar-react": "^0.13.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.2"
+    "semantic-ui-react": "^0.87.3"
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",

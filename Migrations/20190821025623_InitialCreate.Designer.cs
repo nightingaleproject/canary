@@ -9,7 +9,7 @@ using canary.Models;
 namespace canary.Migrations
 {
     [DbContext(typeof(RecordContext))]
-    [Migration("20190213145807_InitialCreate")]
+    [Migration("20190821025623_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
