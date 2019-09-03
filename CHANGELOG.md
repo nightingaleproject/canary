@@ -1,5 +1,9 @@
 ## Change Log
 
+### v2.2.0 - 2019-09-03
+ * 2.1.1 Release
+ * Upgrading to csharp-fhir-death-record v2.4.5
+
 ### v2.1.1 - 2019-08-21
  * 2.1.1 Release
  * Adjusted roundtrip tests to not include FHIR data that cannot be represented by IJE mortality
