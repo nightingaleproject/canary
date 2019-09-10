@@ -1,7 +1,11 @@
 ## Change Log
 
+### v2.3.0 - 2019-09-10
+ * 2.3.0 Release
+ * Upgrading to csharp-fhir-death-record v2.5.0
+
 ### v2.2.0 - 2019-09-03
- * 2.1.1 Release
+ * 2.2.0 Release
  * Upgrading to csharp-fhir-death-record v2.4.5
 
 ### v2.1.1 - 2019-08-21
