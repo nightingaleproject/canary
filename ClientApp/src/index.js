@@ -11,7 +11,7 @@ const rootElement = document.getElementById('root');
 
 //window.API_URL = 'http://localhost:5000';
 window.API_URL = '';
-window.VERSION = 'v2.3.0';
+window.VERSION = 'v2.4.0';
 window.VERSION_DATE = 'September 10, 2019';
 
 ReactDOM.render(
