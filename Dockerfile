@@ -1,7 +1,8 @@
 FROM microsoft/dotnet:2.2-sdk AS build-env
 WORKDIR /app
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get update -qq && apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
+        && apt-get install -y nodejs
 COPY *.csproj ./
 RUN dotnet restore
 COPY . ./

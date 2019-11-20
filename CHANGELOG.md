@@ -1,5 +1,9 @@
 ## Change Log
 
+### v2.6.0 - 2019-11-20
+ * 2.6.0 Release
+ * Upgrading to vrdr-dotnet (formerly csharp-fhir-death-record) v2.7.0
+
 ### v2.5.0 - 2019-09-15
  * 2.5.0 Release
  * Upgrading to csharp-fhir-death-record v2.6.3
