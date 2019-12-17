@@ -60,6 +60,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ### Contact Information
 
-For questions or comments about Canary or the Nightingale EDRS, please send email to
+For questions or comments about Canary, please send email to
 
     cdc-nvss-feedback-list@lists.mitre.org
