@@ -1,5 +1,10 @@
 ## Change Log
 
+### v2.7.0 - 2019-12-17
+ * 2.7.0 Release
+ * Upgrading to vrdr-dotnet v2.9.0
+ * Re-integrating faker code into Canary
+ 
 ### v2.6.0 - 2019-11-20
  * 2.6.0 Release
  * Upgrading to vrdr-dotnet (formerly csharp-fhir-death-record) v2.7.0
