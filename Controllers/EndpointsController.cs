@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using FhirDeathRecord;
+using VRDR;
 using canary.Models;
 
 namespace canary.Controllers

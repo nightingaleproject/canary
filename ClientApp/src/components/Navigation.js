@@ -40,7 +40,7 @@ export class Navigation extends Component {
                 <Dropdown.Item icon="search" text="IJE Mortality Record Inspector" as={Link} to="tool-ije-inspector" />
               </Dropdown.Menu>
             </Dropdown>
-            {/* <Menu.Item name="Recent Test Runs" as={Link} to="recent-tests" icon="clipboard list" /> */}
+            <Menu.Item name="Recent Test Runs" as={Link} to="recent-tests" icon="clipboard list" />
           </Menu.Menu>
         </Menu>
         <div className="p-b-30" />

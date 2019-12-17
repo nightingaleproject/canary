@@ -7,7 +7,7 @@ using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Serialization;
 using Hl7.FhirPath;
 using Newtonsoft.Json;
-using FhirDeathRecord;
+using VRDR;
 
 namespace canary.Models
 {

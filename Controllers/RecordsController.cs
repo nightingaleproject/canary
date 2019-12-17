@@ -6,7 +6,7 @@ using System.Text;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using FhirDeathRecord;
+using VRDR;
 using canary.Models;
 
 namespace canary.Controllers
