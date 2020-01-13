@@ -37,6 +37,7 @@ export class Category extends Component {
               editable={this.props.editable}
               hideSnippets={this.props.hideSnippets}
               testMode={this.props.testMode}
+              hideBlanks={this.props.hideBlanks}
             />
           );
         })}

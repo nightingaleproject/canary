@@ -76,6 +76,12 @@ export class Dashboard extends Component {
                   description="Test a data provider system's ability to handle converting between internal data structures and external data formats. This test involves consuming IJE, and then producing equivalent FHIR."
                   route="test-edrs-roundtrip-producing"
                 />
+                <DashboardItem
+                  icon="tasks"
+                  title="Connectathon FHIR Death Records (Producing)"
+                  description="Test a data provider system's ability to produce pre-defined records as tested at Connectathons."
+                  route="test-connectathon-dash"
+                />
               </Item.Group>
               <Divider horizontal className="p-t-20">
                 <Header as="h2">

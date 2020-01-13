@@ -1,67 +1,33 @@
 import React, { Component } from 'react';
 import { Record } from '../misc/Record';
+import { Getter } from '../misc/Getter';
 import { Grid, Breadcrumb, Dimmer, Loader, Container, Form, Divider, Header, Icon, Button, Statistic } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-semantic-toasts';
-import _ from 'lodash';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 
-export class FHIRConsuming extends Component {
-  displayName = FHIRConsuming.name;
+export class Connectathon extends Component {
+  displayName = Connectathon.name;
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, test: null, loading: true, fhirInfo: null, running: false };
+    this.state = { ...this.props, test: null, loading: true, record: null, results: null, fhirInfo: null, running: false };
     this.updateTest = this.updateTest.bind(this);
-    this.setEmptyToNull = this.setEmptyToNull.bind(this);
-    this.updateFhirInfo = this.updateFhirInfo.bind(this);
     this.runTest = this.runTest.bind(this);
+    this.updateRecord = this.updateRecord.bind(this);
+    this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
   componentDidMount() {
     var self = this;
     if (!!this.props.match.params.id) {
       axios
-        .get(window.API_URL + '/tests/' + this.props.match.params.id)
+        .get(window.API_URL + '/tests/connectathon/' + this.props.match.params.id)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
-          self.setState({ test: test, loading: false });
-        })
-        .catch(function(error) {
-          self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
-          });
-        });
-    } else {
-      axios
-        .get(window.API_URL + '/records/description')
-        .then(function(response) {
-          self.setState({ fhirInfo: response.data }, () => {
-            axios
-              .get(window.API_URL + '/tests/new')
-              .then(function(response) {
-                self.setState({ test: response.data, loading: false });
-              })
-              .catch(function(error) {
-                self.setState({ loading: false }, () => {
-                  toast({
-                    type: 'error',
-                    icon: 'exclamation circle',
-                    title: 'Error!',
-                    description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-                    time: 5000,
-                  });
-                });
-              });
-          });
+          self.setState({ test: test, fhirInfo: JSON.parse(response.data.referenceRecord.fhirInfo), loading: false });
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
@@ -88,10 +54,8 @@ export class FHIRConsuming extends Component {
     return o;
   }
 
-  updateFhirInfo(path, value) {
-    var fhirInfo = { ...this.state.fhirInfo };
-    _.set(fhirInfo, path, value);
-    this.setState({ fhirInfo: fhirInfo });
+  updateRecord(record, issues) {
+    this.setState({ record: record, issues: issues });
   }
 
   updateTest(test) {
@@ -102,7 +66,7 @@ export class FHIRConsuming extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/consume/run/' + this.state.test.testId, this.setEmptyToNull(this.state.fhirInfo))
+        .post(window.API_URL + '/tests/produce/run/' + this.state.test.testId, this.setEmptyToNull(this.state.record.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -134,7 +98,7 @@ export class FHIRConsuming extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Consuming FHIR Death Records</Breadcrumb.Section>
+              <Breadcrumb.Section>Connectathon FHIR Death Records</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (
@@ -163,7 +127,7 @@ export class FHIRConsuming extends Component {
                 </Statistic.Group>
                 <div className="p-b-20" />
                 <Form size="large">
-                  <FHIRInfo fhirInfo={this.state.test.results} editable={false} testMode={true} />
+                  <FHIRInfo fhirInfo={this.state.test.results} editable={false} testMode={true} updateFhirInfo={null} />
                 </Form>
               </Container>
             </Grid.Row>
@@ -180,39 +144,40 @@ export class FHIRConsuming extends Component {
           {!(this.state.test && this.state.test.completedBool) && !!this.state.test && (
             <React.Fragment>
               <Grid.Row>
-                <Container>
+                <Container fluid>
                   <Divider horizontal />
                   <Header as="h2" dividing id="step-1">
-                    <Icon name="download" />
+                    <Icon name="keyboard" />
                     <Header.Content>
-                      Step 1: Import Record
-                      <Header.Subheader>
-                        Import the generated record into your system. The below prompt allows you to copy the record, download it as a file, or POST it to an
-                        endpoint.
-                      </Header.Subheader>
+                      Step 1: Enter Details
+                      <Header.Subheader>Enter the details listed below into your system.</Header.Subheader>
                     </Header.Content>
                   </Header>
-                  <div className="p-b-15" />
-                  <Record record={this.state.test.referenceRecord} showSave lines={20} hideIje />
+                  <div className="p-b-10" />
+                  {!!this.state.fhirInfo && (
+                    <Form size="large">
+                      <FHIRInfo fhirInfo={this.state.fhirInfo} updateFhirInfo={null} editable={false} hideSnippets hideBlanks={true} />
+                    </Form>
+                  )}
                 </Container>
               </Grid.Row>
               <Grid.Row>
                 <Container fluid>
                   <Divider horizontal />
                   <Header as="h2" dividing id="step-1">
-                    <Icon name="keyboard" />
+                    <Icon name="download" />
                     <Header.Content>
-                      Step 2: Enter Details
-                      <Header.Subheader>
-                        Once you have imported the record into your system, enter the details that show up in your system below. When you are finished, move on
-                        to step 3.
-                      </Header.Subheader>
+                      Step 2: Export Record
+                      <Header.Subheader>After entering the record into your system, export is and import it into Canary using the form below.</Header.Subheader>
                     </Header.Content>
                   </Header>
-                  <div className="p-b-10" />
-                  <Form size="large">
-                    <FHIRInfo fhirInfo={this.state.fhirInfo} updateFhirInfo={this.updateFhirInfo} editable={true} hideSnippets />
-                  </Form>
+                  <div className="p-b-15" />
+                  {!!this.state.issues && this.state.issues.length > 0 && (
+                    <Grid.Row id="scroll-to">
+                      <Record issues={this.state.issues} showIssues />
+                    </Grid.Row>
+                  )}
+                  <Getter updateRecord={this.updateRecord} allowIje={false} />
                 </Container>
               </Grid.Row>
               <Grid.Row>
@@ -223,12 +188,19 @@ export class FHIRConsuming extends Component {
                     <Header.Content>
                       Step 3: Calculate Results
                       <Header.Subheader>
-                        When you are finished entering the details from your system, click the button below and Canary will calculate the results of the test.
+                        When you have imported the record, click the button below and Canary will calculate the results of the test.
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
                   <div className="p-b-10" />
-                  <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running}>
+                  <Button
+                    fluid
+                    size="huge"
+                    primary
+                    onClick={this.runTest}
+                    loading={this.state.running}
+                    disabled={!!!(this.state.record && this.state.record.xml)}
+                  >
                     Calculate
                   </Button>
                 </Container>

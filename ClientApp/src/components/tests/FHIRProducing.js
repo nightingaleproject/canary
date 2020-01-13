@@ -218,7 +218,7 @@ export class FHIRProducing extends Component {
                     loading={this.state.running}
                     disabled={!!!(this.state.record && this.state.record.xml)}
                   >
-                    I'm finished, show me the results!
+                    Calculate
                   </Button>
                 </Container>
               </Grid.Row>
