@@ -45,6 +45,26 @@ namespace canary.Controllers
         }
 
         /// <summary>
+        /// Given an id, returns the corresponding (death) record as JSON.
+        /// GET /api/records/json/{id}
+        /// </summary>
+        [HttpGet("Records/JSON/{id:int}")]
+        public string GetJson(int id)
+        {
+            return Connectathon.FromId(id).ToJSON();
+        }
+
+        /// <summary>
+        /// Given an id, returns the corresponding (death) record as XML.
+        /// GET /api/records/xml/{id}
+        /// </summary>
+        [HttpGet("Records/XML/{id:int}")]
+        public string Getxml(int id)
+        {
+            return Connectathon.FromId(id).ToXML();
+        }
+
+        /// <summary>
         /// Creates a new synthetic death record, and returns it. Does not save it to the database.
         /// GET /api/records/new
         /// </summary>

@@ -46,9 +46,28 @@ namespace canary.Models
             ReferenceRecord.Populate();
         }
 
+        public Test(DeathRecord record)
+        {
+            Created = DateTime.Now;
+            Total = 0;
+            Correct = 0;
+            Incorrect = 0;
+            CompletedBool = false;
+            ReferenceRecord = new Record(record);
+        }
+
         public Test Run(string description)
         {
             TestRecord = new Record(DeathRecord.FromDescription(description));
+            Compare();
+            CompletedDateTime = DateTime.Now;
+            CompletedBool = true;
+            return this;
+        }
+
+        public Test Run(DeathRecord record)
+        {
+            TestRecord = new Record(record);
             Compare();
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
@@ -248,8 +267,8 @@ namespace canary.Models
                         } else if (!valueReference.ContainsKey(parameter.Key) && !valueTest.ContainsKey(parameter.Key)) {
                             // Both null, equal
                             Incorrect += 1;
-                            moreInfo[parameter.Key]["Match"] = "false";
-                            match = false;
+                            moreInfo[parameter.Key]["Match"] = "true";
+                            match = true;
                         } else {
                             // Not equal
                             Incorrect += 1;
@@ -283,18 +302,23 @@ namespace canary.Models
                     }
                     else if (info.Type == Property.Types.StringDateTime)
                     {
-                        DateTime referenceDateTime;
-                        DateTime testDateTime;
+                        DateTimeOffset referenceDateTime;
+                        DateTimeOffset testDateTime;
                         if (property.GetValue(ReferenceRecord.GetRecord()) == null && property.GetValue(TestRecord.GetRecord()) == null)
                         {
                             Correct += 1;
                             category[property.Name]["Match"] = "true";
                         }
-                        else if (DateTime.TryParse((string)property.GetValue(ReferenceRecord.GetRecord()), out referenceDateTime))
+                        else if (DateTimeOffset.TryParse((string)property.GetValue(ReferenceRecord.GetRecord()), out referenceDateTime))
                         {
-                            if (DateTime.TryParse((string)property.GetValue(TestRecord.GetRecord()), out testDateTime))
+                            if (DateTimeOffset.TryParse((string)property.GetValue(TestRecord.GetRecord()), out testDateTime))
                             {
-                                if (DateTime.Compare(referenceDateTime, testDateTime) == 0)
+                                if (DateTimeOffset.Compare(referenceDateTime, testDateTime) == 0)
+                                {
+                                    Correct += 1;
+                                    category[property.Name]["Match"] = "true";
+                                }
+                                else if (DateTimeOffset.Compare(new DateTimeOffset(referenceDateTime.Date, TimeSpan.Zero), new DateTimeOffset(testDateTime.Date, TimeSpan.Zero)) == 0)
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";
@@ -325,7 +349,7 @@ namespace canary.Models
                         {
                             if (testArr != null)
                             {
-                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s).ToArray()), String.Join(",", testArr.ToList().OrderBy(s => s).ToArray())))
+                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s).ToArray()), String.Join(",", testArr.ToList().OrderBy(s => s).ToArray()), StringComparison.OrdinalIgnoreCase))
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";
@@ -374,7 +398,7 @@ namespace canary.Models
                         {
                             if (testArr != null)
                             {
-                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2))))
+                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2)), StringComparison.OrdinalIgnoreCase))
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";
@@ -410,7 +434,7 @@ namespace canary.Models
                         {
                             if (testArr != null)
                             {
-                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2))))
+                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2)), StringComparison.OrdinalIgnoreCase))
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";

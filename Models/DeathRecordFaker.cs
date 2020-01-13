@@ -53,7 +53,7 @@ namespace canary.Models
             record.BundleIdentifier = Convert.ToString(faker.Random.Number(999999));
             DateTime date = faker.Date.Recent();
             record.CertifiedTime = date.ToString("s");
-            record.CreatedTime = new DateTimeOffset(date.AddDays(-1).Year, date.AddDays(-1).Month, date.AddDays(-1).Day, 0, 0, 0, TimeSpan.Zero).ToString("s");
+            record.RegisteredTime = new DateTimeOffset(date.AddDays(-1).Year, date.AddDays(-1).Month, date.AddDays(-1).Day, 0, 0, 0, TimeSpan.Zero).ToString("s");
 
             // Basic Decedent information
 
@@ -96,11 +96,7 @@ namespace canary.Models
 
             // Birthsex
 
-            Dictionary<string, string> birthSex = new Dictionary<string, string>();
-            birthSex.Add("code", gender.ToString()[0].ToString());
-            birthSex.Add("system", "http://hl7.org/fhir/us/core/ValueSet/us-core-birthsex");
-            birthSex.Add("display", gender.ToString());
-            record.BirthSex = birthSex;
+            record.BirthSex = gender.ToString()[0].ToString();
 
             // Place of residence
 
@@ -112,6 +108,9 @@ namespace canary.Models
             residence.Add("addressState", stateName);
             residence.Add("addressCountry", "United States");
             record.Residence = residence;
+
+            // Residence Within City Limits
+            record.ResidenceWithinCityLimits = true;
 
             // Place of birth
 
@@ -151,7 +150,7 @@ namespace canary.Models
                 maritalStatusCode = Tuple.Create("S", "Never Married");
             }
             maritalStatus.Add("code", maritalStatusCode.Item1);
-            maritalStatus.Add("system", "http://hl7.org/fhir/v3/MaritalStatus");
+            maritalStatus.Add("system", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus");
             maritalStatus.Add("display", maritalStatusCode.Item2);
             record.MaritalStatus = maritalStatus;
 
@@ -202,39 +201,25 @@ namespace canary.Models
             };
             Tuple<string, string> educationCode = faker.Random.ArrayElement<Tuple<string, string>>(educationCodes);
             education.Add("code", educationCode.Item1);
-            education.Add("system", "http://hl7.org/fhir/v3/EducationLevel");
+            education.Add("system", "http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
             education.Add("display", educationCode.Item2);
             record.EducationLevel = education;
 
+            Tuple<string, string>[] occupationIndustries =
+            {
+                Tuple.Create("secretary", "State agency"),
+                Tuple.Create("carpenter", "construction"),
+                Tuple.Create("Programmer", "Health Insurance"),
+            };
+            Tuple<string, string> occInd = faker.Random.ArrayElement<Tuple<string, string>>(occupationIndustries);
+
             // Occupation
 
-            Dictionary<string, string> occupation = new Dictionary<string, string>();
-            Tuple<string, string>[] occupationCodes =
-            {
-                Tuple.Create("1010", "Computer programmers"),
-                Tuple.Create("1005", "Computer and information research scientists"),
-                Tuple.Create("3510", "Medical records and health information technicians"),
-            };
-            Tuple<string, string> occupationCode = faker.Random.ArrayElement<Tuple<string, string>>(occupationCodes);
-            occupation.Add("code", occupationCode.Item1);
-            occupation.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
-            occupation.Add("display", occupationCode.Item2);
-            record.UsualOccupationCode = occupation;
+            record.UsualOccupation = occInd.Item1;
 
             // Industry
 
-            Dictionary<string, string> industry = new Dictionary<string, string>();
-            Tuple<string, string>[] industryCodes =
-            {
-                Tuple.Create("7380", "Computer systems design and related services"),
-                Tuple.Create("3960", "Medical equipment and supplies manufacturing"),
-                Tuple.Create("6672", "Internet publishing and broadcasting and web search portals"),
-            };
-            Tuple<string, string> industryCode = faker.Random.ArrayElement<Tuple<string, string>>(industryCodes);
-            industry.Add("code", industryCode.Item1);
-            industry.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
-            industry.Add("display", industryCode.Item2);
-            record.UsualIndustryCode = industry;
+            record.UsualIndustry = occInd.Item2;
 
             // Military Service
 
@@ -246,7 +231,7 @@ namespace canary.Models
             };
             Tuple<string, string> militaryCode = faker.Random.ArrayElement<Tuple<string, string>>(militaryCodes);
             military.Add("code", militaryCode.Item1);
-            military.Add("system", "http://hl7.org/fhir/ValueSet/v2-0532");
+            military.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
             military.Add("display", militaryCode.Item2);
             record.MilitaryService = military;
 
@@ -290,7 +275,7 @@ namespace canary.Models
             };
             Tuple<string, string> dispositionTypeCode = faker.Random.ArrayElement<Tuple<string, string>>(dispositionTypeCodes);
             disposition.Add("code", dispositionTypeCode.Item1);
-            disposition.Add("system", "urn:oid:2.16.840.1.114222.4.11.7379");
+            disposition.Add("system", "http://snomed.info/sct");
             disposition.Add("display", dispositionTypeCode.Item2);
             record.DecedentDispositionMethod = disposition;
 
@@ -318,9 +303,9 @@ namespace canary.Models
 
             // Certifier type
             Dictionary<string, string> certificationType = new Dictionary<string, string>();
-            certificationType.Add("system", "http://hl7.org/fhir/ValueSet/performer-role");
-            certificationType.Add("code", "76899008");
-            certificationType.Add("display", "Infectious diseases physician");
+            certificationType.Add("system", "http://snomed.info/sct");
+            certificationType.Add("code", "434641000124105");
+            certificationType.Add("display", "Physician");
             record.CertificationRole = certificationType;
 
             // CertifierLicenseNumber
@@ -344,7 +329,7 @@ namespace canary.Models
             interestedPartyAddress.Add("addressCountry", "United States");
             record.InterestedPartyAddress = interestedPartyAddress;
             record.InterestedPartyIdentifier = Convert.ToString(faker.Random.Number(999999));
-            record.InterestedPartyType = new Dictionary<string, string>() { { "code", "prov" }, { "system", "http://hl7.org/fhir/ValueSet/organization-type" }, { "display", "Healthcare Provider" } };
+            record.InterestedPartyType = new Dictionary<string, string>() { { "code", "prov" }, { "system", "http://terminology.hl7.org/CodeSystem/organization-type" }, { "display", "Healthcare Provider" } };
 
             if (type == "Natural")
             {
@@ -370,11 +355,11 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
                     record.ExaminerContacted = false;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "urn:oid:2.16.840.1.114222.4.11.6004" }, { "display", "No" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
                 }
                 else if (choice == 1)
                 {
@@ -387,11 +372,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Carcinoma of cecum, Congestive heart failure";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
                     record.ExaminerContacted = false;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "urn:oid:2.16.840.1.114222.4.11.6004" }, { "display", "No" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
                 }
                 else if (choice == 2)
                 {
@@ -405,11 +390,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Obesity, Hypertension, Congestive heart failure";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
                     record.ExaminerContacted = false;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "urn:oid:2.16.840.1.114222.4.11.6004" }, { "display", "Yes" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "http://snomed.info/sct" }, { "display", "Yes" } };
                 }
                 else if (choice == 3)
                 {
@@ -423,11 +408,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Cigarette smoking, Hypertension, Hypercholesterolemia, Coronary bypass surgery";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };;
                     record.ExaminerContacted = true;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "urn:oid:2.16.840.1.114222.4.11.6004" }, { "display", "Yes" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "http://snomed.info/sct" }, { "display", "Yes" } };
                 }
             }
             if (type == "Injury")
@@ -445,11 +430,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Terminal gastric adenocarcinoma, depression";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };;
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };;
                     record.ExaminerContacted = true;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "urn:oid:2.16.840.1.114222.4.11.6004" }, { "display", "unknown" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "http://hl7.org/fhir/v3/NullFlavor" }, { "display", "unknown" } };
 
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "44301001");
@@ -482,11 +467,11 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "Yes" } };
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
                     record.ExaminerContacted = true;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "urn:oid:2.16.840.1.114222.4.11.6004" }, { "display", "No" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "27935005");
@@ -518,11 +503,11 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://hl7.org/fhir/ValueSet/v2-0532" }, { "display", "No" } };
+                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
                     record.ExaminerContacted = true;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "urn:oid:2.16.840.1.114222.4.11.6004" }, { "display", "No" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "7878000");
@@ -550,17 +535,17 @@ namespace canary.Models
             {
                 Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
                 pregnanacyStatus.Add("code", "PHC1260");
-                pregnanacyStatus.Add("system", "urn:oid:2.16.840.1.114222.4.11.6003");
+                pregnanacyStatus.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
                 pregnanacyStatus.Add("display", "Not pregnant within past year");
-                record.PregnanacyStatus = pregnanacyStatus;
+                record.PregnancyStatus = pregnanacyStatus;
             }
             else
             {
                 Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
                 pregnanacyStatus.Add("code", "NA");
-                pregnanacyStatus.Add("system", "urn:oid:2.16.840.1.114222.4.11.6003");
+                pregnanacyStatus.Add("system", "http://hl7.org/fhir/v3/NullFlavor");
                 pregnanacyStatus.Add("display", "not applicable");
-                record.PregnanacyStatus = pregnanacyStatus;
+                record.PregnancyStatus = pregnanacyStatus;
             }
 
             return record;

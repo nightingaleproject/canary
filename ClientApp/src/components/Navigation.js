@@ -28,6 +28,7 @@ export class Navigation extends Component {
                 <Dropdown.Item icon="download" text="Consuming FHIR Death Records" as={Link} to="test-fhir-consuming" />
                 <Dropdown.Item icon="sync" text="Death Record Roundtrip (Consuming)" as={Link} to="test-edrs-roundtrip-consuming" />
                 <Dropdown.Item icon="sync" text="Death Record Roundtrip (Producing)" as={Link} to="test-edrs-roundtrip-producing" />
+                <Dropdown.Item icon="tasks" text="Connectathon FHIR Death Records (Producing)" as={Link} to="test-connectathon-dash" />
               </Dropdown.Menu>
             </Dropdown>
             <Dropdown item text="Tools" direction="left">
@@ -40,7 +41,7 @@ export class Navigation extends Component {
                 <Dropdown.Item icon="search" text="IJE Mortality Record Inspector" as={Link} to="tool-ije-inspector" />
               </Dropdown.Menu>
             </Dropdown>
-            <Menu.Item name="Recent Test Runs" as={Link} to="recent-tests" icon="clipboard list" />
+            {/* <Menu.Item name="Recent Test Runs" as={Link} to="recent-tests" icon="clipboard list" /> */}
           </Menu.Menu>
         </Menu>
         <div className="p-b-30" />

@@ -40,7 +40,7 @@ namespace canary.Controllers
 
         /// <summary>
         /// Gets a test by id.
-        /// GET /api/tests/produce/run
+        /// GET /api/tests/1
         /// </summary>
         [HttpGet("Tests/{id:int}")]
         public Test GetTest(int id)
@@ -48,6 +48,45 @@ namespace canary.Controllers
             using (var db = new RecordContext())
             {
                 return db.Tests.Where(t => t.TestId == id).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Gets a pre-defined connectathon test by id.
+        /// GET /api/tests/connectathon/1
+        /// </summary>
+        [HttpGet("Tests/Connectathon/{id:int}")]
+        public Test GetTestConnectathon(int id)
+        {
+            using (var db = new RecordContext())
+            {
+                Test test = new Test(Connectathon.FromId(id));
+                db.Tests.Add(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
+        /// <summary>
+        /// Perform a connectathon test by id.
+        /// POST /api/tests/connectathon/1
+        /// </summary>
+        [HttpPost("Tests/Connectathon/{id:int}")]
+        public int PerformTestConnectathon(int id)
+        {
+            using (var db = new RecordContext())
+            {
+                Test test = new Test(Connectathon.FromId(id));
+                string input;
+                using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+                {
+                    input = reader.ReadToEnd();
+                }
+                if (!String.IsNullOrEmpty(input))
+                {
+                    test = test.Run(new DeathRecord(input));
+                }
+                return test.Incorrect;
             }
         }
 

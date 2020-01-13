@@ -216,7 +216,7 @@ export class EDRSRoundtripProducing extends Component {
                   </Header>
                   <div className="p-b-10" />
                   <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running} disabled={!!!this.state.fhirRecord}>
-                    I'm finished, show me the results!
+                    Calculate
                   </Button>
                 </Container>
               </Grid.Row>

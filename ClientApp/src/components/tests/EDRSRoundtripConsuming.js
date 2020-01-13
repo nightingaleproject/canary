@@ -201,7 +201,7 @@ export class EDRSRoundtripConsuming extends Component {
                   </Header>
                   <div className="p-b-10" />
                   <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running} disabled={!!!this.state.ijeRecord}>
-                    I'm finished, show me the results!
+                  Calculate
                   </Button>
                 </Container>
               </Grid.Row>
