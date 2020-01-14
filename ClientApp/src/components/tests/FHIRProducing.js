@@ -185,7 +185,7 @@ export class FHIRProducing extends Component {
                     <Icon name="download" />
                     <Header.Content>
                       Step 2: Export Record
-                      <Header.Subheader>After entering the record into your system, export is and import it into Canary using the form below.</Header.Subheader>
+                      <Header.Subheader>After entering the record into your system, export it and import it into Canary using the form below.</Header.Subheader>
                     </Header.Content>
                   </Header>
                   <div className="p-b-15" />
