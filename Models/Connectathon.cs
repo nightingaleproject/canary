@@ -56,7 +56,6 @@ namespace canary.Models
 
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Atlanta");
-            addressB.Add("addressCounty", "Fulton");
             addressB.Add("addressState", "Georgia");
             addressB.Add("addressCountry", "United States");
             record.PlaceOfBirth = addressB;
@@ -110,7 +109,6 @@ namespace canary.Models
             Dictionary<string, string> address = new Dictionary<string, string>();
             address.Add("addressLine1", "1 Main Street");
             address.Add("addressCity", "Atlanta");
-            address.Add("addressCounty", "Fulton");
             address.Add("addressState", "Georgia");
             address.Add("addressZip", "30303");
             address.Add("addressCountry", "United States");
@@ -260,6 +258,12 @@ namespace canary.Models
 
             record.InjuryDate = "2019-11-02T13:00:00";
 
+            Dictionary<string, string> codeIAW = new Dictionary<string, string>();
+            codeIAW.Add("code", "N");
+            codeIAW.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+            codeIAW.Add("display", "No");
+            record.InjuryAtWork = codeIAW;
+
             Dictionary<string, string> codeI = new Dictionary<string, string>();
             codeI.Add("code", "0");
             codeI.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
@@ -379,7 +383,7 @@ namespace canary.Models
             record.CertifierFamilyName = "Black";
 
             Dictionary<string, string> address = new Dictionary<string, string>();
-            address.Add("addressCity", "Bird-in-Hand");
+            address.Add("addressCity", "Bird in Hand");
             address.Add("addressCounty", "Lancaster");
             address.Add("addressState", "Pennsylvania");
             address.Add("addressCountry", "United States");
@@ -387,7 +391,7 @@ namespace canary.Models
 
             record.CertifiedTime = "2019-10-14";
 
-            record.DateOfDeathPronouncement = "2019-10-19T21:00:00";
+            record.DateOfDeathPronouncement = "2019-10-10T21:00:00";
 
             record.COD1A = "Cardiopulmonary arrest";
             record.INTERVAL1A = "4 hours";
@@ -514,7 +518,6 @@ namespace canary.Models
             Dictionary<string, string> address = new Dictionary<string, string>();
             address.Add("addressLine1", "RR1");
             address.Add("addressCity", "Dover");
-            address.Add("addressCounty", "Kent");
             address.Add("addressState", "Delaware");
             address.Add("addressCountry", "United States");
             record.CertifierAddress = address;
@@ -525,9 +528,15 @@ namespace canary.Models
 
             record.COD1A = "blunt head trauma";
 
+            record.INTERVAL1A = "unknown";
+
             record.COD1B = "Automobile accident";
 
+            record.INTERVAL1B = "unknown";
+
             record.COD1C = "Epilepsy";
+
+            record.INTERVAL1C = "unknown";
 
             record.ExaminerContacted = true;
 
@@ -538,6 +547,12 @@ namespace canary.Models
             record.MannerOfDeathType = manner;
 
             record.InjuryDate = "2019-12-20T11:15:00";
+
+            Dictionary<string, string> codeIAW = new Dictionary<string, string>();
+            codeIAW.Add("code", "Y");
+            codeIAW.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+            codeIAW.Add("display", "Yes");
+            record.InjuryAtWork = codeIAW;
 
             Dictionary<string, string> codeI = new Dictionary<string, string>();
             codeI.Add("code", "4");
@@ -647,7 +662,6 @@ namespace canary.Models
             Dictionary<string, string> address = new Dictionary<string, string>();
             address.Add("addressLine1", "RR1");
             address.Add("addressCity", "Dover");
-            address.Add("addressCounty", "Kent");
             address.Add("addressState", "Delaware");
             address.Add("addressCountry", "United States");
             record.CertifierAddress = address;
@@ -658,7 +672,11 @@ namespace canary.Models
 
             record.COD1A = "blunt head trauma";
 
+            record.INTERVAL1A = "unknown";
+
             record.COD1B = "Automobile accident";
+
+            record.INTERVAL1B = "unknown";
 
             record.ExaminerContacted = true;
 
@@ -669,6 +687,12 @@ namespace canary.Models
             record.MannerOfDeathType = manner;
 
             record.InjuryDate = "2019-12-20T11:15:00";
+
+            Dictionary<string, string> codeIAW = new Dictionary<string, string>();
+            codeIAW.Add("code", "Y");
+            codeIAW.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+            codeIAW.Add("display", "Yes");
+            record.InjuryAtWork = codeIAW;
 
             Dictionary<string, string> codeI = new Dictionary<string, string>();
             codeI.Add("code", "4");

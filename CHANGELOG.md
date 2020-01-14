@@ -1,5 +1,9 @@
 ## Change Log
 
+### v2.9.0 - 2020-01-14
+ * 2.9.0 Release
+ * Upgrading to vrdr-dotnet v2.12.1
+
 ### v2.8.0 - 2020-01-14
  * 2.8.0 Release
  * Upgrading to vrdr-dotnet v2.10.1
