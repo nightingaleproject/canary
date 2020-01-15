@@ -1,5 +1,9 @@
 ## Change Log
 
+### v2.10.0 - 2020-01-15
+ * 2.9.0 Release
+ * Tweaks to Connectathon test cases
+
 ### v2.9.0 - 2020-01-14
  * 2.9.0 Release
  * Upgrading to vrdr-dotnet v2.12.1

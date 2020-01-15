@@ -230,6 +230,12 @@ namespace canary.Models
                 {
                     // Special case for Dictionary; we want to be able to describe what each key means
                     Dictionary<string, string> valueReference = (Dictionary<string, string>)property.GetValue(ReferenceRecord.GetRecord());
+
+                    if (valueReference == null || valueReference.Values.All(vRV => String.IsNullOrWhiteSpace(vRV)))
+                    {
+                        continue;
+                    }
+
                     Dictionary<string, string> valueTest = (Dictionary<string, string>)property.GetValue(TestRecord.GetRecord());
                     Dictionary<string, Dictionary<string, string>> moreInfo = new Dictionary<string, Dictionary<string, string>>();
                     bool match = true;
@@ -266,7 +272,12 @@ namespace canary.Models
                             moreInfo[parameter.Key]["Match"] = "true";
                         } else if (!valueReference.ContainsKey(parameter.Key) && !valueTest.ContainsKey(parameter.Key)) {
                             // Both null, equal
-                            Incorrect += 1;
+                            Correct += 1;
+                            moreInfo[parameter.Key]["Match"] = "true";
+                            match = true;
+                        } else if (parameter.Key == "display" && (!valueTest.ContainsKey(parameter.Key) || String.IsNullOrWhiteSpace(valueTest[parameter.Key]))) {
+                            // Test record had nothing for display, equal
+                            Correct += 1;
                             moreInfo[parameter.Key]["Match"] = "true";
                             match = true;
                         } else {
@@ -294,6 +305,10 @@ namespace canary.Models
                             Correct += 1;
                             category[property.Name]["Match"] = "true";
                         }
+                        else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord()))) {
+                            Correct += 1;
+                            category[property.Name]["Match"] = "true";
+                        }
                         else
                         {
                             Incorrect += 1;
@@ -306,6 +321,10 @@ namespace canary.Models
                         DateTimeOffset testDateTime;
                         if (property.GetValue(ReferenceRecord.GetRecord()) == null && property.GetValue(TestRecord.GetRecord()) == null)
                         {
+                            Correct += 1;
+                            category[property.Name]["Match"] = "true";
+                        }
+                        else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord()))) {
                             Correct += 1;
                             category[property.Name]["Match"] = "true";
                         }
@@ -366,11 +385,6 @@ namespace canary.Models
                                 category[property.Name]["Match"] = "false";
                             }
                         }
-                        else if (testArr != null)
-                        {
-                            Incorrect += 1;
-                            category[property.Name]["Match"] = "false";
-                        }
                         else
                         {
                             Correct += 1;
@@ -381,6 +395,10 @@ namespace canary.Models
                     {
                         if (bool.Equals(property.GetValue(ReferenceRecord.GetRecord()), property.GetValue(TestRecord.GetRecord())))
                         {
+                            Correct += 1;
+                            category[property.Name]["Match"] = "true";
+                        }
+                        else if (property.GetValue(ReferenceRecord.GetRecord()) == null) {
                             Correct += 1;
                             category[property.Name]["Match"] = "true";
                         }

@@ -202,7 +202,6 @@ export class Property extends Component {
             {!!this.props.testMode &&
               this.props.property.Match === 'false' &&
               this.renderType(this.props.property.Type, this.props.property.FoundValue, this.props.property.Type === 'Dictionary' ? '' : 'Found value:', true)}
-
             {!!!this.props.hideSnippets && (
               <Accordion styled fluid exclusive={false}>
                 <Accordion.Title
@@ -215,7 +214,7 @@ export class Property extends Component {
                   XML
                 </Accordion.Title>
                 <Accordion.Content active={this.state.xmlVisible}>
-                  {!!this.props.testMode && this.props.property.Match === 'false' && <h4>Expected:</h4>}
+                  {!!this.props.testMode && <h4>Expected:</h4>}
                   <AceEditor
                     mode="xml"
                     theme="chrome"
@@ -233,7 +232,7 @@ export class Property extends Component {
                       $blockScrolling: Infinity,
                     }}
                   />
-                  {!!this.props.testMode && this.props.property.Match === 'false' && (
+                  {!!this.props.testMode && (
                     <React.Fragment>
                       <h4>Found:</h4>
                       <AceEditor
@@ -266,7 +265,7 @@ export class Property extends Component {
                   JSON
                 </Accordion.Title>
                 <Accordion.Content active={this.state.jsonVisible}>
-                  {!!this.props.testMode && this.props.property.Match === 'false' && <h4>Expected:</h4>}
+                  {!!this.props.testMode && <h4>Expected:</h4>}
                   <AceEditor
                     mode="json"
                     theme="chrome"
@@ -284,7 +283,7 @@ export class Property extends Component {
                       $blockScrolling: Infinity,
                     }}
                   />
-                  {!!this.props.testMode && this.props.property.Match === 'false' && (
+                  {!!this.props.testMode && (
                     <React.Fragment>
                       <h4>Found:</h4>
                       <AceEditor

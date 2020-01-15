@@ -100,7 +100,7 @@ namespace canary.Models
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
             role.Add("system", "http://snomed.info/sct");
-            role.Add("display", "Physician");
+            role.Add("display", "Death certification and verification by physician");
             record.CertificationRole = role;
 
             record.CertifierGivenNames = new string[] { "Sam" };
@@ -129,7 +129,7 @@ namespace canary.Models
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "38605008");
             manner.Add("system", "http://snomed.info/sct");
-            manner.Add("display", "Natural");
+            manner.Add("display", "Natural death");
             record.MannerOfDeathType = manner;
 
             Dictionary<string, string> codeA = new Dictionary<string, string>();
@@ -141,7 +141,7 @@ namespace canary.Models
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449961000124104");
             dmethod.Add("system", "http://snomed.info/sct");
-            dmethod.Add("display", "Cremation");
+            dmethod.Add("display", "Patient status determination, deceased and cremated");
             record.DecedentDispositionMethod = dmethod;
 
             Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
@@ -253,7 +253,7 @@ namespace canary.Models
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
             manner.Add("system", "http://snomed.info/sct");
-            manner.Add("display", "Accident");
+            manner.Add("display", "Accidental death");
             record.MannerOfDeathType = manner;
 
             record.InjuryDate = "2019-11-02T13:00:00";
@@ -289,7 +289,7 @@ namespace canary.Models
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449971000124106");
             dmethod.Add("system", "http://snomed.info/sct");
-            dmethod.Add("display", "Burial");
+            dmethod.Add("display", "Patient status determination, deceased and buried");
             record.DecedentDispositionMethod = dmethod;
 
             Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
@@ -404,7 +404,7 @@ namespace canary.Models
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "38605008");
             manner.Add("system", "http://snomed.info/sct");
-            manner.Add("display", "Natural");
+            manner.Add("display", "Natural death");
             record.MannerOfDeathType = manner;
 
             Dictionary<string, string> codeA = new Dictionary<string, string>();
@@ -422,7 +422,7 @@ namespace canary.Models
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449961000124104");
             dmethod.Add("system", "http://snomed.info/sct");
-            dmethod.Add("display", "Cremation");
+            dmethod.Add("display", "Patient status determination, deceased and cremated");
             record.DecedentDispositionMethod = dmethod;
 
             Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
@@ -509,7 +509,7 @@ namespace canary.Models
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
             role.Add("system", "http://snomed.info/sct");
-            role.Add("display", "Physician");
+            role.Add("display", "Death certification and verification by physician");
             record.CertificationRole = role;
 
             record.CertifierGivenNames = new string[] { "Hope" };
@@ -543,7 +543,7 @@ namespace canary.Models
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
             manner.Add("system", "http://snomed.info/sct");
-            manner.Add("display", "Accident");
+            manner.Add("display", "Accidental death");
             record.MannerOfDeathType = manner;
 
             record.InjuryDate = "2019-12-20T11:15:00";
@@ -579,7 +579,7 @@ namespace canary.Models
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449941000124103");
             dmethod.Add("system", "http://snomed.info/sct");
-            dmethod.Add("display", "Removal from State");
+            dmethod.Add("display", "Patient status determination, deceased and removed from state");
             record.DecedentDispositionMethod = dmethod;
 
             Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
@@ -653,7 +653,7 @@ namespace canary.Models
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
             role.Add("system", "http://snomed.info/sct");
-            role.Add("display", "Physician");
+            role.Add("display", "Death certification and verification by physician");
             record.CertificationRole = role;
 
             record.CertifierGivenNames = new string[] { "Hope" };
@@ -683,7 +683,7 @@ namespace canary.Models
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
             manner.Add("system", "http://snomed.info/sct");
-            manner.Add("display", "Accident");
+            manner.Add("display", "Accidental death");
             record.MannerOfDeathType = manner;
 
             record.InjuryDate = "2019-12-20T11:15:00";
