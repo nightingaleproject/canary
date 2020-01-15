@@ -309,6 +309,12 @@ namespace canary.Models
                             Correct += 1;
                             category[property.Name]["Match"] = "true";
                         }
+                        else if (!String.IsNullOrWhiteSpace((string)property.GetValue(TestRecord.GetRecord())) &&
+                                   !String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord())) &&
+                                   ((string)property.GetValue(TestRecord.GetRecord())).ToLower().Contains(((string)property.GetValue(ReferenceRecord.GetRecord())).ToLower())) {
+                            Correct += 1;
+                            category[property.Name]["Match"] = "true";
+                        }
                         else
                         {
                             Incorrect += 1;

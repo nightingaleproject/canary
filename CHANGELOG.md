@@ -1,5 +1,9 @@
 ## Change Log
 
+### v2.10.1 - 2020-01-15
+ * 2.9.0 Release
+ * Adjusted test comparison logic when inspecting Property.Types.String properties
+
 ### v2.10.0 - 2020-01-15
  * 2.9.0 Release
  * Tweaks to Connectathon test cases
