@@ -46,7 +46,6 @@ export class RecentTests extends Component {
   }
 
   render() {
-    debugger
     return (
       <React.Fragment>
         <Table selectable>

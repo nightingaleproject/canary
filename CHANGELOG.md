@@ -1,5 +1,11 @@
 ## Change Log
 
+### v2.11.0 - 2020-01-16
+ * 2.11.0 Release
+ * Upgrading to vrdr-dotnet v2.13.0
+ * JavaScript dependency updates
+ * Added "Generate Downloadable Report" feature to tests
+
 ### v2.10.1 - 2020-01-15
  * 2.10.1 Release
  * Adjusted test comparison logic when inspecting Property.Types.String properties

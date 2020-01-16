@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-semantic-toasts';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
+import report from'../report';
 
 export class Connectathon extends Component {
   displayName = Connectathon.name;
@@ -88,6 +89,30 @@ export class Connectathon extends Component {
     });
   }
 
+  downloadAsFile(contents) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents));
+    element.setAttribute('download', `canary-report-${this.connectathonRecordName(this.props.match.params.id).toLowerCase()}-${new Date().getTime()}.html`);
+    element.click();
+  }
+
+  connectathonRecordName(id) {
+    switch (this.props.match.params.id) {
+      case "1":
+        return "Cancer";
+      case "2":
+        return "Opioid Death at Home";
+      case "3":
+        return "Pregnant";
+      case "4":
+        return "Car accident at work: Full";
+      case "5":
+        return "Car accident at work: Partial";
+      default:
+        return "Undefined"
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -125,6 +150,9 @@ export class Connectathon extends Component {
                     <Statistic.Label>Incorrect</Statistic.Label>
                   </Statistic>
                 </Statistic.Group>
+                <Grid centered columns={1} className="p-t-30 p-b-15">
+                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.match.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
+                </Grid>
                 <div className="p-b-20" />
                 <Form size="large">
                   <FHIRInfo fhirInfo={this.state.test.results} editable={false} testMode={true} updateFhirInfo={null} />

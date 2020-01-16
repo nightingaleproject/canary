@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Header, Divider, Icon, Item, Container, Grid, Segment } from 'semantic-ui-react';
 import { DashboardItem } from './DashboardItem';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
 
 export class Dashboard extends Component {
   displayName = Dashboard.name;
@@ -21,27 +23,15 @@ export class Dashboard extends Component {
             <Container className="p-b-50">
               <Divider horizontal>
                 <Header as="h2">
-                  <Icon name="fire" />
-                  Open Source FHIR Mortality Testing
+                  <FontAwesomeIcon icon={faFeatherAlt} size="lg" fixedWidth className="p-r-5" />
+                  Open Source Mortality Data Standards Testing
                 </Header>
               </Divider>
               <Segment size="large" basic>
                 <Container>
                   <p>
                     Canary is a testing framework that supports development of systems that perform standards based exchange of mortality data, providing tests
-                    and tools to aid developers in implementing the FHIR death record format.
-                  </p>
-
-                  <p>
-                    Canary is developed by&nbsp;
-                    <a className="underline" href="http://www.mitre.org">
-                      The MITRE Corporation
-                    </a>
-                    &nbsp;/&nbsp;
-                    <a className="underline" href="https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are">
-                      the Health FFRDC
-                    </a>
-                    .
+                    and tools to aid developers in implementing the <a href="https://hl7.org/fhir/us/vrdr/">FHIR Vital Records Death Record</a> format.
                   </p>
                 </Container>
               </Segment>

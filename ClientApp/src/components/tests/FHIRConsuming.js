@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-semantic-toasts';
 import _ from 'lodash';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
+import report from'../report';
 
 export class FHIRConsuming extends Component {
   displayName = FHIRConsuming.name;
@@ -124,6 +125,13 @@ export class FHIRConsuming extends Component {
     });
   }
 
+  downloadAsFile(contents) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents));
+    element.setAttribute('download', `canary-report-${new Date().getTime()}.html`);
+    element.click();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -161,6 +169,9 @@ export class FHIRConsuming extends Component {
                     <Statistic.Label>Incorrect</Statistic.Label>
                   </Statistic>
                 </Statistic.Group>
+                <Grid centered columns={1} className="p-t-30 p-b-15">
+                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, null))}><Icon name='download' />Generate Downloadable Report</Button>
+                </Grid>
                 <div className="p-b-20" />
                 <Form size="large">
                   <FHIRInfo fhirInfo={this.state.test.results} editable={false} testMode={true} />

@@ -269,9 +269,9 @@ namespace canary.Models
             Dictionary<string, string> disposition = new Dictionary<string, string>();
             Tuple<string, string>[] dispositionTypeCodes =
             {
-                Tuple.Create("449971000124106", "Burial"),
-                Tuple.Create("449961000124104", "Cremation"),
-                Tuple.Create("449931000124108", "Entombment"),
+                Tuple.Create("449971000124106", "Patient status determination, deceased and buried"),
+                Tuple.Create("449961000124104", "Patient status determination, deceased and cremated"),
+                Tuple.Create("449931000124108", "Patient status determination, deceased and entombed"),
             };
             Tuple<string, string> dispositionTypeCode = faker.Random.ArrayElement<Tuple<string, string>>(dispositionTypeCodes);
             disposition.Add("code", dispositionTypeCode.Item1);
@@ -305,18 +305,11 @@ namespace canary.Models
             Dictionary<string, string> certificationType = new Dictionary<string, string>();
             certificationType.Add("system", "http://snomed.info/sct");
             certificationType.Add("code", "434641000124105");
-            certificationType.Add("display", "Physician");
+            certificationType.Add("display", "Death certification and verification by physician");
             record.CertificationRole = certificationType;
 
             // CertifierLicenseNumber
             record.CertifierLicenseNumber = Convert.ToString(faker.Random.Number(999999));
-
-            // Certifier qualification
-            Dictionary<string, string> qualification = new Dictionary<string, string>();
-            qualification.Add("code", "3060");
-            qualification.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
-            qualification.Add("display", "Physicians and surgeons");
-            record.CertifierQualification = qualification;
 
             // Interested Party
             record.InterestedPartyName = faker.Name.LastName() + " LLC";
@@ -336,7 +329,7 @@ namespace canary.Models
                 Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                 mannerOfDeath.Add("code", "38605008");
                 mannerOfDeath.Add("system", "http://snomed.info/sct");
-                mannerOfDeath.Add("display", "Natural");
+                mannerOfDeath.Add("display", "Natural death");
                 record.MannerOfDeathType = mannerOfDeath;
 
                 record.DateOfDeath = deathUtc.ToString("o");
@@ -512,7 +505,7 @@ namespace canary.Models
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "7878000");
                     mannerOfDeath.Add("system", "http://snomed.info/sct");
-                    mannerOfDeath.Add("display", "Accident");
+                    mannerOfDeath.Add("display", "Accidental death");
                     record.MannerOfDeathType = mannerOfDeath;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
@@ -536,7 +529,7 @@ namespace canary.Models
                 Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
                 pregnanacyStatus.Add("code", "PHC1260");
                 pregnanacyStatus.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
-                pregnanacyStatus.Add("display", "Not pregnant within past year");
+                pregnanacyStatus.Add("display", "Not pregnant within the past year");
                 record.PregnancyStatus = pregnanacyStatus;
             }
             else

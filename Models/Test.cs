@@ -259,6 +259,7 @@ namespace canary.Models
                         {
                             moreInfo[parameter.Key]["FoundValue"] = null;
                         }
+                        // Check for match
                         if ((valueReference.ContainsKey(parameter.Key) && valueTest.ContainsKey(parameter.Key)) &&
                             (String.Equals((string)valueReference[parameter.Key], (string)valueTest[parameter.Key], StringComparison.OrdinalIgnoreCase))) {
                             // Equal
@@ -272,6 +273,11 @@ namespace canary.Models
                             moreInfo[parameter.Key]["Match"] = "true";
                         } else if (!valueReference.ContainsKey(parameter.Key) && !valueTest.ContainsKey(parameter.Key)) {
                             // Both null, equal
+                            Correct += 1;
+                            moreInfo[parameter.Key]["Match"] = "true";
+                            match = true;
+                        } else if (!valueReference.ContainsKey(parameter.Key) || (valueReference.ContainsKey(parameter.Key) && String.IsNullOrWhiteSpace(valueReference[parameter.Key]))) {
+                            // Source is empty, so no need to punish test
                             Correct += 1;
                             moreInfo[parameter.Key]["Match"] = "true";
                             match = true;
@@ -379,6 +385,11 @@ namespace canary.Models
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";
                                 }
+                                else if (referenceArr.ToList().Count == 0)
+                                {
+                                    Correct += 1;
+                                    category[property.Name]["Match"] = "true";
+                                }
                                 else
                                 {
                                     Incorrect += 1;
@@ -423,6 +434,11 @@ namespace canary.Models
                             if (testArr != null)
                             {
                                 if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2)), StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Correct += 1;
+                                    category[property.Name]["Match"] = "true";
+                                }
+                                else if (referenceArr.ToList().Count == 0)
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";

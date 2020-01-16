@@ -109,6 +109,14 @@ legend {
     padding-left: 4px !important;
 }
 
+.p-r-5 {
+    padding-right: 5px !important;
+}
+
+.p-r-10 {
+    padding-right: 10px !important;
+}
+
 .p-t-20 {
     padding-top: 20px !important;
 }

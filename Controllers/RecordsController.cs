@@ -220,8 +220,8 @@ namespace canary.Controllers
         [HttpGet("Records/Create")]
         public Record Create(string state, string type)
         {
-            using (var db = new RecordContext())
-            {
+            //using (var db = new RecordContext())
+            //{
                 // Create new record from scratch
                 Record record = new Record();
 
@@ -229,12 +229,12 @@ namespace canary.Controllers
                 record.Populate();
 
                 // Save the record to the database
-                db.Records.Add(record);
-                db.SaveChanges();
+                //db.Records.Add(record);
+                //db.SaveChanges();
 
                 // Return the record
                 return record;
-            }
+            //}
         }
     }
 }

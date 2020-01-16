@@ -126,6 +126,7 @@ namespace canary.Controllers
                    test.Run(input);
                    test.Type = "Consume";
                 }
+                db.Tests.Remove(test);
                 db.SaveChanges();
                 return test;
             }
@@ -151,6 +152,7 @@ namespace canary.Controllers
                    test.Run(input);
                    test.Type = "Produce";
                 }
+                db.Tests.Remove(test);
                 db.SaveChanges();
                 return test;
             }
@@ -176,6 +178,7 @@ namespace canary.Controllers
                     test.Type = "RoundtripConsuming";
                     test.Run(input);
                 }
+                db.Tests.Remove(test);
                 db.SaveChanges();
                 return test;
             }
@@ -201,6 +204,7 @@ namespace canary.Controllers
                     test.Type = "RoundtripProducing";
                     test.Run(input);
                 }
+                db.Tests.Remove(test);
                 db.SaveChanges();
                 return test;
             }

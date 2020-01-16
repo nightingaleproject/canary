@@ -264,13 +264,7 @@ namespace canary.Models
             codeIAW.Add("display", "No");
             record.InjuryAtWork = codeIAW;
 
-            Dictionary<string, string> codeI = new Dictionary<string, string>();
-            codeI.Add("code", "0");
-            codeI.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
-            codeI.Add("display", "Home");
-            record.InjuryPlace = codeI;
-
-            record.InjuryLocationName = "home";
+            record.InjuryPlace = "home";
 
             record.InjuryDescription = "drug toxicity";
 
@@ -384,7 +378,6 @@ namespace canary.Models
 
             Dictionary<string, string> address = new Dictionary<string, string>();
             address.Add("addressCity", "Bird in Hand");
-            address.Add("addressCounty", "Lancaster");
             address.Add("addressState", "Pennsylvania");
             address.Add("addressCountry", "United States");
             record.CertifierAddress = address;
@@ -471,7 +464,7 @@ namespace canary.Models
 
             record.BirthRecordId = "818181";
 
-            record.MotherGivenNames = new String[] { "Lilliana" };
+            record.MotherGivenNames = new String[] { "Liliana" };
             record.MotherMaidenName = "Jones";
 
             record.FatherFamilyName = "Perez";
@@ -504,7 +497,7 @@ namespace canary.Models
 
             record.DeathLocationName = "County Hospital";
 
-            record.DeathLocationDescription = "DOA";
+            record.DeathLocationDescription = "Dead On Arrival";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
@@ -554,19 +547,13 @@ namespace canary.Models
             codeIAW.Add("display", "Yes");
             record.InjuryAtWork = codeIAW;
 
-            Dictionary<string, string> codeI = new Dictionary<string, string>();
-            codeI.Add("code", "4");
-            codeI.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
-            codeI.Add("display", "Street/Highway");
-            record.InjuryPlace = codeI;
-
-            record.InjuryLocationName = "street";
+            record.InjuryPlace = "street";
 
             record.InjuryDescription = "unrestrained ejected driver in rollover motor vehicle accident";
 
             Dictionary<string, string> codeT = new Dictionary<string, string>();
             codeT.Add("code", "236320001");
-            codeT.Add("system", "urn:oid:2.16.840.1.114222.4.11.6005");
+            codeT.Add("system", "http://snomed.info/sct");
             codeT.Add("display", "Vehicle driver");
             record.TransportationRole = codeT;
 
@@ -648,7 +635,7 @@ namespace canary.Models
 
             record.DeathLocationName = "County Hospital";
 
-            record.DeathLocationDescription = "DOA";
+            record.DeathLocationDescription = "Dead On Arrival";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
@@ -694,19 +681,13 @@ namespace canary.Models
             codeIAW.Add("display", "Yes");
             record.InjuryAtWork = codeIAW;
 
-            Dictionary<string, string> codeI = new Dictionary<string, string>();
-            codeI.Add("code", "4");
-            codeI.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
-            codeI.Add("display", "Street/Highway");
-            record.InjuryPlace = codeI;
-
-            record.InjuryLocationName = "street";
+            record.InjuryPlace = "street";
 
             record.InjuryDescription = "unrestrained ejected driver in rollover motor vehicle accident";
 
             Dictionary<string, string> codeT = new Dictionary<string, string>();
             codeT.Add("code", "236320001");
-            codeT.Add("system", "urn:oid:2.16.840.1.114222.4.11.6005");
+            codeT.Add("system", "http://snomed.info/sct");
             codeT.Add("display", "Vehicle driver");
             record.TransportationRole = codeT;
 
@@ -719,7 +700,7 @@ namespace canary.Models
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449941000124103");
             dmethod.Add("system", "http://snomed.info/sct");
-            dmethod.Add("display", "Removal from State");
+            dmethod.Add("display", "Patient status determination, deceased and removed from state");
             record.DecedentDispositionMethod = dmethod;
 
             Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();

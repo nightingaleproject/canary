@@ -15,7 +15,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0" />
     <PackageReference Include="Hl7.Fhir.STU3" Version="1.4.0" />
-    <PackageReference Include="VRDR" Version="2.12.2" />
+    <PackageReference Include="VRDR" Version="2.13.0" />
     <!-- <ProjectReference Include="..\vrdr-dotnet\VRDR\DeathRecord.csproj" /> -->
     <PackageReference Include="Bogus" Version="25.0.3" />
   </ItemGroup>

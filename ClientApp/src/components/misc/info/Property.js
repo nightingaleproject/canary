@@ -6,7 +6,7 @@ import { DictionaryType } from './Types/DictionaryType';
 import { StringArrType } from './Types/StringArrType';
 import { TupleCODType } from './Types/TupleCODType';
 import { TupleArrType } from './Types/TupleArrType';
-import { Accordion, Icon, Form } from 'semantic-ui-react';
+import { Accordion, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
 import AceEditor from 'react-ace';
 
@@ -168,7 +168,7 @@ export class Property extends Component {
 
   render() {
     if (!!!this.props.editable) {
-      if (this.props.property.Type != "Bool") {
+      if (this.props.property.Type !== "Bool") {
         if (!!!this.props.property.Value ||
             (Array.isArray(this.props.property.Value) && this.props.property.Value !== null && this.props.property.Value.length === 0) ||
             (typeof this.props.property.Value === 'object' && !Array.isArray(this.props.property.Value) && this.props.property.Value !== null && _.compact(_.values(_.mapValues(this.props.property.Value, 'Value'))).length === 0 ))

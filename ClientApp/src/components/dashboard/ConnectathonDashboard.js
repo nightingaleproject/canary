@@ -6,7 +6,6 @@ export class ConnectathonDashboard extends Component {
   displayName = ConnectathonDashboard.name;
 
   render() {
-    debugger
     return (
       <React.Fragment>
         <Grid centered columns={1}>
@@ -21,7 +20,7 @@ export class ConnectathonDashboard extends Component {
               <Item.Group className="m-h-30">
                 <DashboardItem
                   icon="male"
-                  title="Cancer Patient"
+                  title="Cancer"
                   description="#111111; Janet Page; Congestive Heart Failure"
                   route="test-connectathon/1"
                 />
