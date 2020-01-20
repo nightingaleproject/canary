@@ -84,8 +84,14 @@ export class Getter extends Component {
       if (!!this.props.ijeOnly && (data[0] === '<' || data[0] === '{')) {
         data = 'bogus'; // The IJE catch in the back end will not like this, and will thus throw an error.
       }
+      var endpoint = '';
+      if (this.props.returnType) {
+        endpoint = '/records/return/new';
+      } else {
+        endpoint = '/records/new';
+      }
       axios
-        .post(window.API_URL + '/records/new' + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
+        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
         .then(function(response) {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;

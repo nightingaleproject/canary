@@ -4,8 +4,8 @@ import { Getter } from '../misc/Getter';
 import { Grid, Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-export class FHIRValidator extends Component {
-  displayName = FHIRValidator.name;
+export class FHIRValidatorReturn extends Component {
+  displayName = FHIRValidatorReturn.name;
 
   constructor(props) {
     super(props);
@@ -27,11 +27,11 @@ export class FHIRValidator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Validate FHIR VRDR Records</Breadcrumb.Section>
+              <Breadcrumb.Section>Validate FHIR VRDR Coded Return Bundle</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict allowIje={false} />
+            <Getter updateRecord={this.updateRecord} strict allowIje={false} returnType={true} />
           </Grid.Row>
           <div className="p-b-15" />
           {!!this.state.issues && (

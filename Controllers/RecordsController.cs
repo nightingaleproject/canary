@@ -124,6 +124,28 @@ namespace canary.Controllers
         }
 
         /// <summary>
+        /// Creates a new return bundle using the contents provided. Returns the record and any validation issues.
+        /// POST /api/records/return/new
+        /// </summary>
+        [HttpPost("Records/Return/New")]
+        public (CauseCodes record, List<Dictionary<string, string>> issues) NewReturnPost()
+        {
+            string input;
+            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                input = reader.ReadToEnd();
+            }
+            if (!String.IsNullOrEmpty(input))
+            {
+                return Record.CheckGetReturn(input, false);
+            }
+            else
+            {
+                return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } });
+            }
+        }
+
+        /// <summary>
         /// Creates a new death record using the "description" contents provided. Returns the record.
         /// POST /api/records/description/new
         /// </summary>

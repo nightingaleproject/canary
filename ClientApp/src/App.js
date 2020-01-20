@@ -10,6 +10,7 @@ import { EDRSRoundtripProducing } from './components/tests/EDRSRoundtripProducin
 import { FHIRCreator } from './components/tools/FHIRCreator';
 import { FHIRInspector } from './components/tools/FHIRInspector';
 import { FHIRValidator } from './components/tools/FHIRValidator';
+import { FHIRValidatorReturn } from './components/tools/FHIRValidatorReturn';
 import { IJEInspector } from './components/tools/IJEInspector';
 import { RecordConverter } from './components/tools/RecordConverter';
 import { RecordGenerator } from './components/tools/RecordGenerator';
@@ -34,6 +35,7 @@ export default class App extends Component {
           <Route path="/tool-fhir-inspector" component={FHIRInspector} />
           <Route path="/tool-fhir-creator" component={FHIRCreator} />
           <Route path="/tool-fhir-validator" component={FHIRValidator} />
+          <Route path="/tool-fhir-validator-return" component={FHIRValidatorReturn} />
           <Route path="/tool-ije-inspector" component={IJEInspector} />
           <Route path="/tool-record-converter" component={RecordConverter} />
           <Route path="/tool-record-generator" component={RecordGenerator} />

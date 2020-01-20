@@ -209,6 +209,38 @@ namespace canary.Models
             return (record: newRecord, issues: entries);
         }
 
+        public static (CauseCodes record, List<Dictionary<string, string>> issues) CheckGetReturn(string record, bool permissive)
+        {
+            CauseCodes newCauses = null;
+            List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
+            try
+            {
+                newCauses = new CauseCodes(record, permissive);
+                return (record: newCauses, issues: entries);
+            }
+            catch (Exception e)
+            {
+                if (e.Message != null && e.Message.Contains(";"))
+                {
+                    foreach (string er in e.Message.Split(";"))
+                    {
+                        Dictionary<string, string> entry = new Dictionary<string, string>();
+                        entry.Add("message", er.Replace("Parser:", "").Trim());
+                        entry.Add("severity", "error");
+                        entries.Add(entry);
+                    }
+                }
+                else if (e.Message != null)
+                {
+                    Dictionary<string, string> entry = new Dictionary<string, string>();
+                    entry.Add("message", e.Message.Replace("Parser:", "").Trim());
+                    entry.Add("severity", "error");
+                    entries.Add(entry);
+                }
+            }
+            return (record: newCauses, issues: entries);
+        }
+
         /// <summary>Populate this record with synthetic data.</summary>
         public void Populate(string state = "MA", string type = "Natural", string sex = "Male")
         {
