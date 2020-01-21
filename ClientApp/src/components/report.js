@@ -34,12 +34,12 @@ export default function report(test, name) {
                         }
                         html += "<div class=\"tab\">";
                         html += `<b>Expected</b>: ${JSON.stringify(test["results"][category][property]["Value"][field]["Value"])}<br><br>`;
-                        html += `<b>Found</b>: ${JSON.stringify(test["results"][category][property]["Value"][field]["FoundValue"])}<br>`;
+                        html += `<b>How Canary interpreted your input</b>: ${JSON.stringify(test["results"][category][property]["Value"][field]["FoundValue"])}<br>`;
                         html += "</div>";
                     }
                 } else {
                     html += `<b>Expected</b>: ${JSON.stringify(test["results"][category][property]["Value"])}<br><br>`;
-                    html += `<b>Found</b>: ${JSON.stringify(test["results"][category][property]["FoundValue"])}<br>`;
+                    html += `<b>How Canary interpreted your input</b>: ${JSON.stringify(test["results"][category][property]["FoundValue"])}<br>`;
                 }
                 html += "</div>";
             }

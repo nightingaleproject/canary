@@ -234,7 +234,7 @@ export class Property extends Component {
                   />
                   {!!this.props.testMode && (
                     <React.Fragment>
-                      <h4>Found:</h4>
+                      <h4>How Canary interpreted your input:</h4>
                       <AceEditor
                         mode="xml"
                         theme="chrome"
@@ -285,7 +285,7 @@ export class Property extends Component {
                   />
                   {!!this.props.testMode && (
                     <React.Fragment>
-                      <h4>Found:</h4>
+                      <h4>How Canary interpreted your input:</h4>
                       <AceEditor
                         mode="json"
                         theme="chrome"

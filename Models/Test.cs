@@ -275,17 +275,14 @@ namespace canary.Models
                             // Both null, equal
                             Correct += 1;
                             moreInfo[parameter.Key]["Match"] = "true";
-                            match = true;
                         } else if (!valueReference.ContainsKey(parameter.Key) || (valueReference.ContainsKey(parameter.Key) && String.IsNullOrWhiteSpace(valueReference[parameter.Key]))) {
                             // Source is empty, so no need to punish test
                             Correct += 1;
                             moreInfo[parameter.Key]["Match"] = "true";
-                            match = true;
                         } else if (parameter.Key == "display" && (!valueTest.ContainsKey(parameter.Key) || String.IsNullOrWhiteSpace(valueTest[parameter.Key]))) {
                             // Test record had nothing for display, equal
                             Correct += 1;
                             moreInfo[parameter.Key]["Match"] = "true";
-                            match = true;
                         } else {
                             // Not equal
                             Incorrect += 1;
