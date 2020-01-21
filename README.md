@@ -9,6 +9,7 @@ Canary can test a data providers ability to:
 - Consume FHIR Death Records
 - Roundtrip: Convert between FHIR (Consuming) and the IJE Mortaility format (Producing)
 - Roundtrip: Convert between the IJE Mortaility format (Consuming) and FHIR (Producing)
+- Produce predfined FHIR Death Records as tested at Connectathons
 
 Canary also includes the following utilities:
 - Generate Synthetic Death Records
