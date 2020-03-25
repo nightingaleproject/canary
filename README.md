@@ -40,9 +40,11 @@ docker build -t canary .
 docker run -d -p 8080:80 --name mycanary canary
 ```
 
-If you prefer not to use Docker, you can run Canary from the root project directory using [.NET Core](https://dotnet.microsoft.com/download):
+If you prefer not to use Docker, you can run Canary from the root project directory using the version of [.NET Core](https://dotnet.microsoft.com/download) listed in [global.json](https://github.com/nightingaleproject/canary/blob/master/global.json) and an installation of [Node.js](https://nodejs.org/):
 
 ```
+dotnet --version # Verify this only returns a version and no error
+node --version # Verify Node is successfully installed
 dotnet ef database update
 dotnet run
 ```
