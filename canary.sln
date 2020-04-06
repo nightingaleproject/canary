@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "canary", "canary\canary.csproj", "{4BE5F494-1C92-4971-A1CE-AF9C963E65D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "canary.tests", "canary.tests\canary.tests.csproj", "{7FC69F42-F7F2-4900-99A3-EF79535750FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BE5F494-1C92-4971-A1CE-AF9C963E65D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BE5F494-1C92-4971-A1CE-AF9C963E65D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BE5F494-1C92-4971-A1CE-AF9C963E65D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BE5F494-1C92-4971-A1CE-AF9C963E65D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FC69F42-F7F2-4900-99A3-EF79535750FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC69F42-F7F2-4900-99A3-EF79535750FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FC69F42-F7F2-4900-99A3-EF79535750FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC69F42-F7F2-4900-99A3-EF79535750FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -46,8 +46,8 @@ If you prefer not to use Docker, you can run Canary from the root project direct
 dotnet --version # Verify this only returns a version and no error
 node --version # Verify Node is successfully installed
 dotnet tool install --global dotnet-ef
-dotnet ef database update
-dotnet run
+dotnet ef database update --project canary
+dotnet run --project canary
 ```
 
 ### License

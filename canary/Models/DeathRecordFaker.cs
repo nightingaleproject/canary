@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bogus.Extensions.UnitedStates;
+using System.Linq;
 using VRDR;
 
 namespace canary.Models
@@ -100,10 +101,10 @@ namespace canary.Models
             // Place of residence
 
             Dictionary<string, string> residence = new Dictionary<string, string>();
-            Tuple<string, string, string, string, string, string> residencePlace = dataHelper.StateCodeToRandomPlace(state);
+            PlaceCode residencePlace = dataHelper.StateCodeToRandomPlace(state);
             residence.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            residence.Add("addressCity", residencePlace.Item4);
-            residence.Add("addressCounty", residencePlace.Item2);
+            residence.Add("addressCity", residencePlace.City);
+            residence.Add("addressCounty", residencePlace.County);
             residence.Add("addressState", stateName);
             residence.Add("addressCountry", "United States");
             record.Residence = residence;
@@ -114,22 +115,22 @@ namespace canary.Models
             // Place of birth
 
             Dictionary<string, string> placeOfBirth = new Dictionary<string, string>();
-            Tuple<string, string, string, string, string, string> placeOfBirthPlace = dataHelper.StateCodeToRandomPlace(state);
-            placeOfBirth.Add("addressCity", placeOfBirthPlace.Item4);
-            placeOfBirth.Add("addressCounty", placeOfBirthPlace.Item2);
+            PlaceCode placeOfBirthPlace = dataHelper.StateCodeToRandomPlace(state);
+            placeOfBirth.Add("addressCity", placeOfBirthPlace.City);
+            placeOfBirth.Add("addressCounty", placeOfBirthPlace.County);
             placeOfBirth.Add("addressState", stateName);
             placeOfBirth.Add("addressCountry", "United States");
             record.PlaceOfBirth = placeOfBirth;
 
             // Place of death
 
-            Tuple<string, string, string, string, string, string> placeOfDeathPlace = dataHelper.StateCodeToRandomPlace(state);
-            record.DeathLocationName = placeOfDeathPlace.Item4 + " Hospital";
+            PlaceCode placeOfDeathPlace = dataHelper.StateCodeToRandomPlace(state);
+            record.DeathLocationName = placeOfDeathPlace.City + " Hospital";
 
             Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
             placeOfDeath.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            placeOfDeath.Add("addressCity", placeOfDeathPlace.Item4);
-            placeOfDeath.Add("addressCounty", placeOfDeathPlace.Item2);
+            placeOfDeath.Add("addressCity", placeOfDeathPlace.City);
+            placeOfDeath.Add("addressCounty", placeOfDeathPlace.County);
             placeOfDeath.Add("addressState", stateName);
             placeOfDeath.Add("addressCountry", "United States");
             record.DeathLocationAddress = placeOfDeath;
@@ -154,11 +155,13 @@ namespace canary.Models
             record.MaritalStatus = maritalStatus;
 
             // Ethnicity
-
             if (faker.Random.Bool() && !simple)
             {
-                Tuple<string, string> ethnicityDetailed = dataHelper.CDCEthnicityCodes[2 + faker.Random.Number(15)];
-                Tuple<string, string>[] ethnicity = { Tuple.Create("Hispanic or Latino", "2135-2"), Tuple.Create(ethnicityDetailed.Item2, ethnicityDetailed.Item1) };
+                var ethnicityDetailed = dataHelper.CDCEthnicityCodes.ElementAt(2 + faker.Random.Number(15));
+                Tuple<string, string>[] ethnicity = {
+                    Tuple.Create("Hispanic or Latino", "2135-2"),
+                    Tuple.Create(ethnicityDetailed.Value, ethnicityDetailed.Key)
+                };
                 record.Ethnicity = ethnicity;
             }
             else
@@ -179,8 +182,8 @@ namespace canary.Models
                     Tuple.Create("Native Hawaiian or Other Pacific Islander", "2076-8")
                 };
                 Tuple<string, string> ombRace = faker.Random.ArrayElement<Tuple<string, string>>(ombRaces);
-                Tuple<string, string> cdcRaceW = dataHelper.CDCRaceWCodes[1 + faker.Random.Number(10)];
-                Tuple<string, string>[] race = { Tuple.Create("White", "2106-3"), Tuple.Create(cdcRaceW.Item2, cdcRaceW.Item1), ombRace };
+                var cdcRaceW = dataHelper.CDCRaceWCodes.ElementAt(1 + faker.Random.Number(10));
+                Tuple<string, string>[] race = { Tuple.Create("White", "2106-3"), Tuple.Create(cdcRaceW.Value, cdcRaceW.Key), ombRace };
                 record.Race = race;
             }
             else
@@ -241,10 +244,10 @@ namespace canary.Models
             // Funeral Home Address
 
             Dictionary<string, string> fha = new Dictionary<string, string>();
-            Tuple<string, string, string, string, string, string> fhaPlace = dataHelper.StateCodeToRandomPlace(state);
+            PlaceCode fhaPlace = dataHelper.StateCodeToRandomPlace(state);
             fha.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            fha.Add("addressCity", fhaPlace.Item4);
-            fha.Add("addressCounty", fhaPlace.Item2);
+            fha.Add("addressCity", fhaPlace.City);
+            fha.Add("addressCounty", fhaPlace.County);
             fha.Add("addressState", stateName);
             fha.Add("addressCountry", "United States");
             record.FuneralHomeAddress = fha;
@@ -256,9 +259,9 @@ namespace canary.Models
             // Disposition Location Address
 
             Dictionary<string, string> dispLoc = new Dictionary<string, string>();
-            Tuple<string, string, string, string, string, string> dispLocPlace = dataHelper.StateCodeToRandomPlace(state);
-            dispLoc.Add("addressCity", dispLocPlace.Item4);
-            dispLoc.Add("addressCounty", dispLocPlace.Item2);
+            PlaceCode dispLocPlace = dataHelper.StateCodeToRandomPlace(state);
+            dispLoc.Add("addressCity", dispLocPlace.City);
+            dispLoc.Add("addressCounty", dispLocPlace.County);
             dispLoc.Add("addressState", stateName);
             dispLoc.Add("addressCountry", "United States");
             record.DispositionLocationAddress = dispLoc;
@@ -292,10 +295,10 @@ namespace canary.Models
             record.CertifierSuffix = "MD";
 
             Dictionary<string, string> certifierAddress = new Dictionary<string, string>();
-            Tuple<string, string, string, string, string, string> certifierAddressPlace = dataHelper.StateCodeToRandomPlace(state);
+            PlaceCode certifierAddressPlace = dataHelper.StateCodeToRandomPlace(state);
             certifierAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            certifierAddress.Add("addressCity", certifierAddressPlace.Item4);
-            certifierAddress.Add("addressCounty", certifierAddressPlace.Item2);
+            certifierAddress.Add("addressCity", certifierAddressPlace.City);
+            certifierAddress.Add("addressCounty", certifierAddressPlace.County);
             certifierAddress.Add("addressState", stateName);
             certifierAddress.Add("addressCountry", "United States");
             record.CertifierAddress = certifierAddress;
@@ -313,10 +316,10 @@ namespace canary.Models
             // Interested Party
             record.InterestedPartyName = faker.Name.LastName() + " LLC";
             Dictionary<string, string> interestedPartyAddress = new Dictionary<string, string>();
-            Tuple<string, string, string, string, string, string> interestedPartyAddressPlace = dataHelper.StateCodeToRandomPlace(state);
+            PlaceCode interestedPartyAddressPlace = dataHelper.StateCodeToRandomPlace(state);
             interestedPartyAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            interestedPartyAddress.Add("addressCity", interestedPartyAddressPlace.Item4);
-            interestedPartyAddress.Add("addressCounty", interestedPartyAddressPlace.Item2);
+            interestedPartyAddress.Add("addressCity", interestedPartyAddressPlace.City);
+            interestedPartyAddress.Add("addressCounty", interestedPartyAddressPlace.County);
             interestedPartyAddress.Add("addressState", stateName);
             interestedPartyAddress.Add("addressCountry", "United States");
             record.InterestedPartyAddress = interestedPartyAddress;
@@ -441,8 +444,8 @@ namespace canary.Models
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
-                    detailsOfInjuryAddr.Add("addressCity", residencePlace.Item4);
-                    detailsOfInjuryAddr.Add("addressCounty", residencePlace.Item2);
+                    detailsOfInjuryAddr.Add("addressCity", residencePlace.City);
+                    detailsOfInjuryAddr.Add("addressCounty", residencePlace.County);
                     detailsOfInjuryAddr.Add("addressState", stateName);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
@@ -477,10 +480,10 @@ namespace canary.Models
                     record.InjuryLocationDescription = "Shot by another person using a handgun";
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
-                    Tuple<string, string, string, string, string, string> detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
+                    PlaceCode detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
-                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.Item4);
-                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.Item2);
+                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
+                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
                     detailsOfInjuryAddr.Add("addressState", stateName);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
@@ -513,10 +516,10 @@ namespace canary.Models
                     record.InjuryLocationDescription = "Automobile accident. Car slid off wet road and struck tree.";
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
-                    Tuple<string, string, string, string, string, string> detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
+                    PlaceCode detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
-                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.Item4);
-                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.Item2);
+                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
+                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
                     detailsOfInjuryAddr.Add("addressState", stateName);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
