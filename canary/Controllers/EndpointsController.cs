@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VRDR;
 using canary.Models;
@@ -56,13 +57,13 @@ namespace canary.Controllers
         /// POST /api/endpoints/record/{id:int}
         /// </summary>
         [HttpPost("Endpoints/Record/{id:int}")]
-        public int RecordPost(int id)
+        public async Task<int> RecordPost(int id)
         {
             (Record record, List<Dictionary<string, string>> issues) = (null, null);
             string input;
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
-                input = reader.ReadToEnd();
+                input = await reader.ReadToEndAsync();
             }
             if (!String.IsNullOrEmpty(input))
             {
