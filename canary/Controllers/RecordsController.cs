@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using VRDR;
@@ -86,13 +87,10 @@ namespace canary.Controllers
         /// POST /api/records/new
         /// </summary>
         [HttpPost("Records/New")]
-        public (Record record, List<Dictionary<string, string>> issues) NewPost()
+        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost()
         {
-            string input;
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
-            {
-                input = reader.ReadToEnd();
-            }
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
             if (!String.IsNullOrEmpty(input))
             {
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
@@ -128,13 +126,10 @@ namespace canary.Controllers
         /// POST /api/records/return/new
         /// </summary>
         [HttpPost("Records/Return/New")]
-        public (CauseCodes record, List<Dictionary<string, string>> issues) NewReturnPost()
+        public async Task<(CauseCodes record, List<Dictionary<string, string>> issues)> NewReturnPost()
         {
-            string input;
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
-            {
-                input = reader.ReadToEnd();
-            }
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
             if (!String.IsNullOrEmpty(input))
             {
                 return Record.CheckGetReturn(input, false);
@@ -150,13 +145,10 @@ namespace canary.Controllers
         /// POST /api/records/description/new
         /// </summary>
         [HttpPost("Records/Description/New")]
-        public Record NewDescriptionPost()
+        public async Task<Record> NewDescriptionPost()
         {
-            string input;
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
-            {
-                input = reader.ReadToEnd();
-            }
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
             if (!String.IsNullOrEmpty(input))
             {
                 DeathRecord record = DeathRecord.FromDescription(input);

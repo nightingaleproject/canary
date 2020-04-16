@@ -10,6 +10,7 @@ namespace canary.Models
 {
     public class RecordContext : DbContext
     {
+
         public DbSet<Record> Records { get; set; }
 
         public DbSet<Endpoint> Endpoints { get; set; }

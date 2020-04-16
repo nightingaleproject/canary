@@ -28,7 +28,7 @@ Mortality data is collected, analyzed, and shared by jurisdictions across the Un
 A [Dockerized](https://www.docker.com/get-started) version of Canary has been published to Docker Hub, so running Canary is as easy as:
 
 ```
-docker run --rm -p 8080:80 adammitre/canary
+docker run --rm -p 8080:80 mitre/canary
 ```
 
 This command will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080).
@@ -40,11 +40,14 @@ docker build -t canary .
 docker run -d -p 8080:80 --name mycanary canary
 ```
 
-If you prefer not to use Docker, you can run Canary from the root project directory using [.NET Core](https://dotnet.microsoft.com/download):
+If you prefer not to use Docker, you can run Canary from the root project directory using the version of [.NET Core](https://dotnet.microsoft.com/download) listed in [global.json](global.json) and an installation of [Node.js](https://nodejs.org/):
 
 ```
-dotnet ef database update
-dotnet run
+dotnet --version # Verify this only returns a version and no error
+node --version # Verify Node is successfully installed
+dotnet tool install --global dotnet-ef
+dotnet ef database update --project canary
+dotnet run --project canary
 ```
 
 ### License
