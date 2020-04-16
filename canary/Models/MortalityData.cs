@@ -18,7 +18,7 @@ namespace canary.Models
             internal static readonly MortalityData instance = new MortalityData();
         }
 
-        /// <summary>Given a State code, return a random place Tuple.</summary>
+        /// <summary>Given a State code, return a random PlaceCode.</summary>
         public PlaceCode StateCodeToRandomPlace(string state)
         {
             Random random = new Random();
@@ -60,10 +60,13 @@ namespace canary.Models
                 return null;
             }
 
-            return PlaceCodes.FirstOrDefault(
+            // We cannot use FirstOrDefault here since there is no way to override the default value
+            // This will search for matching PlaceCodes and return a PlaceCode with all null values
+            // if none is found.
+            return PlaceCodes.Where(
                 t => LinqHelper.EqualsInsensitive(t.State, stateCode)
                      && LinqHelper.EqualsInsensitive(t.County, county)
-            ).CountyCode;
+            ).DefaultIfEmpty(new PlaceCode()).First().CountyCode;
         }
 
         /// <summary>Given a County code and a State name - return the representative County name.</summary>
@@ -78,10 +81,10 @@ namespace canary.Models
             {
                 return null;
             }
-            return PlaceCodes.FirstOrDefault(
+            return PlaceCodes.Where(
                 t => LinqHelper.EqualsInsensitive(t.State, stateCode)
                      && LinqHelper.EqualsInsensitive(t.CountyCode, code)
-            ).County;
+            ).DefaultIfEmpty(new PlaceCode()).First().County;
         }
 
         /// <summary>Given a State, County, and Place name - return the representative Place code.</summary>
@@ -93,11 +96,11 @@ namespace canary.Models
                 return null;
             }
 
-            return PlaceCodes.FirstOrDefault(
+            return PlaceCodes.Where(
                 t => LinqHelper.EqualsInsensitive(t.State, stateCode)
                      && LinqHelper.EqualsInsensitive(t.County, county)
                      && LinqHelper.EqualsInsensitive(t.City, place)
-            ).Code;
+            ).DefaultIfEmpty(new PlaceCode()).First().Code;
         }
 
         /// <summary>Given a State and County name, and a Place code - return the representative Place name.</summary>
@@ -109,11 +112,11 @@ namespace canary.Models
                 return null;
             }
 
-            return PlaceCodes.FirstOrDefault(
+            return PlaceCodes.Where(
                 t => LinqHelper.EqualsInsensitive(t.State, stateCode)
                      && LinqHelper.EqualsInsensitive(t.County, county)
                      && LinqHelper.EqualsInsensitive(t.Code, code)
-            ).City;
+            ).DefaultIfEmpty(new PlaceCode()).First().City;
         }
 
         /// <summary>Given a State and County name, and a Place code - return the representative Place name.</summary>
@@ -124,82 +127,82 @@ namespace canary.Models
                 return null;
             }
 
-            return PlaceCodes.FirstOrDefault(
+            return PlaceCodes.Where(
                 t => LinqHelper.EqualsInsensitive(t.State, state)
                      && LinqHelper.EqualsInsensitive(t.City, city)
-            ).County;
+            ).DefaultIfEmpty(new PlaceCode()).First().County;
         }
 
         /// <summary>Given an Ethnicity name - return the representative Ethnicity code.</summary>
         public string EthnicityNameToEthnicityCode(string name)
         {
-            return DictValueFinderHelper(CDCRaceACodes, name);
+            return DictKeyFinderHelper(CDCEthnicityCodes, name);
         }
 
         /// <summary>Given an Ethnicity code - return the representative Ethnicity name.</summary>
         public string EthnicityCodeToEthnicityName(string code)
         {
-            return DictKeyFinderHelper(CDCRaceACodes, code);
+            return DictValueFinderHelper(CDCEthnicityCodes, code);
         }
 
         /// <summary>Given an American Indian or Alaska Native Race name - return the representative Race code.</summary>
         public string AIANRaceNameToRaceCode(string name)
         {
-            return DictValueFinderHelper(CDCRaceACodes, name);
+            return DictKeyFinderHelper(CDCRaceAIANCodes, name);
         }
 
         /// <summary>Given an American Indian or Alaska Native Race code - return the representative Race name.</summary>
         public string AIANRaceCodeToRaceName(string code)
         {
-            return DictKeyFinderHelper(CDCRaceACodes, code);
+            return DictValueFinderHelper(CDCRaceAIANCodes, code);
         }
 
         /// <summary>Given an Asian Race name - return the representative Race code.</summary>
         public string ARaceNameToRaceCode(string name)
         {
-            return DictValueFinderHelper(CDCRaceACodes, name);
+            return DictKeyFinderHelper(CDCRaceACodes, name);
         }
 
         /// <summary>Given an Asian Race code - return the representative Race name.</summary>
         public string ARaceCodeToRaceName(string code)
         {
-            return DictKeyFinderHelper(CDCRaceACodes, code);
+            return DictValueFinderHelper(CDCRaceACodes, code);
         }
 
         /// <summary>Given a Black or African American Race name - return the representative Race code.</summary>
         public string BAARaceNameToRaceCode(string name)
         {
-            return DictValueFinderHelper(CDCRaceBAACodes, name);
+            return DictKeyFinderHelper(CDCRaceBAACodes, name);
         }
 
         /// <summary>Given a Black or African American Race code - return the representative Race name.</summary>
         public string BAARaceCodeToRaceName(string code)
         {
-            return DictKeyFinderHelper(CDCRaceBAACodes, code);
+            return DictValueFinderHelper(CDCRaceBAACodes, code);
         }
 
         /// <summary>Given a Native Hawaiian or Other Pacific Islander Race name - return the representative Race code.</summary>
         public string NHOPIRaceNameToRaceCode(string name)
         {
-            return DictValueFinderHelper(CDCRaceNHOPICodes, name);
+            return DictKeyFinderHelper(CDCRaceNHOPICodes, name);
         }
 
         /// <summary>Given a Native Hawaiian or Other Pacific Islander Race code - return the representative Race name.</summary>
         public string NHOPIRaceCodeToRaceName(string code)
         {
-            return DictKeyFinderHelper(CDCRaceNHOPICodes, code);
+            return DictValueFinderHelper(CDCRaceNHOPICodes, code);
         }
 
         /// <summary>Given a White Race name - return the representative Race code.</summary>
         public string WRaceNameToRaceCode(string name)
         {
-            return DictValueFinderHelper(CDCRaceWCodes, name);
+            return DictKeyFinderHelper(CDCRaceWCodes, name);
         }
 
         /// <summary>Given a White Race code - return the representative Race name.</summary>
         public string WRaceCodeToRaceName(string code)
         {
-            return DictKeyFinderHelper(CDCRaceWCodes, code);
+            return DictValueFinderHelper(CDCRaceWCodes, code);
         }
 
         /// <summary>Given a Race name - return the representative Race code.</summary>
@@ -1634,7 +1637,7 @@ namespace canary.Models
         };
 
         /// <summary>Place Codes</summary>
-        private List<PlaceCode> PlaceCodes = new List<PlaceCode> {
+        public List<PlaceCode> PlaceCodes = new List<PlaceCode> {
             new PlaceCode("AK", "Anchorage", "020", "Anchorage", "Municipality of", "03000"),
             new PlaceCode("AK", "Anchorage", "020", "Birchwood", "", "03000"),
             new PlaceCode("AK", "Anchorage", "020", "Campbell", "", "03000"),

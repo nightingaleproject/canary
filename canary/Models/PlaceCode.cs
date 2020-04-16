@@ -10,7 +10,7 @@ namespace canary.Models
         public String City { get; }
         public String Description { get; }
         public String Code { get; }
-
+        public PlaceCode() {}
         public PlaceCode(String state, String county, String statecode, String city, String description, String code)
         {
             this.State = state;
