@@ -50,6 +50,8 @@ dotnet ef database update --project canary
 dotnet run --project canary
 ```
 
+After you execute the `dotnet run` command, the application will be accessible from a web browser at [http://localhost:5000](http://localhost:5000).
+
 ### License
 
 Copyright 2017, 2018, 2019, 2020 The MITRE Corporation
