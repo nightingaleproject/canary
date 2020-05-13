@@ -7,6 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using canary.Models;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+using System.Linq;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace canary
 {
@@ -38,7 +42,7 @@ namespace canary
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +75,39 @@ namespace canary
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+#if ExeRelease
+            applicationLifetime.ApplicationStarted.Register(() => OpenUrl(
+                app.ServerFeatures.Get<IServerAddressesFeature>().Addresses.First()));
+#endif
+        }
+
+        private static void OpenUrl(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                // hack because of this: https://github.com/dotnet/corefx/issues/10361
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }
