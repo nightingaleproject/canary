@@ -189,23 +189,7 @@ namespace canary.Models
             }
             catch (Exception e)
             {
-                if (e.Message != null && e.Message.Contains(";"))
-                {
-                    foreach (string er in e.Message.Split(";"))
-                    {
-                        Dictionary<string, string> entry = new Dictionary<string, string>();
-                        entry.Add("message", er.Replace("Parser:", "").Trim());
-                        entry.Add("severity", "error");
-                        entries.Add(entry);
-                    }
-                }
-                else if (e.Message != null)
-                {
-                    Dictionary<string, string> entry = new Dictionary<string, string>();
-                    entry.Add("message", e.Message.Replace("Parser:", "").Trim());
-                    entry.Add("severity", "error");
-                    entries.Add(entry);
-                }
+                entries = DecorateErrors(e);
             }
             return (record: newRecord, issues: entries);
         }
@@ -221,25 +205,32 @@ namespace canary.Models
             }
             catch (Exception e)
             {
-                if (e.Message != null && e.Message.Contains(";"))
-                {
-                    foreach (string er in e.Message.Split(";"))
-                    {
-                        Dictionary<string, string> entry = new Dictionary<string, string>();
-                        entry.Add("message", er.Replace("Parser:", "").Trim());
-                        entry.Add("severity", "error");
-                        entries.Add(entry);
-                    }
-                }
-                else if (e.Message != null)
+                entries = DecorateErrors(e);
+            }
+            return (record: newCauses, issues: entries);
+        }
+
+        public static List<Dictionary<string, string>> DecorateErrors(Exception e) {
+            List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
+
+            if (e.Message != null && e.Message.Contains(";"))
+            {
+                foreach (string er in e.Message.Split(";"))
                 {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
-                    entry.Add("message", e.Message.Replace("Parser:", "").Trim());
+                    entry.Add("message", er.Replace("Parser:", "").Trim());
                     entry.Add("severity", "error");
                     entries.Add(entry);
                 }
             }
-            return (record: newCauses, issues: entries);
+            else if (e.Message != null)
+            {
+                Dictionary<string, string> entry = new Dictionary<string, string>();
+                entry.Add("message", e.Message.Replace("Parser:", "").Trim());
+                entry.Add("severity", "error");
+                entries.Add(entry);
+            }
+            return entries;
         }
 
         /// <summary>Populate this record with synthetic data.</summary>
