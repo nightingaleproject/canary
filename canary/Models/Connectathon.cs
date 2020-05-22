@@ -9,6 +9,8 @@ namespace canary.Models
     {
         public Connectathon() {}
 
+        public static string fhirVersion = "STU3";
+
         public static DeathRecord FromId(int id)
         {
             switch (id)
@@ -152,6 +154,10 @@ namespace canary.Models
 
             record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "http://hl7.org/fhir/v3/NullFlavor" }, { "display", "unknown" } };
 
+            // string filename = "1_janet_page_cancer_" + fhirVersion + ".xml";
+            // WriteRecordAsXml( record, filename );
+            // Console.WriteLine(xml);
+
             return record;
         }
 
@@ -294,6 +300,10 @@ namespace canary.Models
 
             record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
+            // string filename = "2_madelyn_patel_opiod_" + fhirVersion + ".xml";
+            // WriteRecordAsXml( record, filename );
+            // Console.WriteLine(xml);
+
             return record;
         }
 
@@ -425,6 +435,9 @@ namespace canary.Models
             record.PregnancyStatus = pregnanacyStatus;
 
             record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "http://snomed.info/sct" }, { "display", "Yes" } };
+
+            // string filename = "3_vivienne_wright_pregnant_" + fhirVersion + ".xml";
+            // WriteRecordAsXml( record, filename );
 
             return record;
         }
@@ -577,6 +590,9 @@ namespace canary.Models
 
             record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
+            // string filename = "4_javier_perez_accident_full_" + fhirVersion + ".xml";
+            // WriteRecordAsXml( record, filename );
+
             return record;
         }
 
@@ -709,7 +725,24 @@ namespace canary.Models
             pregnanacyStatus.Add("display", "not applicable");
             record.PregnancyStatus = pregnanacyStatus;
 
+            // string filename = "5_javier_perez_accident_partial_" + fhirVersion + ".xml";
+            // WriteRecordAsXml( record, filename );
+
             return record;
+        }
+
+        // Writes record to a file named filename in a subdirectory of the current working directory 
+        //  Note that you do this with docker, you will have to set a bind mount on the container
+        public static string WriteRecordAsXml( DeathRecord record, string filename )
+        {
+            string parentPath = System.IO.Directory.GetCurrentDirectory() + "/connectathon_files";
+            System.IO.Directory.CreateDirectory( parentPath );  // in case the directory does not exist
+            string fullPath = parentPath + "/" + filename;  
+            Console.WriteLine( "writing record to " + fullPath + " as XML");
+            string xml = record.ToXml();
+            System.IO.File.WriteAllText(@fullPath, xml);
+            // Console.WriteLine(xml);
+            return xml;
         }
     }
 }
