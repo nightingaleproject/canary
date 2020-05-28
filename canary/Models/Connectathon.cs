@@ -9,7 +9,7 @@ namespace canary.Models
     {
         public Connectathon() {}
 
-        public static string fhirVersion = "STU3";
+        public static string fhirVersion = "R4";
 
         public static DeathRecord FromId(int id)
         {
@@ -156,7 +156,6 @@ namespace canary.Models
 
             // string filename = "1_janet_page_cancer_" + fhirVersion + ".xml";
             // WriteRecordAsXml( record, filename );
-            // Console.WriteLine(xml);
 
             return record;
         }
@@ -302,7 +301,6 @@ namespace canary.Models
 
             // string filename = "2_madelyn_patel_opiod_" + fhirVersion + ".xml";
             // WriteRecordAsXml( record, filename );
-            // Console.WriteLine(xml);
 
             return record;
         }
