@@ -25,14 +25,14 @@ export class ConnectathonDashboard extends Component {
                     Download Test Files
                   </Header>
                 </Divider>
-                <DownloadItem
+                <DashboardItem
                   icon="download"
                   title="Download FHIR R4 Test Files"
                   description="Download the FHIR R4 version of all the test files below.  These files should be used to test current and future VRDR systems."
                   route="#" // stay on current page
                   downloadFile="FHIR_R4_test_files.zip"
                 />
-                <DownloadItem
+                <DashboardItem
                   icon="download"
                   title="Download FHIR STU3 Test Files"
                   description="Download the FHIR STU3 test files that were used for integration testing during the January 2020 Connectathon.  These are included here only for regression testing purposes.  You should use the R4 versions above for current work."
