@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Divider, Icon, Item, Container, Grid } from 'semantic-ui-react';
 import { DashboardItem } from './DashboardItem';
-import { DownloadItem } from './DownloadItem';
 
 export class ConnectathonDashboard extends Component {
   displayName = ConnectathonDashboard.name;
