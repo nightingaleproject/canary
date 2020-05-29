@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Divider, Icon, Item, Container, Grid } from 'semantic-ui-react';
 import { DashboardItem } from './DashboardItem';
+import { DownloadItem } from './DownloadItem';
 
 export class ConnectathonDashboard extends Component {
   displayName = ConnectathonDashboard.name;
@@ -18,6 +19,32 @@ export class ConnectathonDashboard extends Component {
                 </Header>
               </Divider>
               <Item.Group className="m-h-30">
+                <Divider horizontal>
+                  <Header as='h3'>
+                    <Icon name='file archive outline' />
+                    Download Test Files
+                  </Header>
+                </Divider>
+                <DownloadItem
+                  icon="download"
+                  title="Download FHIR R4 Test Files"
+                  description="Download the FHIR R4 version of all the test files below.  These files should be used to test current and future VRDR systems."
+                  route="#" // stay on current page
+                  downloadFile="FHIR_R4_test_files.zip"
+                />
+                <DownloadItem
+                  icon="download"
+                  title="Download FHIR STU3 Test Files"
+                  description="Download the FHIR STU3 test files that were used for integration testing during the January 2020 Connectathon.  These are included here only for regression testing purposes.  You should use the R4 versions above for current work."
+                  route="#" // stay on current page
+                  downloadFile="FHIR_STU3_test_files.zip"
+                />
+                <Divider horizontal>
+                  <Header as='h3'>
+                    <Icon name='clipboard outline' />
+                    Work with each test page
+                  </Header>
+                </Divider>
                 <DashboardItem
                   icon="male"
                   title="Cancer"
