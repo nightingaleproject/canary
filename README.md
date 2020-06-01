@@ -2,7 +2,14 @@
 
 ## Canary EDRS Testing Framework
 
-Canary is an open source testing framework that supports development of systems that perform standards based exchange of mortality data. Canary provides tests and tools to aid developers in implementing the Vital Records Death Reporting (VRDR) FHIR death record format (http://hl7.org/fhir/us/vrdr).
+Canary is an open source testing framework that supports development of systems that perform standards based exchange of mortality data. Canary provides tests and tools to aid developers in implementing the Vital Records Death Reporting (VRDR) FHIR death record format (http://hl7.org/fhir/us/vrdr) Revision 4.
+
+## Versions
+
+    Releases v2.x.x of the Canary project supports FHIR STU3, in line with the May ballot version of VRDR (v0.1.0)
+    Releases v3.x.x of the Canary project supports FHIR R4, in line with the upcoming normative version of VRDR.
+
+If you are upgrading from 2.x.x to 3.x.x, please note that there are differences between FHIR STU3 and R4 that impact the structure of the VRDR Death Record. [This commit illustrates the differences between FHIR STU3 and FHIR R4 VRDR Death Records](https://github.com/nightingaleproject/vrdr-dotnet/commit/2b4c2026fdab80e7233f3a7d7ed6e17d5d63f38e). Death Record data may need similar updates from STU3 to R4 when updating to Canary Version 3.
 
 Canary can test a data providers ability to:
 - Produce FHIR Death Records
@@ -31,7 +38,7 @@ A [Dockerized](https://www.docker.com/get-started) version of Canary has been pu
 docker run --rm -p 8080:80 mitre/canary
 ```
 
-This command will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080).
+This command will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from DockerHub [here](https://hub.docker.com/r/mitre/canary/tags).
 
 If you want to build a Dockerized Canary from scratch (from source), you can do so by running (inside the project root directory):
 
