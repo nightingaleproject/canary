@@ -213,7 +213,7 @@ namespace canary.Models
         public static List<Dictionary<string, string>> DecorateErrors(Exception e) {
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
 
-            if (e.Message != null && e.Message.Contains(";"))
+            if (e.Message != null)
             {
                 foreach (string er in e.Message.Split(";"))
                 {
@@ -222,13 +222,6 @@ namespace canary.Models
                     entry.Add("severity", "error");
                     entries.Add(entry);
                 }
-            }
-            else if (e.Message != null)
-            {
-                Dictionary<string, string> entry = new Dictionary<string, string>();
-                entry.Add("message", e.Message.Replace("Parser:", "").Trim());
-                entry.Add("severity", "error");
-                entries.Add(entry);
             }
             return entries;
         }
