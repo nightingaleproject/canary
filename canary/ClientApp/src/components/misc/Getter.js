@@ -87,6 +87,8 @@ export class Getter extends Component {
       var endpoint = '';
       if (this.props.returnType) {
         endpoint = '/records/return/new';
+      } else if(this.props.messageValidation) {
+        endpoint = '/records/message/new'
       } else {
         endpoint = '/records/new';
       }
@@ -199,6 +201,16 @@ export class Getter extends Component {
   }
 
   render() {
+    let containerTip;
+    if (!!!this.props.ijeOnly) {
+      if (!!this.props.allowIje) {
+        containerTip = 'The contents can be formatted as FHIR XML, FHIR JSON, or IJE Mortality.'
+      } else {
+        containerTip = 'The contents can be formatted as FHIR XML or FHIR JSON.'
+      }
+    } else {
+      containerTip = 'The contents must be formatted as an IJE Mortality record.'
+    }
     return (
       <React.Fragment>
         <Form className="p-t-10">
@@ -248,13 +260,7 @@ export class Getter extends Component {
             </Dimmer>
             <Container>
               <Form>
-                {!!!this.props.ijeOnly && !!this.props.allowIje && (
-                  <h4>Paste the record contents below. The contents can be formatted as FHIR XML, FHIR JSON, or IJE Mortality.</h4>
-                )}
-                {!!!this.props.ijeOnly && !!!this.props.allowIje && (
-                  <h4>Paste the record contents below. The contents can be formatted as FHIR XML or FHIR JSON.</h4>
-                )}
-                {!!this.props.ijeOnly && <h4>Paste the IJE Mortality record below.</h4>}
+                <h4>Paste the {!!this.props.messageValidation ? 'message' : 'record'} contents below. {containerTip}</h4>
                 <AceEditor
                   mode="text"
                   theme="chrome"
@@ -287,9 +293,7 @@ export class Getter extends Component {
             <Container>
               <Button as="label" fluid size="big" htmlFor="upload-btn" icon labelPosition="left" loading={this.state.loading} primary>
                 <Icon name="file" />
-                {!!!this.props.ijeOnly && !!this.props.allowIje && 'Select the FHIR XML, FHIR JSON, or IJE Mortality record file you wish to upload.'}
-                {!!!this.props.ijeOnly && !!!this.props.allowIje && 'Select the FHIR XML or FHIR JSON record file you wish to upload.'}
-                {!!this.props.ijeOnly && 'Select the IJE Mortality record file you wish to upload.'}
+                Select the {this.props.messageValidation ? 'message' : 'record'} file you wish to upload. {containerTip}
               </Button>
               <input hidden id="upload-btn" type="file" onChange={this.onChangeFile} />
             </Container>
@@ -302,8 +306,8 @@ export class Getter extends Component {
                 <Icon name="sync" loading={this.state.checking} circular />
                 <span>{this.state.endpoint}</span>
                 <Header.Subheader className="p-t-10">
-                  POST your record to the endpoint shown above, with the message body being the string representation of your record. Canary will update this
-                  page when it detects it has received the record.
+                  POST your {this.props.messageValidation ? 'message' : 'record'} to the endpoint shown above, with the message body being the string representation of your record.
+                  Canary will update this page when it detects it has received the record.
                 </Header.Subheader>
               </Header>
             </Container>
