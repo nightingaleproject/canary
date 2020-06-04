@@ -92,12 +92,6 @@ export class Dashboard extends Component {
                   description="Check a given FHIR VRDR Record for syntax/structural issues."
                   route="tool-fhir-validator"
                 />
-                <DashboardItem
-                  icon="clipboard check"
-                  title="Validate FHIR VRDR Coded Return Bundle"
-                  description="Check a given FHIR VRDR Coded Return Bundle for syntax/structural issues."
-                  route="tool-fhir-validator-return"
-                />
                 < DashboardItem
                   icon = "envelope"
                   title = "Validate FHIR VRDR Messages"

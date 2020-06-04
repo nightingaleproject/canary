@@ -194,22 +194,6 @@ namespace canary.Models
             return (record: newRecord, issues: entries);
         }
 
-        public static (CauseCodes record, List<Dictionary<string, string>> issues) CheckGetReturn(string record, bool permissive)
-        {
-            CauseCodes newCauses = null;
-            List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
-            try
-            {
-                newCauses = new CauseCodes(record, permissive);
-                return (record: newCauses, issues: entries);
-            }
-            catch (Exception e)
-            {
-                entries = DecorateErrors(e);
-            }
-            return (record: newCauses, issues: entries);
-        }
-
         public static List<Dictionary<string, string>> DecorateErrors(Exception e) {
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
 
