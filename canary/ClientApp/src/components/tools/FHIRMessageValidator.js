@@ -3,6 +3,7 @@ import { Record } from '../misc/Record';
 import { Getter } from '../misc/Getter';
 import { Grid, Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 export class FHIRMessageValidator extends Component {
   displayName = FHIRMessageValidator.name;

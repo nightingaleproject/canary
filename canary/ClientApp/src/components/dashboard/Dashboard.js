@@ -54,6 +54,12 @@ export class Dashboard extends Component {
                   description="Test a data provider system's ability to consume a valid FHIR Death Record document."
                   route="test-fhir-consuming"
                 />
+                < DashboardItem
+                  icon = "cloud download"
+                  title = "Consuming FHIR Messages"
+                  description = "Test a data provider system's ability to consume a valid FHIR Message for a given FHIR Death Record document."
+                  route = "test-fhir-message-producing" /
+                  >
                 <DashboardItem
                   icon="sync"
                   title="Death Record Roundtrip (Consuming)"

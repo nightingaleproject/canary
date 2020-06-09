@@ -218,7 +218,7 @@ export class Record extends Component {
             </Transition>
           </div>
         )}
-        {!!this.props.record && !!this.props.record.xml && !!this.props.record.json && !!this.props.record.ije && (
+        {!!this.props.record && !!this.props.record.xml && !!this.props.record.json && (!!this.props.hideIje || !!this.props.record.ije) && (
           <React.Fragment>
             <Menu attached="top" pointing size="large">
               {!!!this.props.ijeOnly && (
