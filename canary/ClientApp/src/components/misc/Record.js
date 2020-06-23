@@ -209,7 +209,10 @@ export class Record extends Component {
               <div className="inherit-width">
                 <Message icon size="large" positive>
                   <Icon name="check circle" />
-                  <Message.Content>No issues were found!</Message.Content>
+                  {!!this.props.messageValidation && (
+                    <Message.Content>Valid {this.props.messageType} message found!</Message.Content>
+                  )}
+                  {!!!this.props.messageValidation && (<Message.Content>No issues were found!</Message.Content>)}
                 </Message>
               </div>
             </Transition>

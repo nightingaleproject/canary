@@ -141,6 +141,26 @@ namespace canary.Controllers
         }
 
         /// <summary>
+        /// Creates a new message using the contents provided. Returns the message and any validation issues.
+        /// POST /api/records/message/new
+        /// </summary>
+        [HttpPost("Records/Message/New")]
+        public async Task<(BaseMessage message, List<Dictionary<string, string>> issues)> NewMessagePost()
+        {
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+            List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
+
+            try {
+                return (message: BaseMessage.Parse(input, false), issues: entries);
+            }
+            catch (Exception e)
+            {
+
+                return (message: null, issues: Record.DecorateErrors(e));
+            }
+        }
+
+        /// <summary>
         /// Creates a new death record using the "description" contents provided. Returns the record.
         /// POST /api/records/description/new
         /// </summary>
