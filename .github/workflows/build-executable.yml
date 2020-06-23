@@ -1,0 +1,29 @@
+name: Build Self-Contained Windows Executable
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.201
+    - name: Setup Database
+      run: |
+        dotnet tool install --global dotnet-ef
+        dotnet ef database update --project canary
+    - name: Build self-contained Windows executable
+      run: dotnet publish canary -r win-x64 -c ExeRelease -p:PublishSingleFile=true --self-contained
+    - name: Copy database file to output directory
+      run: copy canary\canary.db canary\bin\exerelease\netcoreapp3.1\win-x64\publish
+    - name: Upload generated Windows executable
+      uses: actions/upload-artifact@master
+      with:
+        name: windows-x64
+        path: canary/bin/exerelease/netcoreapp3.1/win-x64/publish
