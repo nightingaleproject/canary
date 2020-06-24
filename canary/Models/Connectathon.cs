@@ -124,7 +124,7 @@ namespace canary.Models
             record.COD1B = "breast cancer";
             record.INTERVAL1B = "20 years";
 
-            record.ExaminerContacted = false;
+            record.ExaminerContacted = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } }; ;
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "38605008");
@@ -248,7 +248,7 @@ namespace canary.Models
 
             record.ContributingConditions = "hypertensive heart disease";
 
-            record.ExaminerContacted = true;
+            record.ExaminerContacted = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
@@ -392,7 +392,7 @@ namespace canary.Models
             record.COD1B = "Eclampsia";
             record.INTERVAL1B = "3 months";
 
-            record.ExaminerContacted = true;
+            record.ExaminerContacted = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "38605008");
@@ -531,7 +531,7 @@ namespace canary.Models
 
             record.INTERVAL1C = "unknown";
 
-            record.ExaminerContacted = true;
+            record.ExaminerContacted = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
@@ -665,7 +665,7 @@ namespace canary.Models
 
             record.INTERVAL1B = "unknown";
 
-            record.ExaminerContacted = true;
+            record.ExaminerContacted = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
