@@ -199,10 +199,19 @@ namespace canary.Models
 
             if (e.Message != null)
             {
-                foreach (string er in e.Message.Split(";"))
+                Exception baseException = e.GetBaseException();
+
+                foreach (string er in baseException.Message.Split(";"))
                 {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
-                    entry.Add("message", er.Replace("Parser:", "").Trim());
+                    // targetSite contains the information required to show the function class and function that
+                    // the error occurred in
+                    var targetSite = baseException.TargetSite;
+                    string erString = er.Trim();
+                    // Ensure the original error string always ends in a period.
+                    if (!erString.EndsWith('.')) erString += '.';
+                    string errorWithLocation = $"{erString} Error occurred at {targetSite.ReflectedType} in function {targetSite.Name}.";
+                    entry.Add("message", errorWithLocation.Replace("Parser:", "").Trim());
                     entry.Add("severity", "error");
                     entries.Add(entry);
                 }
