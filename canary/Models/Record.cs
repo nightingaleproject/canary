@@ -197,10 +197,10 @@ namespace canary.Models
         public static List<Dictionary<string, string>> DecorateErrors(Exception e) {
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
 
-            if (e.Message != null)
-            {
-                Exception baseException = e.GetBaseException();
+            Exception baseException = e.GetBaseException();
 
+            if (baseException.Message != null)
+            {
                 foreach (string er in baseException.Message.Split(";"))
                 {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
