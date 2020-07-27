@@ -18,7 +18,7 @@ namespace canary.Controllers
         /// POST /api/messages/new
         /// </summary>
         [HttpPost("Messages/New")]
-        public async Task<(BaseMessage message, List<Dictionary<string, string>> issues)> NewMessagePost()
+        public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessagePost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
@@ -32,7 +32,7 @@ namespace canary.Controllers
                 // One such error can be caused by removing the `<source>` endpoint from a Submission
                 // message and then trying to validate it.
                 JsonConvert.SerializeObject(message);
-                return (message: message, issues: new List<Dictionary<string, string>>());
+                return (message: new Message(message), issues: new List<Dictionary<string, string>>());
             }
             catch (Exception e)
             {

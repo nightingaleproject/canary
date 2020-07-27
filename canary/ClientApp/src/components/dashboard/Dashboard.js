@@ -38,7 +38,7 @@ export class Dashboard extends Component {
               <Divider horizontal className="p-t-30">
                 <Header as="h2">
                   <Icon name="clipboard list" />
-                  Testing
+                  Record Testing
                 </Header>
               </Divider>
               <Item.Group className="m-h-30">
@@ -54,12 +54,6 @@ export class Dashboard extends Component {
                   description="Test a data provider system's ability to consume a valid FHIR Death Record document."
                   route="test-fhir-consuming"
                 />
-                < DashboardItem
-                  icon = "cloud download"
-                  title = "Consuming FHIR Messages"
-                  description = "Test a data provider system's ability to consume a valid FHIR Message for a given FHIR Death Record document."
-                  route = "test-fhir-message-producing" /
-                  >
                 <DashboardItem
                   icon="sync"
                   title="Death Record Roundtrip (Consuming)"
@@ -79,10 +73,24 @@ export class Dashboard extends Component {
                   route="test-connectathon-dash"
                 />
               </Item.Group>
+              <Divider horizontal className="p-t-30">
+                <Header as="h2">
+                  <Icon name="inbox" />
+                  Message Testing
+                </Header>
+              </Divider>
+              <Item.Group className="m-h-30">
+                <DashboardItem
+                  icon = "cloud upload"
+                  title = "Producing FHIR Messages"
+                  description = "Test a data provider system's ability to produce a valid FHIR Message for a generated FHIR Death Record document."
+                  route = "test-fhir-message-producing"
+                />
+              </Item.Group>
               <Divider horizontal className="p-t-20">
                 <Header as="h2">
                   <Icon name="wrench" />
-                  Tools
+                  Record Tools
                 </Header>
               </Divider>
               <Item.Group className="m-h-30">
@@ -97,12 +105,6 @@ export class Dashboard extends Component {
                   title="Validate FHIR VRDR Records"
                   description="Check a given FHIR VRDR Record for syntax/structural issues."
                   route="tool-fhir-validator"
-                />
-                < DashboardItem
-                  icon = "envelope"
-                  title = "Validate FHIR VRDR Messages"
-                  description = "Check a given FHIR VRDR Message for syntax/structural issues."
-                  route = "tool-fhir-message-validator"
                 />
                 <DashboardItem
                   icon="random"
@@ -127,6 +129,26 @@ export class Dashboard extends Component {
                   title="IJE Mortality Record Inspector"
                   description="Inspect an IJE Mortality file and show details about the record and what it contains."
                   route="tool-ije-inspector"
+                />
+              </Item.Group>
+              <Divider horizontal className="p-t-20">
+                <Header as="h2">
+                  <Icon name="envelope open" />
+                  Message Tools
+                </Header>
+              </Divider>
+              <Item.Group className="m-h-30">
+                <DashboardItem
+                  icon="envelope"
+                  title="Validate FHIR VRDR Messages"
+                  description="Check a given FHIR VRDR Message for syntax/structural issues."
+                  route="tool-fhir-message-validator"
+                />
+                <DashboardItem
+                  icon="cloud download"
+                  title="Creating FHIR Messages"
+                  description="Create a valid FHIR Message for a user provided FHIR Death Record document."
+                  route="test-fhir-message-creation"
                 />
               </Item.Group>
             </Container>

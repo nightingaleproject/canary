@@ -5,8 +5,8 @@ import { toast } from 'react-semantic-toasts';
 import AceEditor from 'react-ace';
 import _ from 'lodash';
 
-import 'brace/theme/chrome';
-import 'brace/mode/text';
+import 'ace-builds/src-noconflict/mode-text'
+import 'ace-builds/src-noconflict/theme-chrome'
 
 export class Getter extends Component {
   displayName = Getter.name;

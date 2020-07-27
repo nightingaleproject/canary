@@ -103,7 +103,7 @@ export class FHIRConsuming extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/consume/run/' + this.state.test.testId, this.setEmptyToNull(this.state.fhirInfo))
+        .post(window.API_URL + '/tests/Consume/run/' + this.state.test.testId, this.setEmptyToNull(this.state.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);

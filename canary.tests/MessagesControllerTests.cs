@@ -29,7 +29,8 @@ namespace canary.tests
       var message = response.Result.message;
       var issues = response.Result.issues;
       Assert.Equal(issues, new List<Dictionary<string, string>>());
-      Assert.IsType<CodingResponseMessage>(message);
+      Assert.IsType<canary.Models.Message>(message);
+      Assert.IsType<CodingResponseMessage>(message.GetMessage());
     }
 
     [Fact]
@@ -46,7 +47,7 @@ namespace canary.tests
       var issues = response.Result.issues[0];
       Assert.Equal(2, issues.Count);
       Assert.Contains(new KeyValuePair<string, string>("severity", "error"), issues);
-      Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader"), issues);
+      Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function findEntry."), issues);
     }
 
     private string FixturePath(string filePath)

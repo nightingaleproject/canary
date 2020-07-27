@@ -28,7 +28,7 @@ export class DictionaryType extends Component {
     return (
       <React.Fragment>
         <Form.Field>
-          <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>
+          {!!!this.props.igurl && <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>}
           <h4>{this.props.description}</h4>
           {!!this.props.value &&
             Object.keys(this.props.value).map(name => {

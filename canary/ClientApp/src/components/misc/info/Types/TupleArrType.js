@@ -55,7 +55,7 @@ export class TupleArrType extends Component {
     return (
       <React.Fragment>
         <Form.Field>
-          <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>
+          {!!!this.props.igurl && <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>}
           <label>{this.props.description}</label>
           {this.state.value &&
             this.state.value.length > 0 &&

@@ -7,6 +7,7 @@ import { toast } from 'react-semantic-toasts';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Getter } from '../misc/Getter';
 import report from'../report';
+import { Issues } from '../misc/Issues';
 
 export class EDRSRoundtripConsuming extends Component {
   displayName = EDRSRoundtripConsuming.name;
@@ -79,7 +80,7 @@ export class EDRSRoundtripConsuming extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/roundtrip/consuming/run/' + this.state.test.testId, this.setEmptyToNull(this.state.ijeRecord.fhirInfo))
+        .post(window.API_URL + '/tests/RoundtripConsuming/run/' + this.state.test.testId, this.setEmptyToNull(this.state.ijeRecord.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -196,6 +197,7 @@ export class EDRSRoundtripConsuming extends Component {
                   </Header>
                   <div className="p-b-10" />
                   <Getter updateRecord={this.updateRecord} allowIje={true} ijeOnly={true} noFormat />
+                  <Issues issues={this.state.issues} />
                 </Container>
               </Grid.Row>
               <Grid.Row>

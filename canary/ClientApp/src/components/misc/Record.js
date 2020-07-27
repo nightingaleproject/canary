@@ -5,9 +5,11 @@ import { toast } from 'react-semantic-toasts';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import AceEditor from 'react-ace';
 
-import 'brace/mode/json';
-import 'brace/mode/xml';
-import 'brace/theme/chrome';
+import 'ace-builds/src-noconflict/mode-json'
+import 'ace-builds/src-noconflict/mode-xml'
+import 'ace-builds/src-noconflict/theme-chrome'
+
+import { Issues } from '../misc/Issues';
 
 export class Record extends Component {
   displayName = Record.name;
@@ -187,21 +189,8 @@ export class Record extends Component {
             <Button positive icon="send" labelPosition="left" content="Submit" onClick={this.postRecord} loading={this.state.sending} />
           </Modal.Actions>
         </Modal>
-        {!!this.props.issues && this.props.issues.length > 0 && !!this.props.showIssues && (
-          <div className="inherit-width p-b-50">
-            {this.props.issues.map(function(issue, index) {
-              return (
-                <Transition key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
-                  <div className="inherit-width p-b-10">
-                    <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'} warning={issue.severity.toLowerCase() === 'warning'}>
-                      <Icon name="exclamation triangle" />
-                      <Message.Content>{`${issue.message}`}</Message.Content>
-                    </Message>
-                  </div>
-                </Transition>
-              );
-            })}
-          </div>
+        {!!this.props.showIssues && (
+          <Issues issues={this.props.issues} />
         )}
         {!!this.props.issues && this.props.issues.length === 0 && !!this.props.showSuccess && (
           <div className="inherit-width">
@@ -260,9 +249,6 @@ export class Record extends Component {
                   width="100%"
                   readOnly={true}
                   maxLines={this.props.lines || Infinity}
-                  editorProps={{
-                    $blockScrolling: Infinity,
-                  }}
                 />
               )}
               {this.state.activeItem === 'JSON' && (
@@ -278,9 +264,6 @@ export class Record extends Component {
                   width="100%"
                   readOnly={true}
                   maxLines={this.props.lines || Infinity}
-                  editorProps={{
-                    $blockScrolling: Infinity,
-                  }}
                 />
               )}
               {this.state.activeItem === 'IJE' && (
@@ -296,9 +279,6 @@ export class Record extends Component {
                   readOnly={true}
                   maxLines={this.props.lines || Infinity}
                   tabSize={0}
-                  editorProps={{
-                    $blockScrolling: Infinity,
-                  }}
                 />
               )}
             </Segment>
