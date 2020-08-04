@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Form, Header, Input } from 'semantic-ui-react';
 import moment from 'moment';
+import React, { Component } from 'react';
 import { DateTimeInput } from 'semantic-ui-calendar-react';
+import { Form, Header, Input } from 'semantic-ui-react';
 
 moment.locale('en');
 

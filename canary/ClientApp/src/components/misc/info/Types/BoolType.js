@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Header } from 'semantic-ui-react';
+import { Button, Form, Header } from 'semantic-ui-react';
 
 export class BoolType extends Component {
   displayName = BoolType.name;

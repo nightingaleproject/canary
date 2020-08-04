@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Item, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Icon, Item } from 'semantic-ui-react';
 
 export class DashboardItem extends Component {
   displayName = DashboardItem.name;

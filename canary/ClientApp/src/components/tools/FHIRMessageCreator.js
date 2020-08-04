@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Icon, Button, Header, Container, Divider, Menu, Transition, Message } from 'semantic-ui-react';
-import { Record } from '../misc/Record';
-import { Getter } from '../misc/Getter';
-import { Grid, Breadcrumb } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-semantic-toasts';
+import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Menu, Message, Transition } from 'semantic-ui-react';
+import { Getter } from '../misc/Getter';
+import { Record } from '../misc/Record';
 
 const messageTypes = [
   { key: 'submission', name: 'Submission', icon: 'paper plane' },

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Menu, Segment, Modal, Form, Button, Popup, Message, Transition, Icon } from 'semantic-ui-react';
 import axios from 'axios';
+import React, { Component } from 'react';
+import AceEditor from 'react-ace';
 import { toast } from 'react-semantic-toasts';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
-import AceEditor from 'react-ace';
-
-import 'ace-builds/src-noconflict/mode-json'
-import 'ace-builds/src-noconflict/mode-xml'
-import 'ace-builds/src-noconflict/theme-chrome'
-
+import { Button, Form, Icon, Menu, Message, Modal, Popup, Segment, Transition } from 'semantic-ui-react';
 import { Issues } from '../misc/Issues';
+
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/mode-xml';
+import 'ace-builds/src-noconflict/theme-chrome';
+import 'ace-builds/webpack-resolver';
 
 export class Record extends Component {
   displayName = Record.name;

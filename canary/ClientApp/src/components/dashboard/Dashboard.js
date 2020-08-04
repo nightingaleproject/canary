@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Header, Divider, Icon, Item, Container, Grid, Segment } from 'semantic-ui-react';
-import { DashboardItem } from './DashboardItem';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component } from 'react';
+import { Container, Divider, Grid, Header, Icon, Item, Segment } from 'semantic-ui-react';
+import { DashboardItem } from './DashboardItem';
 
 export class Dashboard extends Component {
   displayName = Dashboard.name;

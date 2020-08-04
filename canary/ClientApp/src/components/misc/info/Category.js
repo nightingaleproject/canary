@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import { Divider, Header } from 'semantic-ui-react';
 import { Property } from './Property';
-import { Header, Divider } from 'semantic-ui-react';
 
 export class Category extends Component {
   displayName = Category.name;

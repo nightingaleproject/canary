@@ -1,15 +1,15 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { StringType } from './Types/StringType';
-import { StringDateTimeType } from './Types/StringDateTimeType';
-import { BoolType } from './Types/BoolType';
-import { DictionaryType } from './Types/DictionaryType';
-import { StringArrType } from './Types/StringArrType';
-import { TupleCODType } from './Types/TupleCODType';
-import { TupleArrType } from './Types/TupleArrType';
-import { DeathRecordType } from './Types/DeathRecordType';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { Snippet } from './Snippet';
-import _ from 'lodash';
+import { BoolType } from './Types/BoolType';
+import { DeathRecordType } from './Types/DeathRecordType';
+import { DictionaryType } from './Types/DictionaryType';
+import { StringArrType } from './Types/StringArrType';
+import { StringDateTimeType } from './Types/StringDateTimeType';
+import { StringType } from './Types/StringType';
+import { TupleArrType } from './Types/TupleArrType';
+import { TupleCODType } from './Types/TupleCODType';
 
 export class Property extends Component {
   displayName = Property.name;
@@ -183,7 +183,7 @@ export class Property extends Component {
 
   render() {
     if (!!!this.props.editable) {
-      if (this.props.property.Type !== "Bool" && this.props.property.Type != "DeathRecord") {
+      if (this.props.property.Type !== "Bool" && this.props.property.Type !== "DeathRecord") {
         if (!!!this.props.property.Value ||
             (Array.isArray(this.props.property.Value) && this.props.property.Value !== null && this.props.property.Value.length === 0) ||
             (typeof this.props.property.Value === 'object' && !Array.isArray(this.props.property.Value) && this.props.property.Value !== null && _.compact(_.values(_.mapValues(this.props.property.Value, 'Value'))).length === 0 ))

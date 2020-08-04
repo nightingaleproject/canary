@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Accordion, Form, Input, Header } from 'semantic-ui-react';
+import { Accordion } from 'semantic-ui-react';
 import { Snippet } from '../Snippet';
 
 export class DeathRecordType extends Component {

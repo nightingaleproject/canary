@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Divider, Icon, Item, Container, Grid } from 'semantic-ui-react';
+import { Container, Divider, Grid, Header, Icon, Item } from 'semantic-ui-react';
 import { DashboardItem } from './DashboardItem';
 
 export class ConnectathonDashboard extends Component {

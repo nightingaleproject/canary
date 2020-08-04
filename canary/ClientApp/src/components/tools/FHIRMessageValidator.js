@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Getter } from '../misc/Getter';
-import { messageTypes } from '../../data';
-import { Grid, Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Breadcrumb, Grid } from 'semantic-ui-react';
+import { messageTypes } from '../../data';
+import { Getter } from '../misc/Getter';
+import { Record } from '../misc/Record';
 
 export class FHIRMessageValidator extends Component {
   displayName = FHIRMessageValidator.name;

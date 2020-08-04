@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Menu, Dropdown } from 'semantic-ui-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Dropdown, Menu } from 'semantic-ui-react';
 
 export class Navigation extends Component {
   displayName = Navigation.name;

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Icon, Message, Transition } from 'semantic-ui-react';
+
 export class Issues extends Component {
   displayName = Issues.name;
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

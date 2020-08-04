@@ -1,28 +1,13 @@
-import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import {
-  Grid,
-  Breadcrumb,
-  Dimmer,
-  Loader,
-  Container,
-  Form,
-  Divider,
-  Header,
-  Icon,
-  Button,
-  Statistic,
-  Menu,
-  Message,
-  Transition
-} from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-semantic-toasts';
-import { FHIRInfo } from '../misc/info/FHIRInfo';
-import { Getter } from '../misc/Getter';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
 import { messageTypeIcons, messageTypes } from '../../data';
-import report from'../report';
+import { Getter } from '../misc/Getter';
+import { FHIRInfo } from '../misc/info/FHIRInfo';
+import { Record } from '../misc/Record';
+import report from '../report';
 
 export class FHIRMessageProducing extends Component {
   displayName = FHIRMessageProducing.name;

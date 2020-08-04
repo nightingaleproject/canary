@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Segment, Container, Icon, Button, Label, Form, Dimmer, Loader, Header } from 'semantic-ui-react';
 import axios from 'axios';
-import { toast } from 'react-semantic-toasts';
-import AceEditor from 'react-ace';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import AceEditor from 'react-ace';
+import { toast } from 'react-semantic-toasts';
+import { Button, Container, Dimmer, Form, Header, Icon, Label, Loader, Segment } from 'semantic-ui-react';
 
-import 'ace-builds/src-noconflict/mode-text'
-import 'ace-builds/src-noconflict/theme-chrome'
+import 'ace-builds/src-noconflict/mode-text';
+import 'ace-builds/src-noconflict/theme-chrome';
 
 export class Getter extends Component {
   displayName = Getter.name;

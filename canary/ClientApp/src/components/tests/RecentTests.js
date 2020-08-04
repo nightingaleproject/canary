@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Table, Dimmer, Loader } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-semantic-toasts';
+import { Dimmer, Loader, Table } from 'semantic-ui-react';
 
 export class RecentTests extends Component {
   displayName = RecentTests.name;

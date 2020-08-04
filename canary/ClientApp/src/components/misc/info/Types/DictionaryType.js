@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Form, Input, Header } from 'semantic-ui-react';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import { Form, Header, Input } from 'semantic-ui-react';
 
 export class DictionaryType extends Component {
   displayName = DictionaryType.name;

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Getter } from '../misc/Getter';
-import { Grid, Breadcrumb, Dimmer, Loader, Container, Form, Divider, Header, Icon, Button, Statistic } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-semantic-toasts';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
-import report from'../report';
+import { Record } from '../misc/Record';
+import report from '../report';
 
 export class Connectathon extends Component {
   displayName = Connectathon.name;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Header } from 'semantic-ui-react';
+import { Button, Form, Header, Input } from 'semantic-ui-react';
 
 export class TupleArrType extends Component {
   displayName = TupleArrType.name;

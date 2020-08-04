@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Grid, Breadcrumb, Dimmer, Loader, Container, Form, Divider, Header, Icon, Button, Statistic } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-semantic-toasts';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-semantic-toasts';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
-import report from'../report';
+import { Record } from '../misc/Record';
+import report from '../report';
 
 export class FHIRConsuming extends Component {
   displayName = FHIRConsuming.name;

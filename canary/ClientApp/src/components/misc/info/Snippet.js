@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import AceEditor from 'react-ace';
 import { Accordion, Icon } from 'semantic-ui-react';
-import AceEditor, { diff as DiffEditor } from 'react-ace';
 
-import 'ace-builds/src-noconflict/mode-json'
-import 'ace-builds/src-noconflict/mode-xml'
-import 'ace-builds/src-noconflict/theme-chrome'
-import "ace-builds/src-noconflict/theme-github";
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/mode-xml';
+import 'ace-builds/src-noconflict/theme-chrome';
 
 export class Snippet extends Component {
   displayName = Snippet.name;

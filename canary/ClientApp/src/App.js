@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
-import { Layout } from './components/Layout';
+import { ConnectathonDashboard } from './components/dashboard/ConnectathonDashboard';
 import { Dashboard } from './components/dashboard/Dashboard';
-import { RecentTests } from './components/tests/RecentTests';
-import { FHIRConsuming } from './components/tests/FHIRConsuming';
-import { FHIRProducing } from './components/tests/FHIRProducing';
-import { FHIRMessageProducing } from './components/tests/FHIRMessageProducing';
-import { FHIRMessageCreator } from './components/tools/FHIRMessageCreator';
+import { Layout } from './components/Layout';
+import { Connectathon } from './components/tests/Connectathon';
 import { EDRSRoundtripConsuming } from './components/tests/EDRSRoundtripConsuming';
 import { EDRSRoundtripProducing } from './components/tests/EDRSRoundtripProducing';
+import { FHIRConsuming } from './components/tests/FHIRConsuming';
+import { FHIRMessageProducing } from './components/tests/FHIRMessageProducing';
+import { FHIRProducing } from './components/tests/FHIRProducing';
+import { RecentTests } from './components/tests/RecentTests';
 import { FHIRCreator } from './components/tools/FHIRCreator';
 import { FHIRInspector } from './components/tools/FHIRInspector';
-import { FHIRValidator } from './components/tools/FHIRValidator';
+import { FHIRMessageCreator } from './components/tools/FHIRMessageCreator';
 import { FHIRMessageValidator } from './components/tools/FHIRMessageValidator';
+import { FHIRValidator } from './components/tools/FHIRValidator';
 import { IJEInspector } from './components/tools/IJEInspector';
 import { RecordConverter } from './components/tools/RecordConverter';
 import { RecordGenerator } from './components/tools/RecordGenerator';
-import { ConnectathonDashboard } from './components/dashboard/ConnectathonDashboard';
-import { Connectathon } from './components/tests/Connectathon';
 
 export default class App extends Component {
   displayName = App.name;

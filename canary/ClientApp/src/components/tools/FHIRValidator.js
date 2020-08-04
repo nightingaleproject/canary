@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Getter } from '../misc/Getter';
-import { Grid, Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Breadcrumb, Grid } from 'semantic-ui-react';
+import { Getter } from '../misc/Getter';
+import { Record } from '../misc/Record';
 
 export class FHIRValidator extends Component {
   displayName = FHIRValidator.name;
