@@ -2,8 +2,8 @@ import axios from 'axios';
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-semantic-toasts';
 import { Breadcrumb, Button, Container, Form, Grid, Icon } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
 
@@ -27,13 +27,7 @@ export class FHIRCreator extends Component {
       })
       .catch(function(error) {
         self.setState({ loading: false }, () => {
-          toast({
-            type: 'error',
-            icon: 'exclamation circle',
-            title: 'Error!',
-            description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-            time: 5000,
-          });
+          connectionErrorToast(error);
         });
       });
   }
@@ -61,13 +55,7 @@ export class FHIRCreator extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });

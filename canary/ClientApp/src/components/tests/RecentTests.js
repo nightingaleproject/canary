@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-semantic-toasts';
 import { Dimmer, Loader, Table } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 
 export class RecentTests extends Component {
   displayName = RecentTests.name;
@@ -22,13 +22,7 @@ export class RecentTests extends Component {
       })
       .catch(function(error) {
         self.setState({ loading: false }, () => {
-          toast({
-            type: 'error',
-            icon: 'exclamation circle',
-            title: 'Error!',
-            description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-            time: 5000,
-          });
+          connectionErrorToast(error);
         });
       });
   }

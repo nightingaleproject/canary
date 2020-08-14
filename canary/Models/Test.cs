@@ -135,7 +135,10 @@ namespace canary.Models
                 }
                 else
                 {
-                    if (property.GetValue(referenceBundle).Equals(property.GetValue(bundle)))
+                    // Using == here seems to be checking ReferenceEquals and not Equals, causing the equality to return false.
+                    // Calling Prop1.Equals(Prop2) here raises an error if the value is null in the ReferenceBundle.
+                    // The best option here is to just use the object.Equals operator.
+                    if (Equals(property.GetValue(referenceBundle), property.GetValue(bundle)))
                     {
                         Correct += 1;
                         category[property.Name]["Match"] = "true";

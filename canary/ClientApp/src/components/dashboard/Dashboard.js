@@ -1,4 +1,4 @@
-import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFeatherAlt, faMailBulk } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 import { Container, Divider, Grid, Header, Icon, Item, Segment } from 'semantic-ui-react';
@@ -70,7 +70,7 @@ export class Dashboard extends Component {
                   icon="tasks"
                   title="Connectathon FHIR Death Records (Producing)"
                   description="Test a data provider system's ability to produce pre-defined records as tested at Connectathons."
-                  route="test-connectathon-dash"
+                  route="test-connectathon-dash/records"
                 />
               </Item.Group>
               <Divider horizontal className="p-t-30">
@@ -81,10 +81,16 @@ export class Dashboard extends Component {
               </Divider>
               <Item.Group className="m-h-30">
                 <DashboardItem
-                  icon = "cloud upload"
-                  title = "Producing FHIR Messages"
-                  description = "Test a data provider system's ability to produce a valid FHIR Message for a generated FHIR Death Record document."
-                  route = "test-fhir-message-producing"
+                  icon="cloud upload"
+                  title="Producing FHIR Messages"
+                  description="Test a data provider system's ability to produce a valid FHIR Message for a generated FHIR Death Record document."
+                  route="test-fhir-message-producing"
+                />
+                <DashboardItem
+                  faIcon={faMailBulk}
+                  title="Connectathon FHIR Messages (Producing)"
+                  description="Test a data provider system's ability to produce pre-defined FHIR Messages as tested at Connectathons."
+                  route="test-connectathon-dash/message"
                 />
               </Item.Group>
               <Divider horizontal className="p-t-20">

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-semantic-toasts';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Issues } from '../misc/Issues';
@@ -32,13 +32,7 @@ export class EDRSRoundtripConsuming extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     } else {
@@ -49,13 +43,7 @@ export class EDRSRoundtripConsuming extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     }
@@ -88,13 +76,7 @@ export class EDRSRoundtripConsuming extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false, running: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import { toast } from 'react-semantic-toasts';
 import { Button, Container, Dimmer, Form, Header, Icon, Label, Loader, Segment } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 
 import 'ace-builds/src-noconflict/mode-text';
 import 'ace-builds/src-noconflict/theme-chrome';
@@ -105,13 +106,7 @@ export class Getter extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error sending the record to Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });
@@ -167,13 +162,7 @@ export class Getter extends Component {
       })
       .catch(function(error) {
         self.setState({ loading: false }, () => {
-          toast({
-            type: 'error',
-            icon: 'exclamation circle',
-            title: 'Error!',
-            description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-            time: 5000,
-          });
+          connectionErrorToast(error);
         });
       });
   }

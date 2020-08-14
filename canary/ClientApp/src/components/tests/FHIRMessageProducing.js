@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-semantic-toasts';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
 import { messageTypeIcons, messageTypes } from '../../data';
+import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
@@ -35,13 +35,7 @@ export class FHIRMessageProducing extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     } else {
@@ -52,13 +46,7 @@ export class FHIRMessageProducing extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     }
@@ -111,13 +99,7 @@ export class FHIRMessageProducing extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false, running: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });
@@ -220,7 +202,7 @@ export class FHIRMessageProducing extends Component {
                 </Container>
               </Grid.Row>
             <Grid.Row>
-              {!!this.state.expectedType && (
+              {!!this.state.expectedType &&
                 <div className="inherit-width">
                   <Transition transitionOnMount animation="fade" duration={1000}>
                     <div className="inherit-width">
@@ -231,7 +213,7 @@ export class FHIRMessageProducing extends Component {
                     </div>
                   </Transition>
                 </div>
-              )}
+              }
             </Grid.Row>
             {!!this.state.expectedType &&
               <React.Fragment>
@@ -252,11 +234,11 @@ export class FHIRMessageProducing extends Component {
                   </Container>
                 </Grid.Row>
                 <div className="p-b-15" />
-                {!!this.state.issues && (
+                {!!this.state.issues &&
                   <Grid.Row>
                     <Record record={null} issues={this.state.issues} messageType={this.state.actualType} messageValidation={true} showIssues showSuccess />
                   </Grid.Row>
-                )}
+                }
                 <Grid.Row>
                   <Container fluid>
                     <Divider horizontal />

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-semantic-toasts';
 import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Menu, Message, Transition } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { Record } from '../misc/Record';
 
@@ -24,6 +24,13 @@ export class FHIRMessageCreator extends Component {
     this.setActiveMessageType = this.setActiveMessageType.bind(this);
   }
 
+  componentDidMount() {
+    document.getElementById('scroll-to').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+
   runTest() {
     var self = this;
     this.setState({ running: true }, () => {
@@ -40,13 +47,7 @@ export class FHIRMessageCreator extends Component {
             self.setState({
               running: false
             }, () => {
-              toast({
-                type: 'error',
-                icon: 'exclamation circle',
-                title: 'Error!',
-                description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-                time: 5000,
-              });
+              connectionErrorToast(error);
             });
           });
     });
@@ -63,7 +64,7 @@ export class FHIRMessageCreator extends Component {
   render() {
     return (
       <React.Fragment>
-        <Grid>
+        <Grid id="scroll-to">
           <Grid.Row>
             <Breadcrumb>
               <Breadcrumb.Section as={Link} to="/">

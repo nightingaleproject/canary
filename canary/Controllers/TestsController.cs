@@ -53,37 +53,19 @@ namespace canary.Controllers
         }
 
         /// <summary>
-        /// Gets a pre-defined connectathon test by id.
-        /// GET /api/tests/connectathon/1
+        /// Gets a pre-defined connectathon test by id with an optional state
+        /// parameter which sets the placeOfDeath to the provided state.
+        /// GET /api/tests/connectathon/1 or /api/tests/connectathon/1/AK
         /// </summary>
-        [HttpGet("Tests/Connectathon/{id:int}")]
-        public Test GetTestConnectathon(int id)
+        [HttpGet("Tests/Connectathon/{id:int}/{state?}")]
+        public Test GetTestConnectathon(int id, string state)
         {
             using (var db = new RecordContext())
             {
-                Test test = new Test(Connectathon.FromId(id));
+                Test test = new Test(Connectathon.FromId(id, state));
                 db.Tests.Add(test);
                 db.SaveChanges();
                 return test;
-            }
-        }
-
-        /// <summary>
-        /// Perform a connectathon test by id.
-        /// POST /api/tests/connectathon/1
-        /// </summary>
-        [HttpPost("Tests/Connectathon/{id:int}")]
-        public async Task<int> PerformTestConnectathon(int id)
-        {
-            using (var db = new RecordContext())
-            {
-                Test test = new Test(Connectathon.FromId(id));
-                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
-                if (!String.IsNullOrEmpty(input))
-                {
-                    test = test.Run(new DeathRecord(input));
-                }
-                return test.Incorrect;
             }
         }
 

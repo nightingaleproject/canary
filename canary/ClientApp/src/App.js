@@ -16,6 +16,7 @@ import { FHIRMessageCreator } from './components/tools/FHIRMessageCreator';
 import { FHIRMessageValidator } from './components/tools/FHIRMessageValidator';
 import { FHIRValidator } from './components/tools/FHIRValidator';
 import { IJEInspector } from './components/tools/IJEInspector';
+import { MessageConnectathonProducing } from './components/tests/MessageConnectathonProducing';
 import { RecordConverter } from './components/tools/RecordConverter';
 import { RecordGenerator } from './components/tools/RecordGenerator';
 
@@ -34,8 +35,9 @@ export default class App extends Component {
           <Route path="/test-fhir-message-creation/:id?" component={FHIRMessageCreator} />
           <Route path="/test-edrs-roundtrip-consuming/:id?" component={EDRSRoundtripConsuming} />
           <Route path="/test-edrs-roundtrip-producing/:id?" component={EDRSRoundtripProducing} />
-          <Route path="/test-connectathon-dash" component={ConnectathonDashboard} />
+          <Route path="/test-connectathon-dash/:type" component={ConnectathonDashboard} />
           <Route path="/test-connectathon/:id" component={Connectathon} />
+          <Route path="/test-connectathon-messaging/:id" component={MessageConnectathonProducing} />
           <Route path="/tool-fhir-inspector" component={FHIRInspector} />
           <Route path="/tool-fhir-creator" component={FHIRCreator} />
           <Route path="/tool-fhir-validator" component={FHIRValidator} />
