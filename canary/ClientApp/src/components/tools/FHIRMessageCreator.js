@@ -5,13 +5,7 @@ import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Menu, Messa
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { Record } from '../misc/Record';
-
-const messageTypes = [
-  { key: 'submission', name: 'Submission', icon: 'paper plane' },
-  // { key: 'acknowledgement', name: 'Acknowledgement', icon: 'thumbs up' },
-  { key: 'update', name: 'Update', icon: 'redo' },
-  { key: 'void', name: 'Void', icon: 'ban' },
-];
+import { messageTypeIcons } from '../../data';
 
 export class FHIRMessageCreator extends Component {
   displayName = FHIRMessageCreator.name;
@@ -84,7 +78,7 @@ export class FHIRMessageCreator extends Component {
                   <Header.Subheader>Select the type of message you would like Canary to generate.</Header.Subheader>
                 </Header.Content>
               </Header>
-              <Menu items={messageTypes} widths={messageTypes.length} onItemClick={this.setActiveMessageType} />
+              <Menu items={messageTypeIcons} widths={messageTypeIcons.length} onItemClick={this.setActiveMessageType} />
             </Container>
           </Grid.Row>
           <Grid.Row>
