@@ -52,15 +52,15 @@ namespace canary.Models
             {
                 case "Submission": case "http://nchs.cdc.gov/vrdr_submission":
                     message = new DeathRecordSubmission(dr);
-                    message.MessageSource = "https://example.com/juristdiction/message/endpoint";
+                    message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
                     break;
                 case "Update": case "http://nchs.cdc.gov/vrdr_submission_update":
                     message = new DeathRecordUpdate(dr);
-                    message.MessageSource = "https://example.com/juristdiction/message/endpoint";
+                    message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
                     break;
                 case "Void": case "http://nchs.cdc.gov/vrdr_submission_void":
                     message = new VoidMessage(dr);
-                    message.MessageSource = "https://example.com/juristdiction/message/endpoint";
+                    message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
                     break;
                 default:
                     throw new ArgumentException($"The given message type {type} is not valid.", "type");
