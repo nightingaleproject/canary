@@ -110,7 +110,7 @@ namespace canary.Models
             record.Residence = residence;
 
             // Residence Within City Limits
-            record.ResidenceWithinCityLimits = true;
+            record.ResidenceWithinCityLimitsBoolean = true;
 
             // Place of birth
 
@@ -188,7 +188,7 @@ namespace canary.Models
             }
             else
             {
-                record.Race = new Tuple<string, string>[]{ Tuple.Create("White", "2106-3") };
+                record.Race = new Tuple<string, string>[] { Tuple.Create("White", "2106-3") };
             }
 
             // Education level
@@ -286,7 +286,11 @@ namespace canary.Models
             record.MorticianFamilyName = faker.Name.LastName();
             record.MorticianGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
             record.MorticianSuffix = faker.Name.Suffix();
-            record.MorticianIdentifier = Convert.ToString(faker.Random.Number(999999));
+
+            Dictionary<string, string> morticianIdentifier = new Dictionary<string, string>();
+            morticianIdentifier.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianIdentifier.Add("value", Convert.ToString(faker.Random.Number(999999)));
+            record.MorticianIdentifier = morticianIdentifier;
 
             // Basic Certifier information
 
@@ -323,7 +327,12 @@ namespace canary.Models
             interestedPartyAddress.Add("addressState", stateName);
             interestedPartyAddress.Add("addressCountry", "United States");
             record.InterestedPartyAddress = interestedPartyAddress;
-            record.InterestedPartyIdentifier = Convert.ToString(faker.Random.Number(999999));
+
+            Dictionary<string, string> ipId = new Dictionary<string, string>();
+            ipId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            ipId.Add("value", Convert.ToString(faker.Random.Number(999999)));
+            record.InterestedPartyIdentifier = ipId;
+
             record.InterestedPartyType = new Dictionary<string, string>() { { "code", "prov" }, { "system", "http://terminology.hl7.org/CodeSystem/organization-type" }, { "display", "Healthcare Provider" } };
 
             if (type == "Natural")
@@ -351,8 +360,8 @@ namespace canary.Models
                     record.CausesOfDeath = causes;
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
-                    record.ExaminerContacted = false;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } }; ;
+                    record.ExaminerContactedBoolean = false;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
                 }
@@ -368,8 +377,8 @@ namespace canary.Models
                     record.ContributingConditions = "Carcinoma of cecum, Congestive heart failure";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
-                    record.ExaminerContacted = false;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } }; ;
+                    record.ExaminerContactedBoolean = false;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
                 }
@@ -386,8 +395,8 @@ namespace canary.Models
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Obesity, Hypertension, Congestive heart failure";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
-                    record.ExaminerContacted = false;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } }; ;
+                    record.ExaminerContactedBoolean = false;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "http://snomed.info/sct" }, { "display", "Yes" } };
                 }
@@ -404,8 +413,8 @@ namespace canary.Models
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Cigarette smoking, Hypertension, Hypercholesterolemia, Coronary bypass surgery";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };;
-                    record.ExaminerContacted = true;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "http://snomed.info/sct" }, { "display", "Yes" } };
                 }
@@ -426,8 +435,8 @@ namespace canary.Models
                     record.ContributingConditions = "Terminal gastric adenocarcinoma, depression";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };;
-                    record.ExaminerContacted = true;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "http://hl7.org/fhir/v3/NullFlavor" }, { "display", "unknown" } };
 
@@ -464,7 +473,7 @@ namespace canary.Models
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
                     record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
-                    record.ExaminerContacted = true;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
@@ -500,7 +509,7 @@ namespace canary.Models
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
                     record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.ExaminerContacted = true;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
