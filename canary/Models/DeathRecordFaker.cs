@@ -46,9 +46,6 @@ namespace canary.Models
             // Was married?
             bool wasMarried = faker.Random.Bool();
 
-            // Full state name for reference
-            string stateName = dataHelper.StateCodeToStateName(state);
-
             record.Identifier = Convert.ToString(faker.Random.Number(999999));
             record.BundleIdentifier = Convert.ToString(faker.Random.Number(999999));
             DateTime date = faker.Date.Recent();
@@ -105,7 +102,7 @@ namespace canary.Models
             residence.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             residence.Add("addressCity", residencePlace.City);
             residence.Add("addressCounty", residencePlace.County);
-            residence.Add("addressState", stateName);
+            residence.Add("addressState", state);
             residence.Add("addressCountry", "United States");
             record.Residence = residence;
 
@@ -118,7 +115,7 @@ namespace canary.Models
             PlaceCode placeOfBirthPlace = dataHelper.StateCodeToRandomPlace(state);
             placeOfBirth.Add("addressCity", placeOfBirthPlace.City);
             placeOfBirth.Add("addressCounty", placeOfBirthPlace.County);
-            placeOfBirth.Add("addressState", stateName);
+            placeOfBirth.Add("addressState", state);
             placeOfBirth.Add("addressCountry", "United States");
             record.PlaceOfBirth = placeOfBirth;
 
@@ -131,7 +128,7 @@ namespace canary.Models
             placeOfDeath.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             placeOfDeath.Add("addressCity", placeOfDeathPlace.City);
             placeOfDeath.Add("addressCounty", placeOfDeathPlace.County);
-            placeOfDeath.Add("addressState", stateName);
+            placeOfDeath.Add("addressState", state);
             placeOfDeath.Add("addressCountry", "United States");
             record.DeathLocationAddress = placeOfDeath;
 
@@ -248,7 +245,7 @@ namespace canary.Models
             fha.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             fha.Add("addressCity", fhaPlace.City);
             fha.Add("addressCounty", fhaPlace.County);
-            fha.Add("addressState", stateName);
+            fha.Add("addressState", state);
             fha.Add("addressCountry", "United States");
             record.FuneralHomeAddress = fha;
 
@@ -262,7 +259,7 @@ namespace canary.Models
             PlaceCode dispLocPlace = dataHelper.StateCodeToRandomPlace(state);
             dispLoc.Add("addressCity", dispLocPlace.City);
             dispLoc.Add("addressCounty", dispLocPlace.County);
-            dispLoc.Add("addressState", stateName);
+            dispLoc.Add("addressState", state);
             dispLoc.Add("addressCountry", "United States");
             record.DispositionLocationAddress = dispLoc;
 
@@ -303,7 +300,7 @@ namespace canary.Models
             certifierAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             certifierAddress.Add("addressCity", certifierAddressPlace.City);
             certifierAddress.Add("addressCounty", certifierAddressPlace.County);
-            certifierAddress.Add("addressState", stateName);
+            certifierAddress.Add("addressState", state);
             certifierAddress.Add("addressCountry", "United States");
             record.CertifierAddress = certifierAddress;
 
@@ -324,7 +321,7 @@ namespace canary.Models
             interestedPartyAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             interestedPartyAddress.Add("addressCity", interestedPartyAddressPlace.City);
             interestedPartyAddress.Add("addressCounty", interestedPartyAddressPlace.County);
-            interestedPartyAddress.Add("addressState", stateName);
+            interestedPartyAddress.Add("addressState", state);
             interestedPartyAddress.Add("addressCountry", "United States");
             record.InterestedPartyAddress = interestedPartyAddress;
 
@@ -455,7 +452,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
                     detailsOfInjuryAddr.Add("addressCity", residencePlace.City);
                     detailsOfInjuryAddr.Add("addressCounty", residencePlace.County);
-                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
 
@@ -493,7 +490,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
                     detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
                     detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
-                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
                 }
@@ -529,7 +526,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
                     detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
                     detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
-                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
                 }
