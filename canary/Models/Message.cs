@@ -23,6 +23,8 @@ namespace canary.Models
             { "StateAuxiliaryIdentifier", "Auxiliary State File Number (DeathRecord BundleIdentifier)" },
             { "NCHSIdentifier", "The NCHS compound identifier for the supplied DeathRecord" },
             { "DeathRecord", "A VRDR Death Record Object" },
+            { "DeathYear", "The year in which the death occurred" },
+            { "DeathJurisdictionID", "Two character identifier of the jurisdiction in which the death occurred" },
         };
 
         private static String[] validateForPresence = new String[] {
