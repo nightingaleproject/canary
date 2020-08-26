@@ -59,6 +59,12 @@ dotnet run --project canary
 
 After you execute the `dotnet run` command, the application will be accessible from a web browser at [http://localhost:5000](http://localhost:5000).
 
+### Publishing a Version
+
+The primary method of deploying Canary is to DockerHub. Whenever a commit is merged into master, DockerHub will automatically build that commit and tag it as `latest` on DockerHub so any user that runs `docker pull mitre/canary:latest` will receive a copy of the image. 
+
+Whenever a tag is created on Canary of the form `vX.Y.Z`, Dockerhub will automatically build that git tag and and tag it as `X.Y.Z` on DockerHub. This means any user who runs `docker pull mitre/canary:X.Y.Z` will receive a copy of the application at version `X.Y.Z`.
+
 ### License
 
 Copyright 2017, 2018, 2019, 2020 The MITRE Corporation
