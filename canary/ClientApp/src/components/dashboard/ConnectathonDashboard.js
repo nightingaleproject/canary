@@ -6,7 +6,7 @@ export class ConnectathonDashboard extends Component {
   displayName = ConnectathonDashboard.name;
 
   getUrl(id) {
-    if(this.props.match.params.type == "message")
+    if(this.props.match.params.type === "message")
     {
       return `/test-connectathon-messaging/${id}`
     }
