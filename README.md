@@ -17,6 +17,8 @@ Canary can test a data providers ability to:
 - Roundtrip: Convert between FHIR (Consuming) and the IJE Mortality format (Producing)
 - Roundtrip: Convert between the IJE Mortality format (Consuming) and FHIR (Producing)
 - Produce predefined FHIR Death Records as tested at Connectathons
+- Produce FHIR Messages
+- Produce predefined FHIR Messages as tested at Connectathons
 
 Canary also includes the following utilities:
 - Generate Synthetic Death Records
@@ -25,6 +27,8 @@ Canary also includes the following utilities:
 - FHIR Death Record Inspector
 - FHIR Death Record Creator
 - IJE Mortality Record Inspector
+- Validate FHIR Messages
+- Create FHIR Messages
 
 ### Background
 
@@ -32,13 +36,23 @@ Mortality data is collected, analyzed, and shared by jurisdictions across the Un
 
 ### Running
 
-A [Dockerized](https://www.docker.com/get-started) version of Canary has been published to Docker Hub, so running Canary is as easy as:
+A [Dockerized](https://www.docker.com/get-started) version of Canary has been published to Docker Hub. To make sure you have the most recent version of Canary:
+
+```
+docker pull mitre/canary
+```
+
+Running Canary is as easy as:
 
 ```
 docker run --rm -p 8080:80 mitre/canary
 ```
 
-This command will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from DockerHub [here](https://hub.docker.com/r/mitre/canary/tags).
+These commands will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from DockerHub [here](https://hub.docker.com/r/mitre/canary/tags). For example:
+
+```
+docker run --rm -p 8080:80 mitre/canary:3.0.0-RC1
+```
 
 If you want to build a Dockerized Canary from scratch (from source), you can do so by running (inside the project root directory):
 
