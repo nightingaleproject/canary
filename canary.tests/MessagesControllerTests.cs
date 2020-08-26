@@ -47,7 +47,7 @@ namespace canary.tests
       var issues = response.Result.issues[0];
       Assert.Equal(2, issues.Count);
       Assert.Contains(new KeyValuePair<string, string>("severity", "error"), issues);
-      Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function findEntry."), issues);
+      Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function Parse."), issues);
     }
 
     private string FixturePath(string filePath)
