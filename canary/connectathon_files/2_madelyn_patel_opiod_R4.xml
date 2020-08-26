@@ -1,19 +1,19 @@
 <Bundle xmlns="http://hl7.org/fhir">
-    <id value="21278eef-1d5c-46c6-945e-c3af4c37b7ab" />
+    <id value="fe26fc2f-9cff-471f-b6df-99137197d43a" />
     <meta>
         <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Death-Certificate-Document" />
     </meta>
     <identifier>
         <system value="http://nchs.cdc.gov/vrdr_id" />
-        <value value="2019000213" />
+        <value value="2019XX222225" />
     </identifier>
     <type value="document" />
-    <timestamp value="2020-08-25T03:48:43.380202-04:00" />
+    <timestamp value="2020-08-26T11:01:20.167165-04:00" />
     <entry>
-        <fullUrl value="urn:uuid:7f9e048a-a8d9-4b44-afce-039111467889" />
+        <fullUrl value="urn:uuid:13405cb2-f16b-4fa5-9f12-2863c230b1eb" />
         <resource>
             <Composition>
-                <id value="7f9e048a-a8d9-4b44-afce-039111467889" />
+                <id value="13405cb2-f16b-4fa5-9f12-2863c230b1eb" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Death-Certificate" />
                 </meta>
@@ -26,18 +26,18 @@
                     </coding>
                 </type>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <date value="2019-11-06" />
                 <author>
-                    <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                    <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                 </author>
                 <title value="Death Certificate" />
                 <attester>
                     <mode value="legal" />
                     <time value="2019-11-05" />
                     <party>
-                        <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                        <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                     </party>
                 </attester>
                 <event>
@@ -49,100 +49,103 @@
                         </coding>
                     </code>
                     <detail>
-                        <reference value="urn:uuid:d16fcfd8-b775-4116-a72e-ebd6d5ee2a2e" />
+                        <reference value="urn:uuid:aaa33f8d-01c4-4648-96e1-3cdb68a7afd1" />
                     </detail>
                 </event>
                 <section>
                     <entry>
-                        <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                        <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                        <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:d6db1305-25ad-47bf-b576-ee815f13fa47" />
+                        <reference value="urn:uuid:79be2862-3b8f-4824-aec5-ac83b6ecd1e5" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:ae4274a1-c4ce-448a-83ec-704e44106475" />
+                        <reference value="urn:uuid:55bcec9d-dc38-404a-ab78-1751fe189221" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:d16fcfd8-b775-4116-a72e-ebd6d5ee2a2e" />
+                        <reference value="urn:uuid:aaa33f8d-01c4-4648-96e1-3cdb68a7afd1" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:b7e8e543-cd8b-4c42-81ed-b697a8dc1647" />
+                        <reference value="urn:uuid:662a774f-c34d-4abc-a717-32b67236e43d" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:31bb8ecd-e069-423b-9a8c-3009a8f779a8" />
+                        <reference value="urn:uuid:5f98df36-8954-495e-b2e7-a08c59ed8e13" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:0ef954c5-f250-4016-b6fc-4d9f176c0172" />
+                        <reference value="urn:uuid:864655db-59f3-4525-a316-ea238570a7ee" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:71f897de-20bc-401d-9d44-6841c749c759" />
+                        <reference value="urn:uuid:8e618da4-ac7a-4b92-bd99-f79e97017f71" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:5cac2317-0674-4413-b8c8-0d76eb521043" />
+                        <reference value="urn:uuid:0de78f28-7375-476c-9f8b-f637b73aa606" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:dfc37aef-5c2c-47e2-9517-f625a7aee4fb" />
+                        <reference value="urn:uuid:b77d67ad-c0a3-47c6-88d2-c12970d7a8c7" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:90cedc97-ce3b-4693-9aab-6b0e7171fef0" />
+                        <reference value="urn:uuid:c12fd77a-5525-4d0e-bfb2-c505bc6327b5" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:50623d15-dad9-40ff-9503-7c5e6279d903" />
+                        <reference value="urn:uuid:1e5a8d9a-bbf1-4fdd-a194-ee57db3c2912" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:361f644f-b92b-4c5f-b943-0ca0660767af" />
+                        <reference value="urn:uuid:f65bbb67-cacd-444f-b264-7f98521deb5c" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:5912ec4d-b0e8-4663-8b70-a664b2587236" />
+                        <reference value="urn:uuid:c1659571-f581-45cf-ae22-42fb7cece236" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:91625a19-1de4-45f2-80ae-4207ae323efe" />
+                        <reference value="urn:uuid:c24a44f0-02b6-4a4b-bed9-c01d0b557610" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:533c1c37-0f83-43fc-a4f9-74320fc1a654" />
+                        <reference value="urn:uuid:f54e409d-bb61-489d-b368-07a029c8b2f9" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:5e2d23c9-d0cb-439f-9daa-7a13bc6c05af" />
+                        <reference value="urn:uuid:1ce64479-a501-4edf-ab25-5fc52af657b0" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:897a1e95-29b2-4762-afff-b4f2481de600" />
+                        <reference value="urn:uuid:4181055e-41db-448b-96fc-32a3679f74e3" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:d8f91c6b-015e-4a4a-864e-239ebab7c5f8" />
+                        <reference value="urn:uuid:3cbb3c16-eaaa-4b0e-b1e9-2dc23289aa32" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:e6897718-7db0-4ec2-824f-877b316b0e74" />
+                        <reference value="urn:uuid:adc23010-c8f1-457a-a2fc-4de3f541e66f" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:0441d590-585a-48fc-924a-f9cfd145224b" />
+                        <reference value="urn:uuid:431dc50c-8b11-498c-87e6-62c8fc57194b" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:8c05b2b9-39d6-4eda-a898-50f8025153bd" />
+                        <reference value="urn:uuid:4c5ef26d-2474-4070-a02b-5841d8f3fb62" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:e28368d8-dbad-44c6-be08-e45c62495404" />
+                        <reference value="urn:uuid:e96e9907-1761-401c-8734-e6a3ff9ba729" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:d560829c-9b7f-40ab-892a-94d97e581a5a" />
+                        <reference value="urn:uuid:66c3696e-ce03-4ae9-ac8a-64f6ec01875c" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:296d026d-18bd-43dc-8bf1-d7959258e84d" />
+                        <reference value="urn:uuid:cca36588-2498-4614-b106-d62b9ca76da3" />
                     </entry>
                     <entry>
-                        <reference value="urn:uuid:149b6457-e846-4d41-a783-baf3251ff925" />
+                        <reference value="urn:uuid:18fbcb21-3ebb-4d22-a742-9ace51f43a54" />
+                    </entry>
+                    <entry>
+                        <reference value="urn:uuid:39da4a0d-5c6f-4d05-b24a-74165395e976" />
                     </entry>
                 </section>
             </Composition>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+        <fullUrl value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
         <resource>
             <Patient>
-                <id value="40741228-7143-4c03-a960-6627ff6cebed" />
+                <id value="57daee16-e51d-4db0-a373-f3065ed3a038" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent" />
                 </meta>
@@ -221,10 +224,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+        <fullUrl value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
         <resource>
             <Practitioner>
-                <id value="696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                <id value="c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Certifier" />
                 </meta>
@@ -243,26 +246,26 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:d6db1305-25ad-47bf-b576-ee815f13fa47" />
+        <fullUrl value="urn:uuid:79be2862-3b8f-4824-aec5-ac83b6ecd1e5" />
         <resource>
             <Practitioner>
-                <id value="d6db1305-25ad-47bf-b576-ee815f13fa47" />
+                <id value="79be2862-3b8f-4824-aec5-ac83b6ecd1e5" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Death-Pronouncement-Performer" />
                 </meta>
                 <name>
                     <use value="official" />
-                    <family value="Green" />
-                    <given value="Constance" />
+                    <family value="Revel" />
+                    <given value="Adam" />
                 </name>
             </Practitioner>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:ae4274a1-c4ce-448a-83ec-704e44106475" />
+        <fullUrl value="urn:uuid:55bcec9d-dc38-404a-ab78-1751fe189221" />
         <resource>
             <Practitioner>
-                <id value="ae4274a1-c4ce-448a-83ec-704e44106475" />
+                <id value="55bcec9d-dc38-404a-ab78-1751fe189221" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Mortician" />
                 </meta>
@@ -280,10 +283,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:d16fcfd8-b775-4116-a72e-ebd6d5ee2a2e" />
+        <fullUrl value="urn:uuid:aaa33f8d-01c4-4648-96e1-3cdb68a7afd1" />
         <resource>
             <Procedure>
-                <id value="d16fcfd8-b775-4116-a72e-ebd6d5ee2a2e" />
+                <id value="aaa33f8d-01c4-4648-96e1-3cdb68a7afd1" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Death-Certification" />
                 </meta>
@@ -306,7 +309,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <performedDateTime value="2019-11-05" />
                 <performer>
@@ -318,17 +321,17 @@
                         </coding>
                     </function>
                     <actor>
-                        <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                        <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                     </actor>
                 </performer>
             </Procedure>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:b7e8e543-cd8b-4c42-81ed-b697a8dc1647" />
+        <fullUrl value="urn:uuid:662a774f-c34d-4abc-a717-32b67236e43d" />
         <resource>
             <Organization>
-                <id value="b7e8e543-cd8b-4c42-81ed-b697a8dc1647" />
+                <id value="662a774f-c34d-4abc-a717-32b67236e43d" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Interested-Party" />
                 </meta>
@@ -337,10 +340,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:31bb8ecd-e069-423b-9a8c-3009a8f779a8" />
+        <fullUrl value="urn:uuid:5f98df36-8954-495e-b2e7-a08c59ed8e13" />
         <resource>
             <Organization>
-                <id value="31bb8ecd-e069-423b-9a8c-3009a8f779a8" />
+                <id value="5f98df36-8954-495e-b2e7-a08c59ed8e13" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Funeral-Home" />
                 </meta>
@@ -354,7 +357,7 @@
                 </type>
                 <name value="Rosewood Funeral Home" />
                 <address>
-                    <line value="303 Rosewood Ave" />
+                    <line value="Lilly Lane" />
                     <city value="Danville" />
                     <state value="VA" />
                     <postalCode value="24541" />
@@ -364,34 +367,34 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:0ef954c5-f250-4016-b6fc-4d9f176c0172" />
+        <fullUrl value="urn:uuid:864655db-59f3-4525-a316-ea238570a7ee" />
         <resource>
             <PractitionerRole>
-                <id value="0ef954c5-f250-4016-b6fc-4d9f176c0172" />
+                <id value="864655db-59f3-4525-a316-ea238570a7ee" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Funeral-Service-Licensee" />
                 </meta>
                 <practitioner>
-                    <reference value="urn:uuid:ae4274a1-c4ce-448a-83ec-704e44106475" />
+                    <reference value="urn:uuid:55bcec9d-dc38-404a-ab78-1751fe189221" />
                 </practitioner>
                 <organization>
-                    <reference value="urn:uuid:31bb8ecd-e069-423b-9a8c-3009a8f779a8" />
+                    <reference value="urn:uuid:5f98df36-8954-495e-b2e7-a08c59ed8e13" />
                 </organization>
             </PractitionerRole>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:71f897de-20bc-401d-9d44-6841c749c759" />
+        <fullUrl value="urn:uuid:8e618da4-ac7a-4b92-bd99-f79e97017f71" />
         <resource>
             <List>
-                <id value="71f897de-20bc-401d-9d44-6841c749c759" />
+                <id value="8e618da4-ac7a-4b92-bd99-f79e97017f71" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Cause-of-Death-Pathway" />
                 </meta>
                 <status value="current" />
                 <mode value="snapshot" />
                 <source>
-                    <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                    <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                 </source>
                 <orderedBy>
                     <coding>
@@ -402,17 +405,17 @@
                 </orderedBy>
                 <entry>
                     <item>
-                        <reference value="urn:uuid:897a1e95-29b2-4762-afff-b4f2481de600" />
+                        <reference value="urn:uuid:4181055e-41db-448b-96fc-32a3679f74e3" />
                     </item>
                 </entry>
             </List>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:5cac2317-0674-4413-b8c8-0d76eb521043" />
+        <fullUrl value="urn:uuid:0de78f28-7375-476c-9f8b-f637b73aa606" />
         <resource>
             <Location>
-                <id value="5cac2317-0674-4413-b8c8-0d76eb521043" />
+                <id value="0de78f28-7375-476c-9f8b-f637b73aa606" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Disposition-Location" />
                 </meta>
@@ -435,10 +438,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:dfc37aef-5c2c-47e2-9517-f625a7aee4fb" />
+        <fullUrl value="urn:uuid:b77d67ad-c0a3-47c6-88d2-c12970d7a8c7" />
         <resource>
             <Observation>
-                <id value="dfc37aef-5c2c-47e2-9517-f625a7aee4fb" />
+                <id value="b77d67ad-c0a3-47c6-88d2-c12970d7a8c7" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent-Age" />
                 </meta>
@@ -451,7 +454,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueQuantity>
                     <value value="41" />
@@ -461,10 +464,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:90cedc97-ce3b-4693-9aab-6b0e7171fef0" />
+        <fullUrl value="urn:uuid:c12fd77a-5525-4d0e-bfb2-c505bc6327b5" />
         <resource>
             <Observation>
-                <id value="90cedc97-ce3b-4693-9aab-6b0e7171fef0" />
+                <id value="c12fd77a-5525-4d0e-bfb2-c505bc6327b5" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-BirthRecordIdentifier" />
                 </meta>
@@ -477,22 +480,22 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueString value="616161" />
             </Observation>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:50623d15-dad9-40ff-9503-7c5e6279d903" />
+        <fullUrl value="urn:uuid:1e5a8d9a-bbf1-4fdd-a194-ee57db3c2912" />
         <resource>
             <RelatedPerson>
-                <id value="50623d15-dad9-40ff-9503-7c5e6279d903" />
+                <id value="1e5a8d9a-bbf1-4fdd-a194-ee57db3c2912" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent-Mother" />
                 </meta>
                 <patient>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </patient>
                 <relationship>
                     <coding>
@@ -509,15 +512,15 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:361f644f-b92b-4c5f-b943-0ca0660767af" />
+        <fullUrl value="urn:uuid:f65bbb67-cacd-444f-b264-7f98521deb5c" />
         <resource>
             <RelatedPerson>
-                <id value="361f644f-b92b-4c5f-b943-0ca0660767af" />
+                <id value="f65bbb67-cacd-444f-b264-7f98521deb5c" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent-Father" />
                 </meta>
                 <patient>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </patient>
                 <relationship>
                     <coding>
@@ -533,10 +536,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:5912ec4d-b0e8-4663-8b70-a664b2587236" />
+        <fullUrl value="urn:uuid:c1659571-f581-45cf-ae22-42fb7cece236" />
         <resource>
             <Observation>
-                <id value="5912ec4d-b0e8-4663-8b70-a664b2587236" />
+                <id value="c1659571-f581-45cf-ae22-42fb7cece236" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent-Education-Level" />
                 </meta>
@@ -549,7 +552,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueCodeableConcept>
                     <coding>
@@ -562,10 +565,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:91625a19-1de4-45f2-80ae-4207ae323efe" />
+        <fullUrl value="urn:uuid:c24a44f0-02b6-4a4b-bed9-c01d0b557610" />
         <resource>
             <Observation>
-                <id value="91625a19-1de4-45f2-80ae-4207ae323efe" />
+                <id value="c24a44f0-02b6-4a4b-bed9-c01d0b557610" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent-Usual-Work" />
                 </meta>
@@ -578,7 +581,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueCodeableConcept>
                     <coding>
@@ -609,16 +612,16 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:533c1c37-0f83-43fc-a4f9-74320fc1a654" />
+        <fullUrl value="urn:uuid:f54e409d-bb61-489d-b368-07a029c8b2f9" />
         <resource>
             <Observation>
-                <id value="533c1c37-0f83-43fc-a4f9-74320fc1a654" />
+                <id value="f54e409d-bb61-489d-b368-07a029c8b2f9" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Death-Date" />
                 </meta>
                 <extension url="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Observation-Location">
                     <valueReference>
-                        <reference value="urn:uuid:5e2d23c9-d0cb-439f-9daa-7a13bc6c05af" />
+                        <reference value="urn:uuid:1ce64479-a501-4edf-ab25-5fc52af657b0" />
                     </valueReference>
                 </extension>
                 <status value="final" />
@@ -630,11 +633,11 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <effectiveDateTime value="2019-11-02T14:04:00" />
                 <performer>
-                    <reference value="urn:uuid:d6db1305-25ad-47bf-b576-ee815f13fa47" />
+                    <reference value="urn:uuid:79be2862-3b8f-4824-aec5-ac83b6ecd1e5" />
                 </performer>
                 <valueDateTime value="2019-11-02T14:04:00" />
                 <component>
@@ -651,10 +654,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:5e2d23c9-d0cb-439f-9daa-7a13bc6c05af" />
+        <fullUrl value="urn:uuid:1ce64479-a501-4edf-ab25-5fc52af657b0" />
         <resource>
             <Location>
-                <id value="5e2d23c9-d0cb-439f-9daa-7a13bc6c05af" />
+                <id value="1ce64479-a501-4edf-ab25-5fc52af657b0" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Death-Location" />
                 </meta>
@@ -668,36 +671,31 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:897a1e95-29b2-4762-afff-b4f2481de600" />
+        <fullUrl value="urn:uuid:4181055e-41db-448b-96fc-32a3679f74e3" />
         <resource>
             <Condition>
-                <id value="897a1e95-29b2-4762-afff-b4f2481de600" />
+                <id value="4181055e-41db-448b-96fc-32a3679f74e3" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Cause-Of-Death-Condition" />
                 </meta>
                 <code>
-                    <coding>
-                        <system value="urn:oid:2.16.840.1.114222.4.11.3593" />
-                        <code value="T40.5" />
-                        <display value="Poisoning by cocaine" />
-                    </coding>
                     <text value="Cocaine toxicity" />
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <onsetString value="1 hour" />
                 <asserter>
-                    <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                    <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                 </asserter>
             </Condition>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:d8f91c6b-015e-4a4a-864e-239ebab7c5f8" />
+        <fullUrl value="urn:uuid:3cbb3c16-eaaa-4b0e-b1e9-2dc23289aa32" />
         <resource>
             <Condition>
-                <id value="d8f91c6b-015e-4a4a-864e-239ebab7c5f8" />
+                <id value="3cbb3c16-eaaa-4b0e-b1e9-2dc23289aa32" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Condition-Contributing-To-Death" />
                 </meta>
@@ -705,19 +703,19 @@
                     <text value="hypertensive heart disease" />
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <asserter>
-                    <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                    <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                 </asserter>
             </Condition>
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:e6897718-7db0-4ec2-824f-877b316b0e74" />
+        <fullUrl value="urn:uuid:adc23010-c8f1-457a-a2fc-4de3f541e66f" />
         <resource>
             <Observation>
-                <id value="e6897718-7db0-4ec2-824f-877b316b0e74" />
+                <id value="adc23010-c8f1-457a-a2fc-4de3f541e66f" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Examiner-Contacted" />
                 </meta>
@@ -730,7 +728,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueCodeableConcept>
                     <coding>
@@ -743,10 +741,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:0441d590-585a-48fc-924a-f9cfd145224b" />
+        <fullUrl value="urn:uuid:431dc50c-8b11-498c-87e6-62c8fc57194b" />
         <resource>
             <Observation>
-                <id value="0441d590-585a-48fc-924a-f9cfd145224b" />
+                <id value="431dc50c-8b11-498c-87e6-62c8fc57194b" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Manner-of-Death" />
                 </meta>
@@ -759,10 +757,10 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <performer>
-                    <reference value="urn:uuid:696ff301-b652-4e24-92b0-94a3e0f8a132" />
+                    <reference value="urn:uuid:c0dd4cc5-bae3-4c00-a06e-69302fa6228d" />
                 </performer>
                 <valueCodeableConcept>
                     <coding>
@@ -775,13 +773,18 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:8c05b2b9-39d6-4eda-a898-50f8025153bd" />
+        <fullUrl value="urn:uuid:4c5ef26d-2474-4070-a02b-5841d8f3fb62" />
         <resource>
             <Observation>
-                <id value="8c05b2b9-39d6-4eda-a898-50f8025153bd" />
+                <id value="4c5ef26d-2474-4070-a02b-5841d8f3fb62" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-InjuryIncident" />
                 </meta>
+                <extension url="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Observation-Location">
+                    <valueReference>
+                        <reference value="urn:uuid:e96e9907-1761-401c-8734-e6a3ff9ba729" />
+                    </valueReference>
+                </extension>
                 <status value="final" />
                 <code>
                     <coding>
@@ -791,7 +794,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <effectiveDateTime value="2019-11-02T13:00:00" />
                 <valueString value="drug toxicity" />
@@ -831,10 +834,22 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:e28368d8-dbad-44c6-be08-e45c62495404" />
+        <fullUrl value="urn:uuid:e96e9907-1761-401c-8734-e6a3ff9ba729" />
+        <resource>
+            <Location>
+                <id value="e96e9907-1761-401c-8734-e6a3ff9ba729" />
+                <meta>
+                    <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Injury-Location" />
+                </meta>
+                <description value="5590 Lockwood Drive 20621 US" />
+            </Location>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="urn:uuid:66c3696e-ce03-4ae9-ac8a-64f6ec01875c" />
         <resource>
             <Observation>
-                <id value="e28368d8-dbad-44c6-be08-e45c62495404" />
+                <id value="66c3696e-ce03-4ae9-ac8a-64f6ec01875c" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Autopsy-Performed-Indicator" />
                 </meta>
@@ -847,7 +862,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueCodeableConcept>
                     <coding>
@@ -876,16 +891,16 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:d560829c-9b7f-40ab-892a-94d97e581a5a" />
+        <fullUrl value="urn:uuid:cca36588-2498-4614-b106-d62b9ca76da3" />
         <resource>
             <Observation>
-                <id value="d560829c-9b7f-40ab-892a-94d97e581a5a" />
+                <id value="cca36588-2498-4614-b106-d62b9ca76da3" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent-Disposition-Method" />
                 </meta>
                 <extension url="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Observation-Location">
                     <valueReference>
-                        <reference value="urn:uuid:5cac2317-0674-4413-b8c8-0d76eb521043" />
+                        <reference value="urn:uuid:0de78f28-7375-476c-9f8b-f637b73aa606" />
                     </valueReference>
                 </extension>
                 <status value="final" />
@@ -897,10 +912,10 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <performer>
-                    <reference value="urn:uuid:ae4274a1-c4ce-448a-83ec-704e44106475" />
+                    <reference value="urn:uuid:55bcec9d-dc38-404a-ab78-1751fe189221" />
                 </performer>
                 <valueCodeableConcept>
                     <coding>
@@ -913,10 +928,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:296d026d-18bd-43dc-8bf1-d7959258e84d" />
+        <fullUrl value="urn:uuid:18fbcb21-3ebb-4d22-a742-9ace51f43a54" />
         <resource>
             <Observation>
-                <id value="296d026d-18bd-43dc-8bf1-d7959258e84d" />
+                <id value="18fbcb21-3ebb-4d22-a742-9ace51f43a54" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Decedent-Pregnancy" />
                 </meta>
@@ -929,7 +944,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueCodeableConcept>
                     <coding>
@@ -942,10 +957,10 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="urn:uuid:149b6457-e846-4d41-a783-baf3251ff925" />
+        <fullUrl value="urn:uuid:39da4a0d-5c6f-4d05-b24a-74165395e976" />
         <resource>
             <Observation>
-                <id value="149b6457-e846-4d41-a783-baf3251ff925" />
+                <id value="39da4a0d-5c6f-4d05-b24a-74165395e976" />
                 <meta>
                     <profile value="http://hl7.org/fhir/us/vrdr/StructureDefinition/VRDR-Tobacco-Use-Contributed-To-Death" />
                 </meta>
@@ -958,7 +973,7 @@
                     </coding>
                 </code>
                 <subject>
-                    <reference value="urn:uuid:40741228-7143-4c03-a960-6627ff6cebed" />
+                    <reference value="urn:uuid:57daee16-e51d-4db0-a373-f3065ed3a038" />
                 </subject>
                 <valueCodeableConcept>
                     <coding>

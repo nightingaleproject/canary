@@ -47,7 +47,7 @@ namespace canary.Models
             bool wasMarried = faker.Random.Bool();
 
             record.Identifier = Convert.ToString(faker.Random.Number(999999));
-            record.BundleIdentifier = Convert.ToString(faker.Random.Number(999999));
+            // record.BundleIdentifier = Convert.ToString(faker.Random.Number(999999));
             DateTime date = faker.Date.Recent();
             record.CertifiedTime = date.ToString("s");
             record.RegisteredTime = new DateTimeOffset(date.AddDays(-1).Year, date.AddDays(-1).Month, date.AddDays(-1).Day, 0, 0, 0, TimeSpan.Zero).ToString("s");
