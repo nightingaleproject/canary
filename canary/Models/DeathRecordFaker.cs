@@ -46,11 +46,8 @@ namespace canary.Models
             // Was married?
             bool wasMarried = faker.Random.Bool();
 
-            // Full state name for reference
-            string stateName = dataHelper.StateCodeToStateName(state);
-
             record.Identifier = Convert.ToString(faker.Random.Number(999999));
-            record.BundleIdentifier = Convert.ToString(faker.Random.Number(999999));
+            // record.BundleIdentifier = Convert.ToString(faker.Random.Number(999999));
             DateTime date = faker.Date.Recent();
             record.CertifiedTime = date.ToString("s");
             record.RegisteredTime = new DateTimeOffset(date.AddDays(-1).Year, date.AddDays(-1).Month, date.AddDays(-1).Day, 0, 0, 0, TimeSpan.Zero).ToString("s");
@@ -105,12 +102,12 @@ namespace canary.Models
             residence.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             residence.Add("addressCity", residencePlace.City);
             residence.Add("addressCounty", residencePlace.County);
-            residence.Add("addressState", stateName);
+            residence.Add("addressState", state);
             residence.Add("addressCountry", "United States");
             record.Residence = residence;
 
             // Residence Within City Limits
-            record.ResidenceWithinCityLimits = true;
+            record.ResidenceWithinCityLimitsBoolean = true;
 
             // Place of birth
 
@@ -118,7 +115,7 @@ namespace canary.Models
             PlaceCode placeOfBirthPlace = dataHelper.StateCodeToRandomPlace(state);
             placeOfBirth.Add("addressCity", placeOfBirthPlace.City);
             placeOfBirth.Add("addressCounty", placeOfBirthPlace.County);
-            placeOfBirth.Add("addressState", stateName);
+            placeOfBirth.Add("addressState", state);
             placeOfBirth.Add("addressCountry", "United States");
             record.PlaceOfBirth = placeOfBirth;
 
@@ -131,7 +128,7 @@ namespace canary.Models
             placeOfDeath.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             placeOfDeath.Add("addressCity", placeOfDeathPlace.City);
             placeOfDeath.Add("addressCounty", placeOfDeathPlace.County);
-            placeOfDeath.Add("addressState", stateName);
+            placeOfDeath.Add("addressState", state);
             placeOfDeath.Add("addressCountry", "United States");
             record.DeathLocationAddress = placeOfDeath;
 
@@ -188,7 +185,7 @@ namespace canary.Models
             }
             else
             {
-                record.Race = new Tuple<string, string>[]{ Tuple.Create("White", "2106-3") };
+                record.Race = new Tuple<string, string>[] { Tuple.Create("White", "2106-3") };
             }
 
             // Education level
@@ -248,7 +245,7 @@ namespace canary.Models
             fha.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             fha.Add("addressCity", fhaPlace.City);
             fha.Add("addressCounty", fhaPlace.County);
-            fha.Add("addressState", stateName);
+            fha.Add("addressState", state);
             fha.Add("addressCountry", "United States");
             record.FuneralHomeAddress = fha;
 
@@ -262,7 +259,7 @@ namespace canary.Models
             PlaceCode dispLocPlace = dataHelper.StateCodeToRandomPlace(state);
             dispLoc.Add("addressCity", dispLocPlace.City);
             dispLoc.Add("addressCounty", dispLocPlace.County);
-            dispLoc.Add("addressState", stateName);
+            dispLoc.Add("addressState", state);
             dispLoc.Add("addressCountry", "United States");
             record.DispositionLocationAddress = dispLoc;
 
@@ -286,7 +283,11 @@ namespace canary.Models
             record.MorticianFamilyName = faker.Name.LastName();
             record.MorticianGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
             record.MorticianSuffix = faker.Name.Suffix();
-            record.MorticianIdentifier = Convert.ToString(faker.Random.Number(999999));
+
+            Dictionary<string, string> morticianIdentifier = new Dictionary<string, string>();
+            morticianIdentifier.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianIdentifier.Add("value", Convert.ToString(faker.Random.Number(999999)));
+            record.MorticianIdentifier = morticianIdentifier;
 
             // Basic Certifier information
 
@@ -299,7 +300,7 @@ namespace canary.Models
             certifierAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             certifierAddress.Add("addressCity", certifierAddressPlace.City);
             certifierAddress.Add("addressCounty", certifierAddressPlace.County);
-            certifierAddress.Add("addressState", stateName);
+            certifierAddress.Add("addressState", state);
             certifierAddress.Add("addressCountry", "United States");
             record.CertifierAddress = certifierAddress;
 
@@ -320,10 +321,15 @@ namespace canary.Models
             interestedPartyAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
             interestedPartyAddress.Add("addressCity", interestedPartyAddressPlace.City);
             interestedPartyAddress.Add("addressCounty", interestedPartyAddressPlace.County);
-            interestedPartyAddress.Add("addressState", stateName);
+            interestedPartyAddress.Add("addressState", state);
             interestedPartyAddress.Add("addressCountry", "United States");
             record.InterestedPartyAddress = interestedPartyAddress;
-            record.InterestedPartyIdentifier = Convert.ToString(faker.Random.Number(999999));
+
+            Dictionary<string, string> ipId = new Dictionary<string, string>();
+            ipId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            ipId.Add("value", Convert.ToString(faker.Random.Number(999999)));
+            record.InterestedPartyIdentifier = ipId;
+
             record.InterestedPartyType = new Dictionary<string, string>() { { "code", "prov" }, { "system", "http://terminology.hl7.org/CodeSystem/organization-type" }, { "display", "Healthcare Provider" } };
 
             if (type == "Natural")
@@ -351,8 +357,8 @@ namespace canary.Models
                     record.CausesOfDeath = causes;
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
-                    record.ExaminerContacted = false;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } }; ;
+                    record.ExaminerContactedBoolean = false;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
                 }
@@ -368,8 +374,8 @@ namespace canary.Models
                     record.ContributingConditions = "Carcinoma of cecum, Congestive heart failure";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
-                    record.ExaminerContacted = false;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } }; ;
+                    record.ExaminerContactedBoolean = false;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
                 }
@@ -386,8 +392,8 @@ namespace canary.Models
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Obesity, Hypertension, Congestive heart failure";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };;
-                    record.ExaminerContacted = false;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } }; ;
+                    record.ExaminerContactedBoolean = false;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "http://snomed.info/sct" }, { "display", "Yes" } };
                 }
@@ -404,8 +410,8 @@ namespace canary.Models
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Cigarette smoking, Hypertension, Hypercholesterolemia, Coronary bypass surgery";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };;
-                    record.ExaminerContacted = true;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", "http://snomed.info/sct" }, { "display", "Yes" } };
                 }
@@ -426,8 +432,8 @@ namespace canary.Models
                     record.ContributingConditions = "Terminal gastric adenocarcinoma, depression";
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };;
-                    record.ExaminerContacted = true;
+                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "http://hl7.org/fhir/v3/NullFlavor" }, { "display", "unknown" } };
 
@@ -446,7 +452,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
                     detailsOfInjuryAddr.Add("addressCity", residencePlace.City);
                     detailsOfInjuryAddr.Add("addressCounty", residencePlace.County);
-                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
 
@@ -464,7 +470,7 @@ namespace canary.Models
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
                     record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } };
-                    record.ExaminerContacted = true;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
@@ -484,7 +490,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
                     detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
                     detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
-                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
                 }
@@ -500,7 +506,7 @@ namespace canary.Models
 
                     record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
                     record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "No" } };
-                    record.ExaminerContacted = true;
+                    record.ExaminerContactedBoolean = true;
 
                     record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", "http://snomed.info/sct" }, { "display", "No" } };
 
@@ -520,7 +526,7 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
                     detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
                     detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
-                    detailsOfInjuryAddr.Add("addressState", stateName);
+                    detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
                 }

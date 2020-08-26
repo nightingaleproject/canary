@@ -30,7 +30,7 @@ export class Property extends Component {
   }
 
   renderType(type, value, description, igurl, error) {
-    if (type === 'String') {
+    if (type === 'String' || type === 'UInt32') {
       return (
         <StringType
           name={this.props.name}
