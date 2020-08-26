@@ -39,13 +39,13 @@ Mortality data is collected, analyzed, and shared by jurisdictions across the Un
 A [Dockerized](https://www.docker.com/get-started) version of Canary has been published to Docker Hub. To make sure you have the most recent version of Canary:
 
 ```
-docker pull mitre/canary
+docker pull mitre/canary:latest
 ```
 
 Running Canary is as easy as:
 
 ```
-docker run --rm -p 8080:80 mitre/canary
+docker run --rm -p 8080:80 mitre/canary:latest
 ```
 
 These commands will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from DockerHub [here](https://hub.docker.com/r/mitre/canary/tags). For example:
