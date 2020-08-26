@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { Segment, Container, Icon, Button, Label, Form, Dimmer, Loader, Header } from 'semantic-ui-react';
 import axios from 'axios';
-import { toast } from 'react-semantic-toasts';
-import AceEditor from 'react-ace';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import AceEditor from 'react-ace';
+import { toast } from 'react-semantic-toasts';
+import { Button, Container, Dimmer, Form, Header, Icon, Label, Loader, Segment } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 
-import 'brace/theme/chrome';
-import 'brace/mode/text';
+import 'ace-builds/src-noconflict/mode-text';
+import 'ace-builds/src-noconflict/theme-chrome';
 
 export class Getter extends Component {
   displayName = Getter.name;
@@ -84,8 +85,14 @@ export class Getter extends Component {
       if (!!this.props.ijeOnly && (data[0] === '<' || data[0] === '{')) {
         data = 'bogus'; // The IJE catch in the back end will not like this, and will thus throw an error.
       }
-      var endpoint = !!this.props.messageValidation ? '/records/message/new' : '/records/new';
-
+      var endpoint = '';
+      if (this.props.returnType) {
+        endpoint = '/records/return/new';
+      } else if(this.props.messageValidation) {
+        endpoint = '/messages/new'
+      } else {
+        endpoint = '/records/new';
+      }
       axios
         .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
         .then(function(response) {
@@ -99,13 +106,7 @@ export class Getter extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error sending the record to Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });
@@ -161,13 +162,7 @@ export class Getter extends Component {
       })
       .catch(function(error) {
         self.setState({ loading: false }, () => {
-          toast({
-            type: 'error',
-            icon: 'exclamation circle',
-            title: 'Error!',
-            description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-            time: 5000,
-          });
+          connectionErrorToast(error);
         });
       });
   }

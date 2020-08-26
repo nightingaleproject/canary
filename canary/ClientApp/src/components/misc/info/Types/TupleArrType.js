@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Header } from 'semantic-ui-react';
+import { Button, Form, Header, Input } from 'semantic-ui-react';
 
 export class TupleArrType extends Component {
   displayName = TupleArrType.name;
@@ -55,7 +55,7 @@ export class TupleArrType extends Component {
     return (
       <React.Fragment>
         <Form.Field>
-          <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>
+          {!!!this.props.igurl && <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>}
           <label>{this.props.description}</label>
           {this.state.value &&
             this.state.value.length > 0 &&

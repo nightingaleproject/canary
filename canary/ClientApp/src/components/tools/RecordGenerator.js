@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
 import axios from 'axios';
-import { Record } from '../misc/Record';
-import { Grid, Button, Icon, Form, Select, Breadcrumb } from 'semantic-ui-react';
-import { stateOptions } from '../../data';
-import { toast } from 'react-semantic-toasts';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Breadcrumb, Button, Form, Grid, Icon, Select } from 'semantic-ui-react';
+import { stateOptions } from '../../data';
+import { connectionErrorToast } from '../../error';
+import { Record } from '../misc/Record';
 
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 
@@ -63,13 +63,7 @@ export class RecordGenerator extends Component {
           }
         })
         .catch(function(error) {
-          toast({
-            type: 'error',
-            icon: 'exclamation circle',
-            title: 'Failed to generate a record',
-            description: 'There was an error generating a record. The error was: ' + error,
-            time: 5000,
-          });
+          connectionErrorToast(error);
           self.setState({
             loading: false,
           });

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { FHIRInfo } from '../misc/info/FHIRInfo';
-import { Getter } from '../misc/Getter';
-import { Record } from '../misc/Record';
-import { Grid, Breadcrumb, Container, Form } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Breadcrumb, Container, Form, Grid } from 'semantic-ui-react';
+import { Getter } from '../misc/Getter';
+import { FHIRInfo } from '../misc/info/FHIRInfo';
+import { Record } from '../misc/Record';
 
 export class FHIRInspector extends Component {
   displayName = FHIRInspector.name;

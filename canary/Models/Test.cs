@@ -30,6 +30,8 @@ namespace canary.Models
 
         public Record TestRecord { get; set; }
 
+        public Message TestMessage { get; set; }
+
         public string Results { get; set; }
 
         public string Type { get; set; }
@@ -57,8 +59,14 @@ namespace canary.Models
 
         public Test Run(string description)
         {
-            TestRecord = new Record(DeathRecord.FromDescription(description));
-            Compare();
+            if(Type.Contains("Message")) {
+                TestMessage = new Message(description);
+                MessageCompare();
+            }
+            else {
+                TestRecord = new Record(DeathRecord.FromDescription(description));
+                RecordCompare();
+            }
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
             return this;
@@ -67,13 +75,85 @@ namespace canary.Models
         public Test Run(DeathRecord record)
         {
             TestRecord = new Record(record);
-            Compare();
+            RecordCompare();
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
             return this;
         }
 
-        public void Compare()
+        public void MessageCompare()
+        {
+            Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
+            BaseMessage bundle = TestMessage.GetMessage();
+            DeathRecord record = ReferenceRecord.GetRecord();
+            BaseMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
+            // On the frontend this shares the same view as the RecordCompare below. This heading
+            // is shown above the results in the app.
+            string heading = "Message Validation Results";
+            description.Add(heading, new Dictionary<string, dynamic>());
+            Dictionary<string, dynamic> category = description[heading];
+            foreach(PropertyInfo property in bundle.GetType().GetProperties())
+            {
+                Total += 1;
+                // Add the new property to the category
+                category[property.Name] = new Dictionary<string, dynamic>();
+                category[property.Name]["Name"] = property.Name;
+                category[property.Name]["Type"] = (Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType).Name;
+                category[property.Name]["Description"] = Message.GetDescriptionFor(property.Name);
+                category[property.Name]["Value"] = property.GetValue(referenceBundle);
+                category[property.Name]["FoundValue"] = property.GetValue(bundle);
+                // The record should be valid since we check its validity elsewhere.
+                // Here we just check to make sure the record is properly embedded
+                // into the message bundle.
+                if (property.PropertyType == typeof(DeathRecord))
+                {
+                    DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
+                    category[property.Name]["SnippetXML"] = extracted.ToXML();
+                    category[property.Name]["SnippetXMLTest"] = record.ToXML();
+                    category[property.Name]["SnippetJSON"] = extracted.ToJSON();
+                    category[property.Name]["SnippetJSONTest"] = record.ToJSON();
+                    if (record.ToXml().Equals(extracted.ToXML()))
+                    {
+                        Correct += 1;
+                        category[property.Name]["Match"] = "true";
+                    }
+                    else
+                    {
+                        Incorrect += 1;
+                        category[property.Name]["Match"] = "false";
+                    }
+                }
+                else if (Message.validatePresenceOnly(property.Name))
+                {
+                    // Basic message validation ensures that these fields are present if they are required
+                    // These values do not have to match our reference record and are just therefore
+                    // set to valid here.
+                    Correct += 1;
+                    category[property.Name]["Match"] = "true";
+                    // Override the displayed value to be equal to what the user provided on the UI
+                    category[property.Name]["Value"] = category[property.Name]["FoundValue"];
+                }
+                else
+                {
+                    // Using == here seems to be checking ReferenceEquals and not Equals, causing the equality to return false.
+                    // Calling Prop1.Equals(Prop2) here raises an error if the value is null in the ReferenceBundle.
+                    // The best option here is to just use the object.Equals operator.
+                    if (Equals(property.GetValue(referenceBundle), property.GetValue(bundle)))
+                    {
+                        Correct += 1;
+                        category[property.Name]["Match"] = "true";
+                    }
+                    else
+                    {
+                        Incorrect += 1;
+                        category[property.Name]["Match"] = "false";
+                    }
+                }
+            }
+            Results = JsonConvert.SerializeObject(description);
+        }
+
+        public void RecordCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => ((Property)p.GetCustomAttributes().First()).Priority))
@@ -224,7 +304,7 @@ namespace canary.Models
                     category[property.Name]["SnippetJSONTest"] = "";
                 }
 
-                // Compare values
+                // RecordCompare values
                 if (info.Type == Property.Types.Dictionary)
                 {
                     // Special case for Dictionary; we want to be able to describe what each key means
@@ -299,7 +379,7 @@ namespace canary.Models
                     category[property.Name]["FoundValue"] = property.GetValue(TestRecord.GetRecord());
                     Total += 1;
 
-                    // Compare values
+                    // RecordCompare values
                     if (info.Type == Property.Types.String)
                     {
                         if (String.Equals((string)property.GetValue(ReferenceRecord.GetRecord()), (string)property.GetValue(TestRecord.GetRecord()), StringComparison.OrdinalIgnoreCase))

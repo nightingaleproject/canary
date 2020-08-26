@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Getter } from '../misc/Getter';
-import { Grid, Breadcrumb, Dimmer, Loader, Container, Form, Divider, Header, Icon, Button, Statistic } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-semantic-toasts';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
+import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
-import report from'../report';
+import { Record } from '../misc/Record';
+import report from '../report';
 
 export class Connectathon extends Component {
   displayName = Connectathon.name;
@@ -32,13 +32,7 @@ export class Connectathon extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     }
@@ -77,13 +71,7 @@ export class Connectathon extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false, running: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });
@@ -97,7 +85,7 @@ export class Connectathon extends Component {
   }
 
   connectathonRecordName(id) {
-    switch (this.props.match.params.id) {
+    switch (id) {
       case "1":
         return "Cancer";
       case "2":

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Header } from 'semantic-ui-react';
+import { Form, Header, Input } from 'semantic-ui-react';
 
 export class StringType extends Component {
   displayName = StringType.name;
@@ -25,7 +25,7 @@ export class StringType extends Component {
     return (
       <React.Fragment>
         <Form.Field>
-          <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>
+          {!!!this.props.igurl && <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>}
           <Form.Field
             label={this.props.description}
             control={Input}

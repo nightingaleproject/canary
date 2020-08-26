@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Form, Header, Input } from 'semantic-ui-react';
 import moment from 'moment';
+import React, { Component } from 'react';
 import { DateTimeInput } from 'semantic-ui-calendar-react';
+import { Form, Header, Input } from 'semantic-ui-react';
 
 moment.locale('en');
 
@@ -35,7 +35,7 @@ export class StringDateTimeType extends Component {
     return (
       <React.Fragment>
         <Form.Field>
-          <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>
+          {!!!this.props.igurl && <Header as='h5'><a target="_blank" rel="noopener noreferrer" href={this.props.igurl}>{this.props.igurl}</a></Header>}
           {!!this.props.editable && (<DateTimeInput
             name="dateTime"
             placeholder="Date and Time"

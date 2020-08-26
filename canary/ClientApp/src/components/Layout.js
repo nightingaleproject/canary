@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Navigation } from './Navigation';
-import { Container, Grid } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import { Container, Grid } from 'semantic-ui-react';
+import { Navigation } from './Navigation';
 
 export class Layout extends Component {
   displayName = Layout.name;

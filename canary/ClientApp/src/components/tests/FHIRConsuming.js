@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Grid, Breadcrumb, Dimmer, Loader, Container, Form, Divider, Header, Icon, Button, Statistic } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-semantic-toasts';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
-import report from'../report';
+import { Record } from '../misc/Record';
+import report from '../report';
 
 export class FHIRConsuming extends Component {
   displayName = FHIRConsuming.name;
@@ -32,13 +32,7 @@ export class FHIRConsuming extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     } else {
@@ -53,26 +47,14 @@ export class FHIRConsuming extends Component {
               })
               .catch(function(error) {
                 self.setState({ loading: false }, () => {
-                  toast({
-                    type: 'error',
-                    icon: 'exclamation circle',
-                    title: 'Error!',
-                    description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-                    time: 5000,
-                  });
+                  connectionErrorToast(error);
                 });
               });
           });
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     }
@@ -103,7 +85,7 @@ export class FHIRConsuming extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/consume/run/' + this.state.test.testId, this.setEmptyToNull(this.state.fhirInfo))
+        .post(window.API_URL + '/tests/Consume/run/' + this.state.test.testId, this.setEmptyToNull(this.state.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -113,13 +95,7 @@ export class FHIRConsuming extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false, running: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });

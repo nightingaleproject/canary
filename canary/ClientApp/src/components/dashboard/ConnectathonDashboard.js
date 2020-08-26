@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
-import { Header, Divider, Icon, Item, Container, Grid } from 'semantic-ui-react';
+import { Container, Divider, Grid, Header, Icon, Item } from 'semantic-ui-react';
 import { DashboardItem } from './DashboardItem';
 
 export class ConnectathonDashboard extends Component {
   displayName = ConnectathonDashboard.name;
+
+  getUrl(id) {
+    if(this.props.match.params.type == "message")
+    {
+      return `/test-connectathon-messaging/${id}`
+    }
+    else
+    {
+      return `/test-connectathon/${id}`
+    }
+  }
 
   render() {
     return (
@@ -14,7 +25,7 @@ export class ConnectathonDashboard extends Component {
               <Divider horizontal>
                 <Header as="h2">
                   <Icon name="clipboard list" />
-                  IHE Connectathon 2020
+                  IHE Connectathon 2020 {this.props.match.params.type} testing
                 </Header>
               </Divider>
               <Item.Group className="m-h-30">
@@ -22,31 +33,31 @@ export class ConnectathonDashboard extends Component {
                   icon="male"
                   title="Cancer"
                   description="#111111; Janet Page; Congestive Heart Failure"
-                  route="test-connectathon/1"
+                  route={ this.getUrl(1) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Opioid Death at Home"
                   description="#222222; Madelyn Patel; Cocaine toxicity"
-                  route="test-connectathon/2"
+                  route={ this.getUrl(2) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Pregnant"
                   description="#333333; Vivienne Lee Wright; Cardiopulmonary arrest"
-                  route="test-connectathon/3"
+                  route={ this.getUrl(3) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Car accident at work: Full"
                   description="#444444; Javier Luis Perez; Blunt head trama"
-                  route="test-connectathon/4"
+                  route={ this.getUrl(4) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Car accident at work: Partial"
                   description="#444444; Javier Luis Perez; Blunt head trama"
-                  route="test-connectathon/5"
+                  route={ this.getUrl(5) }
                 />
               </Item.Group>
             </Container>

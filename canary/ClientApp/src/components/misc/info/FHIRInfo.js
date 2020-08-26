@@ -12,47 +12,20 @@ export class FHIRInfo extends Component {
   render() {
     return (
       <React.Fragment>
-        {!!this.props.fhirInfo &&
-          (<React.Fragment><Category
-            key={"DecedentDemographics"}
-            name={"Decedent Demographics"}
-            category={this.props.fhirInfo["Decedent Demographics"]}
-            updateFhirInfo={this.props.updateFhirInfo}
-            editable={this.props.editable}
-            hideSnippets={this.props.hideSnippets}
-            testMode={this.props.testMode}
-            hideBlanks={this.props.hideBlanks}
-          />
-          <Category
-            key={"DecedentDisposition"}
-            name={"Decedent Disposition"}
-            category={this.props.fhirInfo["Decedent Disposition"]}
-            updateFhirInfo={this.props.updateFhirInfo}
-            editable={this.props.editable}
-            hideSnippets={this.props.hideSnippets}
-            testMode={this.props.testMode}
-            hideBlanks={this.props.hideBlanks}
-          />
-          <Category
-            key={"DeathCertification"}
-            name={"Death Certification"}
-            category={this.props.fhirInfo["Death Certification"]}
-            updateFhirInfo={this.props.updateFhirInfo}
-            editable={this.props.editable}
-            hideSnippets={this.props.hideSnippets}
-            testMode={this.props.testMode}
-            hideBlanks={this.props.hideBlanks}
-          />
-          <Category
-            key={"DeathInvestigation"}
-            name={"Death Investigation"}
-            category={this.props.fhirInfo["Death Investigation"]}
-            updateFhirInfo={this.props.updateFhirInfo}
-            editable={this.props.editable}
-            hideSnippets={this.props.hideSnippets}
-            testMode={this.props.testMode}
-            hideBlanks={this.props.hideBlanks}
-          /></React.Fragment>)
+        {!!this.props.fhirInfo && <React.Fragment>
+          {Object.keys(this.props.fhirInfo).map((category) => (
+            <Category
+              key={category.replace(/ /g, '')}
+              name={category}
+              category={this.props.fhirInfo[category]}
+              updateFhirInfo={this.props.updateFhirInfo}
+              editable={this.props.editable}
+              hideSnippets={this.props.hideSnippets}
+              testMode={this.props.testMode}
+              hideBlanks={this.props.hideBlanks}
+            />
+          ))}
+          </React.Fragment>
         }
       </React.Fragment>
     );

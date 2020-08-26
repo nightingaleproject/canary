@@ -1,11 +1,11 @@
+import axios from 'axios';
+import _ from 'lodash';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Breadcrumb, Button, Container, Form, Grid, Icon } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
-import { Grid, Breadcrumb, Button, Icon, Form, Container } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-semantic-toasts';
-import _ from 'lodash';
 
 export class FHIRCreator extends Component {
   displayName = FHIRCreator.name;
@@ -27,13 +27,7 @@ export class FHIRCreator extends Component {
       })
       .catch(function(error) {
         self.setState({ loading: false }, () => {
-          toast({
-            type: 'error',
-            icon: 'exclamation circle',
-            title: 'Error!',
-            description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-            time: 5000,
-          });
+          connectionErrorToast(error);
         });
       });
   }
@@ -61,13 +55,7 @@ export class FHIRCreator extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Header, Divider, Icon, Item, Container, Grid, Segment } from 'semantic-ui-react';
-import { DashboardItem } from './DashboardItem';
+import { faFeatherAlt, faMailBulk } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from 'react';
+import { Container, Divider, Grid, Header, Icon, Item, Segment } from 'semantic-ui-react';
+import { DashboardItem } from './DashboardItem';
 
 export class Dashboard extends Component {
   displayName = Dashboard.name;
@@ -38,7 +38,7 @@ export class Dashboard extends Component {
               <Divider horizontal className="p-t-30">
                 <Header as="h2">
                   <Icon name="clipboard list" />
-                  Testing
+                  Record Testing
                 </Header>
               </Divider>
               <Item.Group className="m-h-30">
@@ -70,13 +70,33 @@ export class Dashboard extends Component {
                   icon="tasks"
                   title="Connectathon FHIR Death Records (Producing)"
                   description="Test a data provider system's ability to produce pre-defined records as tested at Connectathons."
-                  route="test-connectathon-dash"
+                  route="test-connectathon-dash/records"
+                />
+              </Item.Group>
+              <Divider horizontal className="p-t-30">
+                <Header as="h2">
+                  <Icon name="inbox" />
+                  Message Testing
+                </Header>
+              </Divider>
+              <Item.Group className="m-h-30">
+                <DashboardItem
+                  icon="cloud upload"
+                  title="Producing FHIR Messages"
+                  description="Test a data provider system's ability to produce a valid FHIR Message for a generated FHIR Death Record document."
+                  route="test-fhir-message-producing"
+                />
+                <DashboardItem
+                  faIcon={faMailBulk}
+                  title="Connectathon FHIR Messages (Producing)"
+                  description="Test a data provider system's ability to produce pre-defined FHIR Messages as tested at Connectathons."
+                  route="test-connectathon-dash/message"
                 />
               </Item.Group>
               <Divider horizontal className="p-t-20">
                 <Header as="h2">
                   <Icon name="wrench" />
-                  Tools
+                  Record Tools
                 </Header>
               </Divider>
               <Item.Group className="m-h-30">
@@ -91,12 +111,6 @@ export class Dashboard extends Component {
                   title="Validate FHIR VRDR Records"
                   description="Check a given FHIR VRDR Record for syntax/structural issues."
                   route="tool-fhir-validator"
-                />
-                < DashboardItem
-                  icon = "envelope"
-                  title = "Validate FHIR VRDR Messages"
-                  description = "Check a given FHIR VRDR Message for syntax/structural issues."
-                  route = "tool-fhir-message-validator"
                 />
                 <DashboardItem
                   icon="random"
@@ -121,6 +135,26 @@ export class Dashboard extends Component {
                   title="IJE Mortality Record Inspector"
                   description="Inspect an IJE Mortality file and show details about the record and what it contains."
                   route="tool-ije-inspector"
+                />
+              </Item.Group>
+              <Divider horizontal className="p-t-20">
+                <Header as="h2">
+                  <Icon name="envelope open" />
+                  Message Tools
+                </Header>
+              </Divider>
+              <Item.Group className="m-h-30">
+                <DashboardItem
+                  icon="envelope"
+                  title="Validate FHIR VRDR Messages"
+                  description="Check a given FHIR VRDR Message for syntax/structural issues."
+                  route="tool-fhir-message-validator"
+                />
+                <DashboardItem
+                  icon="cloud download"
+                  title="Creating FHIR Messages"
+                  description="Create a valid FHIR Message for a user provided FHIR Death Record document."
+                  route="test-fhir-message-creation"
                 />
               </Item.Group>
             </Container>

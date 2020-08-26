@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Getter } from '../misc/Getter';
-import { Grid, Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Breadcrumb, Grid } from 'semantic-ui-react';
+import { messageTypes } from '../../data';
+import { Getter } from '../misc/Getter';
+import { Record } from '../misc/Record';
 
 export class FHIRMessageValidator extends Component {
   displayName = FHIRMessageValidator.name;
@@ -10,39 +11,16 @@ export class FHIRMessageValidator extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props, messageType: null, issues: null };
-    this.updateRecord = this.updateRecord.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
   }
 
-  updateRecord(message, issues) {
-    let messageType;
-    switch (message && message.messageType) {
-      case "http://nchs.cdc.gov/vrdr_submission":
-        messageType = "Death Record Submission"
-        break;
-      case "http://nchs.cdc.gov/vrdr_submission_update":
-        messageType = "Death Record Update"
-        break;
-      case "http://nchs.cdc.gov/vrdr_acknowledgement":
-        messageType = "Death Record Acknowledgement"
-        break;
-      case "http://nchs.cdc.gov/vrdr_submission_void":
-        messageType = "Death Record Void"
-        break;
-      case "http://nchs.cdc.gov/vrdr_coding":
-        messageType = "Coding"
-        break;
-      case "http://nchs.cdc.gov/vrdr_coding_update":
-        messageType = "Coding Update"
-        break;
-      case "http://nchs.cdc.gov/vrdr_extraction_error":
-        messageType = "Extraction Error"
-        break;
-      default:
-        messageType = "Unknown"
-        break;
+  updateMessage(message, issues) {
+    let messageType = "Unknown";
+    if (message && message.messageType in messageTypes) {
+      messageType = messageTypes[message.messageType];
     }
 
-    this.setState({ record: message, messageType: messageType, issues: issues });
+    this.setState({ message: message, messageType: messageType, issues: issues });
   }
 
   render() {
@@ -59,7 +37,7 @@ export class FHIRMessageValidator extends Component {
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict messageValidation={true} allowIje={false} />
+            <Getter updateRecord={this.updateMessage} strict messageValidation={true} allowIje={false} />
           </Grid.Row>
           <div className="p-b-15" />
           {!!this.state.issues && (

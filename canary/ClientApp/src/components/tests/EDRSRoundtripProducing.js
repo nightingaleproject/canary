@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { Record } from '../misc/Record';
-import { Grid, Breadcrumb, Dimmer, Loader, Container, Form, Divider, Header, Icon, Button, Statistic, Message, Transition } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-semantic-toasts';
-import { FHIRInfo } from '../misc/info/FHIRInfo';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
-import report from'../report';
+import { FHIRInfo } from '../misc/info/FHIRInfo';
+import { Issues } from '../misc/Issues';
+import { Record } from '../misc/Record';
+import report from '../report';
 
 export class EDRSRoundtripProducing extends Component {
   displayName = EDRSRoundtripProducing.name;
@@ -31,13 +32,7 @@ export class EDRSRoundtripProducing extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     } else {
@@ -48,13 +43,7 @@ export class EDRSRoundtripProducing extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     }
@@ -79,7 +68,7 @@ export class EDRSRoundtripProducing extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/roundtrip/producing/run/' + this.state.test.testId, this.state.fhirRecord.fhirInfo)
+        .post(window.API_URL + '/tests/RoundtripProducing/run/' + this.state.test.testId, this.state.fhirRecord.fhirInfo)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -87,13 +76,7 @@ export class EDRSRoundtripProducing extends Component {
         })
         .catch(function(error) {
           self.setState({ loading: false, running: false }, () => {
-            toast({
-              type: 'error',
-              icon: 'exclamation circle',
-              title: 'Error!',
-              description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-              time: 5000,
-            });
+            connectionErrorToast(error);
           });
         });
     });
@@ -195,22 +178,7 @@ export class EDRSRoundtripProducing extends Component {
                   </Header>
                   <div className="p-b-10" />
                   <Getter updateRecord={this.updateRecord} allowIje={false} />
-                  {!!this.state.issues && this.state.issues.length > 0 && (
-                    <div className="inherit-width p-b-50">
-                      {this.state.issues.map(function(issue, index) {
-                        return (
-                          <Transition key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
-                            <div className="inherit-width p-b-10">
-                              <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'} warning={issue.severity.toLowerCase() === 'warning'}>
-                                <Icon name="exclamation triangle" />
-                                <Message.Content>{`${issue.message}`}</Message.Content>
-                              </Message>
-                            </div>
-                          </Transition>
-                        );
-                      })}
-                    </div>
-                  )}
+                  <Issues issues={this.state.issues} />
                 </Container>
               </Grid.Row>
               <Grid.Row>

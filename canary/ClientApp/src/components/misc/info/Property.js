@@ -1,18 +1,15 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { StringType } from './Types/StringType';
-import { StringDateTimeType } from './Types/StringDateTimeType';
+import { Accordion, Icon } from 'semantic-ui-react';
+import { Snippet } from './Snippet';
 import { BoolType } from './Types/BoolType';
+import { DeathRecordType } from './Types/DeathRecordType';
 import { DictionaryType } from './Types/DictionaryType';
 import { StringArrType } from './Types/StringArrType';
-import { TupleCODType } from './Types/TupleCODType';
+import { StringDateTimeType } from './Types/StringDateTimeType';
+import { StringType } from './Types/StringType';
 import { TupleArrType } from './Types/TupleArrType';
-import { Accordion, Icon } from 'semantic-ui-react';
-import _ from 'lodash';
-import AceEditor from 'react-ace';
-
-import 'brace/mode/json';
-import 'brace/mode/xml';
-import 'brace/theme/chrome';
+import { TupleCODType } from './Types/TupleCODType';
 
 export class Property extends Component {
   displayName = Property.name;
@@ -46,7 +43,7 @@ export class Property extends Component {
           error={error}
         />
       );
-    } else if (type === 'StringDateTime') {
+    } else if (type === 'StringDateTime' || type === 'DateTimeOffset') {
       return (
         <StringDateTimeType
           name={this.props.name}
@@ -124,6 +121,24 @@ export class Property extends Component {
           error={error}
         />
       );
+    } else if (type === 'DeathRecord') {
+      return (
+        <DeathRecordType
+          name={this.props.name}
+          value={value}
+          description={description}
+          igurl={igurl}
+          updateProperty={this.updateProperty}
+          editable={this.props.editable}
+          testMode={this.props.testMode}
+          error={error}
+          snippetXML={this.tryFormat(this.props.property.SnippetXML)}
+          snippetJSON={this.tryFormat(this.props.property.SnippetJSON)}
+          snippetXMLTest={this.tryFormat(this.props.property.SnippetXMLTest)}
+          snippetJSONTest={this.tryFormat(this.props.property.SnippetJSONTest)}
+          lines={10}
+        />
+      );
     }
   }
 
@@ -168,7 +183,7 @@ export class Property extends Component {
 
   render() {
     if (!!!this.props.editable) {
-      if (this.props.property.Type !== "Bool") {
+      if (this.props.property.Type !== "Bool" && this.props.property.Type !== "DeathRecord") {
         if (!!!this.props.property.Value ||
             (Array.isArray(this.props.property.Value) && this.props.property.Value !== null && this.props.property.Value.length === 0) ||
             (typeof this.props.property.Value === 'object' && !Array.isArray(this.props.property.Value) && this.props.property.Value !== null && _.compact(_.values(_.mapValues(this.props.property.Value, 'Value'))).length === 0 ))
@@ -200,112 +215,24 @@ export class Property extends Component {
               !!this.props.testMode && this.props.property.Match === 'false'
             )}
             {!!this.props.testMode &&
-              this.props.property.Match === 'false' &&
+              this.props.property.Match === 'false' && this.props.property.Type !== 'DeathRecord' &&
               this.renderType(this.props.property.Type, this.props.property.FoundValue, this.props.property.Type === 'Dictionary' ? '' : 'Found value:', true)}
             {!!!this.props.hideSnippets && (
               <Accordion styled fluid exclusive={false}>
-                <Accordion.Title
-                  active={this.state.xmlVisible}
-                  onClick={() => {
-                    this.setState({ xmlVisible: !this.state.xmlVisible });
-                  }}
-                >
-                  <Icon name="dropdown" />
-                  XML
-                </Accordion.Title>
-                <Accordion.Content active={this.state.xmlVisible}>
-                  {!!this.props.testMode && <h4>Expected:</h4>}
-                  <AceEditor
-                    mode="xml"
-                    theme="chrome"
-                    name="record-xml-b"
-                    fontSize={12}
-                    showGutter={true}
-                    highlightActiveLine={true}
-                    showPrintMargin={false}
-                    value={this.tryFormat(this.state.property.SnippetXML)}
-                    width="100%"
-                    readOnly={true}
-                    maxLines={this.props.lines || Infinity}
-                    setOptions={{ useWorker: false }}
-                    editorProps={{
-                      $blockScrolling: Infinity,
-                    }}
-                  />
-                  {!!this.props.testMode && (
-                    <React.Fragment>
-                      <h4>How Canary interpreted your input:</h4>
-                      <AceEditor
-                        mode="xml"
-                        theme="chrome"
-                        name="record-xml-b"
-                        fontSize={12}
-                        showGutter={true}
-                        highlightActiveLine={true}
-                        showPrintMargin={false}
-                        value={this.tryFormat(this.state.property.SnippetXMLTest)}
-                        width="100%"
-                        readOnly={true}
-                        maxLines={this.props.lines || Infinity}
-                        setOptions={{ useWorker: false }}
-                        editorProps={{
-                          $blockScrolling: Infinity,
-                        }}
-                      />
-                    </React.Fragment>
-                  )}
-                </Accordion.Content>
-                <Accordion.Title
-                  active={this.state.jsonVisible}
-                  onClick={() => {
-                    this.setState({ jsonVisible: !this.state.jsonVisible });
-                  }}
-                >
-                  <Icon name="dropdown" />
-                  JSON
-                </Accordion.Title>
-                <Accordion.Content active={this.state.jsonVisible}>
-                  {!!this.props.testMode && <h4>Expected:</h4>}
-                  <AceEditor
-                    mode="json"
-                    theme="chrome"
-                    name="record-json-b"
-                    fontSize={12}
-                    showGutter={true}
-                    highlightActiveLine={true}
-                    showPrintMargin={false}
-                    value={this.tryFormat(this.state.property.SnippetJSON)}
-                    width="100%"
-                    readOnly={true}
-                    maxLines={this.props.lines || Infinity}
-                    setOptions={{ useWorker: false }}
-                    editorProps={{
-                      $blockScrolling: Infinity,
-                    }}
-                  />
-                  {!!this.props.testMode && (
-                    <React.Fragment>
-                      <h4>How Canary interpreted your input:</h4>
-                      <AceEditor
-                        mode="json"
-                        theme="chrome"
-                        name="record-json-b"
-                        fontSize={12}
-                        showGutter={true}
-                        highlightActiveLine={true}
-                        showPrintMargin={false}
-                        value={this.tryFormat(this.state.property.SnippetJSONTest)}
-                        width="100%"
-                        readOnly={true}
-                        maxLines={this.props.lines || Infinity}
-                        setOptions={{ useWorker: false }}
-                        editorProps={{
-                          $blockScrolling: Infinity,
-                        }}
-                      />
-                    </React.Fragment>
-                  )}
-                </Accordion.Content>
+                <Snippet
+                  name="XML"
+                  snippet={this.tryFormat(this.state.property.SnippetXML)}
+                  snippetTest={this.tryFormat(this.state.property.SnippetXMLTest)}
+                  lines={this.props.lines}
+                  testMode={this.props.testMode}
+                />
+                <Snippet
+                  name="JSON"
+                  snippet={this.tryFormat(this.state.property.SnippetJSON)}
+                  snippetTest={this.tryFormat(this.state.property.SnippetJSONTest)}
+                  lines={this.props.lines}
+                  testMode={this.props.testMode}
+                />
               </Accordion>
             )}
           </div>

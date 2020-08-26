@@ -53,37 +53,19 @@ namespace canary.Controllers
         }
 
         /// <summary>
-        /// Gets a pre-defined connectathon test by id.
-        /// GET /api/tests/connectathon/1
+        /// Gets a pre-defined connectathon test by id with an optional state
+        /// parameter which sets the placeOfDeath to the provided state.
+        /// GET /api/tests/connectathon/1 or /api/tests/connectathon/1/AK
         /// </summary>
-        [HttpGet("Tests/Connectathon/{id:int}")]
-        public Test GetTestConnectathon(int id)
+        [HttpGet("Tests/Connectathon/{id:int}/{state?}")]
+        public Test GetTestConnectathon(int id, string state)
         {
             using (var db = new RecordContext())
             {
-                Test test = new Test(Connectathon.FromId(id));
+                Test test = new Test(Connectathon.FromId(id, state));
                 db.Tests.Add(test);
                 db.SaveChanges();
                 return test;
-            }
-        }
-
-        /// <summary>
-        /// Perform a connectathon test by id.
-        /// POST /api/tests/connectathon/1
-        /// </summary>
-        [HttpPost("Tests/Connectathon/{id:int}")]
-        public async Task<int> PerformTestConnectathon(int id)
-        {
-            using (var db = new RecordContext())
-            {
-                Test test = new Test(Connectathon.FromId(id));
-                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
-                if (!String.IsNullOrEmpty(input))
-                {
-                    test = test.Run(new DeathRecord(input));
-                }
-                return test.Incorrect;
             }
         }
 
@@ -105,10 +87,10 @@ namespace canary.Controllers
 
         /// <summary>
         /// Calculates test results.
-        /// POST /api/tests/consume/run
+        /// POST /api/tests/<type>/run/<id>
         /// </summary>
-        [HttpPost("Tests/Consume/Run/{id:int}")]
-        public async Task<Test> RunConsumeTest(int id) // TODO: These test routes can probably be combined.
+        [HttpPost("Tests/{type}/Run/{id:int}")]
+        public async Task<Test> RunTest(int id, string type)
         {
             using (var db = new RecordContext())
             {
@@ -116,73 +98,7 @@ namespace canary.Controllers
                 string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
                 if (!String.IsNullOrEmpty(input))
                 {
-                   test.Run(input);
-                   test.Type = "Consume";
-                }
-                db.Tests.Remove(test);
-                db.SaveChanges();
-                return test;
-            }
-        }
-
-        /// <summary>
-        /// Calculates test results.
-        /// POST /api/tests/produce/run
-        /// </summary>
-        [HttpPost("Tests/Produce/Run/{id:int}")]
-        public async Task<Test> RunProduceTest(int id) // TODO: These test routes can probably be combined.
-        {
-            using (var db = new RecordContext())
-            {
-                Test test = db.Tests.Where(t => t.TestId == id).FirstOrDefault();
-                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
-                if (!String.IsNullOrEmpty(input))
-                {
-                   test.Run(input);
-                   test.Type = "Produce";
-                }
-                db.Tests.Remove(test);
-                db.SaveChanges();
-                return test;
-            }
-        }
-
-        /// <summary>
-        /// Calculates test results.
-        /// POST /api/tests/roundtrip/consuming/run
-        /// </summary>
-        [HttpPost("Tests/Roundtrip/Consuming/Run/{id:int}")]
-        public async Task<Test> RunRoundtripConsumingTest(int id) // TODO: These test routes can probably be combined.
-        {
-            using (var db = new RecordContext())
-            {
-                Test test = db.Tests.Where(t => t.TestId == id).FirstOrDefault();
-                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
-                if (!String.IsNullOrEmpty(input))
-                {
-                    test.Type = "RoundtripConsuming";
-                    test.Run(input);
-                }
-                db.Tests.Remove(test);
-                db.SaveChanges();
-                return test;
-            }
-        }
-
-        /// <summary>
-        /// Calculates test results.
-        /// POST /api/tests/roundtrip/producing/run
-        /// </summary>
-        [HttpPost("Tests/Roundtrip/Producing/Run/{id:int}")]
-        public async Task<Test> RunRoundtripProducingTest(int id) // TODO: These test routes can probably be combined.
-        {
-            using (var db = new RecordContext())
-            {
-                Test test = db.Tests.Where(t => t.TestId == id).FirstOrDefault();
-                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
-                if (!String.IsNullOrEmpty(input))
-                {
-                    test.Type = "RoundtripProducing";
+                    test.Type = type;
                     test.Run(input);
                 }
                 db.Tests.Remove(test);

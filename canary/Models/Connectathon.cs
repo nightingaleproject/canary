@@ -9,22 +9,38 @@ namespace canary.Models
     {
         public Connectathon() {}
 
-        public static DeathRecord FromId(int id)
+        public static DeathRecord FromId(int id, string state = null)
         {
+            DeathRecord record = null;
             switch (id)
             {
                 case 1:
-                    return JanetPage();
+                    record = JanetPage();
+                    break;
                 case 2:
-                    return MadelynPatel();
+                    record = MadelynPatel();
+                    break;
                 case 3:
-                    return VivienneLeeWright();
+                    record = VivienneLeeWright();
+                    break;
                 case 4:
-                    return JavierLuisPerezFull();
+                    record = JavierLuisPerezFull();
+                    break;
                 case 5:
-                    return JavierLuisPerezPartial();
+                    record = JavierLuisPerezPartial();
+                    break;
             }
-            return null;
+
+            if (record != null && state != null)
+            {
+                MortalityData dataHelper = MortalityData.Instance;
+
+                Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
+                placeOfDeath.Add("addressState", dataHelper.StateCodeToStateName(state));
+                placeOfDeath.Add("addressCountry", "United States");
+                record.DeathLocationAddress = placeOfDeath;
+            }
+            return record;
         }
 
         public static DeathRecord JanetPage()
@@ -32,6 +48,8 @@ namespace canary.Models
             DeathRecord record = new DeathRecord();
 
             record.Identifier = "111111";
+
+            record.BundleIdentifier = "111111";
 
             record.RegisteredTime = "2019-09-02";
 
@@ -160,6 +178,8 @@ namespace canary.Models
             DeathRecord record = new DeathRecord();
 
             record.Identifier = "222222";
+
+            record.BundleIdentifier = "222222";
 
             record.RegisteredTime = "2019-11-06";
 
@@ -303,6 +323,8 @@ namespace canary.Models
 
             record.Identifier = "333333";
 
+            record.BundleIdentifier = "333333";
+
             record.RegisteredTime = "2019-10-14";
 
             record.GivenNames = new string[] { "Vivienne", "Lee" };
@@ -434,6 +456,8 @@ namespace canary.Models
             DeathRecord record = new DeathRecord();
 
             record.Identifier = "444444";
+
+            record.BundleIdentifier = "444444";
 
             record.RegisteredTime = "2020-01-15";
 
@@ -585,6 +609,8 @@ namespace canary.Models
             DeathRecord record = new DeathRecord();
 
             record.Identifier = "444444";
+
+            record.BundleIdentifier = "444444";
 
             record.RegisteredTime = "2020-01-15";
 
