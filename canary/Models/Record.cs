@@ -184,7 +184,12 @@ namespace canary.Models
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
             try
             {
-                newRecord = new Record(new DeathRecord(record, permissive));
+                Record recordToSerialize = new Record(new DeathRecord(record, permissive));
+                // If the object fails to serialize then it will not be possible for canary to return it to the user
+                // (since canary has to serialize it to JSON in order to do so). This is why serialization is tested
+                // here and if it passes then the record is considered "safe" to return.
+                JsonConvert.SerializeObject(recordToSerialize);
+                newRecord = recordToSerialize;
                 return (record: newRecord, issues: entries);
             }
             catch (Exception e)
