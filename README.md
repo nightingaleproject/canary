@@ -51,7 +51,7 @@ docker run --rm -p 8080:80 mitre/canary:latest
 These commands will pull the latest version of Canary from Docker Hub, and run it. You can access it from a web browser at [http://localhost:8080](http://localhost:8080). To run a specific version, simply append the version to the `docker run` command above. You can see all versions of Canary that are available to run from DockerHub [here](https://hub.docker.com/r/mitre/canary/tags). For example:
 
 ```
-docker run --rm -p 8080:80 mitre/canary:3.0.0-RC1
+docker run --rm -p 8080:80 mitre/canary:3.0.0-RC2
 ```
 
 If you want to build a Dockerized Canary from scratch (from source), you can do so by running (inside the project root directory):
@@ -75,7 +75,7 @@ After you execute the `dotnet run` command, the application will be accessible f
 
 ### Publishing a Version
 
-The primary method of deploying Canary is to DockerHub. Whenever a commit is merged into master, DockerHub will automatically build that commit and tag it as `latest` on DockerHub so any user that runs `docker pull mitre/canary:latest` will receive a copy of the image. 
+The primary method of deploying Canary is to DockerHub. Whenever a commit is merged into master, DockerHub will automatically build that commit and tag it as `latest` on DockerHub so any user that runs `docker pull mitre/canary:latest` will receive a copy of the image.
 
 Whenever a tag is created on Canary of the form `vX.Y.Z`, Dockerhub will automatically build that git tag and and tag it as `X.Y.Z` on DockerHub. This means any user who runs `docker pull mitre/canary:X.Y.Z` will receive a copy of the application at version `X.Y.Z`.
 
