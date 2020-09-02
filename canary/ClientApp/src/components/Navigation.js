@@ -34,7 +34,7 @@ export class Navigation extends Component {
             <Dropdown item text="Message Testing" direction="left">
               <Dropdown.Menu>
                 <Dropdown.Item icon="cloud upload" text="Producing FHIR Messages" as={Link} to="/test-fhir-message-producing" />
-                <Dropdown.Item icon={<i class="icon"><FontAwesomeIcon icon={faMailBulk} fixedWidth /></i>} text="Connectathon FHIR Messages (Producing)" as={Link} to="/test-connectathon-dash/message" />
+                <Dropdown.Item icon={<i className="icon"><FontAwesomeIcon icon={faMailBulk} fixedWidth /></i>} text="Connectathon FHIR Messages (Producing)" as={Link} to="/test-connectathon-dash/message" />
               </Dropdown.Menu>
             </Dropdown>
             <Dropdown item text="Record Tools" direction="left">
