@@ -50,7 +50,7 @@ namespace canary.Models
 
             // record.BundleIdentifier = "2019000211";
 
-            record.Identifier = "111115";
+            record.Identifier = "000050";
 
             record.RegisteredTime = "2019-09-02";
 
@@ -235,7 +235,7 @@ namespace canary.Models
 
             // record.BundleIdentifier = "2019000213";
 
-            record.Identifier = "222225";
+            record.Identifier = "000051";
 
             record.RegisteredTime = "2019-11-06";
 
@@ -438,7 +438,7 @@ namespace canary.Models
 
             // record.BundleIdentifier = "2019000215";
 
-            record.Identifier = "333335";
+            record.Identifier = "000052";
 
             record.RegisteredTime = "2019-10-14";
 
@@ -514,7 +514,6 @@ namespace canary.Models
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Lancaster");
             deathLoc.Add("addressCounty", "Lancaster");
-            deathLoc.Add("addressState", "PA");
             deathLoc.Add("addressCountry", "United States");
             record.DeathLocationAddress = deathLoc;
 
@@ -635,7 +634,7 @@ namespace canary.Models
                 // record.BundleIdentifier = "2019000217";
             }
 
-            record.Identifier = "444445";
+            record.Identifier = "000053";
 
             record.RegisteredTime = "2020-01-15";
 
