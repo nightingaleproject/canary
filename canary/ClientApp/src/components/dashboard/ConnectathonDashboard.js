@@ -32,31 +32,31 @@ export class ConnectathonDashboard extends Component {
                 <DashboardItem
                   icon="male"
                   title="Cancer"
-                  description="#111111; Janet Page; Congestive Heart Failure"
+                  description="#000050; Janet Page; Congestive Heart Failure"
                   route={ this.getUrl(1) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Opioid Death at Home"
-                  description="#222222; Madelyn Patel; Cocaine toxicity"
+                  description="#000051; Madelyn Patel; Cocaine toxicity"
                   route={ this.getUrl(2) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Pregnant"
-                  description="#333333; Vivienne Lee Wright; Cardiopulmonary arrest"
+                  description="#000052; Vivienne Lee Wright; Cardiopulmonary arrest"
                   route={ this.getUrl(3) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Car accident at work: Full"
-                  description="#444444; Javier Luis Perez; Blunt head trama"
+                  description="#000053; Javier Luis Perez; Blunt head trama"
                   route={ this.getUrl(4) }
                 />
                 <DashboardItem
                   icon="male"
                   title="Car accident at work: Partial"
-                  description="#444444; Javier Luis Perez; Blunt head trama"
+                  description="#000054; Javier Luis Perez; Blunt head trama (partial record)"
                   route={ this.getUrl(5) }
                 />
               </Item.Group>
