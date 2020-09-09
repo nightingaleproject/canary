@@ -103,7 +103,7 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1455");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "Doctorate Degree or Professional Degree");
             elevel.Add("text", "Doctorate");
             record.EducationLevel = elevel;
@@ -285,7 +285,7 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1452");
-            elevel.Add("system", "2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "Associate Degree");
             record.EducationLevel = elevel;
 
@@ -488,7 +488,7 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1449");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "9th through 12th grade; no diploma");
             elevel.Add("text", "11th grade");
             record.EducationLevel = elevel;
@@ -694,7 +694,7 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1454");
-            elevel.Add("system", "2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "Master's Degree");
             record.EducationLevel = elevel;
 
