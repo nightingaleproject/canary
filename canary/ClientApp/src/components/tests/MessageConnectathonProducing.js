@@ -26,7 +26,6 @@ export class MessageConnectathonProducing extends Component {
 
   fetchTest(_, data) {
     var self = this;
-    console.log(data);
     if (!!this.props.match.params.id) {
       this.setState({ loading: true }, () => {
         axios
@@ -89,6 +88,10 @@ export class MessageConnectathonProducing extends Component {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, running: false });
+          document.getElementById('scroll-to').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         })
         .catch(function(error) {
           self.setState({ loading: false, running: false }, () => {
@@ -125,6 +128,7 @@ export class MessageConnectathonProducing extends Component {
   render() {
     return (
       <React.Fragment>
+        <Grid id="scroll-to">
           <Grid.Row>
             <Breadcrumb>
               <Breadcrumb.Section as={Link} to="/">
@@ -289,6 +293,7 @@ export class MessageConnectathonProducing extends Component {
             )}
           </React.Fragment>
           )}
+        </Grid>
       </React.Fragment>
     );
   }
