@@ -178,7 +178,6 @@ namespace canary.Models
 
             Dictionary<string, string> fdaddress = new Dictionary<string, string>();
             fdaddress.Add("addressLine1", "15 Pecan Street");
-            fdaddress.Add("addressLine2", "Line 2");
             fdaddress.Add("addressCity", "Atlanta");
             fdaddress.Add("addressState", "GA");
             fdaddress.Add("addressZip", " 30301");
@@ -197,7 +196,6 @@ namespace canary.Models
 
             Dictionary<string, string> dladdress = new Dictionary<string, string>();
             dladdress.Add("addressLine1", "15 Pecan Street");
-            dladdress.Add("addressLine2", "Line 2");
             dladdress.Add("addressCity", "Atlanta");
             dladdress.Add("addressState", "GA");
             dladdress.Add("addressZip", " 30301");
@@ -696,7 +694,7 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1454");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "2.16.840.1.114222.4.11.7385");
             elevel.Add("display", "Master's Degree");
             record.EducationLevel = elevel;
 
