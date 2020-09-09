@@ -221,8 +221,8 @@ namespace canary.Models
                 { "display", "unknown" } };
 
             // uncomment to generate file
-            string filename = "1_janet_page_cancer_" + fhirVersion + ".xml";
-            WriteRecordAsXml(record, filename);
+            // string filename = "1_janet_page_cancer_" + fhirVersion + ".xml";
+            // WriteRecordAsXml(record, filename);
 
             return record;
         }
@@ -424,8 +424,8 @@ namespace canary.Models
                 { "display", "No" } };
 
             // uncomment to generate file
-            string filename = "2_madelyn_patel_opiod_" + fhirVersion + ".xml";
-            WriteRecordAsXml(record, filename);
+            // string filename = "2_madelyn_patel_opiod_" + fhirVersion + ".xml";
+            // WriteRecordAsXml(record, filename);
 
             return record;
         }
@@ -612,8 +612,8 @@ namespace canary.Models
                 { "display", "Yes" } };
 
             // uncomment to generate file
-            string filename = "3_vivienne_wright_pregnant_" + fhirVersion + ".xml";
-            WriteRecordAsXml(record, filename);
+            // string filename = "3_vivienne_wright_pregnant_" + fhirVersion + ".xml";
+            // WriteRecordAsXml(record, filename);
 
             return record;
         }
@@ -849,16 +849,16 @@ namespace canary.Models
             }
 
             // uncomment to generate file
-            string filename = "";
-            if (fullRecord)
-            {
-                filename += "4_javier_perez_accident_full_" + fhirVersion + ".xml";
-            }
-            else
-            {
-                filename += "5_javier_perez_accident_partial_" + fhirVersion + ".xml";
-            }
-            WriteRecordAsXml(record, filename);
+            // string filename = "";
+            // if (fullRecord)
+            // {
+            //     filename += "4_javier_perez_accident_full_" + fhirVersion + ".xml";
+            // }
+            // else
+            // {
+            //     filename += "5_javier_perez_accident_partial_" + fhirVersion + ".xml";
+            // }
+            // WriteRecordAsXml(record, filename);
 
             return record;
         }
