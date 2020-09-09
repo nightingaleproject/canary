@@ -61,11 +61,11 @@ namespace canary.Models
         {
             if(Type.Contains("Message")) {
                 TestMessage = new Message(description);
-                MessageCompare();
+                Results = MessageCompare();
             }
             else {
                 TestRecord = new Record(DeathRecord.FromDescription(description));
-                RecordCompare();
+                Results = RecordCompare();
             }
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
@@ -81,7 +81,7 @@ namespace canary.Models
             return this;
         }
 
-        public void MessageCompare()
+        public string MessageCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             BaseMessage bundle = TestMessage.GetMessage();
@@ -108,10 +108,8 @@ namespace canary.Models
                 if (property.PropertyType == typeof(DeathRecord))
                 {
                     DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
-                    category[property.Name]["SnippetXML"] = extracted.ToXML();
-                    category[property.Name]["SnippetXMLTest"] = record.ToXML();
-                    category[property.Name]["SnippetJSON"] = extracted.ToJSON();
-                    category[property.Name]["SnippetJSONTest"] = record.ToJSON();
+                    TestRecord = new Record(extracted);
+                    category[property.Name]["SnippetJSON"] = RecordCompare();
                     if (record.ToXml().Equals(extracted.ToXML()))
                     {
                         Correct += 1;
@@ -150,10 +148,10 @@ namespace canary.Models
                     }
                 }
             }
-            Results = JsonConvert.SerializeObject(description);
+            return JsonConvert.SerializeObject(description);
         }
 
-        public void RecordCompare()
+        public string RecordCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => ((Property)p.GetCustomAttributes().First()).Priority))
@@ -580,7 +578,7 @@ namespace canary.Models
                     }
                 }
             }
-            Results = JsonConvert.SerializeObject(description);
+            return JsonConvert.SerializeObject(description);
         }
     }
 }

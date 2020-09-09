@@ -96,6 +96,10 @@ export class FHIRMessageProducing extends Component {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, running: false });
+          document.getElementById('scroll-to').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         })
         .catch(function(error) {
           self.setState({ loading: false, running: false }, () => {

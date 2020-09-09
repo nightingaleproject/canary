@@ -132,10 +132,7 @@ export class Property extends Component {
           editable={this.props.editable}
           testMode={this.props.testMode}
           error={error}
-          snippetXML={this.tryFormat(this.props.property.SnippetXML)}
-          snippetJSON={this.tryFormat(this.props.property.SnippetJSON)}
-          snippetXMLTest={this.tryFormat(this.props.property.SnippetXMLTest)}
-          snippetJSONTest={this.tryFormat(this.props.property.SnippetJSONTest)}
+          snippetJSON={this.props.property.SnippetJSON}
           lines={10}
         />
       );
