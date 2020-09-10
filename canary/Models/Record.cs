@@ -199,27 +199,36 @@ namespace canary.Models
             return (record: newRecord, issues: entries);
         }
 
-        public static List<Dictionary<string, string>> DecorateErrors(Exception e) {
+        /// <summary>Recursively call InnerException and add all errors to the list until we reach the BaseException.</summary>
+        public static List<Dictionary<string, string>> DecorateErrors(Exception e)
+        {
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
 
-            Exception baseException = e.GetBaseException();
+            return DecorateErrorsRecursive(e, entries);
+        }
 
-            if (baseException.Message != null)
+        private static List<Dictionary<string, string>> DecorateErrorsRecursive(Exception exception, List<Dictionary<string, string>> entries)
+        {
+            if (exception != null && exception.Message != null)
             {
-                foreach (string er in baseException.Message.Split(";"))
+                foreach (string er in exception.Message.Split(";"))
                 {
                     Dictionary<string, string> entry = new Dictionary<string, string>();
                     // targetSite contains the information required to show the function class and function that
                     // the error occurred in
-                    var targetSite = baseException.TargetSite;
+                    var targetSite = exception.TargetSite;
                     string erString = er.Trim();
                     // Ensure the original error string always ends in a period.
                     if (!erString.EndsWith('.')) erString += '.';
-                    string errorWithLocation = $"{erString} Error occurred at {targetSite.ReflectedType} in function {targetSite.Name}.";
+                    string errorWithLocation = $"{erString} Error occurred";
+                    if (targetSite.ReflectedType != null) errorWithLocation += $" at {targetSite.ReflectedType}";
+                    if (targetSite.Name != null) errorWithLocation += $" in function {targetSite.Name}";
+                    errorWithLocation += ".";
                     entry.Add("message", errorWithLocation.Replace("Parser:", "").Trim());
                     entry.Add("severity", "error");
                     entries.Add(entry);
                 }
+                return DecorateErrorsRecursive(exception.InnerException, entries);
             }
             return entries;
         }
