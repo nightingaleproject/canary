@@ -128,172 +128,170 @@ export class MessageConnectathonProducing extends Component {
   render() {
     return (
       <React.Fragment>
-        <Grid id="scroll-to">
-          <Grid.Row>
-            <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
-                Dashboard
-              </Breadcrumb.Section>
-              <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Connectathon FHIR Message Producing</Breadcrumb.Section>
-            </Breadcrumb>
+        <Grid.Row id="scroll-to">
+          <Breadcrumb>
+            <Breadcrumb.Section as={Link} to="/">
+              Dashboard
+            </Breadcrumb.Section>
+            <Breadcrumb.Divider icon="right chevron" />
+            <Breadcrumb.Section>Connectathon FHIR Message Producing</Breadcrumb.Section>
+          </Breadcrumb>
+        </Grid.Row>
+        {!!this.state.test && this.state.test.completedBool && (
+          <Grid.Row className="loader-height">
+            <Container>
+              <div className="p-b-10" />
+              <Statistic.Group widths="three">
+                <Statistic size="large">
+                  <Statistic.Value>{this.state.test.total}</Statistic.Value>
+                  <Statistic.Label>Properties Checked</Statistic.Label>
+                </Statistic>
+                <Statistic size="large" color="green">
+                  <Statistic.Value>
+                    <Icon name="check circle" />
+                    {this.state.test.correct}
+                  </Statistic.Value>
+                  <Statistic.Label>Correct</Statistic.Label>
+                </Statistic>
+                <Statistic size="large" color="red">
+                  <Statistic.Value>
+                    <Icon name="times circle" />
+                    {this.state.test.incorrect}
+                  </Statistic.Value>
+                  <Statistic.Label>Incorrect</Statistic.Label>
+                </Statistic>
+              </Statistic.Group>
+              <Grid centered columns={1} className="p-t-30 p-b-15">
+                <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.match.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
+              </Grid>
+              <div className="p-b-20" />
+              <Form size="large">
+                <FHIRInfo fhirInfo={this.state.test.results} hideSnippets={true} editable={false} testMode={true} />
+              </Form>
+            </Container>
           </Grid.Row>
-          {!!this.state.test && this.state.test.completedBool && (
-            <Grid.Row className="loader-height">
-              <Container>
-                <div className="p-b-10" />
-                <Statistic.Group widths="three">
-                  <Statistic size="large">
-                    <Statistic.Value>{this.state.test.total}</Statistic.Value>
-                    <Statistic.Label>Properties Checked</Statistic.Label>
-                  </Statistic>
-                  <Statistic size="large" color="green">
-                    <Statistic.Value>
-                      <Icon name="check circle" />
-                      {this.state.test.correct}
-                    </Statistic.Value>
-                    <Statistic.Label>Correct</Statistic.Label>
-                  </Statistic>
-                  <Statistic size="large" color="red">
-                    <Statistic.Value>
-                      <Icon name="times circle" />
-                      {this.state.test.incorrect}
-                    </Statistic.Value>
-                    <Statistic.Label>Incorrect</Statistic.Label>
-                  </Statistic>
-                </Statistic.Group>
-                <Grid centered columns={1} className="p-t-30 p-b-15">
-                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.match.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
-                </Grid>
-                <div className="p-b-20" />
-                <Form size="large">
-                  <FHIRInfo fhirInfo={this.state.test.results} hideSnippets={true} editable={false} testMode={true} />
-                </Form>
+        )}
+        {!(!!this.state.test && this.state.test.completedBool) && (
+          <React.Fragment>
+            <Grid.Row>
+              <Container fluid>
+                <Divider horizontal />
+                <Header as="h2" dividing id="step-1">
+                  <Icon name="flag" />
+                  <Header.Content>
+                    Step 1: Select State
+                    <Header.Subheader>
+                      Select the state which you are generating a message from.
+                    </Header.Subheader>
+                  </Header.Content>
+                </Header>
+                <div className="p-b-15" />
+                <Dropdown placeholder='Select State' search selection fluid onChange={this.fetchTest} options={stateOptions} />
               </Container>
             </Grid.Row>
-          )}
-          {!(!!this.state.test && this.state.test.completedBool) && (
-            <React.Fragment>
-              <Grid.Row>
-                <Container fluid>
-                  <Divider horizontal />
-                  <Header as="h2" dividing id="step-1">
-                    <Icon name="flag" />
-                    <Header.Content>
-                      Step 1: Select State
-                      <Header.Subheader>
-                        Select the state which you are generating a message from.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                  <div className="p-b-15" />
-                  <Dropdown placeholder='Select State' search selection fluid onChange={this.fetchTest} options={stateOptions} />
+            {!(!!this.state.test && this.state.test.completedBool) && !!this.state.loading && (
+              <Grid.Row className="loader-height">
+                <Container>
+                  <Dimmer active inverted>
+                    {!!this.props.match.params.id && <Loader size="massive">Loading Test...</Loader>}
+                  </Dimmer>
                 </Container>
               </Grid.Row>
-              {!(!!this.state.test && this.state.test.completedBool) && !!this.state.loading && (
-                <Grid.Row className="loader-height">
-                  <Container>
-                    <Dimmer active inverted>
-                      {!!this.props.match.params.id && <Loader size="massive">Loading Test...</Loader>}
-                    </Dimmer>
+            )}
+            {(!!this.state.test && !this.state.test.completedBool) && !this.state.loading && (
+              <React.Fragment>
+                <Grid.Row>
+                  <Container fluid>
+                    <Divider horizontal />
+                    <Header as="h2" dividing id="step-2">
+                      <Icon name="download" />
+                      <Header.Content>
+                        Step 2: Import Record
+                        <Header.Subheader>
+                          Import the generated record into your system. The below prompt allows you to copy the record, download it as a file, or POST it to
+                          an endpoint.
+                        </Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                    <div className="p-b-15" />
+                    <Record record={this.state.record} showSave lines={20} showIje />
                   </Container>
                 </Grid.Row>
-              )}
-              {(!!this.state.test && !this.state.test.completedBool) && !this.state.loading && (
+                <Grid.Row>
+                  <Container fluid>
+                    <Divider horizontal />
+                    <Header as="h2" dividing id="step-3">
+                      <Icon name="mail" />
+                      <Header.Content>
+                        Step 3: Choose the Message Type
+                        <Header.Subheader>Select the type of message you would like Canary to validate.</Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                    <Menu items={messageTypeIcons} widths={messageTypeIcons.length} onItemClick={this.setExpectedMessageType} />
+                  </Container>
+                </Grid.Row>
+              <Grid.Row>
+                {!!this.state.expectedType && (
+                  <div className="inherit-width">
+                    <Transition transitionOnMount animation="fade" duration={1000}>
+                      <div className="inherit-width">
+                        <Message icon size="large" info>
+                          <Icon name="info circle" />
+                          <Message.Content>Canary will expect a {this.state.expectedType} Message</Message.Content>
+                        </Message>
+                      </div>
+                    </Transition>
+                  </div>
+                )}
+              </Grid.Row>
+              {!!this.state.expectedType && (
                 <React.Fragment>
                   <Grid.Row>
                     <Container fluid>
                       <Divider horizontal />
-                      <Header as="h2" dividing id="step-2">
-                        <Icon name="download" />
+                      <Header as="h2" dividing id="step-3">
+                        <Icon name="keyboard" />
                         <Header.Content>
-                          Step 2: Import Record
+                          Step 4: Export Message
                           <Header.Subheader>
-                            Import the generated record into your system. The below prompt allows you to copy the record, download it as a file, or POST it to
-                            an endpoint.
+                            Export a {this.state.expectedType} message for the record above and import it into Canary using the tool below.
                           </Header.Subheader>
                         </Header.Content>
                       </Header>
-                      <div className="p-b-15" />
-                      <Record record={this.state.record} showSave lines={20} showIje />
+                      <div className="p-b-10" />
+                      <Getter updateRecord={this.updateMessage} strict messageValidation={true} allowIje={false} />
                     </Container>
                   </Grid.Row>
+                  <div className="p-b-15" />
+                  {!!this.state.issues && (
+                    <Grid.Row>
+                      <Record record={null} issues={this.state.issues} messageType={this.state.actualType} messageValidation={true} showIssues showSuccess />
+                    </Grid.Row>
+                  )}
                   <Grid.Row>
                     <Container fluid>
                       <Divider horizontal />
-                      <Header as="h2" dividing id="step-3">
-                        <Icon name="mail" />
+                      <Header as="h2" dividing className="p-b-5" id="step-4">
+                        <Icon name="check circle" />
                         <Header.Content>
-                          Step 3: Choose the Message Type
-                          <Header.Subheader>Select the type of message you would like Canary to validate.</Header.Subheader>
+                          Step 5: Calculate Results
+                          <Header.Subheader>
+                            When you have imported the message into Canary, click the button below and Canary will calculate the results of the test.
+                          </Header.Subheader>
                         </Header.Content>
                       </Header>
-                      <Menu items={messageTypeIcons} widths={messageTypeIcons.length} onItemClick={this.setExpectedMessageType} />
+                      <div className="p-b-10" />
+                      <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running} disabled={!!!this.state.message}>
+                      Calculate
+                      </Button>
                     </Container>
                   </Grid.Row>
-                <Grid.Row>
-                  {!!this.state.expectedType && (
-                    <div className="inherit-width">
-                      <Transition transitionOnMount animation="fade" duration={1000}>
-                        <div className="inherit-width">
-                          <Message icon size="large" info>
-                            <Icon name="info circle" />
-                            <Message.Content>Canary will expect a {this.state.expectedType} Message</Message.Content>
-                          </Message>
-                        </div>
-                      </Transition>
-                    </div>
-                  )}
-                </Grid.Row>
-                {!!this.state.expectedType && (
-                  <React.Fragment>
-                    <Grid.Row>
-                      <Container fluid>
-                        <Divider horizontal />
-                        <Header as="h2" dividing id="step-3">
-                          <Icon name="keyboard" />
-                          <Header.Content>
-                            Step 4: Export Message
-                            <Header.Subheader>
-                              Export a {this.state.expectedType} message for the record above and import it into Canary using the tool below.
-                            </Header.Subheader>
-                          </Header.Content>
-                        </Header>
-                        <div className="p-b-10" />
-                        <Getter updateRecord={this.updateMessage} strict messageValidation={true} allowIje={false} />
-                      </Container>
-                    </Grid.Row>
-                    <div className="p-b-15" />
-                    {!!this.state.issues && (
-                      <Grid.Row>
-                        <Record record={null} issues={this.state.issues} messageType={this.state.actualType} messageValidation={true} showIssues showSuccess />
-                      </Grid.Row>
-                    )}
-                    <Grid.Row>
-                      <Container fluid>
-                        <Divider horizontal />
-                        <Header as="h2" dividing className="p-b-5" id="step-4">
-                          <Icon name="check circle" />
-                          <Header.Content>
-                            Step 5: Calculate Results
-                            <Header.Subheader>
-                              When you have imported the message into Canary, click the button below and Canary will calculate the results of the test.
-                            </Header.Subheader>
-                          </Header.Content>
-                        </Header>
-                        <div className="p-b-10" />
-                        <Button fluid size="huge" primary onClick={this.runTest} loading={this.state.running} disabled={!!!this.state.message}>
-                        Calculate
-                        </Button>
-                      </Container>
-                    </Grid.Row>
-                  </React.Fragment>
-                )}
-              </React.Fragment>
-            )}
-          </React.Fragment>
+                </React.Fragment>
+              )}
+            </React.Fragment>
           )}
-        </Grid>
+        </React.Fragment>
+        )}
       </React.Fragment>
     );
   }

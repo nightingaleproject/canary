@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Button, Container, Dimmer, Divider, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { stateOptions } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -13,28 +14,31 @@ export class Connectathon extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, test: null, loading: true, record: null, results: null, fhirInfo: null, running: false };
+    this.state = { ...this.props, test: null, loading: false, record: null, results: null, fhirInfo: null, running: false };
     this.updateTest = this.updateTest.bind(this);
     this.runTest = this.runTest.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
+    this.fetchTest = this.fetchTest.bind(this);
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
   }
 
-  componentDidMount() {
+  fetchTest(_, data) {
     var self = this;
     if (!!this.props.match.params.id) {
-      axios
-        .get(window.API_URL + '/tests/connectathon/' + this.props.match.params.id)
-        .then(function(response) {
-          var test = response.data;
-          test.results = JSON.parse(test.results);
-          self.setState({ test: test, fhirInfo: JSON.parse(response.data.referenceRecord.fhirInfo), loading: false });
-        })
-        .catch(function(error) {
-          self.setState({ loading: false }, () => {
-            connectionErrorToast(error);
+      this.setState({ loading: true }, () => {
+        axios
+          .get(window.API_URL + '/tests/connectathon/' + this.props.match.params.id + '/' + data.value)
+          .then(function(response) {
+            var test = response.data;
+            test.results = JSON.parse(test.results);
+            self.setState({ test: test, fhirInfo: JSON.parse(response.data.referenceRecord.fhirInfo), loading: false });
+          })
+          .catch(function(error) {
+            self.setState({ loading: false }, () => {
+              connectionErrorToast(error);
+            });
           });
-        });
+      });
     }
   }
 
@@ -104,126 +108,144 @@ export class Connectathon extends Component {
   render() {
     return (
       <React.Fragment>
-        <Grid id="scroll-to">
-          <Grid.Row>
-            <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/">
-                Dashboard
-              </Breadcrumb.Section>
-              <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Connectathon FHIR Death Records</Breadcrumb.Section>
-            </Breadcrumb>
-          </Grid.Row>
-          {!!this.state.test && this.state.test.completedBool && (
-            <Grid.Row className="loader-height">
-              <Container>
-                <div className="p-b-10" />
-                <Statistic.Group widths="three">
-                  <Statistic size="large">
-                    <Statistic.Value>{this.state.test.total}</Statistic.Value>
-                    <Statistic.Label>Properties Checked</Statistic.Label>
-                  </Statistic>
-                  <Statistic size="large" color="green">
-                    <Statistic.Value>
-                      <Icon name="check circle" />
-                      {this.state.test.correct}
-                    </Statistic.Value>
-                    <Statistic.Label>Correct</Statistic.Label>
-                  </Statistic>
-                  <Statistic size="large" color="red">
-                    <Statistic.Value>
-                      <Icon name="times circle" />
-                      {this.state.test.incorrect}
-                    </Statistic.Value>
-                    <Statistic.Label>Incorrect</Statistic.Label>
-                  </Statistic>
-                </Statistic.Group>
-                <Grid centered columns={1} className="p-t-30 p-b-15">
-                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.match.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
-                </Grid>
-                <div className="p-b-20" />
-                <Form size="large">
-                  <FHIRInfo fhirInfo={this.state.test.results} editable={false} testMode={true} updateFhirInfo={null} />
-                </Form>
-              </Container>
-            </Grid.Row>
-          )}
-          {!(this.state.test && this.state.test.completedBool) && !!this.state.loading && (
-            <Grid.Row className="loader-height">
-              <Container>
-                <Dimmer active inverted>
-                  <Loader size="massive">Initializing a New Test...</Loader>
-                </Dimmer>
-              </Container>
-            </Grid.Row>
-          )}
-          {!(this.state.test && this.state.test.completedBool) && !!this.state.test && (
-            <React.Fragment>
-              <Grid.Row>
-                <Container fluid>
-                  <Divider horizontal />
-                  <Header as="h2" dividing id="step-1">
-                    <Icon name="keyboard" />
-                    <Header.Content>
-                      Step 1: Enter Details
-                      <Header.Subheader>Enter the details listed below into your system.</Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                  <div className="p-b-10" />
-                  {!!this.state.fhirInfo && (
-                    <Form size="large">
-                      <FHIRInfo fhirInfo={this.state.fhirInfo} updateFhirInfo={null} editable={false} hideSnippets hideBlanks={true} />
-                    </Form>
-                  )}
-                </Container>
-              </Grid.Row>
-              <Grid.Row>
-                <Container fluid>
-                  <Divider horizontal />
-                  <Header as="h2" dividing id="step-1">
-                    <Icon name="download" />
-                    <Header.Content>
-                      Step 2: Export Record
-                      <Header.Subheader>After entering the record into your system, export it and import it into Canary using the form below.</Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                  <div className="p-b-15" />
-                  {!!this.state.issues && this.state.issues.length > 0 && (
-                    <Grid.Row id="scroll-to">
-                      <Record issues={this.state.issues} showIssues />
-                    </Grid.Row>
-                  )}
-                  <Getter updateRecord={this.updateRecord} allowIje={false} />
-                </Container>
-              </Grid.Row>
-              <Grid.Row>
-                <Container fluid>
-                  <Divider horizontal />
-                  <Header as="h2" dividing className="p-b-5" id="step-1">
+        <Grid.Row id="scroll-to">
+          <Breadcrumb>
+            <Breadcrumb.Section as={Link} to="/">
+              Dashboard
+            </Breadcrumb.Section>
+            <Breadcrumb.Divider icon="right chevron" />
+            <Breadcrumb.Section>Connectathon FHIR Death Records</Breadcrumb.Section>
+          </Breadcrumb>
+        </Grid.Row>
+        {!!this.state.test && this.state.test.completedBool && (
+          <Grid.Row className="loader-height">
+            <Container>
+              <div className="p-b-10" />
+              <Statistic.Group widths="three">
+                <Statistic size="large">
+                  <Statistic.Value>{this.state.test.total}</Statistic.Value>
+                  <Statistic.Label>Properties Checked</Statistic.Label>
+                </Statistic>
+                <Statistic size="large" color="green">
+                  <Statistic.Value>
                     <Icon name="check circle" />
-                    <Header.Content>
-                      Step 3: Calculate Results
-                      <Header.Subheader>
-                        When you have imported the record, click the button below and Canary will calculate the results of the test.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                  <div className="p-b-10" />
-                  <Button
-                    fluid
-                    size="huge"
-                    primary
-                    onClick={this.runTest}
-                    loading={this.state.running}
-                    disabled={!!!(this.state.record && this.state.record.xml)}
-                  >
-                    Calculate
-                  </Button>
+                    {this.state.test.correct}
+                  </Statistic.Value>
+                  <Statistic.Label>Correct</Statistic.Label>
+                </Statistic>
+                <Statistic size="large" color="red">
+                  <Statistic.Value>
+                    <Icon name="times circle" />
+                    {this.state.test.incorrect}
+                  </Statistic.Value>
+                  <Statistic.Label>Incorrect</Statistic.Label>
+                </Statistic>
+              </Statistic.Group>
+              <Grid centered columns={1} className="p-t-30 p-b-15">
+                <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.match.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
+              </Grid>
+              <div className="p-b-20" />
+              <Form size="large">
+                <FHIRInfo fhirInfo={this.state.test.results} editable={false} testMode={true} updateFhirInfo={null} />
+              </Form>
+            </Container>
+          </Grid.Row>
+        )}
+        {!(!!this.state.test && this.state.test.completedBool) && (
+          <React.Fragment>
+            <Grid.Row>
+              <Container fluid>
+                <Divider horizontal />
+                <Header as="h2" dividing id="step-1">
+                  <Icon name="flag" />
+                  <Header.Content>
+                    Step 1: Select State
+                    <Header.Subheader>
+                      Select the state which you are generating a message from.
+                    </Header.Subheader>
+                  </Header.Content>
+                </Header>
+                <div className="p-b-15" />
+                <Dropdown placeholder='Select State' search selection fluid onChange={this.fetchTest} options={stateOptions} />
+              </Container>
+            </Grid.Row>
+            {!(this.state.test && this.state.test.completedBool) && !!this.state.loading && (
+              <Grid.Row className="loader-height">
+                <Container>
+                  <Dimmer active inverted>
+                    <Loader size="massive">Loading Test...</Loader>
+                  </Dimmer>
                 </Container>
               </Grid.Row>
-            </React.Fragment>
-          )}
-        </Grid>
+            )}
+            {!(this.state.test && this.state.test.completedBool) && !!this.state.test && (
+              <React.Fragment>
+                <Grid.Row>
+                  <Container fluid>
+                    <Divider horizontal />
+                    <Header as="h2" dividing id="step-1">
+                      <Icon name="keyboard" />
+                      <Header.Content>
+                        Step 2: Enter Details
+                        <Header.Subheader>Enter the details listed below into your system.</Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                    <div className="p-b-10" />
+                    {!!this.state.fhirInfo && (
+                      <Form size="large">
+                        <FHIRInfo fhirInfo={this.state.fhirInfo} updateFhirInfo={null} editable={false} hideSnippets hideBlanks={true} />
+                      </Form>
+                    )}
+                  </Container>
+                </Grid.Row>
+                <Grid.Row>
+                  <Container fluid>
+                    <Divider horizontal />
+                    <Header as="h2" dividing id="step-1">
+                      <Icon name="download" />
+                      <Header.Content>
+                        Step 3: Export Record
+                        <Header.Subheader>After entering the record into your system, export it and import it into Canary using the form below.</Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                    <div className="p-b-15" />
+                    {!!this.state.issues && this.state.issues.length > 0 && (
+                      <Grid.Row id="scroll-to">
+                        <Record issues={this.state.issues} showIssues />
+                      </Grid.Row>
+                    )}
+                    <Getter updateRecord={this.updateRecord} allowIje={false} />
+                  </Container>
+                </Grid.Row>
+                <Grid.Row>
+                  <Container fluid>
+                    <Divider horizontal />
+                    <Header as="h2" dividing className="p-b-5" id="step-1">
+                      <Icon name="check circle" />
+                      <Header.Content>
+                        Step 4: Calculate Results
+                        <Header.Subheader>
+                          When you have imported the record, click the button below and Canary will calculate the results of the test.
+                        </Header.Subheader>
+                      </Header.Content>
+                    </Header>
+                    <div className="p-b-10" />
+                    <Button
+                      fluid
+                      size="huge"
+                      primary
+                      onClick={this.runTest}
+                      loading={this.state.running}
+                      disabled={!!!(this.state.record && this.state.record.xml)}
+                    >
+                      Calculate
+                    </Button>
+                  </Container>
+                </Grid.Row>
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        )}
         <div className="p-b-100" />
       </React.Fragment>
     );
