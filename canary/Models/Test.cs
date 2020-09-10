@@ -110,16 +110,7 @@ namespace canary.Models
                     DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
                     TestRecord = new Record(extracted);
                     category[property.Name]["SnippetJSON"] = RecordCompare();
-                    if (record.ToXml().Equals(extracted.ToXML()))
-                    {
-                        Correct += 1;
-                        category[property.Name]["Match"] = "true";
-                    }
-                    else
-                    {
-                        Incorrect += 1;
-                        category[property.Name]["Match"] = "false";
-                    }
+                    category[property.Name]["Match"] = record.ToXml().Equals(extracted.ToXML()) ? "true" : "false";
                 }
                 else if (Message.validatePresenceOnly(property.Name))
                 {
