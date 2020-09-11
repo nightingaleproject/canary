@@ -107,10 +107,15 @@ namespace canary.Models
                 // into the message bundle.
                 if (property.PropertyType == typeof(DeathRecord))
                 {
+                    // Do not count DeathRecord base as part of the Total (since the Total is increased per-element in RecordCompare)
+                    Total -= 1;
                     DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
                     TestRecord = new Record(extracted);
+                    int previousIncorrect = Incorrect;
                     category[property.Name]["SnippetJSON"] = RecordCompare();
-                    category[property.Name]["Match"] = record.ToXml().Equals(extracted.ToXML()) ? "true" : "false";
+                    // See if the value of Incorrect changed in 'RecordCompare' and use that to determine if the
+                    // Record matches or not.
+                    category[property.Name]["Match"] = previousIncorrect.Equals(Incorrect) ? "true" : "false";
                 }
                 else if (Message.validatePresenceOnly(property.Name))
                 {
