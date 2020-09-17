@@ -2,6 +2,7 @@
 
 ### v3.0.0-RC5 - 2020-09-17
 
+* Fixed Connectathon record OIDs to refer to code systems rather than value sets
 * Fixed off-by-one counting errors related to duplicate counts for nested records
 * Updated the VRDR-dotnet dependency for the project to use V3.1.0-RC5, which fixes bugs
 
