@@ -103,21 +103,21 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1455");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "Doctorate Degree or Professional Degree");
             elevel.Add("text", "Doctorate");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "1010");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "Computer Programmers");
             uocc.Add("text", "Programmer");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "6990");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Insurance carriers and related activities");
             uind.Add("text", "Health Insurance");
             record.UsualIndustryCode = uind;
@@ -178,7 +178,6 @@ namespace canary.Models
 
             Dictionary<string, string> fdaddress = new Dictionary<string, string>();
             fdaddress.Add("addressLine1", "15 Pecan Street");
-            fdaddress.Add("addressLine2", "Line 2");
             fdaddress.Add("addressCity", "Atlanta");
             fdaddress.Add("addressState", "GA");
             fdaddress.Add("addressZip", " 30301");
@@ -197,7 +196,6 @@ namespace canary.Models
 
             Dictionary<string, string> dladdress = new Dictionary<string, string>();
             dladdress.Add("addressLine1", "15 Pecan Street");
-            dladdress.Add("addressLine2", "Line 2");
             dladdress.Add("addressCity", "Atlanta");
             dladdress.Add("addressState", "GA");
             dladdress.Add("addressZip", " 30301");
@@ -287,20 +285,20 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1452");
-            elevel.Add("system", "2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "Associate Degree");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "4030");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "Food preparation workers");
             uocc.Add("text", "Food Prep");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "8680");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Restaurants and other food services");
             uind.Add("text", "Fast food");
             record.UsualIndustryCode = uind;
@@ -490,21 +488,21 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1449");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "9th through 12th grade; no diploma");
             elevel.Add("text", "11th grade");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "5700");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "Secretaries and administrative assistants");
             uocc.Add("text", "secretary");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "9390");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Other general government and support");
             uind.Add("text", "State agency");
             record.UsualIndustryCode = uind;
@@ -696,20 +694,20 @@ namespace canary.Models
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1454");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.11.7385");
+            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
             elevel.Add("display", "Master's Degree");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "6230");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "carpenters");
             uocc.Add("text", "carpenter");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "0770");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Construction");    // actual text is "Construction (the cleaning of buildings and dwellings is incidental during construction and immediately after construction)"
             uind.Add("text", "construction");
             record.UsualIndustryCode = uind;
@@ -772,10 +770,9 @@ namespace canary.Models
             codeIAW.Add("display", "Yes");
             record.InjuryAtWork = codeIAW;
 
-            // @check
             Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
-            injuryPlace.Add("code", "0");// @check
-            injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");// @check
+            injuryPlace.Add("code", "4");
+            injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");
             injuryPlace.Add("display", "street");
             record.InjuryPlace = injuryPlace;
 

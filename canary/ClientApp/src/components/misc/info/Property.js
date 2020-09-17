@@ -132,10 +132,7 @@ export class Property extends Component {
           editable={this.props.editable}
           testMode={this.props.testMode}
           error={error}
-          snippetXML={this.tryFormat(this.props.property.SnippetXML)}
-          snippetJSON={this.tryFormat(this.props.property.SnippetJSON)}
-          snippetXMLTest={this.tryFormat(this.props.property.SnippetXMLTest)}
-          snippetJSONTest={this.tryFormat(this.props.property.SnippetJSONTest)}
+          snippetJSON={this.props.property.SnippetJSON}
           lines={10}
         />
       );
@@ -184,7 +181,7 @@ export class Property extends Component {
   render() {
     if (!!!this.props.editable) {
       if (this.props.property.Type !== "Bool" && this.props.property.Type !== "DeathRecord") {
-        if (!!!this.props.property.Value ||
+        if ((!!!this.props.property.Value && this.props.property.Match !== "false") ||
             (Array.isArray(this.props.property.Value) && this.props.property.Value !== null && this.props.property.Value.length === 0) ||
             (typeof this.props.property.Value === 'object' && !Array.isArray(this.props.property.Value) && this.props.property.Value !== null && _.compact(_.values(_.mapValues(this.props.property.Value, 'Value'))).length === 0 ))
         {

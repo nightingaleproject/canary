@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Accordion } from 'semantic-ui-react';
+import { Accordion, Icon } from 'semantic-ui-react';
+import { FHIRInfo } from '../../info/FHIRInfo';
 import { Snippet } from '../Snippet';
 
 export class DeathRecordType extends Component {
@@ -7,7 +8,7 @@ export class DeathRecordType extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props };
+    this.state = { ...this.props, visible: false };
     this.updateValue = this.updateValue.bind(this);
   }
 
@@ -25,21 +26,19 @@ export class DeathRecordType extends Component {
   render() {
     return (
       <React.Fragment>
-        <Accordion styled fluid exclusive={false}>
-          <Snippet
-            name="XML"
-            snippet={this.props.snippetXML}
-            snippetTest={this.props.snippetXMLTest}
-            lines={this.props.lines}
-            testMode={this.props.testMode}
-          />
-          <Snippet
-            name="JSON"
-            snippet={this.props.snippetJSON}
-            snippetTest={this.props.snippetJSONTest}
-            lines={this.props.lines}
-            testMode={this.props.testMode}
-          />
+        <Accordion styled fluid>
+        <Accordion.Title
+          active={this.state.visible}
+          onClick={() => {
+            this.setState({ visible: !this.state.visible });
+          }}
+        >
+          <Icon name="dropdown" />
+          Death Record Inspector
+        </Accordion.Title>
+        <Accordion.Content active={this.state.visible}>
+          <FHIRInfo fhirInfo={JSON.parse(this.state.snippetJSON)} hideSnippets={false} editable={false} testMode={true} />
+        </Accordion.Content>
         </Accordion>
       </React.Fragment>
     );

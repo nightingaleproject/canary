@@ -61,11 +61,11 @@ namespace canary.Models
         {
             if(Type.Contains("Message")) {
                 TestMessage = new Message(description);
-                MessageCompare();
+                Results = MessageCompare();
             }
             else {
                 TestRecord = new Record(DeathRecord.FromDescription(description));
-                RecordCompare();
+                Results = RecordCompare();
             }
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
@@ -81,7 +81,7 @@ namespace canary.Models
             return this;
         }
 
-        public void MessageCompare()
+        public string MessageCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             BaseMessage bundle = TestMessage.GetMessage();
@@ -107,21 +107,15 @@ namespace canary.Models
                 // into the message bundle.
                 if (property.PropertyType == typeof(DeathRecord))
                 {
+                    // Do not count DeathRecord base as part of the Total (since the Total is increased per-element in RecordCompare)
+                    Total -= 1;
                     DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
-                    category[property.Name]["SnippetXML"] = extracted.ToXML();
-                    category[property.Name]["SnippetXMLTest"] = record.ToXML();
-                    category[property.Name]["SnippetJSON"] = extracted.ToJSON();
-                    category[property.Name]["SnippetJSONTest"] = record.ToJSON();
-                    if (record.ToXml().Equals(extracted.ToXML()))
-                    {
-                        Correct += 1;
-                        category[property.Name]["Match"] = "true";
-                    }
-                    else
-                    {
-                        Incorrect += 1;
-                        category[property.Name]["Match"] = "false";
-                    }
+                    TestRecord = new Record(extracted);
+                    int previousIncorrect = Incorrect;
+                    category[property.Name]["SnippetJSON"] = RecordCompare();
+                    // See if the value of Incorrect changed in 'RecordCompare' and use that to determine if the
+                    // Record matches or not.
+                    category[property.Name]["Match"] = previousIncorrect.Equals(Incorrect) ? "true" : "false";
                 }
                 else if (Message.validatePresenceOnly(property.Name))
                 {
@@ -150,10 +144,10 @@ namespace canary.Models
                     }
                 }
             }
-            Results = JsonConvert.SerializeObject(description);
+            return JsonConvert.SerializeObject(description);
         }
 
-        public void RecordCompare()
+        public string RecordCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => ((Property)p.GetCustomAttributes().First()).Priority))
@@ -580,7 +574,7 @@ namespace canary.Models
                     }
                 }
             }
-            Results = JsonConvert.SerializeObject(description);
+            return JsonConvert.SerializeObject(description);
         }
     }
 }
