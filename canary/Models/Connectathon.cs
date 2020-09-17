@@ -110,14 +110,14 @@ namespace canary.Models
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "1010");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "Computer Programmers");
             uocc.Add("text", "Programmer");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "6990");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Insurance carriers and related activities");
             uind.Add("text", "Health Insurance");
             record.UsualIndustryCode = uind;
@@ -291,14 +291,14 @@ namespace canary.Models
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "4030");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "Food preparation workers");
             uocc.Add("text", "Food Prep");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "8680");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Restaurants and other food services");
             uind.Add("text", "Fast food");
             record.UsualIndustryCode = uind;
@@ -495,14 +495,14 @@ namespace canary.Models
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "5700");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "Secretaries and administrative assistants");
             uocc.Add("text", "secretary");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "9390");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Other general government and support");
             uind.Add("text", "State agency");
             record.UsualIndustryCode = uind;
@@ -700,14 +700,14 @@ namespace canary.Models
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "6230");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.11.7186");
+            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
             uocc.Add("display", "carpenters");
             uocc.Add("text", "carpenter");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "0770");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.11.7187");
+            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
             uind.Add("display", "Construction");    // actual text is "Construction (the cleaning of buildings and dwellings is incidental during construction and immediately after construction)"
             uind.Add("text", "construction");
             record.UsualIndustryCode = uind;
@@ -770,10 +770,9 @@ namespace canary.Models
             codeIAW.Add("display", "Yes");
             record.InjuryAtWork = codeIAW;
 
-            // @check
             Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
-            injuryPlace.Add("code", "0");// @check
-            injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");// @check
+            injuryPlace.Add("code", "4");
+            injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");
             injuryPlace.Add("display", "street");
             record.InjuryPlace = injuryPlace;
 
