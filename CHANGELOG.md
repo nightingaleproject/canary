@@ -1,5 +1,14 @@
 ## Change Log
 
+### v3.0.0-RC5 - 2020-09-17
+
+* Fixed off-by-one counting errors related to duplicate counts for nested records
+* Updated the VRDR-dotnet dependency for the project to use V3.1.0-RC5, which fixes bugs
+
+### v3.0.0-RC4 - 2020-09-10
+
+* Updated the VRDR-dotnet dependency for the project to use V3.1.0-RC4, which fixes bugs
+
 ### v3.0.0-RC3 - 2020-09-10
 
 * Added better Death Record comparison support to messages
