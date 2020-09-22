@@ -10,32 +10,30 @@ namespace canary.Models
         public static string fhirVersion = "R4";    // used to generate files
         public Connectathon() { }
 
-        public static DeathRecord FromId(int id, string state = null)
+        public static DeathRecord FromId(int id, int? certificateNumber = null, string state = null)
         {
             DeathRecord record = null;
             switch (id)
             {
                 case 1:
-                    record = JanetPage();
+                    record = JanetPage(certificateNumber);
                     break;
                 case 2:
-                    record = MadelynPatel();
+                    record = MadelynPatel(certificateNumber);
                     break;
                 case 3:
-                    record = VivienneLeeWright();
+                    record = VivienneLeeWright(certificateNumber);
                     break;
                 case 4:
-                    record = JavierLuisPerez(partialRecord: false);
+                    record = JavierLuisPerez(certificateNumber, partialRecord: false);
                     break;
                 case 5:
-                    record = JavierLuisPerez(partialRecord: true);
+                    record = JavierLuisPerez(certificateNumber, partialRecord: true);
                     break;
             }
 
             if (record != null && state != null)
             {
-                MortalityData dataHelper = MortalityData.Instance;
-
                 Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
                 placeOfDeath.Add("addressState", state);
                 placeOfDeath.Add("addressCountry", "United States");
@@ -44,13 +42,13 @@ namespace canary.Models
             return record;
         }
 
-        public static DeathRecord JanetPage()
+        public static DeathRecord JanetPage(int? certificateNumber)
         {
             DeathRecord record = new DeathRecord();
 
             // record.BundleIdentifier = "2019000211";
 
-            record.Identifier = "000050";
+            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000050";
 
             record.RegisteredTime = "2019-09-02";
 
@@ -227,13 +225,13 @@ namespace canary.Models
             return record;
         }
 
-        public static DeathRecord MadelynPatel()
+        public static DeathRecord MadelynPatel(int? certificateNumber)
         {
             DeathRecord record = new DeathRecord();
 
             // record.BundleIdentifier = "2019000213";
 
-            record.Identifier = "000051";
+            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000051";
 
             record.RegisteredTime = "2019-11-06";
 
@@ -430,13 +428,13 @@ namespace canary.Models
             return record;
         }
 
-        public static DeathRecord VivienneLeeWright()
+        public static DeathRecord VivienneLeeWright(int? certificateNumber)
         {
             DeathRecord record = new DeathRecord();
 
             // record.BundleIdentifier = "2019000215";
 
-            record.Identifier = "000052";
+            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000052";
 
             record.RegisteredTime = "2019-10-14";
 
@@ -622,7 +620,7 @@ namespace canary.Models
          *                                  false for a full record
          *                               or true for a partial record
          */
-        public static DeathRecord JavierLuisPerez(bool partialRecord = false)
+        public static DeathRecord JavierLuisPerez(int? certificateNumber, bool partialRecord = false)
         {
             bool fullRecord = !partialRecord;
             DeathRecord record = new DeathRecord();
@@ -632,7 +630,7 @@ namespace canary.Models
                 // record.BundleIdentifier = "2019000217";
             }
 
-            record.Identifier = "000053";
+            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000053";
 
             record.RegisteredTime = "2020-01-15";
 

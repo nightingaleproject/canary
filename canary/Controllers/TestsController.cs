@@ -53,16 +53,17 @@ namespace canary.Controllers
         }
 
         /// <summary>
-        /// Gets a pre-defined connectathon test by id with an optional state
-        /// parameter which sets the placeOfDeath to the provided state.
+        /// Gets a pre-defined connectathon test by id with a certificate
+        /// number and an optional state parameter which sets the placeOfDeath
+        /// to the provided state.
         /// GET /api/tests/connectathon/1 or /api/tests/connectathon/1/AK
         /// </summary>
-        [HttpGet("Tests/Connectathon/{id:int}/{state?}")]
-        public Test GetTestConnectathon(int id, string state)
+        [HttpGet("Tests/Connectathon/{id:int}/{certificateNumber:int}/{state?}")]
+        public Test GetTestConnectathon(int id, int certificateNumber, string state)
         {
             using (var db = new RecordContext())
             {
-                Test test = new Test(Connectathon.FromId(id, state));
+                Test test = new Test(Connectathon.FromId(id, certificateNumber, state));
                 db.Tests.Add(test);
                 db.SaveChanges();
                 return test;

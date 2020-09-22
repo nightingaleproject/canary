@@ -3,12 +3,16 @@ export const stateOptions = [
   { key: 'AK', text: 'Alaska', value: 'AK' },
   { key: 'AZ', text: 'Arizona', value: 'AZ' },
   { key: 'AR', text: 'Arkansas', value: 'AR' },
+  { key: 'AS', text: 'American Samoa', value: 'AS' },
   { key: 'CA', text: 'California', value: 'CA' },
   { key: 'CO', text: 'Colorado', value: 'CO' },
+  { key: 'MP', text: 'Commonwealth of Northern Mariana Islands', value: 'MP' },
   { key: 'CT', text: 'Connecticut', value: 'CT' },
   { key: 'DE', text: 'Delaware', value: 'DE' },
+  { key: 'DC', text: 'District of Columbia', value: 'DC' },
   { key: 'FL', text: 'Florida', value: 'FL' },
   { key: 'GA', text: 'Georgia', value: 'GA' },
+  { key: 'GU', text: 'Guam', value: 'GU' },
   { key: 'HI', text: 'Hawaii', value: 'HI' },
   { key: 'ID', text: 'Idaho', value: 'ID' },
   { key: 'IL', text: 'Illinois', value: 'IL' },
@@ -31,18 +35,21 @@ export const stateOptions = [
   { key: 'NJ', text: 'New Jersey', value: 'NJ' },
   { key: 'NM', text: 'New Mexico', value: 'NM' },
   { key: 'NY', text: 'New York', value: 'NY' },
+  { key: 'YC', text: 'New York City', value: 'YC' },
   { key: 'NC', text: 'North Carolina', value: 'NC' },
   { key: 'ND', text: 'North Dakota', value: 'ND' },
   { key: 'OH', text: 'Ohio', value: 'OH' },
   { key: 'OK', text: 'Oklahoma', value: 'OK' },
   { key: 'OR', text: 'Oregon', value: 'OR' },
   { key: 'PA', text: 'Pennsylvania', value: 'PA' },
+  { key: 'PR', text: 'Puerto Rico', value: 'PR' },
   { key: 'RI', text: 'Rhode Island', value: 'RI' },
   { key: 'SC', text: 'South Carolina', value: 'SC' },
   { key: 'SD', text: 'South Dakota', value: 'SD' },
   { key: 'TN', text: 'Tennessee', value: 'TN' },
   { key: 'TX', text: 'Texas', value: 'TX' },
   { key: 'UT', text: 'Utah', value: 'UT' },
+  { key: 'VI', text: 'U.S. Virgin Islands', value: 'VI' },
   { key: 'VT', text: 'Vermont', value: 'VT' },
   { key: 'VA', text: 'Virginia', value: 'VA' },
   { key: 'WA', text: 'Washington', value: 'WA' },
@@ -67,3 +74,19 @@ export const messageTypeIcons = [
   { key: 'update', name: 'Update', icon: 'redo' },
   { key: 'void', name: 'Void', icon: 'ban' },
 ];
+
+export const connectathonRecordNames = {
+  "1": "Cancer",
+  "2": "Opioid Death at Home",
+  "3": "Pregnant",
+  "4": "Car accident at work: Full",
+  "5": "Car accident at work: Partial"
+}
+
+export const connectathonRecordCertificateNumbers = {
+  "1": "50",
+  "2": "51",
+  "3": "52",
+  "4": "53",
+  "5": "53"
+}
