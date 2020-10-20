@@ -187,7 +187,7 @@ export class MessageConnectathonProducing extends Component {
                   </Header.Content>
                 </Header>
                 <div className="p-b-15" />
-                <Input value={this.state.certificateNumber} placeholder='Enter Certificate Number' fluid onChange={this.updateCertificateNumber} />
+                <Input type='number' defaultValue={this.state.certificateNumber} placeholder='Enter Certificate Number' fluid onChange={this.updateCertificateNumber} />
                 <div className="p-b-15" />
                 <Dropdown placeholder='Select Jurisdiction' search selection fluid onChange={this.updateJurisdiction} options={stateOptions} />
               </Container>
