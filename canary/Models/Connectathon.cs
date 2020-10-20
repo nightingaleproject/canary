@@ -16,19 +16,19 @@ namespace canary.Models
             switch (id)
             {
                 case 1:
-                    record = JanetPage(certificateNumber);
+                    record = JanetPage();
                     break;
                 case 2:
-                    record = MadelynPatel(certificateNumber);
+                    record = MadelynPatel();
                     break;
                 case 3:
-                    record = VivienneLeeWright(certificateNumber);
+                    record = VivienneLeeWright();
                     break;
                 case 4:
-                    record = JavierLuisPerez(certificateNumber, partialRecord: false);
+                    record = JavierLuisPerez(partialRecord: false);
                     break;
                 case 5:
-                    record = JavierLuisPerez(certificateNumber, partialRecord: true);
+                    record = JavierLuisPerez(partialRecord: true);
                     break;
             }
 
@@ -39,16 +39,22 @@ namespace canary.Models
                 placeOfDeath.Add("addressCountry", "United States");
                 record.DeathLocationAddress = placeOfDeath;
             }
+
+            if (record != null && certificateNumber != null)
+            {
+                record.Identifier = certificateNumber.ToString();
+            }
+
             return record;
         }
 
-        public static DeathRecord JanetPage(int? certificateNumber)
+        public static DeathRecord JanetPage()
         {
             DeathRecord record = new DeathRecord();
 
             // record.BundleIdentifier = "2019000211";
 
-            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000050";
+            record.Identifier = "000050";
 
             record.RegisteredTime = "2019-09-02";
 
@@ -225,13 +231,13 @@ namespace canary.Models
             return record;
         }
 
-        public static DeathRecord MadelynPatel(int? certificateNumber)
+        public static DeathRecord MadelynPatel()
         {
             DeathRecord record = new DeathRecord();
 
             // record.BundleIdentifier = "2019000213";
 
-            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000051";
+            record.Identifier = "000051";
 
             record.RegisteredTime = "2019-11-06";
 
@@ -428,13 +434,13 @@ namespace canary.Models
             return record;
         }
 
-        public static DeathRecord VivienneLeeWright(int? certificateNumber)
+        public static DeathRecord VivienneLeeWright()
         {
             DeathRecord record = new DeathRecord();
 
             // record.BundleIdentifier = "2019000215";
 
-            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000052";
+            record.Identifier = "000052";
 
             record.RegisteredTime = "2019-10-14";
 
@@ -620,7 +626,7 @@ namespace canary.Models
          *                                  false for a full record
          *                               or true for a partial record
          */
-        public static DeathRecord JavierLuisPerez(int? certificateNumber, bool partialRecord = false)
+        public static DeathRecord JavierLuisPerez(bool partialRecord = false)
         {
             bool fullRecord = !partialRecord;
             DeathRecord record = new DeathRecord();
@@ -630,7 +636,7 @@ namespace canary.Models
                 // record.BundleIdentifier = "2019000217";
             }
 
-            record.Identifier = certificateNumber != null ? certificateNumber.ToString() : "000053";
+            record.Identifier = "000053";
 
             record.RegisteredTime = "2020-01-15";
 
