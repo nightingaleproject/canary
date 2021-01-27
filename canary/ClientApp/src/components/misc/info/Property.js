@@ -33,6 +33,7 @@ export class Property extends Component {
     if (type === 'String' || type === 'UInt32') {
       return (
         <StringType
+          key={`${this.props.name}${value}`} // Key ensures re-render if value changes
           name={this.props.name}
           value={value}
           description={description}
@@ -46,6 +47,7 @@ export class Property extends Component {
     } else if (type === 'StringDateTime' || type === 'DateTimeOffset') {
       return (
         <StringDateTimeType
+          key={`${this.props.name}${value}`} // Key ensures re-render if value changes
           name={this.props.name}
           value={value}
           description={description}
@@ -59,6 +61,7 @@ export class Property extends Component {
     } else if (type === 'Bool') {
       return (
         <BoolType
+          key={`${this.props.name}${value}`} // Key ensures re-render if value changes
           name={this.props.name}
           value={value}
           description={description}
@@ -72,6 +75,7 @@ export class Property extends Component {
     } else if (type === 'Dictionary') {
       return (
         <DictionaryType
+          key={`${this.props.name}${JSON.stringify(value)}`} // Key ensures re-render if value changes
           name={this.props.name}
           value={value}
           description={description}
@@ -85,6 +89,7 @@ export class Property extends Component {
     } else if (type === 'StringArr') {
       return (
         <StringArrType
+          key={`${this.props.name}${JSON.stringify(value)}`} // Key ensures re-render if value changes
           name={this.props.name}
           value={value}
           description={description}
@@ -98,6 +103,7 @@ export class Property extends Component {
     } else if (type === 'TupleCOD') {
       return (
         <TupleCODType
+          key={`${this.props.name}${JSON.stringify(value)}`} // Key ensures re-render if value changes
           name={this.props.name}
           value={value}
           description={description}
@@ -111,6 +117,7 @@ export class Property extends Component {
     } else if (type === 'TupleArr') {
       return (
         <TupleArrType
+          key={`${this.props.name}${JSON.stringify(value)}`} // Key ensures re-render if value changes
           name={this.props.name}
           value={value}
           description={description}

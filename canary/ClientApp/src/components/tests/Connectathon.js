@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
-import { stateOptions } from '../../data';
+import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
+import { stateOptions, connectathonRecordNames, connectathonRecordCertificateNumbers } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -14,20 +14,22 @@ export class Connectathon extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, test: null, loading: false, record: null, results: null, fhirInfo: null, running: false };
+    const certificateNumber = connectathonRecordCertificateNumbers[this.props.match.params.id];
+    this.state = { ...this.props, certificateNumber, test: null, loading: false, record: null, results: null, fhirInfo: null, running: false };
     this.updateTest = this.updateTest.bind(this);
     this.runTest = this.runTest.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
-    this.fetchTest = this.fetchTest.bind(this);
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
+    this.updateCertificateNumber = this.updateCertificateNumber.bind(this);
+    this.updateJurisdiction = this.updateJurisdiction.bind(this);
   }
 
-  fetchTest(_, data) {
+  fetchTest() {
     var self = this;
-    if (!!this.props.match.params.id) {
+    if (!!this.props.match.params.id && !!this.state.certificateNumber && !!this.state.jurisdiction) {
       this.setState({ loading: true }, () => {
         axios
-          .get(window.API_URL + '/tests/connectathon/' + this.props.match.params.id + '/' + data.value)
+          .get(window.API_URL + '/tests/connectathon/' + this.props.match.params.id + '/' + this.state.certificateNumber + '/' + this.state.jurisdiction)
           .then(function(response) {
             var test = response.data;
             test.results = JSON.parse(test.results);
@@ -39,6 +41,18 @@ export class Connectathon extends Component {
             });
           });
       });
+    }
+  }
+
+  updateCertificateNumber(_, data) {
+    if (!!data && !!data.value) {
+      this.setState({ certificateNumber: data.value }, () => this.fetchTest());
+    }
+  }
+
+  updateJurisdiction(_, data) {
+    if (!!data && !!data.value) {
+      this.setState({ jurisdiction: data.value }, () => this.fetchTest());
     }
   }
 
@@ -89,20 +103,7 @@ export class Connectathon extends Component {
   }
 
   connectathonRecordName(id) {
-    switch (id) {
-      case "1":
-        return "Cancer";
-      case "2":
-        return "Opioid Death at Home";
-      case "3":
-        return "Pregnant";
-      case "4":
-        return "Car accident at work: Full";
-      case "5":
-        return "Car accident at work: Partial";
-      default:
-        return "Undefined"
-    }
+    return connectathonRecordNames[id] || "Undefined";
   }
 
   render() {
@@ -159,14 +160,16 @@ export class Connectathon extends Component {
                 <Header as="h2" dividing id="step-1">
                   <Icon name="flag" />
                   <Header.Content>
-                    Step 1: Select State
+                    Step 1: Set Certificate Number and Select Jurisdiction
                     <Header.Subheader>
-                      Select the state which you are generating a message from.
+                      Specify the certificate number to be used in the record and select the jurisdiction which you are generating a record from.
                     </Header.Subheader>
                   </Header.Content>
                 </Header>
-                <div className="p-b-15" />
-                <Dropdown placeholder='Select State' search selection fluid onChange={this.fetchTest} options={stateOptions} />
+                <h4>Certificate Number</h4>
+                <Input type='number' defaultValue={this.state.certificateNumber} placeholder='Enter Certificate Number' fluid onChange={this.updateCertificateNumber} />
+                <h4>Jurisdiction</h4>
+                <Dropdown placeholder='Select Jurisdiction' search selection fluid onChange={this.updateJurisdiction} options={stateOptions} />
               </Container>
             </Grid.Row>
             {!(this.state.test && this.state.test.completedBool) && !!this.state.loading && (

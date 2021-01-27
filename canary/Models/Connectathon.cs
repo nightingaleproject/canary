@@ -10,7 +10,7 @@ namespace canary.Models
         public static string fhirVersion = "R4";    // used to generate files
         public Connectathon() { }
 
-        public static DeathRecord FromId(int id, string state = null)
+        public static DeathRecord FromId(int id, int? certificateNumber = null, string state = null)
         {
             DeathRecord record = null;
             switch (id)
@@ -34,13 +34,17 @@ namespace canary.Models
 
             if (record != null && state != null)
             {
-                MortalityData dataHelper = MortalityData.Instance;
-
                 Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
                 placeOfDeath.Add("addressState", state);
                 placeOfDeath.Add("addressCountry", "United States");
                 record.DeathLocationAddress = placeOfDeath;
             }
+
+            if (record != null && certificateNumber != null)
+            {
+                record.Identifier = certificateNumber.ToString();
+            }
+
             return record;
         }
 
