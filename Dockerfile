@@ -1,7 +1,7 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.401 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.408 AS build-env
 WORKDIR /app
 RUN apt-get update -qq && apt-get install -y nodejs
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
         && apt-get install -y nodejs
 RUN dotnet tool install --global dotnet-ef
 COPY canary/*.csproj ./
