@@ -494,7 +494,7 @@ namespace canary.Models
 
                     Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
                     injuryPlace.Add("code", "0");
-                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");
+                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
                     injuryPlace.Add("display", "Home");
                     record.InjuryPlace = injuryPlace;
 
@@ -547,9 +547,9 @@ namespace canary.Models
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
                     
                     Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
-                    injuryPlace.Add("code", "0");
-                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");
-                    injuryPlace.Add("display", "Restaurant");
+                    injuryPlace.Add("code", "5");
+                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
+                    injuryPlace.Add("display", "Trade and Service Area");
                     record.InjuryPlace = injuryPlace;
 
 
@@ -599,9 +599,9 @@ namespace canary.Models
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
 
                     Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
-                    injuryPlace.Add("code", "0");
-                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");
-                    injuryPlace.Add("display", "Vehicle");
+                    injuryPlace.Add("code", "4");
+                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
+                    injuryPlace.Add("display", "Street/Highway");
                     record.InjuryPlace = injuryPlace;
 
                     
