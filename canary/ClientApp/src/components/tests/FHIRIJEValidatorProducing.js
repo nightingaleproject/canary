@@ -16,6 +16,7 @@ export class FHIRIJEValidatorProducing extends Component {
     this.updateTest = this.updateTest.bind(this);
     this.runTest = this.runTest.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
+    this.updateFHIRRecord = this.updateFHIRRecord.bind(this);
   }
 
   componentDidMount() {
@@ -81,15 +82,20 @@ export class FHIRIJEValidatorProducing extends Component {
   updateRecord(record, issues) {
     if (record && record.ijeInfo) {
       // store ije record
-      console.log(record.fhirInfo);
       this.setState({ ijerecord: record, issues: [], results: record.ijeInfo }, () => {
-        document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('scroll-to-ije').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-    } else if (record) {
-      // store fhir record
-      this.setState({ fhirrecord: record, issues: [] });
     } else if (issues && issues.length > 0) {
-      this.setState({ record: null, issues: issues, results: null });
+      this.setState({ ijerecord: null, issues: issues, results: null });
+    }
+  }
+
+  updateFHIRRecord(record, issues) {
+    if (record && record.fhirInfo) {
+      // store fhir record
+      this.setState({ fhirrecord: record, issues: [], results: record.fhirInfo });
+    } else if (issues && issues.length > 0) {
+      this.setState({ fhirrecord: null, issues: issues, results: null });
     }
   }
 
@@ -120,12 +126,12 @@ export class FHIRIJEValidatorProducing extends Component {
     var self = this;
     this.setState({ running: true }, () => {
       axios
-        .post(window.API_URL + '/tests/Produce/run/' + this.state.test.testId, this.setEmptyToNull(this.state.record.fhirInfo))
+        .post(window.API_URL + '/tests/Produce/run/' + this.state.test.testId, this.setEmptyToNull(this.state.ijerecord.fhirInfo))
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, running: false }, () => {
-            document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('scroll-to-fhir').scrollIntoView({ behavior: 'smooth', block: 'start' });
           });
         })
         .catch(function(error) {
@@ -181,7 +187,7 @@ export class FHIRIJEValidatorProducing extends Component {
                   </Header>
                 </Divider>
               </Container>
-              <Table celled striped sortable id="scroll-to">
+              <Table celled striped sortable id="scroll-to-ije">
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell sorted={this.state.column === 'name' ? this.state.direction : null} onClick={this.handleSort('name')}>
@@ -232,11 +238,11 @@ export class FHIRIJEValidatorProducing extends Component {
               </Header>
               <div className="p-b-15" />
               {!!this.state.issues && this.state.issues.length > 0 && (
-                <Grid.Row id="scroll-to-issues">
+                <Grid.Row id="scroll-to-fhir">
                   <Record issues={this.state.issues} showIssues />
                 </Grid.Row>
               )}
-              <Getter updateRecord={this.updateRecord} allowIje={false} />
+              <Getter updateRecord={this.updateFHIRRecord} allowIje={false} />
             </Container>
           </Grid.Row>
           <Grid.Row>
