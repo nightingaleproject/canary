@@ -51,6 +51,7 @@ namespace canary.Models
             DateTime date = faker.Date.Recent();
             record.CertifiedTime = date.ToString("s");
             record.RegisteredTime = new DateTimeOffset(date.AddDays(-1).Year, date.AddDays(-1).Month, date.AddDays(-1).Day, 0, 0, 0, TimeSpan.Zero).ToString("s");
+            record.StateLocalIdentifier = Convert.ToString(faker.Random.Number(999999));
 
             // Basic Decedent information
 
@@ -123,6 +124,12 @@ namespace canary.Models
 
             PlaceCode placeOfDeathPlace = dataHelper.StateCodeToRandomPlace(state);
             record.DeathLocationName = placeOfDeathPlace.City + " Hospital";
+           
+            Dictionary<string, string> deathLocationType = new Dictionary<string, string>();
+            deathLocationType.Add("code", "16983000");
+            deathLocationType.Add("system", "http://snomed.info/sct");
+            deathLocationType.Add("display", "Death in hospital");
+            record.DeathLocationType = deathLocationType;
 
             Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
             placeOfDeath.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
@@ -131,6 +138,8 @@ namespace canary.Models
             placeOfDeath.Add("addressState", state);
             placeOfDeath.Add("addressCountry", "United States");
             record.DeathLocationAddress = placeOfDeath;
+
+            record.DeathLocationJurisdiction = state;
 
             // Marital status
 
@@ -215,6 +224,8 @@ namespace canary.Models
             // Occupation
 
             record.UsualOccupation = occInd.Item1;
+            DateTime usualOccupationEnd = faker.Date.Past(18, deathUtc.DateTime.AddYears(0));
+            record.UsualOccupationEnd = usualOccupationEnd.ToString("yyyy-MM-dd");
 
             // Industry
 
@@ -237,6 +248,7 @@ namespace canary.Models
             // Funeral Home Name
 
             record.FuneralHomeName = faker.Name.LastName() + " Funeral Home";
+            record.FuneralDirectorPhone = faker.Phone.PhoneNumber();
 
             // Funeral Home Address
 
@@ -291,6 +303,11 @@ namespace canary.Models
 
             // Basic Certifier information
 
+            Dictionary<string, string> certifierIdentifier = new Dictionary<string, string>();
+            certifierIdentifier.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            certifierIdentifier.Add("value", Convert.ToString(faker.Random.Number(999999)));
+            record.CertifierIdentifier = certifierIdentifier;
+            
             record.CertifierFamilyName = faker.Name.LastName();
             record.CertifierGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
             record.CertifierSuffix = "MD";
@@ -313,6 +330,16 @@ namespace canary.Models
 
             // CertifierLicenseNumber
             record.CertifierLicenseNumber = Convert.ToString(faker.Random.Number(999999));
+
+            // Pronouncer
+            Dictionary<string, string> pronouncerIdentifier = new Dictionary<string, string>();
+            pronouncerIdentifier.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            pronouncerIdentifier.Add("value", Convert.ToString(faker.Random.Number(999999)));
+            record.PronouncerIdentifier = pronouncerIdentifier;
+            record.PronouncerFamilyName = faker.Name.LastName();
+            record.PronouncerGivenNames = new string[] { faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female), faker.Name.FirstName(Bogus.DataSets.Name.Gender.Female) };
+            record.PronouncerSuffix = faker.Name.Suffix();
+
 
             // Interested Party
             record.InterestedPartyName = faker.Name.LastName() + " LLC";
@@ -342,6 +369,15 @@ namespace canary.Models
 
                 record.DateOfDeath = deathUtc.ToString("o");
                 record.DateOfDeathPronouncement = deathUtc.AddHours(1).ToString("o");
+
+                // TransportationEvent
+
+                record.TransportationEventBoolean = false;
+                Dictionary<string, string> transportationEvent = new Dictionary<string, string>();
+                transportationEvent.Add("code", "N");
+                transportationEvent.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                transportationEvent.Add("display", "No");
+                record.TransportationEvent = transportationEvent;
 
                 // Randomly pick one of four possible natural causes
                 int choice = faker.Random.Number(3);
@@ -456,6 +492,22 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
 
+                    Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
+                    injuryPlace.Add("code", "0");
+                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
+                    injuryPlace.Add("display", "Home");
+                    record.InjuryPlace = injuryPlace;
+
+
+                    // TransportationEvent
+                    
+                    record.TransportationEventBoolean = false;
+                    Dictionary<string, string> transportationEvent = new Dictionary<string, string>();
+                    transportationEvent.Add("code", "N");
+                    transportationEvent.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    transportationEvent.Add("display", "No");
+                    record.TransportationEvent = transportationEvent;
+
                     record.DateOfDeath = new DateTimeOffset(deathUtc.Year, deathUtc.Month, deathUtc.Day, 0, 0, 0, TimeSpan.Zero).ToString("s");
                 }
                 else if (choice == 1)
@@ -493,6 +545,22 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
+                    
+                    Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
+                    injuryPlace.Add("code", "5");
+                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
+                    injuryPlace.Add("display", "Trade and Service Area");
+                    record.InjuryPlace = injuryPlace;
+
+
+                    // TransportationEvent
+
+                    record.TransportationEventBoolean = false;
+                    Dictionary<string, string> transportationEvent = new Dictionary<string, string>();
+                    transportationEvent.Add("code", "N");
+                    transportationEvent.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    transportationEvent.Add("display", "No");
+                    record.TransportationEvent = transportationEvent;
                 }
                 else if (choice == 2)
                 {
@@ -529,6 +597,22 @@ namespace canary.Models
                     detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "United States");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
+
+                    Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
+                    injuryPlace.Add("code", "4");
+                    injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.11.7374");
+                    injuryPlace.Add("display", "Street/Highway");
+                    record.InjuryPlace = injuryPlace;
+
+                    
+                    // TransportationEvent
+
+                    record.TransportationEventBoolean = true;
+                    Dictionary<string, string> transportationEvent = new Dictionary<string, string>();
+                    transportationEvent.Add("code", "Y");
+                    transportationEvent.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
+                    transportationEvent.Add("display", "Yes");
+                    record.TransportationEvent = transportationEvent;
                 }
             }
 
