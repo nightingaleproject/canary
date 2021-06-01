@@ -108,9 +108,9 @@ export class Dashboard extends Component {
                 />
                 <DashboardItem
                   icon="clipboard check"
-                  title="Validate FHIR VRDR Records"
+                  title="FHIR VRDR Record Syntax Checker"
                   description="Check a given FHIR VRDR Record for syntax/structural issues."
-                  route="tool-fhir-validator"
+                  route="tool-fhir-syntax-checker"
                 />
                 <DashboardItem
                   icon="random"
@@ -146,9 +146,9 @@ export class Dashboard extends Component {
               <Item.Group className="m-h-30">
                 <DashboardItem
                   icon="envelope"
-                  title="Validate FHIR VRDR Messages"
+                  title="FHIR VRDR Message Syntax Checker"
                   description="Check a given FHIR VRDR Message for syntax/structural issues."
-                  route="tool-fhir-message-validator"
+                  route="tool-fhir-message-syntax-checker"
                 />
                 <DashboardItem
                   icon="cloud download"

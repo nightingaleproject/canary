@@ -40,7 +40,7 @@ export class Navigation extends Component {
             <Dropdown item text="Record Tools" direction="left">
               <Dropdown.Menu>
                 <Dropdown.Item icon="clipboard list" text="Generate Synthetic Death Records" as={Link} to="/tool-record-generator" />
-                <Dropdown.Item icon="clipboard check" text="Validate FHIR Records" as={Link} to="/tool-fhir-validator" />
+                <Dropdown.Item icon="clipboard check" text="Validate FHIR Records" as={Link} to="/tool-fhir-syntax-checker" />
                 <Dropdown.Item icon="random" text="Death Record Format Converter" as={Link} to="/tool-record-converter" />
                 <Dropdown.Item icon="find" text="FHIR Death Record Inspector" as={Link} to="/tool-fhir-inspector" />
                 <Dropdown.Item icon="magic" text="FHIR Death Record Creator" as={Link} to="/tool-fhir-creator" />
@@ -49,7 +49,7 @@ export class Navigation extends Component {
             </Dropdown>
             <Dropdown item text="Message Tools" direction="left">
               <Dropdown.Menu>
-                <Dropdown.Item icon="envelope" text="Validate FHIR Messages" as={Link} to="/tool-fhir-message-validator" />
+                <Dropdown.Item icon="envelope" text="Validate FHIR Messages" as={Link} to="/tool-fhir-message-syntax-checker" />
                 <Dropdown.Item icon="cloud download" text="Creating FHIR Messages" as={Link} to="/test-fhir-message-creation" />
               </Dropdown.Menu>
             </Dropdown>
