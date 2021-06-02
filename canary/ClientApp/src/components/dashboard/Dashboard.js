@@ -75,7 +75,7 @@ export class Dashboard extends Component {
                  <DashboardItem
                   icon="tasks"
                   title="Validate FHIR Death Records (Producing)"
-                  description="Test a data provider system's ability to produce records by validating against an imported IJE file."
+                  description="Test a data provider system's ability to produce records by validating against an IJE file."
                   route="test-fhir-ije-validator-producing"
                 />
               </Item.Group>

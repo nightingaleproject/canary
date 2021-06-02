@@ -22,7 +22,6 @@ export class FHIRIJEValidatorProducing extends Component {
   }
 
   createTest() {
-    console.log("Fetch, set test");
     var self = this;
     this.setState({ loading: true }, () => {
       axios
@@ -30,16 +29,7 @@ export class FHIRIJEValidatorProducing extends Component {
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
-          console.log("The test id: " + test.testId);
-          self.setState({ test: test, fhirInfo: JSON.parse(response.data.referenceRecord.fhirInfo), loading: false }, () => {
-            toast({
-              type: 'success',
-              icon: 'check',
-              title: 'Success',
-              description: 'The IJE file was successfully uploaded',
-              time: 5000,
-            });
-          });
+          self.setState({ test: test, fhirInfo: JSON.parse(response.data.referenceRecord.fhirInfo), loading: false });
         })
         .catch(function(error) {
           self.setState({ loading: false }, () => {
@@ -86,7 +76,6 @@ export class FHIRIJEValidatorProducing extends Component {
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
-          console.log(test.results);
           self.setState({ test: test, running: false }, () => {
             document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
           });
@@ -97,6 +86,13 @@ export class FHIRIJEValidatorProducing extends Component {
           });
         });
     });
+  }
+
+  downloadAsFile(contents) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents));
+    element.setAttribute('download', `canary-report-${this.state.test.testId}-${new Date().getTime()}.html`);
+    element.click();
   }
 
   render() {
@@ -137,7 +133,7 @@ export class FHIRIJEValidatorProducing extends Component {
                   </Statistic>
                 </Statistic.Group>
                 <Grid centered columns={1} className="p-t-30 p-b-15">
-                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.match.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
+                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.state.test.testId))}><Icon name='download' />Generate Downloadable Report</Button>
                 </Grid>
                 <div className="p-b-20" />
                 <Form size="large">
@@ -160,8 +156,9 @@ export class FHIRIJEValidatorProducing extends Component {
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
-                  <div className="p-b-15" />
-                  <Getter updateRecord={this.updateRecord} ijeOnly />
+                  <div className="p-b-15">
+                    <Getter name="upload-ije" id="upload1" updateRecord={this.updateRecord} ijeOnly noFormat />
+                  </div>
                 </Container>
               </Grid.Row>
               <div className="p-b-15" />
@@ -180,13 +177,9 @@ export class FHIRIJEValidatorProducing extends Component {
                       <Header.Subheader>Upload the FHIR record to validate. The below prompt allows you to paste the record, upload it as a file, or POST to Canary.</Header.Subheader>
                     </Header.Content>
                   </Header>
-                  <div className="p-b-15" />
-                  {!!this.state.fhirIssues && this.state.fhirIssues.length > 0 && (
-                    <Grid.Row id="scroll-to-fhir">
-                      <Record issues={this.state.fhirIssues} showIssues />
-                    </Grid.Row>
-                  )}
-                  <Getter updateRecord={this.updateFHIRRecord} allowIje={false} />
+                  <div className="p-b-15">
+                    <Getter name="upload-fhir" id="upload2" updateRecord={this.updateFHIRRecord} allowIje={false} />
+                  </div>
                 </Container>
               </Grid.Row>
               <Grid.Row>

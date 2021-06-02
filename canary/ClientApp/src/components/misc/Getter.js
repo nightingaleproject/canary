@@ -280,11 +280,11 @@ export class Getter extends Component {
         {this.state.activeItem === 'upload' && (
           <Segment>
             <Container>
-              <Button as="label" fluid size="big" htmlFor="upload-btn" icon labelPosition="left" loading={this.state.loading} primary>
+              <Button as="label" fluid size="big" htmlFor={`upload-btn-${this.props.id ? this.props.id : 'default'}`} icon labelPosition="left" loading={this.state.loading} primary>
                 <Icon name="file" />
                 Select the {this.props.messageValidation ? 'message' : 'record'} file you wish to upload. {containerTip}
               </Button>
-              <input hidden id="upload-btn" type="file" onChange={this.onChangeFile} />
+              <input hidden id={`upload-btn-${this.props.id ? this.props.id : 'default'}`} type="file" onChange={this.onChangeFile} />
             </Container>
           </Segment>
         )}
