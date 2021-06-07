@@ -118,7 +118,7 @@ export class FHIRConsuming extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Consuming FHIR Death Records</Breadcrumb.Section>
+              <Breadcrumb.Section>Consuming FHIR VRDR Records</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (

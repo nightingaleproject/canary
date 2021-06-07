@@ -36,7 +36,7 @@ export class FHIRInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR Death Record Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR VRDR Record Inspector</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

@@ -76,7 +76,7 @@ export class FHIRCreator extends Component {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>FHIR Death Record Creator</Breadcrumb.Section>
+            <Breadcrumb.Section>FHIR VRDR Record Creator</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!this.state.fhirInfo && (

@@ -44,31 +44,31 @@ export class Dashboard extends Component {
               <Item.Group className="m-h-30">
                 <DashboardItem
                   icon="upload"
-                  title="Producing FHIR Death Records"
-                  description="Test a data provider system's ability to produce a valid FHIR Death Record document."
+                  title="Producing FHIR VRDR Records"
+                  description="Test a data provider system's ability to produce a valid FHIR VRDR Record document."
                   route="test-fhir-producing"
                 />
                 <DashboardItem
                   icon="download"
-                  title="Consuming FHIR Death Records"
-                  description="Test a data provider system's ability to consume a valid FHIR Death Record document."
+                  title="Consuming FHIR VRDR Records"
+                  description="Test a data provider system's ability to consume a valid FHIR VRDR Record document."
                   route="test-fhir-consuming"
                 />
                 <DashboardItem
                   icon="sync"
-                  title="Death Record Roundtrip (Consuming)"
+                  title="VRDR Record Roundtrip (Consuming)"
                   description="Test a data provider system's ability to handle converting between internal data structures and external data formats. This test involves consuming FHIR, and then producing equivalent IJE."
                   route="test-edrs-roundtrip-consuming"
                 />
                 <DashboardItem
                   icon="sync"
-                  title="Death Record Roundtrip (Producing)"
+                  title="VRDR Record Roundtrip (Producing)"
                   description="Test a data provider system's ability to handle converting between internal data structures and external data formats. This test involves consuming IJE, and then producing equivalent FHIR."
                   route="test-edrs-roundtrip-producing"
                 />
                 <DashboardItem
                   icon="tasks"
-                  title="Connectathon FHIR Death Records (Producing)"
+                  title="Connectathon FHIR VRDR Records (Producing)"
                   description="Test a data provider system's ability to produce pre-defined records as tested at Connectathons."
                   route="test-connectathon-dash/records"
                 />
@@ -82,14 +82,14 @@ export class Dashboard extends Component {
               <Item.Group className="m-h-30">
                 <DashboardItem
                   icon="cloud upload"
-                  title="Producing FHIR Messages"
-                  description="Test a data provider system's ability to produce a valid FHIR Message for a generated FHIR Death Record document."
+                  title="Producing FHIR VRDR Messages"
+                  description="Test a data provider system's ability to produce a valid FHIR Message for a generated FHIR VRDR Record document."
                   route="test-fhir-message-producing"
                 />
                 <DashboardItem
                   faIcon={faMailBulk}
-                  title="Connectathon FHIR Messages (Producing)"
-                  description="Test a data provider system's ability to produce pre-defined FHIR Messages as tested at Connectathons."
+                  title="Connectathon FHIR VRDR Messages (Producing)"
+                  description="Test a data provider system's ability to produce pre-defined FHIR VRDR Messages as tested at Connectathons."
                   route="test-connectathon-dash/message"
                 />
               </Item.Group>
@@ -102,8 +102,8 @@ export class Dashboard extends Component {
               <Item.Group className="m-h-30">
                 <DashboardItem
                   icon="clipboard list"
-                  title="Generate Synthetic Death Records"
-                  description="Generate synthetic death records in FHIR (XML or JSON) and IJE Mortality format. These generated records can be downloaded locally, copied to the clipboard, or POSTed to an endpoint."
+                  title="Generate Synthetic VRDR Records"
+                  description="Generate synthetic VRDR records in FHIR (XML or JSON) and IJE Mortality format. These generated records can be downloaded locally, copied to the clipboard, or POSTed to an endpoint."
                   route="tool-record-generator"
                 />
                 <DashboardItem
@@ -114,19 +114,19 @@ export class Dashboard extends Component {
                 />
                 <DashboardItem
                   icon="random"
-                  title="Death Record Format Converter"
-                  description="Convert between various Death Record formats, including FHIR and IJE Mortality."
+                  title="VRDR Record Format Converter"
+                  description="Convert between various VRDR Record formats, including FHIR and IJE Mortality."
                   route="tool-record-converter"
                 />
                 <DashboardItem
                   icon="find"
-                  title="FHIR Death Record Inspector"
-                  description="Inspect a FHIR Death Record and show details about the record and what it contains."
+                  title="FHIR VRDR Record Inspector"
+                  description="Inspect a FHIR VRDR Record and show details about the record and what it contains."
                   route="tool-fhir-inspector"
                 />
                 <DashboardItem
                   icon="magic"
-                  title="FHIR Death Record Creator"
+                  title="FHIR VRDR Record Creator"
                   description="Create a new record from scratch by filling out a web form, and generate FHIR from it."
                   route="tool-fhir-creator"
                 />
@@ -152,8 +152,8 @@ export class Dashboard extends Component {
                 />
                 <DashboardItem
                   icon="cloud download"
-                  title="Creating FHIR Messages"
-                  description="Create a valid FHIR Message for a user provided FHIR Death Record document."
+                  title="Creating FHIR VRDR Messages"
+                  description="Create a valid FHIR Message for a user provided FHIR VRDR Record document."
                   route="test-fhir-message-creation"
                 />
               </Item.Group>
