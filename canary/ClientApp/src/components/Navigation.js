@@ -29,6 +29,7 @@ export class Navigation extends Component {
                 <Dropdown.Item icon="sync" text="VRDR Record Roundtrip (Consuming)" as={Link} to="/test-edrs-roundtrip-consuming" />
                 <Dropdown.Item icon="sync" text="VRDR Record Roundtrip (Producing)" as={Link} to="/test-edrs-roundtrip-producing" />
                 <Dropdown.Item icon="tasks" text="Connectathon FHIR VRDR Records (Producing)" as={Link} to="/test-connectathon-dash/records" />
+                <Dropdown.Item icon="tasks" text="Validate FHIR VRDR Records with IJE (Producing)" as={Link} to="/test-fhir-ije-validator-producing" />
               </Dropdown.Menu>
             </Dropdown>
             <Dropdown item text="Message Testing" direction="left">
