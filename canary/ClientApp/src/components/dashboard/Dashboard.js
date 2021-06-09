@@ -72,6 +72,12 @@ export class Dashboard extends Component {
                   description="Test a data provider system's ability to produce pre-defined records as tested at Connectathons."
                   route="test-connectathon-dash/records"
                 />
+                 <DashboardItem
+                  icon="tasks"
+                  title="Validate FHIR VRDR Records with IJE (Producing)"
+                  description="Test a data provider system's ability to produce records by validating against an IJE file."
+                  route="test-fhir-ije-validator-producing"
+                />
               </Item.Group>
               <Divider horizontal className="p-t-30">
                 <Header as="h2">

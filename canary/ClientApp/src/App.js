@@ -6,6 +6,7 @@ import { Layout } from './components/Layout';
 import { Connectathon } from './components/tests/Connectathon';
 import { EDRSRoundtripConsuming } from './components/tests/EDRSRoundtripConsuming';
 import { EDRSRoundtripProducing } from './components/tests/EDRSRoundtripProducing';
+import { FHIRIJEValidatorProducing } from './components/tests/FHIRIJEValidatorProducing';
 import { FHIRConsuming } from './components/tests/FHIRConsuming';
 import { FHIRMessageProducing } from './components/tests/FHIRMessageProducing';
 import { FHIRProducing } from './components/tests/FHIRProducing';
@@ -35,6 +36,7 @@ export default class App extends Component {
           <Route path="/test-fhir-message-creation/:id?" component={FHIRMessageCreator} />
           <Route path="/test-edrs-roundtrip-consuming/:id?" component={EDRSRoundtripConsuming} />
           <Route path="/test-edrs-roundtrip-producing/:id?" component={EDRSRoundtripProducing} />
+          <Route path="/test-fhir-ije-validator-producing" component={FHIRIJEValidatorProducing} />
           <Route path="/test-connectathon-dash/:type" component={ConnectathonDashboard} />
           <Route path="/test-connectathon/:id" component={Connectathon} />
           <Route path="/test-connectathon-messaging/:id" component={MessageConnectathonProducing} />

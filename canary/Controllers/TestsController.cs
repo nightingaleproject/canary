@@ -70,6 +70,24 @@ namespace canary.Controllers
             }
         }
 
+        [HttpPost("Tests/Validator")]
+        public async Task<Test> GetTestIJEValidator(int id)
+        {
+            using (var db = new RecordContext())
+            {
+                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+                if (String.IsNullOrEmpty(input))
+                {
+                    return null;
+                }
+                DeathRecord record = DeathRecord.FromDescription(input);
+                Test test = new Test(record);
+                db.Tests.Add(test);
+                db.SaveChanges();
+                return test;
+            }
+        }
+
         /// <summary>
         /// Starts a new test.
         /// GET /api/tests/new
