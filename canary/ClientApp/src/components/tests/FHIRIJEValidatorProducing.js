@@ -15,7 +15,7 @@ export class FHIRIJEValidatorProducing extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, test: null, fhirrecord: null, ijerecord: null, fhirInfo: null, fhirIssues:null, results: null, ijeIssues: [], column: 'number', direction: 'ascending' };
+    this.state = { ...this.props, test: null, fhirrecord: null, ijerecord: null, fhirInfo: null, fhirIssues:null, results: null, ijeIssues: null, column: 'number', direction: 'ascending' };
     this.runTest = this.runTest.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
     this.updateFHIRRecord = this.updateFHIRRecord.bind(this);
@@ -105,7 +105,7 @@ export class FHIRIJEValidatorProducing extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Validate FHIR Death Records (Producing)</Breadcrumb.Section>
+              <Breadcrumb.Section>Validate FHIR VRDR Records with IJE (Producing)</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           {!!this.state.test && this.state.test.completedBool && (
@@ -162,9 +162,9 @@ export class FHIRIJEValidatorProducing extends Component {
                 </Container>
               </Grid.Row>
               <div className="p-b-15" />
-              {!!this.state.ijeIssues && this.state.ijeIssues.length > 0 && (
+              {!!this.state.ijeIssues && (
                 <Grid.Row>
-                  <Record record={null} issues={this.state.ijeIssues} showIssues />
+                  <Record record={null} issues={this.state.ijeIssues} showIssues showSuccess />
                 </Grid.Row>
               )}
               <Grid.Row>
@@ -182,6 +182,12 @@ export class FHIRIJEValidatorProducing extends Component {
                   </div>
                 </Container>
               </Grid.Row>
+              <div className="p-b-15" />
+              {!!this.state.fhirIssues && (
+                <Grid.Row>
+                  <Record record={null} issues={this.state.fhirIssues} showIssues showSuccess />
+                </Grid.Row>
+              )}
               <Grid.Row>
                 <Container fluid>
                   <Divider horizontal />

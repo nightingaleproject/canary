@@ -22,7 +22,7 @@ Canary can test a data providers ability to:
 
 Canary also includes the following utilities:
 - Generate Synthetic Death Records
-- Validate FHIR Death Records
+- Validate FHIR VRDR Records with IJE
 - Death Record Format Converter
 - FHIR Death Record Inspector
 - FHIR Death Record Creator

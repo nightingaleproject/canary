@@ -27,7 +27,7 @@ export class FHIRValidator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Validate FHIR VRDR Records</Breadcrumb.Section>
+              <Breadcrumb.Section>Validate FHIR VRDR Records with IJE</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

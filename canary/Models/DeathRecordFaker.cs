@@ -471,7 +471,7 @@ namespace canary.Models
                     record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", "http://terminology.hl7.org/CodeSystem/v2-0136" }, { "display", "Yes" } }; ;
                     record.ExaminerContactedBoolean = true;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "http://hl7.org/fhir/v3/NullFlavor" }, { "display", "unknown" } };
+                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor" }, { "display", "unknown" } };
 
                     Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
                     mannerOfDeath.Add("code", "44301001");
@@ -628,7 +628,7 @@ namespace canary.Models
             {
                 Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
                 pregnanacyStatus.Add("code", "NA");
-                pregnanacyStatus.Add("system", "http://hl7.org/fhir/v3/NullFlavor");
+                pregnanacyStatus.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
                 pregnanacyStatus.Add("display", "not applicable");
                 record.PregnancyStatus = pregnanacyStatus;
             }

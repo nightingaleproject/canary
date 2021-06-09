@@ -74,7 +74,7 @@ export class Dashboard extends Component {
                 />
                  <DashboardItem
                   icon="tasks"
-                  title="Validate FHIR Death Records (Producing)"
+                  title="Validate FHIR VRDR Records with IJE (Producing)"
                   description="Test a data provider system's ability to produce records by validating against an IJE file."
                   route="test-fhir-ije-validator-producing"
                 />
@@ -114,7 +114,7 @@ export class Dashboard extends Component {
                 />
                 <DashboardItem
                   icon="clipboard check"
-                  title="Validate FHIR VRDR Records"
+                  title="Validate FHIR VRDR Records with IJE"
                   description="Check a given FHIR VRDR Record for syntax/structural issues."
                   route="tool-fhir-validator"
                 />
