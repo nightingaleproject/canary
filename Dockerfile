@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.408 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.409 AS build-env
 WORKDIR /app
 RUN apt-get update -qq && apt-get install -y nodejs
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
