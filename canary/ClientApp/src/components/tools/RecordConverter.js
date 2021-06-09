@@ -29,7 +29,7 @@ export class RecordConverter extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Death Record Format Converter</Breadcrumb.Section>
+              <Breadcrumb.Section>VRDR Record Format Converter</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

@@ -81,7 +81,7 @@ export class RecordGenerator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Generate Synthetic Death Records</Breadcrumb.Section>
+              <Breadcrumb.Section>Generate Synthetic VRDR Records</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row className="no-padding-b">

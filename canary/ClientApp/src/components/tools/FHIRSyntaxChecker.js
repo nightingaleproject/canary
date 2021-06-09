@@ -4,8 +4,8 @@ import { Breadcrumb, Grid } from 'semantic-ui-react';
 import { Getter } from '../misc/Getter';
 import { Record } from '../misc/Record';
 
-export class FHIRValidator extends Component {
-  displayName = FHIRValidator.name;
+export class FHIRSyntaxChecker extends Component {
+  displayName = FHIRSyntaxChecker.name;
 
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ export class FHIRValidator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Validate FHIR VRDR Records with IJE</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR VRDR Record Syntax Checker</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

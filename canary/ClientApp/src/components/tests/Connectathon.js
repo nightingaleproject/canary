@@ -115,7 +115,7 @@ export class Connectathon extends Component {
               Dashboard
             </Breadcrumb.Section>
             <Breadcrumb.Divider icon="right chevron" />
-            <Breadcrumb.Section>Connectathon FHIR Death Records</Breadcrumb.Section>
+            <Breadcrumb.Section>Connectathon FHIR VRDR Records</Breadcrumb.Section>
           </Breadcrumb>
         </Grid.Row>
         {!!this.state.test && this.state.test.completedBool && (

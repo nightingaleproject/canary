@@ -5,8 +5,8 @@ import { messageTypes } from '../../data';
 import { Getter } from '../misc/Getter';
 import { Record } from '../misc/Record';
 
-export class FHIRMessageValidator extends Component {
-  displayName = FHIRMessageValidator.name;
+export class FHIRMessageSyntaxChecker extends Component {
+  displayName = FHIRMessageSyntaxChecker.name;
 
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ export class FHIRMessageValidator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>Validate FHIR VRDR Messages</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR VRDR Message Syntax Checker</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>

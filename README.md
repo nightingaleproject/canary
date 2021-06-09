@@ -12,23 +12,23 @@ Canary is an open source testing framework that supports development of systems 
 If you are upgrading from 2.x.x to 3.x.x, please note that there are differences between FHIR STU3 and R4 that impact the structure of the VRDR Death Record. [This commit illustrates the differences between FHIR STU3 and FHIR R4 VRDR Death Records](https://github.com/nightingaleproject/vrdr-dotnet/commit/2b4c2026fdab80e7233f3a7d7ed6e17d5d63f38e). Death Record data may need similar updates from STU3 to R4 when updating to Canary Version 3.
 
 Canary can test a data providers ability to:
-- Produce FHIR Death Records
-- Consume FHIR Death Records
+- Produce FHIR VRDR Records
+- Consume FHIR VRDR Records
 - Roundtrip: Convert between FHIR (Consuming) and the IJE Mortality format (Producing)
 - Roundtrip: Convert between the IJE Mortality format (Consuming) and FHIR (Producing)
-- Produce predefined FHIR Death Records as tested at Connectathons
-- Produce FHIR Messages
-- Produce predefined FHIR Messages as tested at Connectathons
+- Produce predefined FHIR VRDR Records as tested at Connectathons
+- Produce FHIR VRDR Messages
+- Produce predefined FHIR VRDR Messages as tested at Connectathons
 
 Canary also includes the following utilities:
-- Generate Synthetic Death Records
-- Validate FHIR VRDR Records with IJE
-- Death Record Format Converter
-- FHIR Death Record Inspector
-- FHIR Death Record Creator
+- Generate Synthetic VRDR Records
+- FHIR VRDR Record Syntax Checker
+- VRDR Record Format Converter
+- FHIR VRDR Record Inspector
+- FHIR VRDR Record Creator
 - IJE Mortality Record Inspector
-- Validate FHIR Messages
-- Create FHIR Messages
+- FHIR VRDR Message Syntax Checker
+- Create FHIR VRDR Messages
 
 ### Background
 
