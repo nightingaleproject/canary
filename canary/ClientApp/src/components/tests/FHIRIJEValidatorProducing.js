@@ -1,10 +1,8 @@
 import axios from 'axios';
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Table, Form, Statistic } from 'semantic-ui-react';
+import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Form, Statistic } from 'semantic-ui-react';
 import { connectionErrorToast } from '../../error';
-import { toast } from 'react-semantic-toasts';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
