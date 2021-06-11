@@ -1,5 +1,12 @@
 ## Change Log
 
+### v3.0.1 - 2021-06-11
+
+* Allow Certificate number to be provided for Connectathon Tests
+* Add multiple previously omitted fields to the Synthetic Death Record Generator
+* Rename all Validators to Syntax Checkers to better reflect what functionality the tool provides
+* Add tool to validate FHIR Death Records against user-provided IJE files
+
 ### v3.0.0-RC5 - 2020-09-17
 
 * Fixed Connectathon record OIDs to refer to code systems rather than value sets
