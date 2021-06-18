@@ -75,6 +75,12 @@ export const messageTypeIcons = [
   { key: 'void', name: 'Void', icon: 'ban' },
 ];
 
+export const responseMessageTypeIcons = [
+  { key: 'ack', name: 'ACK', icon: 'thumbs up' },
+  { key: 'trx', name: 'TRX', icon: 'redo' },
+  { key: 'mre', name: 'MRE', icon: 'ban' },
+];
+
 export const connectathonRecordNames = {
   "1": "Cancer",
   "2": "Opioid Death at Home",

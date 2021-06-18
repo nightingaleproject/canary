@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Menu, Message, Statistic, Transition } from 'semantic-ui-react';
-import { messageTypeIcons, messageTypes, stateOptions, connectathonRecordNames, connectathonRecordCertificateNumbers } from '../../data';
+import { responseMessageTypeIcons, messageTypeIcons, messageTypes, stateOptions, connectathonRecordNames, connectathonRecordCertificateNumbers } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -24,6 +24,7 @@ export class MessageConnectathonProducing extends Component {
     this.updateCertificateNumber = this.updateCertificateNumber.bind(this);
     this.updateJurisdiction = this.updateJurisdiction.bind(this);
     this.setExpectedMessageType = this.setExpectedMessageType.bind(this);
+    this.setExpectedMessageResponseType = this.setExpectedMessageResponseType.bind(this);
   }
 
   fetchTest() {
@@ -80,6 +81,15 @@ export class MessageConnectathonProducing extends Component {
 
   setExpectedMessageType(_, { name }) {
     this.setState({ expectedType: name });
+    if (name === "Void") {
+      this.setState({responseOptions: messageTypeIcons});
+    } else {
+      this.setState({responseOptions: responseMessageTypeIcons});
+    }
+  }
+
+  setExpectedMessageResponseType(_, { name }) {
+    this.setState({ expectedResponseType: name });
   }
 
   setEmptyToNull(obj) {
@@ -274,10 +284,32 @@ export class MessageConnectathonProducing extends Component {
                   <Grid.Row>
                     <Container fluid>
                       <Divider horizontal />
+                      <Header as="h2" dividing id="step-3">
+                        <Icon name="mail" />
+                        <Header.Content>
+                          Step 5: Choose the Response Message Type
+                          <Header.Subheader>Select the type of response message you would like Canary to produce.</Header.Subheader>
+                        </Header.Content>
+                      </Header>
+                      {!!this.state.responseOptions && (
+                        <Menu items={this.state.responseOptions} widths={this.state.responseOptions.length} onItemClick={this.setExpectedMessageResponseType} />
+                      )}
+                    </Container>
+                  </Grid.Row>
+                  <div className="p-b-15" />
+                  {!!this.state.expectedResponseType && (
+                    <Grid.Row>
+                      //TODO change this from the submitted message to the response message
+                      <Record record={this.state.message} issues={this.state.messageIssues} lines={25} showSave hideIje showIssues />
+                    </Grid.Row>
+                  )}
+                  <Grid.Row>
+                    <Container fluid>
+                      <Divider horizontal />
                       <Header as="h2" dividing className="p-b-5" id="step-4">
                         <Icon name="check circle" />
                         <Header.Content>
-                          Step 5: Calculate Results
+                          Step 6: Calculate Results
                           <Header.Subheader>
                             When you have imported the message into Canary, click the button below and Canary will calculate the results of the test.
                           </Header.Subheader>
