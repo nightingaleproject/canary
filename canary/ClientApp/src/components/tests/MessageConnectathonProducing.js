@@ -209,10 +209,9 @@ export class MessageConnectathonProducing extends Component {
                     <Header as="h2" dividing id="step-2">
                       <Icon name="download" />
                       <Header.Content>
-                        Step 2: Import Record
+                        Step 2: Enter Connectathon Test Case Data Into Your EDRS
                         <Header.Subheader>
-                          Import the generated record into your system. The below prompt allows you to copy the record, download it as a file, or POST it to
-                          an endpoint.
+                          Enter or load the appropriate Connectathon test case data into your EDRS. If your EDRS allows data to be loaded in FHIR or IJE format, you can load the data from the below prompt.
                         </Header.Subheader>
                       </Header.Content>
                     </Header>
