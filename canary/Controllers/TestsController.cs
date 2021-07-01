@@ -125,5 +125,22 @@ namespace canary.Controllers
                 return test;
             }
         }
+
+        [HttpPost("Tests/{type}/Response")]
+        public async Task<Message> GetTestResponse(int id, string type)
+        {
+            using (var db = new RecordContext())
+            {
+                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+                if (String.IsNullOrEmpty(input))
+                {
+                    return null;
+                }
+                Message msg = new Message(input);
+                AckMessage ack = new AckMessage(msg.GetMessage());
+                Message ackMsg = new Message(ack);
+                return ackMsg;
+            }
+        }
     }
 }
