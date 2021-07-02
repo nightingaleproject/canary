@@ -136,10 +136,32 @@ namespace canary.Controllers
                 {
                     return null;
                 }
+
+                // get the submitted message
                 Message msg = new Message(input);
-                AckMessage ack = new AckMessage(msg.GetMessage());
-                Message ackMsg = new Message(ack);
-                return ackMsg;
+                
+                // generate the respsonse
+                switch (type)
+                {
+                    case "ACK":
+                        AckMessage ack = new AckMessage(msg.GetMessage());
+                        Message ackMsg = new Message(ack);
+                        return ackMsg;
+                    case "MRE":
+                        CodingResponseMessage mre = new CodingResponseMessage(msg.GetMessage());
+                        Message mreMsg = new Message(mre);
+                        return mreMsg;
+                    case "TRX":
+                        CodingResponseMessage trx = new CodingResponseMessage(msg.GetMessage());
+                        Message trxMsg = new Message(trx);
+                        return trxMsg;
+                    case "Error":
+                        ExtractionErrorMessage err = new ExtractionErrorMessage(msg.GetMessage());
+                        Message errMsg = new Message(err);
+                        return errMsg; 
+                    default:
+                        return msg; // TODO find appropriate message to return
+                }
             }
         }
     }

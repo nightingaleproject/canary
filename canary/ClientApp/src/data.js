@@ -79,6 +79,7 @@ export const responseMessageTypeIcons = [
   { key: 'ack', name: 'ACK', icon: 'thumbs up' },
   { key: 'trx', name: 'TRX', icon: 'redo' },
   { key: 'mre', name: 'MRE', icon: 'ban' },
+  { key: 'error', name: 'Error', icon: 'error' },
 ];
 
 export const connectathonRecordNames = {

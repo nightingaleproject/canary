@@ -21,7 +21,6 @@ export class MessageConnectathonProducing extends Component {
     this.setEmptyToNull = this.setEmptyToNull.bind(this);
     this.runTest = this.runTest.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
-    this.updateResponseMessage = this.updateResponseMessage.bind(this);
     this.updateCertificateNumber = this.updateCertificateNumber.bind(this);
     this.updateJurisdiction = this.updateJurisdiction.bind(this);
     this.setExpectedMessageType = this.setExpectedMessageType.bind(this);
@@ -82,8 +81,11 @@ export class MessageConnectathonProducing extends Component {
 
   setExpectedMessageType(_, { name }) {
     this.setState({ expectedType: name });
+
     if (name === "Void") {
-      this.setState({responseOptions: messageTypeIcons});
+      // void only provides a subset
+      var voidIcons = [responseMessageTypeIcons[0], responseMessageTypeIcons[3]];
+      this.setState({responseOptions: voidIcons});
     } else {
       this.setState({responseOptions: responseMessageTypeIcons});
     }
@@ -106,6 +108,7 @@ export class MessageConnectathonProducing extends Component {
 
   runTest() {
     var self = this;
+    console.log(this.state.expectedResponseType);
     this.setState({ running: true }, () => {
       axios
         .post(window.API_URL + '/tests/' + this.state.expectedType + 'MessageProducing/run/' + this.state.test.testId, this.state.message.json, { headers: { 'Content-Type': 'application/json' } })
@@ -113,7 +116,7 @@ export class MessageConnectathonProducing extends Component {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, running: false });
-          return axios.post(window.API_URL + '/tests/' + self.state.expectedType + '/response', self.state.message.json, { headers: { 'Content-Type': 'application/json' } });
+          return axios.post(window.API_URL + '/tests/' + self.state.expectedResponseType + '/response', self.state.message.json, { headers: { 'Content-Type': 'application/json' } });
         })
         .then(function(response) {
             console.log(response.data);
@@ -164,7 +167,7 @@ export class MessageConnectathonProducing extends Component {
                   <Header.Content>
                     Response Message
                     <Header.Subheader>
-                      Generated response below.
+                      Generated {this.state.expectedResponseType} Response below.
                     </Header.Subheader>
                   </Header.Content>
                 </Header>
