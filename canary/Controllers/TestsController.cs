@@ -5,7 +5,6 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Hl7.Fhir.Model;
 using VRDR;
 using canary.Models;
 
@@ -137,75 +136,11 @@ namespace canary.Controllers
                 {
                     return null;
                 }
-                Dictionary<string, Message> result = new Dictionary<string, Message>();
 
-                // get the submitted message
-                Message msg = new Message(input);
+                // get the responses for the submitted message
+                Message msg = new Message(input);             
+                Dictionary<string, Message> result = msg.GetResponsesFor(type);
                 
-                
-                // Create acknowledgement
-                AckMessage ack = new AckMessage(msg.GetMessage());
-                Message ackMsg = new Message(ack);
-                result.Add("ACK", ackMsg);
-                
-                CodingResponseMessage mre = new CodingResponseMessage(msg.GetMessage());
-
-                // Create the extraction error
-                ExtractionErrorMessage err = new ExtractionErrorMessage(msg.GetMessage());
-                // Add the issues found during processing
-                var issues = new List<Issue>();
-                var issue = new Issue(OperationOutcome.IssueSeverity.Fatal, OperationOutcome.IssueType.Invalid, "This is a fake message");
-                issues.Add(issue);
-                err.Issues = issues;
-                Message errMsg = new Message(err);
-                result.Add("Error", errMsg);
-
-                // generate the respsonse
-                switch (type)
-                {
-                    case "Void":
-                        break;
-                    default:
-                        // Create the ethnicity coding
-                        var ethnicity = new Dictionary<CodingResponseMessage.HispanicOrigin, string>();
-                        ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNICE, "222");
-                        ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNIC5C, "222");
-                        mre.Ethnicity = ethnicity;
-
-                        // Create the race coding
-                        var race = new Dictionary<CodingResponseMessage.RaceCode, string>();
-                        race.Add(CodingResponseMessage.RaceCode.RACE1E, "500");
-                        race.Add(CodingResponseMessage.RaceCode.RACE17C, "A09");
-                        race.Add(CodingResponseMessage.RaceCode.RACEBRG, "03");
-                        mre.Race = race;
-
-                        Message mreMsg = new Message(mre);
-                        result.Add("MRE", mreMsg);
-
-                        CodingResponseMessage trx = new CodingResponseMessage(msg.GetMessage());
-                        
-                        // Create the cause of death coding
-                        trx.UnderlyingCauseOfDeath = "A04.7";
-
-                        // Assign the record axis codes
-                        var recordAxisCodes = new List<string>();
-                        recordAxisCodes.Add("A04.7");
-                        recordAxisCodes.Add("A41.9");
-                        recordAxisCodes.Add("J18.9");
-                        recordAxisCodes.Add("J96.0");
-                        trx.CauseOfDeathRecordAxis = recordAxisCodes;
-
-                        // Assign the entity axis codes
-                        var builder = new CauseOfDeathEntityAxisBuilder();
-                        builder.Add("1", "1", "line1_code1");
-                        builder.Add("1", "2", "line1_code2");
-                        builder.Add("2", "1", "line2_code1");
-                        trx.CauseOfDeathEntityAxis = builder.ToCauseOfDeathEntityAxis();
-
-                        Message trxMsg = new Message(trx);
-                        result.Add("TRX", trxMsg);
-                        break;
-                }
                 return result;
             }
         }
