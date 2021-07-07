@@ -125,5 +125,24 @@ namespace canary.Controllers
                 return test;
             }
         }
+
+        [HttpPost("Tests/{type}/Response")]
+        public async Task<Dictionary<string, Message>> GetTestResponse(int id, string type)
+        {
+            using (var db = new RecordContext())
+            {
+                string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+                if (String.IsNullOrEmpty(input))
+                {
+                    return null;
+                }
+
+                // get the responses for the submitted message
+                Message msg = new Message(input);             
+                Dictionary<string, Message> result = msg.GetResponsesFor(type);
+                
+                return result;
+            }
+        }
     }
 }
