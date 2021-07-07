@@ -112,7 +112,6 @@ export class FHIRMessageProducing extends Component {
           return axios.post(window.API_URL + '/tests/' + self.state.expectedType + '/response', self.state.message.json, { headers: { 'Content-Type': 'application/json' } });
         })
         .then(function(response) {
-          console.log(response.data);
           self.setState({ responses: response.data, loading: false });
           document.getElementById('scroll-to').scrollIntoView({
             behavior: 'smooth',

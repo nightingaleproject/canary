@@ -108,7 +108,6 @@ export class MessageConnectathonProducing extends Component {
 
   runTest() {
     var self = this;
-    console.log(this.state.expectedResponseType);
     this.setState({ running: true }, () => {
       axios
         .post(window.API_URL + '/tests/' + this.state.expectedType + 'MessageProducing/run/' + this.state.test.testId, this.state.message.json, { headers: { 'Content-Type': 'application/json' } })
@@ -119,7 +118,6 @@ export class MessageConnectathonProducing extends Component {
           return axios.post(window.API_URL + '/tests/' + self.state.expectedType + '/response', self.state.message.json, { headers: { 'Content-Type': 'application/json' } });
         })
         .then(function(response) {
-            console.log(response.data);
             self.setState({ responses: response.data, loading: false });
             document.getElementById('scroll-to').scrollIntoView({
               behavior: 'smooth',
