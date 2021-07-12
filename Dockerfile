@@ -9,7 +9,7 @@ RUN dotnet restore
 COPY canary/ ./
 RUN dotnet publish -c Release -o out
 RUN PATH="$PATH:/root/.dotnet/tools" dotnet ef database update
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
 WORKDIR /app
 COPY --from=build-env /app/out .
 COPY --from=build-env /app/canary.db .
