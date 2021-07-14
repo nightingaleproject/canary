@@ -5,6 +5,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using VRDR;
 using Newtonsoft.Json;
+using Hl7.Fhir.Model;
 
 namespace canary.Models
 {
@@ -85,6 +86,76 @@ namespace canary.Models
         public static string GetDescriptionFor(string entry)
         {
             return messageDescription.GetValueOrDefault(entry, "Unknown Property");
+        }
+
+        public Dictionary<string, Message> GetResponsesFor(String type)
+        {
+            Dictionary<string, Message> result = new Dictionary<string, Message>();
+            // Create acknowledgement
+            AckMessage ack = new AckMessage(message);
+            Message ackMsg = new Message(ack);
+            result.Add("ACK", ackMsg);
+
+            // Create the extraction error
+            ExtractionErrorMessage err = new ExtractionErrorMessage(message);
+            // Add the issues found during processing
+            var issues = new List<Issue>();
+            var issue = new Issue(OperationOutcome.IssueSeverity.Fatal, OperationOutcome.IssueType.Invalid, "This is a fake message");
+            issues.Add(issue);
+            err.Issues = issues;
+            Message errMsg = new Message(err);
+            result.Add("Error", errMsg);
+
+            switch (type)
+            {
+                case "Submission": case "http://nchs.cdc.gov/vrdr_submission": case "Update": case "http://nchs.cdc.gov/vrdr_submission_update":
+                    // Create the ethnicity coding
+                    CodingResponseMessage mre = new CodingResponseMessage(message);
+                    var ethnicity = new Dictionary<CodingResponseMessage.HispanicOrigin, string>();
+                    ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNICE, "222");
+                    ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNIC5C, "222");
+                    mre.Ethnicity = ethnicity;
+
+                    // Create the race coding
+                    var race = new Dictionary<CodingResponseMessage.RaceCode, string>();
+                    race.Add(CodingResponseMessage.RaceCode.RACE1E, "500");
+                    race.Add(CodingResponseMessage.RaceCode.RACE17C, "A09");
+                    race.Add(CodingResponseMessage.RaceCode.RACEBRG, "03");
+                    mre.Race = race;
+
+                    Message mreMsg = new Message(mre);
+                    result.Add("MRE", mreMsg);
+
+                    CodingResponseMessage trx = new CodingResponseMessage(message);
+                    
+                    // Create the cause of death coding
+                    trx.UnderlyingCauseOfDeath = "A04.7";
+
+                    // Assign the record axis codes
+                    var recordAxisCodes = new List<string>();
+                    recordAxisCodes.Add("A04.7");
+                    recordAxisCodes.Add("A41.9");
+                    recordAxisCodes.Add("J18.9");
+                    recordAxisCodes.Add("J96.0");
+                    trx.CauseOfDeathRecordAxis = recordAxisCodes;
+
+                    // Assign the entity axis codes
+                    var builder = new CauseOfDeathEntityAxisBuilder();
+                    builder.Add("1", "1", "A04.7");
+                    builder.Add("1", "2", "A41.9");
+                    builder.Add("2", "1", "J18.9");
+                    trx.CauseOfDeathEntityAxis = builder.ToCauseOfDeathEntityAxis();
+
+                    Message trxMsg = new Message(trx);
+                    result.Add("TRX", trxMsg);
+                    break;
+                case "Void": case "http://nchs.cdc.gov/vrdr_submission_void":
+                    break;
+                default:
+                    throw new ArgumentException($"The given message type {type} is not valid.", "type");
+            }     
+            return result;
+
         }
 
         // Returns whether or not we should only validate presence for these fields and not their values
