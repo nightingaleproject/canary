@@ -141,9 +141,9 @@ namespace canary.Models
 
                     // Assign the entity axis codes
                     var builder = new CauseOfDeathEntityAxisBuilder();
-                    builder.Add("1", "1", "line1_code1");
-                    builder.Add("1", "2", "line1_code2");
-                    builder.Add("2", "1", "line2_code1");
+                    builder.Add("1", "1", "A04.7");
+                    builder.Add("1", "2", "A41.9");
+                    builder.Add("2", "1", "J18.9");
                     trx.CauseOfDeathEntityAxis = builder.ToCauseOfDeathEntityAxis();
 
                     Message trxMsg = new Message(trx);
