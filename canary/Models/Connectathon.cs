@@ -140,6 +140,7 @@ namespace canary.Models
             locType.Add("display", "Nursing Home");
             record.DeathLocationType = locType;
             record.DeathLocationDescription = "nursing home";
+            record.DeathLocationJurisdiction = "GA";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
@@ -191,7 +192,7 @@ namespace canary.Models
             // record.FuneralDirectorPhone = "000-000-0000";    // unknown property?????
 
             Dictionary<string, string> morticianId = new Dictionary<string, string>();
-            morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
             morticianId.Add("value", "111111AB");
             record.MorticianIdentifier = morticianId;
 
@@ -314,8 +315,10 @@ namespace canary.Models
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Danville");
+            deathLoc.Add("addressCity", "Danville");
             deathLoc.Add("addressCountry", "United States");
             record.DeathLocationAddress = deathLoc;
+            record.DeathLocationJurisdiction = "VA";
 
             record.DeathLocationName = "home";
             Dictionary<string, string> locType = new Dictionary<string, string>();
@@ -388,7 +391,7 @@ namespace canary.Models
             record.FuneralHomeName = "Rosewood Funeral Home";
 
             Dictionary<string, string> morticianId = new Dictionary<string, string>();
-            morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
             morticianId.Add("value", "212222AB");
             record.MorticianIdentifier = morticianId;
 
@@ -515,6 +518,7 @@ namespace canary.Models
             deathLoc.Add("addressCounty", "Lancaster");
             deathLoc.Add("addressCountry", "United States");
             record.DeathLocationAddress = deathLoc;
+            record.DeathLocationJurisdiction = "PA";
 
             record.DeathLocationName = "Mt. Olive Hospital";
             Dictionary<string, string> locType = new Dictionary<string, string>();
@@ -565,7 +569,7 @@ namespace canary.Models
             record.AutopsyResultsAvailableBoolean = true;
 
             Dictionary<string, string> morticianId = new Dictionary<string, string>();
-            morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
             morticianId.Add("value", "414444AB");
             record.MorticianIdentifier = morticianId;
 
@@ -734,6 +738,7 @@ namespace canary.Models
             record.DeathLocationType = locType;
 
             record.DeathLocationDescription = "Dead On Arrival";
+            record.DeathLocationJurisdiction = "DE";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
@@ -814,7 +819,7 @@ namespace canary.Models
                 record.FuneralHomeName = "River Funeral Home";
 
                 Dictionary<string, string> morticianId = new Dictionary<string, string>();
-                morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+                morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
                 morticianId.Add("value", "313333AB");
                 record.MorticianIdentifier = morticianId;
 
