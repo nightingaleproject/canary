@@ -79,11 +79,15 @@ namespace canary.Models
 
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Atlanta");
-            addressB.Add("addressState", "US-GA");
+            addressB.Add("addressState", "GA");
             addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
             record.BirthRecordId = "515151";
+            record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-GA" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-GA" } };
 
             record.MotherGivenNames = new String[] { "Linda" };
             record.MotherMaidenName = "Shay";
@@ -266,12 +270,15 @@ namespace canary.Models
 
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Roanoke");
-            addressB.Add("addressState", "US-VA");
+            addressB.Add("addressState", "VA");
             addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
             record.BirthRecordId = "616161";
-
+            record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-VA" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-VA" } };
             record.MotherGivenNames = new String[] { "Jennifer" };
             record.MotherMaidenName = "May";
 
@@ -465,12 +472,15 @@ namespace canary.Models
 
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Hinsdale");
-            addressB.Add("addressState", "US-IL");
+            addressB.Add("addressState", "IL");
             addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
             record.BirthRecordId = "717171";
-
+            record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-IL" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-IL" } };
             record.MotherGivenNames = new String[] { "Martha" };
             record.MotherMaidenName = "White";
 
@@ -665,10 +675,14 @@ namespace canary.Models
 
                 Dictionary<string, string> addressB = new Dictionary<string, string>();
                 addressB.Add("addressCountry", "US");
-                addressB.Add("addressState", "US-TX");
+                addressB.Add("addressState", "TX");
                 record.PlaceOfBirth = addressB;
 
                 record.BirthRecordId = "818181";
+                record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-TX" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-TX" } };
             }else{
                 Tuple<string, string>[] datePart = { Tuple.Create("year-absent-reason", "asked-unknown"), Tuple.Create("date-month", "02"), Tuple.Create("date-day", "24")};
                 record.DateOfBirthDatePartAbsent = datePart;
