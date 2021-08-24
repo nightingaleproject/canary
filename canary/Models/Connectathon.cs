@@ -79,7 +79,7 @@ namespace canary.Models
 
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Atlanta");
-            addressB.Add("addressState", "GA");
+            addressB.Add("addressState", "US-GA");
             addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
@@ -266,7 +266,7 @@ namespace canary.Models
 
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Roanoke");
-            addressB.Add("addressState", "VA");
+            addressB.Add("addressState", "US-VA");
             addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
@@ -465,7 +465,7 @@ namespace canary.Models
 
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Hinsdale");
-            addressB.Add("addressState", "IL");
+            addressB.Add("addressState", "US-IL");
             addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
@@ -665,7 +665,7 @@ namespace canary.Models
 
                 Dictionary<string, string> addressB = new Dictionary<string, string>();
                 addressB.Add("addressCountry", "US");
-                addressB.Add("addressState", "TX");
+                addressB.Add("addressState", "US-TX");
                 record.PlaceOfBirth = addressB;
 
                 record.BirthRecordId = "818181";
@@ -674,6 +674,7 @@ namespace canary.Models
                 record.DateOfBirthDatePartAbsent = datePart;
                 Dictionary<string, string> addressB = new Dictionary<string, string>();
                 addressB.Add("addressCountry", "AS");  // This is an abomination
+                addressB.Add("addressState", "AS");  // This is so BirthRecordState will be AS.
                 record.PlaceOfBirth = addressB;
                 record.BirthRecordId = "";
                 record.AgeAtDeath = null;
