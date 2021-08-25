@@ -36,7 +36,7 @@ namespace canary.Models
             {
                 Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
                 placeOfDeath.Add("addressState", state);
-                placeOfDeath.Add("addressCountry", "United States");
+                placeOfDeath.Add("addressCountry", "US");
                 record.DeathLocationAddress = placeOfDeath;
             }
 
@@ -134,7 +134,7 @@ namespace canary.Models
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Atlanta");
-            deathLoc.Add("addressCountry", "United States");
+            deathLoc.Add("addressCountry", "US");
             record.DeathLocationAddress = deathLoc;
 
             record.DeathLocationName = "Pecan Grove Nursing Home";
@@ -160,7 +160,7 @@ namespace canary.Models
             address.Add("addressCity", "Atlanta");
             address.Add("addressState", "GA");
             address.Add("addressZip", "30303");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
             record.CertifiedTime = "2019-02-08";
@@ -190,7 +190,7 @@ namespace canary.Models
             fdaddress.Add("addressCity", "Atlanta");
             fdaddress.Add("addressState", "GA");
             fdaddress.Add("addressZip", " 30301");
-            fdaddress.Add("addressCountry", "United States");
+            fdaddress.Add("addressCountry", "US");
             record.FuneralHomeAddress = fdaddress;
             record.FuneralHomeName = "Pecan Street Funeral Home and Crematory";
             // record.FuneralDirectorPhone = "000-000-0000";    // unknown property?????
@@ -208,7 +208,7 @@ namespace canary.Models
             dladdress.Add("addressCity", "Atlanta");
             dladdress.Add("addressState", "GA");
             dladdress.Add("addressZip", " 30301");
-            dladdress.Add("addressCountry", "United States");
+            dladdress.Add("addressCountry", "US");
             record.DispositionLocationAddress = dladdress;
             record.DispositionLocationName = "Pecan Street Funeral Home and Crematory";
 
@@ -323,7 +323,7 @@ namespace canary.Models
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Danville");
             deathLoc.Add("addressCity", "Danville");
-            deathLoc.Add("addressCountry", "United States");
+            deathLoc.Add("addressCountry", "US");
             record.DeathLocationAddress = deathLoc;
             record.DeathLocationJurisdiction = "VA";
 
@@ -348,7 +348,7 @@ namespace canary.Models
             address.Add("addressLine1", "123 12th St.");
             address.Add("addressCity", "Danville");
             address.Add("addressState", "VA");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
             record.CertifiedTime = "2021-06-05";
@@ -393,7 +393,7 @@ namespace canary.Models
             fdaddress.Add("addressCity", "Danville");
             fdaddress.Add("addressState", "VA");
             fdaddress.Add("addressZip", " 24541");
-            fdaddress.Add("addressCountry", "United States");
+            fdaddress.Add("addressCountry", "US");
             record.FuneralHomeAddress = fdaddress;
             record.FuneralHomeName = "Rosewood Funeral Home";
 
@@ -410,7 +410,7 @@ namespace canary.Models
             dladdress.Add("addressCity", "Danville");
             dladdress.Add("addressState", "VA");
             dladdress.Add("addressZip", " 24541");
-            dladdress.Add("addressCountry", "United States");
+            dladdress.Add("addressCountry", "US");
             record.DispositionLocationAddress = dladdress;
             record.DispositionLocationName = "Rosewood Cemetary";
 
@@ -526,7 +526,7 @@ namespace canary.Models
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Lancaster");
             deathLoc.Add("addressCounty", "Lancaster");
-            deathLoc.Add("addressCountry", "United States");
+            deathLoc.Add("addressCountry", "US");
             record.DeathLocationAddress = deathLoc;
             record.DeathLocationJurisdiction = "PA";
 
@@ -552,7 +552,7 @@ namespace canary.Models
             address.Add("addressCity", "Bird in Hand");
             address.Add("addressState", "PA");
             address.Add("addressZip", "17505");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
             record.CertifiedTime = "2019-10-14";
@@ -591,7 +591,7 @@ namespace canary.Models
             fdaddress.Add("addressCity", "Lancaster");
             fdaddress.Add("addressState", "PA");
             fdaddress.Add("addressZip", " 17573");
-            fdaddress.Add("addressCountry", "United States");
+            fdaddress.Add("addressCountry", "US");
             record.FuneralHomeAddress = fdaddress;
             record.FuneralHomeName = "Lancaster Funeral Home and Crematory";
 
@@ -600,7 +600,7 @@ namespace canary.Models
             dladdress.Add("addressCity", "Lancaster");
             dladdress.Add("addressState", "PA");
             dladdress.Add("addressZip", " 17573");
-            dladdress.Add("addressCountry", "United States");
+            dladdress.Add("addressCountry", "US");
             record.DispositionLocationAddress = dladdress;
             record.DispositionLocationName = "Lancaster Funeral Home and Crematory";
 
@@ -768,7 +768,7 @@ namespace canary.Models
             address.Add("addressLine1", "RR1");
             address.Add("addressCity", "Dover");
             address.Add("addressState", "DE");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
             record.CertifiedTime = "2021-03-14";
@@ -829,7 +829,7 @@ namespace canary.Models
                 fdaddress.Add("addressCity", "San Antonio");
                 fdaddress.Add("addressState", "TX");
                 fdaddress.Add("addressZip", " 78201");
-                fdaddress.Add("addressCountry", "United States");
+                fdaddress.Add("addressCountry", "US");
                 record.FuneralHomeAddress = fdaddress;
                 record.FuneralHomeName = "River Funeral Home";
 
@@ -846,7 +846,7 @@ namespace canary.Models
                 dladdress.Add("addressCity", "San Antonio");
                 dladdress.Add("addressState", "TX");
                 dladdress.Add("addressZip", " 78201");
-                dladdress.Add("addressCountry", "United States");
+                dladdress.Add("addressCountry", "US");
                 record.DispositionLocationAddress = dladdress;
                 record.DispositionLocationName = "River Cemetary";
             }
