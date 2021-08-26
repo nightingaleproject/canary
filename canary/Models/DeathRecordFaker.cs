@@ -245,7 +245,7 @@ namespace canary.Models
             };
             Tuple<string, string> militaryCode = faker.Random.ArrayElement<Tuple<string, string>>(militaryCodes);
             military.Add("code", militaryCode.Item1);
-            military.Add("system", VRDR.CodeSystems.PH_YesNo_HL7_2x");
+            military.Add("system", VRDR.CodeSystems.PH_YesNo_HL7_2x);
             military.Add("display", militaryCode.Item2);
             record.MilitaryService = military;
 
