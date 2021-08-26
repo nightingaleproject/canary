@@ -52,11 +52,9 @@ namespace canary.Models
         {
             DeathRecord record = new DeathRecord();
 
-            // record.BundleIdentifier = "2019000211";
-
             record.Identifier = "000001";
 
-            record.RegisteredTime = "2021-02-09";
+            record.RegisteredTime = "2021-02-08";
 
             record.GivenNames = new string[] { "Janet" };
 
@@ -130,7 +128,7 @@ namespace canary.Models
             uind.Add("text", "Health Insurance");
             record.UsualIndustryCode = uind;
 
-            record.DateOfDeath = "2019-02-08T05:30:00";
+            record.DateOfDeath = "2021-02-08T05:30:00";
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Atlanta");
@@ -163,9 +161,9 @@ namespace canary.Models
             address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
-            record.CertifiedTime = "2019-02-08";
+            record.CertifiedTime = "2021-02-08";
 
-            record.DateOfDeathPronouncement = "2019-02-08T05:30:00";
+            record.DateOfDeathPronouncement = "2021-02-08T05:30:00";
             record.PronouncerGivenNames = new string[] { "Sam" };
             record.PronouncerFamilyName = "Jones";
 
@@ -318,7 +316,7 @@ namespace canary.Models
             uind.Add("text", "Fast food");
             record.UsualIndustryCode = uind;
 
-            record.DateOfDeath = "2021-06-15T14:04:00";
+            record.DateOfDeath = "2021-06-05T14:04:00";
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Danville");
@@ -444,8 +442,6 @@ namespace canary.Models
         {
             DeathRecord record = new DeathRecord();
 
-            // record.BundleIdentifier = "2019000215";
-
             record.Identifier = "000003";
 
             record.RegisteredTime = "2021-01-14";
@@ -554,9 +550,9 @@ namespace canary.Models
             address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
-            record.CertifiedTime = "2019-10-14";
+            record.CertifiedTime = "2021-01-13";
 
-            record.DateOfDeathPronouncement = "2019-10-10T21:00:00";
+            record.DateOfDeathPronouncement = "2021-01-13T21:00:00";
             record.PronouncerGivenNames = new string[] { "Jim" };
             record.PronouncerFamilyName = "Black";
 
@@ -639,11 +635,6 @@ namespace canary.Models
         {
             bool fullRecord = !partialRecord;
             DeathRecord record = new DeathRecord();
-
-            if (fullRecord)
-            {
-                // record.BundleIdentifier = "2019000217";
-            }
 
             record.Identifier = "000004";
 
