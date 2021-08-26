@@ -34,10 +34,7 @@ namespace canary.Models
 
             if (record != null && state != null)
             {
-                Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
-                placeOfDeath.Add("addressState", state);
-                placeOfDeath.Add("addressCountry", "US");
-                record.DeathLocationAddress = placeOfDeath;
+                record.DeathLocationJurisdiction = state;
             }
 
             if (record != null && certificateNumber != null)
