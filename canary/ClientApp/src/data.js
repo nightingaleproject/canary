@@ -91,9 +91,9 @@ export const connectathonRecordNames = {
 }
 
 export const connectathonRecordCertificateNumbers = {
-  "1": "50",
-  "2": "51",
-  "3": "52",
-  "4": "53",
-  "5": "53"
+  "1": "1",
+  "2": "2",
+  "3": "3",
+  "4": "4",
+  "5": "5"
 }
