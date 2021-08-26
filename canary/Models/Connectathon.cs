@@ -293,10 +293,10 @@ namespace canary.Models
             Dictionary<string, string> addressR = new Dictionary<string, string>();
             addressR.Add("addressLine1", "5590 Lockwood Drive");
             addressR.Add("addressCity", "Danville");
-            addressR.Add("addressState", "NS");
-            addressR.Add("addressCountry", "CA");
+            addressR.Add("addressState", "VA");
+            addressR.Add("addressCountry", "US");
             record.Residence = addressR;
-            // record.ResidenceWithinCityLimitsBoolean = "unknown";
+            record.ResidenceWithinCityLimitsBoolean = true;
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1452");
@@ -321,7 +321,6 @@ namespace canary.Models
             record.DateOfDeath = "2021-06-15T14:04:00";
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
-            deathLoc.Add("addressCity", "Danville");
             deathLoc.Add("addressCity", "Danville");
             deathLoc.Add("addressCountry", "US");
             record.DeathLocationAddress = deathLoc;
@@ -683,7 +682,9 @@ namespace canary.Models
                 { "code", "US-TX" },
                 { "system", CodeSystems.ISO_3166_2 },
                 { "display", "US-TX" } };
-            }else{
+            }
+            else
+            {
                 Tuple<string, string>[] datePart = { Tuple.Create("year-absent-reason", "asked-unknown"), Tuple.Create("date-month", "02"), Tuple.Create("date-day", "24")};
                 record.DateOfBirthDatePartAbsent = datePart;
                 Dictionary<string, string> addressB = new Dictionary<string, string>();
