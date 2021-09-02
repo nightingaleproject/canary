@@ -1,5 +1,11 @@
 ## Change Log
 
+### v3.1.0-preview1 - 2021-09-02
+
+* Updated the VRDR-dotnet dependency for the project to use V3.2.0-preview3, which updates support to the latest published version of the VRDR IG
+* Updated connectathon records to align with the new IG and connectathon test record changes
+* Updated synthetic record generation to align with the new IG
+
 ### v3.0.1 - 2021-06-11
 
 * Allow Certificate number to be provided for Connectathon Tests
