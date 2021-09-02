@@ -11,8 +11,8 @@ const rootElement = document.getElementById('root');
 
 //window.API_URL = 'http://localhost:5000';
 window.API_URL = '';
-window.VERSION = 'v3.0.1';
-window.VERSION_DATE = 'June 11, 2021';
+window.VERSION = 'v3.1.0-preview1';
+window.VERSION_DATE = 'September 2, 2021';
 
 ReactDOM.render(
   <BrowserRouter basename={baseUrl}>

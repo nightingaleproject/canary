@@ -34,10 +34,7 @@ namespace canary.Models
 
             if (record != null && state != null)
             {
-                Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
-                placeOfDeath.Add("addressState", state);
-                placeOfDeath.Add("addressCountry", "United States");
-                record.DeathLocationAddress = placeOfDeath;
+                record.DeathLocationJurisdiction = state;
             }
 
             if (record != null && certificateNumber != null)
@@ -52,11 +49,9 @@ namespace canary.Models
         {
             DeathRecord record = new DeathRecord();
 
-            // record.BundleIdentifier = "2019000211";
+            record.Identifier = "000001";
 
-            record.Identifier = "000050";
-
-            record.RegisteredTime = "2019-09-02";
+            record.RegisteredTime = "2021-02-08";
 
             record.GivenNames = new string[] { "Janet" };
 
@@ -71,7 +66,7 @@ namespace canary.Models
             record.SSN = "555111234";
 
             Dictionary<string, string> age = new Dictionary<string, string>();
-            age.Add("value", "70");
+            age.Add("value", "72");
             age.Add("unit", "a");
             record.AgeAtDeath = age;
 
@@ -80,10 +75,14 @@ namespace canary.Models
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Atlanta");
             addressB.Add("addressState", "GA");
-            addressB.Add("addressCountry", "United States");
+            addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
             record.BirthRecordId = "515151";
+            record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-GA" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-GA" } };
 
             record.MotherGivenNames = new String[] { "Linda" };
             record.MotherMaidenName = "Shay";
@@ -92,7 +91,7 @@ namespace canary.Models
 
             Dictionary<string, string> code = new Dictionary<string, string>();
             code.Add("code", "D");
-            code.Add("system", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus");
+            code.Add("system", VRDR.CodeSystems.PH_MaritalStatus_HL7_2x);
             code.Add("display", "Divorced");
             record.MaritalStatus = code;
 
@@ -101,45 +100,50 @@ namespace canary.Models
             addressR.Add("addressCity", "Atlanta");
             addressR.Add("addressCounty", "Fulton");
             addressR.Add("addressState", "GA");
-            addressR.Add("addressCountry", "United States");
+            addressR.Add("addressCountry", "US");
             record.Residence = addressR;
             record.ResidenceWithinCityLimitsBoolean = true;
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1455");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
+            elevel.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
             elevel.Add("display", "Doctorate Degree or Professional Degree");
             elevel.Add("text", "Doctorate");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "1010");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
+            uocc.Add("system", VRDR.CodeSystems.PH_Occupation_CDC_Census2010);
             uocc.Add("display", "Computer Programmers");
             uocc.Add("text", "Programmer");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "6990");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
+            uind.Add("system", VRDR.CodeSystems.PH_Industry_CDC_Census2010);
             uind.Add("display", "Insurance carriers and related activities");
             uind.Add("text", "Health Insurance");
             record.UsualIndustryCode = uind;
 
-            record.DateOfDeath = "2019-09-01T05:30:00";
+            record.DateOfDeath = "2021-02-08T05:30:00";
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Atlanta");
-            deathLoc.Add("addressCountry", "United States");
+            deathLoc.Add("addressCountry", "US");
             record.DeathLocationAddress = deathLoc;
 
             record.DeathLocationName = "Pecan Grove Nursing Home";
-
+            Dictionary<string, string> locType = new Dictionary<string, string>();
+            locType.Add("code", "450381000124100");
+            locType.Add("system", VRDR.CodeSystems.SCT);
+            locType.Add("display", "Nursing Home");
+            record.DeathLocationType = locType;
             record.DeathLocationDescription = "nursing home";
+            record.DeathLocationJurisdiction = "GA";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
-            role.Add("system", "http://snomed.info/sct");
+            role.Add("system", VRDR.CodeSystems.SCT);
             role.Add("display", "Death certification and verification by physician");
             record.CertificationRole = role;
 
@@ -151,12 +155,12 @@ namespace canary.Models
             address.Add("addressCity", "Atlanta");
             address.Add("addressState", "GA");
             address.Add("addressZip", "30303");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
-            record.CertifiedTime = "2019-09-02";
+            record.CertifiedTime = "2021-02-08";
 
-            record.DateOfDeathPronouncement = "2019-09-01T05:30:00";
+            record.DateOfDeathPronouncement = "2021-02-08T05:30:00";
             record.PronouncerGivenNames = new string[] { "Sam" };
             record.PronouncerFamilyName = "Jones";
 
@@ -170,28 +174,24 @@ namespace canary.Models
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "38605008");
-            manner.Add("system", "http://snomed.info/sct");
+            manner.Add("system", VRDR.CodeSystems.SCT);
             manner.Add("display", "Natural death");
             record.MannerOfDeathType = manner;
 
-            Dictionary<string, string> codeA = new Dictionary<string, string>();
-            codeA.Add("code", "N");
-            codeA.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeA.Add("display", "No");
-            record.AutopsyPerformedIndicator = codeA;
+            record.AutopsyPerformedIndicatorBoolean = false;
 
             Dictionary<string, string> fdaddress = new Dictionary<string, string>();
             fdaddress.Add("addressLine1", "15 Pecan Street");
             fdaddress.Add("addressCity", "Atlanta");
             fdaddress.Add("addressState", "GA");
             fdaddress.Add("addressZip", " 30301");
-            fdaddress.Add("addressCountry", "United States");
+            fdaddress.Add("addressCountry", "US");
             record.FuneralHomeAddress = fdaddress;
             record.FuneralHomeName = "Pecan Street Funeral Home and Crematory";
             // record.FuneralDirectorPhone = "000-000-0000";    // unknown property?????
 
             Dictionary<string, string> morticianId = new Dictionary<string, string>();
-            morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
             morticianId.Add("value", "111111AB");
             record.MorticianIdentifier = morticianId;
 
@@ -203,25 +203,30 @@ namespace canary.Models
             dladdress.Add("addressCity", "Atlanta");
             dladdress.Add("addressState", "GA");
             dladdress.Add("addressZip", " 30301");
-            dladdress.Add("addressCountry", "United States");
+            dladdress.Add("addressCountry", "US");
             record.DispositionLocationAddress = dladdress;
             record.DispositionLocationName = "Pecan Street Funeral Home and Crematory";
 
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449961000124104");
-            dmethod.Add("system", "http://snomed.info/sct");
+            dmethod.Add("system", VRDR.CodeSystems.SCT);
             dmethod.Add("display", "Patient status determination, deceased and cremated");
             record.DecedentDispositionMethod = dmethod;
 
-            Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
-            pregnanacyStatus.Add("code", "NA");
-            pregnanacyStatus.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
-            pregnanacyStatus.Add("display", "not applicable");
-            record.PregnancyStatus = pregnanacyStatus;
+            Dictionary<string, string> pregnancyStatus = new Dictionary<string, string>();
+            pregnancyStatus.Add("code", "NA");
+            pregnancyStatus.Add("system", CodeSystems.PH_NullFlavor_HL7_V3);
+            pregnancyStatus.Add("display", "not applicable");
+            record.PregnancyStatus = pregnancyStatus;
 
             record.TobaccoUse = new Dictionary<string, string>() {
                 { "code", "UNK" },
-                { "system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor" },
+                { "system", CodeSystems.PH_NullFlavor_HL7_V3 },
+                { "display", "unknown" } };
+
+            record.MilitaryService = new Dictionary<string, string>() {
+                { "code", "UNK" },
+                { "system", CodeSystems.PH_NullFlavor_HL7_V3 },
                 { "display", "unknown" } };
 
             // uncomment to generate file
@@ -235,11 +240,9 @@ namespace canary.Models
         {
             DeathRecord record = new DeathRecord();
 
-            // record.BundleIdentifier = "2019000213";
+            record.Identifier = "000002";
 
-            record.Identifier = "000051";
-
-            record.RegisteredTime = "2019-11-06";
+            record.RegisteredTime = "2021-06-11";
 
             record.GivenNames = new string[] { "Madelyn" };
 
@@ -254,7 +257,7 @@ namespace canary.Models
             record.SSN = "987654321";
 
             Dictionary<string, string> age = new Dictionary<string, string>();
-            age.Add("value", "41");
+            age.Add("value", "43");
             age.Add("unit", "a");
             record.AgeAtDeath = age;
 
@@ -263,11 +266,14 @@ namespace canary.Models
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Roanoke");
             addressB.Add("addressState", "VA");
-            addressB.Add("addressCountry", "United States");
+            addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
             record.BirthRecordId = "616161";
-
+            record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-VA" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-VA" } };
             record.MotherGivenNames = new String[] { "Jennifer" };
             record.MotherMaidenName = "May";
 
@@ -275,7 +281,7 @@ namespace canary.Models
 
             Dictionary<string, string> code = new Dictionary<string, string>();
             code.Add("code", "S");
-            code.Add("system", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus");
+            code.Add("system", VRDR.CodeSystems.PH_MaritalStatus_HL7_2x);
             code.Add("display", "Never Married");
             record.MaritalStatus = code;
 
@@ -283,44 +289,49 @@ namespace canary.Models
             addressR.Add("addressLine1", "5590 Lockwood Drive");
             addressR.Add("addressCity", "Danville");
             addressR.Add("addressState", "VA");
-            addressR.Add("addressCountry", "United States");
+            addressR.Add("addressCountry", "US");
             record.Residence = addressR;
             record.ResidenceWithinCityLimitsBoolean = true;
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1452");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
+            elevel.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
             elevel.Add("display", "Associate Degree");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "4030");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
+            uocc.Add("system", VRDR.CodeSystems.PH_Occupation_CDC_Census2010);
             uocc.Add("display", "Food preparation workers");
             uocc.Add("text", "Food Prep");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "8680");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
+            uind.Add("system", VRDR.CodeSystems.PH_Industry_CDC_Census2010);
             uind.Add("display", "Restaurants and other food services");
             uind.Add("text", "Fast food");
             record.UsualIndustryCode = uind;
 
-            record.DateOfDeath = "2019-11-02T14:04:00";
+            record.DateOfDeath = "2021-06-05T14:04:00";
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Danville");
-            deathLoc.Add("addressCountry", "United States");
+            deathLoc.Add("addressCountry", "US");
             record.DeathLocationAddress = deathLoc;
+            record.DeathLocationJurisdiction = "VA";
 
             record.DeathLocationName = "home";
-
+            Dictionary<string, string> locType = new Dictionary<string, string>();
+            locType.Add("code", "440081000124100");
+            locType.Add("system", VRDR.CodeSystems.SCT);
+            locType.Add("display", "Descedent's Home");
+            record.DeathLocationType = locType;
             record.DeathLocationDescription = "home";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "440051000124108");
-            role.Add("system", "http://snomed.info/sct");
+            role.Add("system", VRDR.CodeSystems.SCT);
             role.Add("display", "Medical Examiner");
             record.CertificationRole = role;
 
@@ -331,12 +342,12 @@ namespace canary.Models
             address.Add("addressLine1", "123 12th St.");
             address.Add("addressCity", "Danville");
             address.Add("addressState", "VA");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
-            record.CertifiedTime = "2019-11-05";
+            record.CertifiedTime = "2021-06-05";
 
-            record.DateOfDeathPronouncement = "2019-11-02T15:30:00";
+            record.DateOfDeathPronouncement = "2021-06-05T15:30:00";
             record.PronouncerGivenNames = new string[] { "Adam" };
             record.PronouncerFamilyName = "Revel";
 
@@ -349,22 +360,17 @@ namespace canary.Models
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
-            manner.Add("system", "http://snomed.info/sct");
+            manner.Add("system", VRDR.CodeSystems.SCT);
             manner.Add("display", "Accidental death");
             record.MannerOfDeathType = manner;
 
-            record.InjuryDate = "2019-11-02T13:00:00";
-
-            Dictionary<string, string> codeIAW = new Dictionary<string, string>();
-            codeIAW.Add("code", "N");
-            codeIAW.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeIAW.Add("display", "No");
-            record.InjuryAtWork = codeIAW;
+            record.InjuryDate = "2021-06-05T13:00:00";
+            record.InjuryAtWorkBoolean = false;
 
             // @check
             Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
             injuryPlace.Add("code", "0");
-            injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");
+            injuryPlace.Add("system", VRDR.CodeSystems.PH_PlaceOfOccurrence_ICD_10_WHO);
             injuryPlace.Add("display", "Home");
             record.InjuryPlace = injuryPlace;
 
@@ -372,29 +378,21 @@ namespace canary.Models
 
             record.InjuryLocationDescription = "5590 Lockwood Drive 20621 US";
 
-            Dictionary<string, string> codeA = new Dictionary<string, string>();
-            codeA.Add("code", "Y");
-            codeA.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeA.Add("display", "Yes");
-            record.AutopsyPerformedIndicator = codeA;
+            record.AutopsyPerformedIndicatorBoolean = true;
 
-            Dictionary<string, string> codeAP = new Dictionary<string, string>();
-            codeAP.Add("code", "Y");
-            codeAP.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeAP.Add("display", "Yes");
-            record.AutopsyResultsAvailable = codeAP;
+            record.AutopsyResultsAvailableBoolean = true;
 
             Dictionary<string, string> fdaddress = new Dictionary<string, string>();
             fdaddress.Add("addressLine1", "Lilly Lane");
             fdaddress.Add("addressCity", "Danville");
             fdaddress.Add("addressState", "VA");
             fdaddress.Add("addressZip", " 24541");
-            fdaddress.Add("addressCountry", "United States");
+            fdaddress.Add("addressCountry", "US");
             record.FuneralHomeAddress = fdaddress;
             record.FuneralHomeName = "Rosewood Funeral Home";
 
             Dictionary<string, string> morticianId = new Dictionary<string, string>();
-            morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
             morticianId.Add("value", "212222AB");
             record.MorticianIdentifier = morticianId;
 
@@ -406,27 +404,30 @@ namespace canary.Models
             dladdress.Add("addressCity", "Danville");
             dladdress.Add("addressState", "VA");
             dladdress.Add("addressZip", " 24541");
-            dladdress.Add("addressCountry", "United States");
+            dladdress.Add("addressCountry", "US");
             record.DispositionLocationAddress = dladdress;
             record.DispositionLocationName = "Rosewood Cemetary";
 
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449971000124106");
-            dmethod.Add("system", "http://snomed.info/sct");
+            dmethod.Add("system", VRDR.CodeSystems.SCT);
             dmethod.Add("display", "Patient status determination, deceased and buried");
             record.DecedentDispositionMethod = dmethod;
 
-            Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
-            pregnanacyStatus.Add("code", "PHC1260");
-            pregnanacyStatus.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
-            pregnanacyStatus.Add("display", "Not pregnant within the past year");
-            record.PregnancyStatus = pregnanacyStatus;
-
+            Dictionary<string, string> pregnancyStatus = new Dictionary<string, string>();
+            pregnancyStatus.Add("code", "PHC1260");
+            pregnancyStatus.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
+            pregnancyStatus.Add("display", "Not pregnant within the past year");
+            record.PregnancyStatus = pregnancyStatus;
+            record.TransportationEventBoolean = false;
             record.TobaccoUse = new Dictionary<string, string>() {
                 { "code", "373067005" },
-                { "system", "http://snomed.info/sct" },
+                { "system", VRDR.CodeSystems.SCT },
                 { "display", "No" } };
-
+            record.MilitaryService = new Dictionary<string, string>() {
+                { "code", "N" },
+                { "system", CodeSystems.PH_YesNo_HL7_2x },
+                { "display", "unknown" } };
             // uncomment to generate file
             // string filename = "2_madelyn_patel_opiod_" + fhirVersion + ".xml";
             // WriteRecordAsXml(record, filename);
@@ -438,13 +439,11 @@ namespace canary.Models
         {
             DeathRecord record = new DeathRecord();
 
-            // record.BundleIdentifier = "2019000215";
+            record.Identifier = "000003";
 
-            record.Identifier = "000052";
+            record.RegisteredTime = "2021-01-14";
 
-            record.RegisteredTime = "2019-10-14";
-
-            record.GivenNames = new string[] { "Vivienne", "Lee" };
+            record.GivenNames = new string[] { "Vivienne", "L" };
 
             record.FamilyName = "Wright";
 
@@ -457,7 +456,7 @@ namespace canary.Models
             record.SSN = "789456123";
 
             Dictionary<string, string> age = new Dictionary<string, string>();
-            age.Add("value", "18");
+            age.Add("value", "19");
             age.Add("unit", "a");
             record.AgeAtDeath = age;
 
@@ -466,11 +465,14 @@ namespace canary.Models
             Dictionary<string, string> addressB = new Dictionary<string, string>();
             addressB.Add("addressCity", "Hinsdale");
             addressB.Add("addressState", "IL");
-            addressB.Add("addressCountry", "United States");
+            addressB.Add("addressCountry", "US");
             record.PlaceOfBirth = addressB;
 
             record.BirthRecordId = "717171";
-
+            record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-IL" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-IL" } };
             record.MotherGivenNames = new String[] { "Martha" };
             record.MotherMaidenName = "White";
 
@@ -478,7 +480,7 @@ namespace canary.Models
 
             Dictionary<string, string> code = new Dictionary<string, string>();
             code.Add("code", "M");
-            code.Add("system", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus");
+            code.Add("system", VRDR.CodeSystems.PH_MaritalStatus_HL7_2x);
             code.Add("display", "Married");
             record.MaritalStatus = code;
 
@@ -486,46 +488,51 @@ namespace canary.Models
             addressR.Add("addressLine1", "101 Liberty Lane");
             addressR.Add("addressCity", "Harrisburg ");
             addressR.Add("addressState", "PA");
-            addressR.Add("addressCountry", "United States");
+            addressR.Add("addressCountry", "US");
             record.Residence = addressR;
             record.ResidenceWithinCityLimitsBoolean = true;
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1449");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
+            elevel.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
             elevel.Add("display", "9th through 12th grade; no diploma");
             elevel.Add("text", "11th grade");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "5700");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
+            uocc.Add("system", VRDR.CodeSystems.PH_Occupation_CDC_Census2010);
             uocc.Add("display", "Secretaries and administrative assistants");
             uocc.Add("text", "secretary");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "9390");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
+            uind.Add("system", VRDR.CodeSystems.PH_Industry_CDC_Census2010);
             uind.Add("display", "Other general government and support");
             uind.Add("text", "State agency");
             record.UsualIndustryCode = uind;
 
-            record.DateOfDeath = "2019-10-10T21:00:00";
+            record.DateOfDeath = "2021-01-13T21:00:00";
 
             Dictionary<string, string> deathLoc = new Dictionary<string, string>();
             deathLoc.Add("addressCity", "Lancaster");
             deathLoc.Add("addressCounty", "Lancaster");
-            deathLoc.Add("addressCountry", "United States");
+            deathLoc.Add("addressCountry", "US");
             record.DeathLocationAddress = deathLoc;
+            record.DeathLocationJurisdiction = "PA";
 
             record.DeathLocationName = "Mt. Olive Hospital";
-
+            Dictionary<string, string> locType = new Dictionary<string, string>();
+            locType.Add("code", "450391000124102");
+            locType.Add("system", VRDR.CodeSystems.SCT);
+            locType.Add("display", "Death in emergency Room/Outpatient");
+            record.DeathLocationType = locType;
             record.DeathLocationDescription = "Emergency room";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "310193003");
-            role.Add("system", "http://snomed.info/sct");
+            role.Add("system", VRDR.CodeSystems.SCT);
             role.Add("display", "Coroner");
             record.CertificationRole = role;
 
@@ -537,12 +544,12 @@ namespace canary.Models
             address.Add("addressCity", "Bird in Hand");
             address.Add("addressState", "PA");
             address.Add("addressZip", "17505");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
-            record.CertifiedTime = "2019-10-14";
+            record.CertifiedTime = "2021-01-13";
 
-            record.DateOfDeathPronouncement = "2019-10-10T21:00:00";
+            record.DateOfDeathPronouncement = "2021-01-13T21:00:00";
             record.PronouncerGivenNames = new string[] { "Jim" };
             record.PronouncerFamilyName = "Black";
 
@@ -556,24 +563,15 @@ namespace canary.Models
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "38605008");
-            manner.Add("system", "http://snomed.info/sct");
+            manner.Add("system", VRDR.CodeSystems.SCT);
             manner.Add("display", "Natural death");
             record.MannerOfDeathType = manner;
 
-            Dictionary<string, string> codeA = new Dictionary<string, string>();
-            codeA.Add("code", "Y");
-            codeA.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeA.Add("display", "Yes");
-            record.AutopsyPerformedIndicator = codeA;
-
-            Dictionary<string, string> codeAP = new Dictionary<string, string>();
-            codeAP.Add("code", "Y");
-            codeAP.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeAP.Add("display", "Yes");
-            record.AutopsyResultsAvailable = codeAP;
+            record.AutopsyPerformedIndicatorBoolean = true;
+            record.AutopsyResultsAvailableBoolean = true;
 
             Dictionary<string, string> morticianId = new Dictionary<string, string>();
-            morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+            morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
             morticianId.Add("value", "414444AB");
             record.MorticianIdentifier = morticianId;
 
@@ -585,7 +583,7 @@ namespace canary.Models
             fdaddress.Add("addressCity", "Lancaster");
             fdaddress.Add("addressState", "PA");
             fdaddress.Add("addressZip", " 17573");
-            fdaddress.Add("addressCountry", "United States");
+            fdaddress.Add("addressCountry", "US");
             record.FuneralHomeAddress = fdaddress;
             record.FuneralHomeName = "Lancaster Funeral Home and Crematory";
 
@@ -594,26 +592,30 @@ namespace canary.Models
             dladdress.Add("addressCity", "Lancaster");
             dladdress.Add("addressState", "PA");
             dladdress.Add("addressZip", " 17573");
-            dladdress.Add("addressCountry", "United States");
+            dladdress.Add("addressCountry", "US");
             record.DispositionLocationAddress = dladdress;
             record.DispositionLocationName = "Lancaster Funeral Home and Crematory";
 
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449961000124104");
-            dmethod.Add("system", "http://snomed.info/sct");
+            dmethod.Add("system", VRDR.CodeSystems.SCT);
             dmethod.Add("display", "Patient status determination, deceased and cremated");
             record.DecedentDispositionMethod = dmethod;
 
-            Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
-            pregnanacyStatus.Add("code", "PHC1261");
-            pregnanacyStatus.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
-            pregnanacyStatus.Add("display", "Pregnant at the time of death");
-            record.PregnancyStatus = pregnanacyStatus;
+            Dictionary<string, string> pregnancyStatus = new Dictionary<string, string>();
+            pregnancyStatus.Add("code", "PHC1261");
+            pregnancyStatus.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
+            pregnancyStatus.Add("display", "Pregnant at the time of death");
+            record.PregnancyStatus = pregnancyStatus;
 
             record.TobaccoUse = new Dictionary<string, string>() {
                 { "code", "373066001" },
-                { "system", "http://snomed.info/sct" },
+                { "system", VRDR.CodeSystems.SCT },
                 { "display", "Yes" } };
+           record.MilitaryService = new Dictionary<string, string>() {
+                { "code", "N" },
+                { "system", CodeSystems.PH_YesNo_HL7_2x },
+                { "display", "unknown" } };
 
             // uncomment to generate file
             // string filename = "3_vivienne_wright_pregnant_" + fhirVersion + ".xml";
@@ -631,18 +633,14 @@ namespace canary.Models
             bool fullRecord = !partialRecord;
             DeathRecord record = new DeathRecord();
 
-            if (fullRecord)
-            {
-                // record.BundleIdentifier = "2019000217";
-            }
+            record.Identifier = "000004";
 
-            record.Identifier = "000053";
-
-            record.RegisteredTime = "2020-01-15";
+            record.RegisteredTime = "2021-03-15";
 
             record.GivenNames = new string[] { "Javier", "Luis" };
 
             record.FamilyName = "Perez";
+            record.Suffix = "Jr.";
 
             record.Race = new Tuple<string, string>[] { Tuple.Create("White", "2106-3"), Tuple.Create("Black", "2054-5") };
 
@@ -653,21 +651,36 @@ namespace canary.Models
             record.SSN = "456123789";
 
             Dictionary<string, string> age = new Dictionary<string, string>();
-            age.Add("value", "55");
-            age.Add("unit", "a");
-            record.AgeAtDeath = age;
+
 
             if (fullRecord)
             {
+                age.Add("value", "57");
+                age.Add("unit", "a");
+                record.AgeAtDeath = age;
                 record.DateOfBirth = "1964-02-24";
 
                 Dictionary<string, string> addressB = new Dictionary<string, string>();
-                addressB.Add("addressCity", "San Antonio");
+                addressB.Add("addressCountry", "US");
                 addressB.Add("addressState", "TX");
-                addressB.Add("addressCountry", "United States");
                 record.PlaceOfBirth = addressB;
 
                 record.BirthRecordId = "818181";
+                record.BirthRecordState = new Dictionary<string, string>() {
+                { "code", "US-TX" },
+                { "system", CodeSystems.ISO_3166_2 },
+                { "display", "US-TX" } };
+            }
+            else
+            {
+                Tuple<string, string>[] datePart = { Tuple.Create("year-absent-reason", "asked-unknown"), Tuple.Create("date-month", "02"), Tuple.Create("date-day", "24")};
+                record.DateOfBirthDatePartAbsent = datePart;
+                Dictionary<string, string> addressB = new Dictionary<string, string>();
+                addressB.Add("addressCountry", "AS");  // This is an abomination
+                addressB.Add("addressState", "");
+                record.PlaceOfBirth = addressB;
+                record.BirthRecordIdentifierDataAbsentBoolean = true;
+                record.AgeAtDeathDataAbsentBoolean = true;
             }
 
             if (fullRecord)
@@ -680,7 +693,7 @@ namespace canary.Models
 
             Dictionary<string, string> code = new Dictionary<string, string>();
             code.Add("code", "M");
-            code.Add("system", "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus");
+            code.Add("system", VRDR.CodeSystems.PH_MaritalStatus_HL7_2x);
             code.Add("display", "Married");
             record.MaritalStatus = code;
 
@@ -688,43 +701,52 @@ namespace canary.Models
             if (fullRecord)
             {
                 addressR.Add("addressLine1", "143 Taylor Street");
+                addressR.Add("addressCountry", "US");
+            }else{
+                addressR.Add("addressCountry", "ZZ");
             }
             addressR.Add("addressCity", "Annapolis");
             addressR.Add("addressCounty", "Anne Arundel");
             addressR.Add("addressState", "MD");
-            addressR.Add("addressCountry", "United States");
+
             record.Residence = addressR;
             record.ResidenceWithinCityLimitsBoolean = false;
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1454");
-            elevel.Add("system", "urn:oid:2.16.840.1.114222.4.5.274");
+            elevel.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
             elevel.Add("display", "Master's Degree");
             record.EducationLevel = elevel;
 
             Dictionary<string, string> uocc = new Dictionary<string, string>();
             uocc.Add("code", "6230");
-            uocc.Add("system", "urn:oid:2.16.840.1.114222.4.5.314");
+            uocc.Add("system", VRDR.CodeSystems.PH_Occupation_CDC_Census2010);
             uocc.Add("display", "carpenters");
             uocc.Add("text", "carpenter");
             record.UsualOccupationCode = uocc;
 
             Dictionary<string, string> uind = new Dictionary<string, string>();
             uind.Add("code", "0770");
-            uind.Add("system", "urn:oid:2.16.840.1.114222.4.5.315");
+            uind.Add("system", VRDR.CodeSystems.PH_Industry_CDC_Census2010);
             uind.Add("display", "Construction");    // actual text is "Construction (the cleaning of buildings and dwellings is incidental during construction and immediately after construction)"
             uind.Add("text", "construction");
             record.UsualIndustryCode = uind;
 
-            record.DateOfDeath = "2019-12-20T11:25:00";
+            record.DateOfDeath = "2021-03-14T11:25:00";
 
             record.DeathLocationName = "County Hospital";
+            Dictionary<string, string> locType = new Dictionary<string, string>();
+            locType.Add("code", "63238001");
+            locType.Add("system", VRDR.CodeSystems.SCT);
+            locType.Add("display", "Hospital Dead on Arrival");
+            record.DeathLocationType = locType;
 
             record.DeathLocationDescription = "Dead On Arrival";
+            record.DeathLocationJurisdiction = "DE";
 
             Dictionary<string, string> role = new Dictionary<string, string>();
             role.Add("code", "434641000124105");
-            role.Add("system", "http://snomed.info/sct");
+            role.Add("system", VRDR.CodeSystems.SCT);
             role.Add("display", "Death certification and verification by physician");
             record.CertificationRole = role;
 
@@ -735,12 +757,12 @@ namespace canary.Models
             address.Add("addressLine1", "RR1");
             address.Add("addressCity", "Dover");
             address.Add("addressState", "DE");
-            address.Add("addressCountry", "United States");
+            address.Add("addressCountry", "US");
             record.CertifierAddress = address;
 
-            record.CertifiedTime = "2020-01-10";
+            record.CertifiedTime = "2021-03-14";
 
-            record.DateOfDeathPronouncement = "2019-12-20T11:35:00";
+            record.DateOfDeathPronouncement = "2021-03-14T11:35:00";
 
             if (fullRecord)
             {
@@ -748,54 +770,47 @@ namespace canary.Models
                 record.PronouncerFamilyName = "Lost";
             }
 
-            record.COD1A = "blunt head trauma";
+            record.COD1A = "Blunt head trauma";
             record.COD1B = "Automobile accident";
-
+            record.ExaminerContactedBoolean = fullRecord;
             if (fullRecord)
             {
                 record.INTERVAL1A = "30 min";
                 record.INTERVAL1B = "30 min";
                 record.COD1C = "Epilepsy";
                 record.INTERVAL1C = "20 years";
+                record.ExaminerContactedBoolean = true;
+                record.InjuryLocationDescription = "15 Industrial Drive 19901 US";
             }
-            record.ExaminerContactedBoolean = true;
+
 
             Dictionary<string, string> manner = new Dictionary<string, string>();
             manner.Add("code", "7878000");
-            manner.Add("system", "http://snomed.info/sct");
+            manner.Add("system", VRDR.CodeSystems.SCT);
             manner.Add("display", "Accidental death");
             record.MannerOfDeathType = manner;
 
-            record.InjuryDate = "2019-12-20T11:15:00";
-
-            Dictionary<string, string> codeIAW = new Dictionary<string, string>();
-            codeIAW.Add("code", "Y");
-            codeIAW.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeIAW.Add("display", "Yes");
-            record.InjuryAtWork = codeIAW;
+            record.InjuryDate = "2021-03-14T11:15:00";
+            record.InjuryAtWorkBoolean = true;
 
             Dictionary<string, string> injuryPlace = new Dictionary<string, string>();
             injuryPlace.Add("code", "4");
-            injuryPlace.Add("system", "urn:oid:2.16.840.1.114222.4.5.320");
+            injuryPlace.Add("system", VRDR.CodeSystems.PH_PlaceOfOccurrence_ICD_10_WHO);
             injuryPlace.Add("display", "street");
             record.InjuryPlace = injuryPlace;
 
             record.InjuryDescription = "unrestrained ejected driver in rollover motor vehicle accident";
 
-            record.InjuryLocationDescription = "15 Industrial Drive 19901 US";
+
 
             Dictionary<string, string> codeT = new Dictionary<string, string>();
             codeT.Add("code", "236320001");
-            codeT.Add("system", "http://snomed.info/sct");
+            codeT.Add("system", VRDR.CodeSystems.SCT);
             codeT.Add("display", "Vehicle driver");
             record.TransportationRole = codeT;
-
-            Dictionary<string, string> codeA = new Dictionary<string, string>();
-            codeA.Add("code", "N");
-            codeA.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeA.Add("display", "No");
-            record.AutopsyPerformedIndicator = codeA;
-
+            record.TransportationEventBoolean = true;
+            record.AutopsyPerformedIndicatorBoolean = false;
+            record.AutopsyResultsAvailableBoolean = false;
             if (fullRecord)
             {
                 Dictionary<string, string> fdaddress = new Dictionary<string, string>();
@@ -803,12 +818,12 @@ namespace canary.Models
                 fdaddress.Add("addressCity", "San Antonio");
                 fdaddress.Add("addressState", "TX");
                 fdaddress.Add("addressZip", " 78201");
-                fdaddress.Add("addressCountry", "United States");
+                fdaddress.Add("addressCountry", "US");
                 record.FuneralHomeAddress = fdaddress;
                 record.FuneralHomeName = "River Funeral Home";
 
                 Dictionary<string, string> morticianId = new Dictionary<string, string>();
-                morticianId.Add("system", "http://hl7.org/fhir/sid/us-npi");
+                morticianId.Add("system", VRDR.CodeSystems.US_NPI_HL7);
                 morticianId.Add("value", "313333AB");
                 record.MorticianIdentifier = morticianId;
 
@@ -820,37 +835,34 @@ namespace canary.Models
                 dladdress.Add("addressCity", "San Antonio");
                 dladdress.Add("addressState", "TX");
                 dladdress.Add("addressZip", " 78201");
-                dladdress.Add("addressCountry", "United States");
+                dladdress.Add("addressCountry", "US");
                 record.DispositionLocationAddress = dladdress;
                 record.DispositionLocationName = "River Cemetary";
             }
 
-            Dictionary<string, string> codeAP = new Dictionary<string, string>();
-            codeAP.Add("code", "N");
-            codeAP.Add("system", "http://terminology.hl7.org/CodeSystem/v2-0136");
-            codeAP.Add("display", "No");
-            record.AutopsyResultsAvailable = codeAP;
-
             Dictionary<string, string> dmethod = new Dictionary<string, string>();
             dmethod.Add("code", "449941000124103");
-            dmethod.Add("system", "http://snomed.info/sct");
+            dmethod.Add("system", VRDR.CodeSystems.SCT);
             dmethod.Add("display", "Patient status determination, deceased and removed from state");
             record.DecedentDispositionMethod = dmethod;
 
-            Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
-            pregnanacyStatus.Add("code", "NA");
-            pregnanacyStatus.Add("system", "http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
-            pregnanacyStatus.Add("display", "not applicable");
-            record.PregnancyStatus = pregnanacyStatus;
+            Dictionary<string, string> pregnancyStatus = new Dictionary<string, string>();
+            pregnancyStatus.Add("code", "NA");
+            pregnancyStatus.Add("system", CodeSystems.PH_NullFlavor_HL7_V3);
+            pregnancyStatus.Add("display", "not applicable");
+            record.PregnancyStatus = pregnancyStatus;
 
             if (fullRecord)
             {
                 record.TobaccoUse = new Dictionary<string, string>() {
                     { "code", "373067005" },
-                    { "system", "http://snomed.info/sct" },
+                    { "system", VRDR.CodeSystems.SCT },
                     { "display", "No" } };
             }
-
+            record.MilitaryService = new Dictionary<string, string>() {
+                { "code", "N" },
+                { "system", CodeSystems.PH_YesNo_HL7_2x },
+                { "display", "unknown" } };
             // uncomment to generate file
             // string filename = "";
             // if (fullRecord)

@@ -79,6 +79,8 @@ The primary method of deploying Canary is to DockerHub. Whenever a commit is mer
 
 Whenever a tag is created on Canary of the form `vX.Y.Z`, Dockerhub will automatically build that git tag and and tag it as `X.Y.Z` on DockerHub. This means any user who runs `docker pull mitre/canary:X.Y.Z` will receive a copy of the application at version `X.Y.Z`.
 
+At this time the version number and date displayed in the application need to be manually updated by editing window.VERSION and window.VERSION_DATE in the file canary/ClientApp/src/index.js. The version should also be updated by changing the "version" setting in canary/ClientApp/package.json.
+
 ### License
 
 Copyright 2017, 2018, 2019, 2020 The MITRE Corporation
