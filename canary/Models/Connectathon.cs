@@ -677,10 +677,10 @@ namespace canary.Models
                 record.DateOfBirthDatePartAbsent = datePart;
                 Dictionary<string, string> addressB = new Dictionary<string, string>();
                 addressB.Add("addressCountry", "AS");  // This is an abomination
-                addressB.Add("addressState", "AS");  // This is so BirthRecordState will be AS.
+                addressB.Add("addressState", "");
                 record.PlaceOfBirth = addressB;
-                record.BirthRecordId = "";
-                record.AgeAtDeath = null;
+                record.BirthRecordIdentifierDataAbsentBoolean = true;
+                record.AgeAtDeathDataAbsentBoolean = true;
             }
 
             if (fullRecord)
