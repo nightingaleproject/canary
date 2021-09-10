@@ -425,9 +425,9 @@ namespace canary.Models
                 { "system", VRDR.CodeSystems.SCT },
                 { "display", "No" } };
             record.MilitaryService = new Dictionary<string, string>() {
-                { "code", "N" },
+                { "code", "Y" },
                 { "system", CodeSystems.PH_YesNo_HL7_2x },
-                { "display", "unknown" } };
+                { "display", "Yes" } };
             // uncomment to generate file
             // string filename = "2_madelyn_patel_opiod_" + fhirVersion + ".xml";
             // WriteRecordAsXml(record, filename);
@@ -615,7 +615,7 @@ namespace canary.Models
            record.MilitaryService = new Dictionary<string, string>() {
                 { "code", "N" },
                 { "system", CodeSystems.PH_YesNo_HL7_2x },
-                { "display", "unknown" } };
+                { "display", "No" } };
 
             // uncomment to generate file
             // string filename = "3_vivienne_wright_pregnant_" + fhirVersion + ".xml";
@@ -862,7 +862,7 @@ namespace canary.Models
             record.MilitaryService = new Dictionary<string, string>() {
                 { "code", "N" },
                 { "system", CodeSystems.PH_YesNo_HL7_2x },
-                { "display", "unknown" } };
+                { "display", "No" } };
             // uncomment to generate file
             // string filename = "";
             // if (fullRecord)
