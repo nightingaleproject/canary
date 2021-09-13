@@ -1,5 +1,15 @@
 ## Change Log
 
+### v3.1.0-preview2 - 2021-09-13
+
+* Updated the VRDR-dotnet dependency for the project to use V3.2.0-preview5, which fixes bugs
+  * Fixed bug in how nulls are interpreted when loading description files that caused segments of records to be dropped in Canary
+  * Removed incorrect extra spaces from some race strings
+  * Fixed bug that caused an error if the receipt year was set to the death year when creating coded response messages
+  * Improved text that describes expected values for the Death Location Jurisdiction field
+  * Fixed bug that caused incorrect data to be shown in Canary for Death Location Jurisdiction
+* Updated connectathon records to align with the new IG and connectathon test record changes
+
 ### v3.1.0-preview1 - 2021-09-02
 
 * Updated the VRDR-dotnet dependency for the project to use V3.2.0-preview3, which updates support to the latest published version of the VRDR IG
