@@ -254,7 +254,7 @@ namespace canary.Models
 
             record.BirthSex = "F";
 
-            record.SSN = "987654321";
+            record.SSN = "187654321";
 
             Dictionary<string, string> age = new Dictionary<string, string>();
             age.Add("value", "43");
