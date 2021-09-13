@@ -288,10 +288,10 @@ namespace canary.Models
             Dictionary<string, string> addressR = new Dictionary<string, string>();
             addressR.Add("addressLine1", "5590 Lockwood Drive");
             addressR.Add("addressCity", "Danville");
-            addressR.Add("addressState", "VA");
-            addressR.Add("addressCountry", "US");
+            addressR.Add("addressState", "NS");
+            addressR.Add("addressCountry", "CA");
             record.Residence = addressR;
-            record.ResidenceWithinCityLimitsBoolean = true;
+            record.ResidenceWithinCityLimitsBoolean = null;
 
             Dictionary<string, string> elevel = new Dictionary<string, string>();
             elevel.Add("code", "PHC1452");
