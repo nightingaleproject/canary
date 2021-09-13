@@ -2,7 +2,7 @@
 
 ## Canary EDRS Testing Framework
 
-Canary is an open source testing framework that supports development of systems that perform standards based exchange of mortality data. Canary provides tests and tools to aid developers in implementing the Vital Records Death Reporting (VRDR) FHIR death record format (http://hl7.org/fhir/us/vrdr) Revision 4.
+Canary is an open source testing framework that supports development of systems that perform standards based exchange of mortality data. Canary provides tests and tools to aid developers in implementing the Vital Records Death Reporting (VRDR) FHIR death record format STU2 (http://hl7.org/fhir/us/vrdr/2021Sep/) FHIR Revision 4.
 
 ## Versions
 
