@@ -772,7 +772,7 @@ namespace canary.Models
 
             record.COD1A = "Blunt head trauma";
             record.COD1B = "Automobile accident";
-            record.ExaminerContactedBoolean = fullRecord;
+            record.ExaminerContactedBoolean = null; // use null to set to unknown
             if (fullRecord)
             {
                 record.INTERVAL1A = "30 min";
