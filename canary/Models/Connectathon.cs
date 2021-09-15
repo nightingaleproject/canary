@@ -51,7 +51,7 @@ namespace canary.Models
 
             record.Identifier = "000001";
 
-            record.RegisteredTime = "2021-02-08";
+            record.RegisteredTime = "2021-02-09";
 
             record.GivenNames = new string[] { "Janet" };
 
