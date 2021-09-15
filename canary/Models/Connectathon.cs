@@ -449,7 +449,7 @@ namespace canary.Models
 
             record.Race = new Tuple<string, string>[] { Tuple.Create("White", "2106-3"), Tuple.Create("American Indian or Alaska Native", "1002-5") };
 
-            record.Ethnicity = new Tuple<string, string>[] { Tuple.Create("Not Hispanic or Latino", "2186-5") };
+            record.Ethnicity = new Tuple<string, string>[] { Tuple.Create("Hispanic or Latino", "2135-2"), Tuple.Create("Salvadoran", "2161-8")};
 
             record.BirthSex = "F";
 
