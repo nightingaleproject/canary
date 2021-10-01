@@ -1,5 +1,10 @@
 ## Change Log
 
+### v3.1.0 - 2021-10-01
+
+* Updated VRDR .NET library dependency to v3.2.1
+* Updated Connectathon test cases
+
 ### v3.1.0-preview2 - 2021-09-13
 
 * Updated the VRDR-dotnet dependency for the project to use V3.2.0-preview5, which fixes bugs
