@@ -450,7 +450,7 @@ namespace canary.Models
                         {
                             if (testArr != null)
                             {
-                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s).ToArray()), String.Join(",", testArr.ToList().OrderBy(s => s).ToArray()), StringComparison.OrdinalIgnoreCase))
+                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s, StringComparer.OrdinalIgnoreCase).ToArray()), String.Join(",", testArr.ToList().OrderBy(s => s, StringComparer.OrdinalIgnoreCase).ToArray()), StringComparison.OrdinalIgnoreCase))
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";
@@ -461,7 +461,7 @@ namespace canary.Models
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else
-                                {
+                                {                                    
                                     Incorrect += 1;
                                     category[property.Name]["Match"] = "false";
                                 }
@@ -503,7 +503,7 @@ namespace canary.Models
                         {
                             if (testArr != null)
                             {
-                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2)), StringComparison.OrdinalIgnoreCase))
+                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase)), StringComparison.OrdinalIgnoreCase))
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";
@@ -544,7 +544,9 @@ namespace canary.Models
                         {
                             if (testArr != null)
                             {
-                                if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2)), StringComparison.OrdinalIgnoreCase))
+                                string lower1 = String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase));
+                                string lower2 = String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase));
+                                if (String.Equals(lower1, lower2, StringComparison.OrdinalIgnoreCase))
                                 {
                                     Correct += 1;
                                     category[property.Name]["Match"] = "true";
