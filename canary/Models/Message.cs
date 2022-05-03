@@ -110,23 +110,23 @@ namespace canary.Models
             {
                 case "Submission": case "http://nchs.cdc.gov/vrdr_submission": case "Update": case "http://nchs.cdc.gov/vrdr_submission_update":
                     // Create the ethnicity coding
-                    CodingResponseMessage mre = new CodingResponseMessage(message);
-                    var ethnicity = new Dictionary<CodingResponseMessage.HispanicOrigin, string>();
-                    ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNICE, "222");
-                    ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNIC5C, "222");
+                    DemographicsCodingResponseMessage mre = new DemographicsCodingResponseMessage(message);
+                    var ethnicity = new Dictionary<DemographicsCodingResponseMessage.HispanicOrigin, string>();
+                    ethnicity.Add(DemographicsCodingResponseMessage.HispanicOrigin.DETHNICE, "222");
+                    ethnicity.Add(DemographicsCodingResponseMessage.HispanicOrigin.DETHNIC5C, "222");
                     mre.Ethnicity = ethnicity;
 
                     // Create the race coding
-                    var race = new Dictionary<CodingResponseMessage.RaceCode, string>();
-                    race.Add(CodingResponseMessage.RaceCode.RACE1E, "500");
-                    race.Add(CodingResponseMessage.RaceCode.RACE17C, "A09");
-                    race.Add(CodingResponseMessage.RaceCode.RACEBRG, "03");
+                    var race = new Dictionary<DemographicsCodingResponseMessage.RaceCode, string>();
+                    race.Add(DemographicsCodingResponseMessage.RaceCode.RACE1E, "500");
+                    race.Add(DemographicsCodingResponseMessage.RaceCode.RACE17C, "A09");
+                    race.Add(DemographicsCodingResponseMessage.RaceCode.RACEBRG, "03");
                     mre.Race = race;
 
                     Message mreMsg = new Message(mre);
                     result.Add("MRE", mreMsg);
 
-                    CodingResponseMessage trx = new CodingResponseMessage(message);
+                    CauseOfDeathCodingResponseMessage trx = new CauseOfDeathCodingResponseMessage(message);
                     
                     // Create the cause of death coding
                     trx.UnderlyingCauseOfDeath = "A04.7";
