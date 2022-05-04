@@ -574,6 +574,23 @@ namespace canary.Models
                             category[property.Name]["Match"] = "true";
                         }
                     }
+                    else if (info.Type == Property.Types.Number)
+                    {
+                        if (int.Equals((int)property.GetValue(ReferenceRecord.GetRecord()), (int)property.GetValue(TestRecord.GetRecord())))
+                        {
+                            Correct += 1;
+                            category[property.Name]["Match"] = "true";
+                        }
+                        else if (property.GetValue(ReferenceRecord.GetRecord()) == null) {
+                            Correct += 1;
+                            category[property.Name]["Match"] = "true";
+                        }
+                        else
+                        {
+                            Incorrect += 1;
+                            category[property.Name]["Match"] = "false";
+                        }
+                    }
                 }
             }
             return JsonConvert.SerializeObject(description);
