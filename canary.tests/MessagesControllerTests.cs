@@ -28,9 +28,9 @@ namespace canary.tests
       var response = _messagesController.NewMessagePost();
       var message = response.Result.message;
       var issues = response.Result.issues;
-      Assert.Equal(issues, new List<Dictionary<string, string>>());
+      Assert.Equal(new List<Dictionary<string, string>>(), issues);
       Assert.IsType<canary.Models.Message>(message);
-      Assert.IsType<CodingResponseMessage>(message.GetMessage());
+      Assert.IsAssignableFrom<CodingResponseMessage>(message.GetMessage());
     }
 
     [Fact]
