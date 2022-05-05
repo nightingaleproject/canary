@@ -538,6 +538,7 @@ namespace canary.Models
                     }
                     else if (info.Type == Property.Types.TupleCOD)
                     {
+                        Console.WriteLine(property.Name);
                         Tuple<string, string, Dictionary<string, string>>[] referenceArr = (Tuple<string, string, Dictionary<string, string>>[])property.GetValue(ReferenceRecord.GetRecord());
                         Tuple<string, string, Dictionary<string, string>>[] testArr = (Tuple<string, string, Dictionary<string, string>>[])property.GetValue(TestRecord.GetRecord());
                         if (referenceArr != null)
@@ -574,7 +575,7 @@ namespace canary.Models
                             category[property.Name]["Match"] = "true";
                         }
                     }
-                    else if (info.Type == Property.Types.Number)
+                    else if (info.Type == Property.Types.UInt32)
                     {
                         if (uint.Equals(property.GetValue(ReferenceRecord.GetRecord()), property.GetValue(TestRecord.GetRecord())))
                         {
