@@ -123,11 +123,7 @@ namespace canary.Models
             PlaceCode placeOfDeathPlace = dataHelper.StateCodeToRandomPlace(state);
             record.DeathLocationName = placeOfDeathPlace.City + " Hospital";
 
-            Dictionary<string, string> deathLocationType = new Dictionary<string, string>();
-            deathLocationType.Add("code", "450391000124102");
-            deathLocationType.Add("system", VRDR.CodeSystems.SCT);
-            deathLocationType.Add("display", "Death in emergency Room/Outpatient");
-            record.DeathLocationType = deathLocationType;
+            record.DeathLocationTypeHelper = ValueSets.PlaceOfDeath.Death_In_Hospital_Based_Emergency_Department_Or_Outpatient_Department;
 
             Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
             placeOfDeath.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
@@ -142,38 +138,23 @@ namespace canary.Models
 
             // Marital status
 
-            Dictionary<string, string> maritalStatus = new Dictionary<string, string>();
-            Tuple<string, string>[] maritalStatusCodes =
-            {
-                Tuple.Create("M", "Married"),
-                Tuple.Create("D", "Divorced"),
-                Tuple.Create("W", "Widowed"),
-            };
-            Tuple<string, string> maritalStatusCode = faker.Random.ArrayElement<Tuple<string, string>>(maritalStatusCodes);
-            if (!wasMarried)
-            {
-                maritalStatusCode = Tuple.Create("S", "Never Married");
-            }
-            maritalStatus.Add("code", maritalStatusCode.Item1);
-            maritalStatus.Add("system", VRDR.CodeSystems.PH_MaritalStatus_HL7_2x);
-            maritalStatus.Add("display", maritalStatusCode.Item2);
-            record.MaritalStatus = maritalStatus;
+            record.MaritalStatusHelper = ValueSets.MaritalStatus.Codes[faker.Random.Number(ValueSets.MaritalStatus.Codes.GetLength(0) - 1), 0];
 
             // Ethnicity
             if (faker.Random.Bool() && !simple)
             {
-                record.Ethnicity1Helper = "N";
-                record.Ethnicity2Helper = "N";
-                record.Ethnicity3Helper = "N";
-                record.Ethnicity4Helper = "Y";
+                record.Ethnicity1Helper = ValueSets.YesNoUnknown.No;
+                record.Ethnicity2Helper = ValueSets.YesNoUnknown.No;
+                record.Ethnicity3Helper = ValueSets.YesNoUnknown.No;
+                record.Ethnicity4Helper = ValueSets.YesNoUnknown.Yes;
                 record.EthnicityLiteral = "";
             }
             else
             {
-                record.Ethnicity1Helper = "N";
-                record.Ethnicity2Helper = "N";
-                record.Ethnicity3Helper = "N";
-                record.Ethnicity4Helper = "N";
+                record.Ethnicity1Helper = ValueSets.YesNoUnknown.No;
+                record.Ethnicity2Helper = ValueSets.YesNoUnknown.No;
+                record.Ethnicity3Helper = ValueSets.YesNoUnknown.No;
+                record.Ethnicity4Helper = ValueSets.YesNoUnknown.No;
             }
 
             // Race
@@ -211,19 +192,7 @@ namespace canary.Models
 
             // Education level
 
-            Dictionary<string, string> education = new Dictionary<string, string>();
-            Tuple<string, string>[] educationCodes =
-            {
-                Tuple.Create("PHC1453", "College or baccalaureate degree complete"),
-                Tuple.Create("PHC1454", "Graduate or professional Degree complete"),
-                Tuple.Create("PHC1449", "Some secondary or high school education"),
-                Tuple.Create("PHC1451", "Some College education"),
-            };
-            Tuple<string, string> educationCode = faker.Random.ArrayElement<Tuple<string, string>>(educationCodes);
-            education.Add("code", educationCode.Item1);
-            education.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
-            education.Add("display", educationCode.Item2);
-            record.EducationLevel = education;
+            record.EducationLevelHelper = ValueSets.EducationLevel.Codes[faker.Random.Number(ValueSets.EducationLevel.Codes.GetLength(0) - 1), 0];
 
             Tuple<string, string>[] occupationIndustries =
             {
@@ -245,17 +214,7 @@ namespace canary.Models
 
             // Military Service
 
-            Dictionary<string, string> military = new Dictionary<string, string>();
-            Tuple<string, string>[] militaryCodes =
-            {
-                Tuple.Create("Y", "Yes"),
-                Tuple.Create("N", "No"),
-            };
-            Tuple<string, string> militaryCode = faker.Random.ArrayElement<Tuple<string, string>>(militaryCodes);
-            military.Add("code", militaryCode.Item1);
-            military.Add("system", VRDR.CodeSystems.PH_YesNo_HL7_2x);
-            military.Add("display", militaryCode.Item2);
-            record.MilitaryService = military;
+            record.MilitaryServiceHelper = ValueSets.YesNoUnknown.Codes[faker.Random.Number(ValueSets.YesNoUnknown.Codes.GetLength(0) - 1), 0];
 
             // Funeral Home Name
 
@@ -288,18 +247,7 @@ namespace canary.Models
 
             // Disposition Method
 
-            Dictionary<string, string> disposition = new Dictionary<string, string>();
-            Tuple<string, string>[] dispositionTypeCodes =
-            {
-                Tuple.Create("449971000124106", "Patient status determination, deceased and buried"),
-                Tuple.Create("449961000124104", "Patient status determination, deceased and cremated"),
-                Tuple.Create("449931000124108", "Patient status determination, deceased and entombed"),
-            };
-            Tuple<string, string> dispositionTypeCode = faker.Random.ArrayElement<Tuple<string, string>>(dispositionTypeCodes);
-            disposition.Add("code", dispositionTypeCode.Item1);
-            disposition.Add("system", VRDR.CodeSystems.SCT);
-            disposition.Add("display", dispositionTypeCode.Item2);
-            record.DecedentDispositionMethod = disposition;
+            record.DecedentDispositionMethodHelper = ValueSets.MethodOfDisposition.Codes[faker.Random.Number(ValueSets.MethodOfDisposition.Codes.GetLength(0) - 1), 0];
 
             // Basic Certifier information
 
@@ -322,11 +270,8 @@ namespace canary.Models
             record.CertifierAddress = certifierAddress;
 
             // Certifier type
-            Dictionary<string, string> certificationType = new Dictionary<string, string>();
-            certificationType.Add("system", VRDR.CodeSystems.SCT);
-            certificationType.Add("code", "434641000124105");
-            certificationType.Add("display", "Death certification and verification by physician");
-            record.CertificationRole = certificationType;
+
+            record.CertificationRoleHelper = ValueSets.CertifierTypes.Pronouncing_Certifying_Physician;
 
             // TODO Add these fields
             Dictionary<string, string> relationship = new Dictionary<string, string>();
@@ -335,11 +280,7 @@ namespace canary.Models
 
             if (type == "Natural")
             {
-                Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
-                mannerOfDeath.Add("code", "38605008");
-                mannerOfDeath.Add("system", VRDR.CodeSystems.SCT);
-                mannerOfDeath.Add("display", "Natural death");
-                record.MannerOfDeathType = mannerOfDeath;
+                record.MannerOfDeathTypeHelper = ValueSets.MannerOfDeath.Natural_Death;
 
                 record.DateOfDeath = deathUtc.ToString("o");
                 record.DateOfDeathPronouncement = deathUtc.AddHours(1).ToString("o");
@@ -357,11 +298,11 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } }; ;
+                    record.AutopsyPerformedIndicatorHelper = ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = ValueSets.YesNoUnknown.No;
                     record.ExaminerContactedHelper = ValueSets.YesNoUnknown.No;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", VRDR.CodeSystems.SCT }, { "display", "No" } };
+                    record.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.No;
                 }
                 else if (choice == 1)
                 {
@@ -374,11 +315,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Carcinoma of cecum, Congestive heart failure";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } }; ;
+                    record.AutopsyPerformedIndicatorHelper = ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = ValueSets.YesNoUnknown.No;
                     record.ExaminerContactedHelper = ValueSets.YesNoUnknown.No;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", VRDR.CodeSystems.SCT }, { "display", "No" } };
+                    record.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.No;
                 }
                 else if (choice == 2)
                 {
@@ -392,11 +333,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Obesity, Hypertension, Congestive heart failure";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } }; ;
+                    record.AutopsyPerformedIndicatorHelper = ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = ValueSets.YesNoUnknown.No;
                     record.ExaminerContactedHelper = ValueSets.YesNoUnknown.No;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", VRDR.CodeSystems.SCT }, { "display", "Yes" } };
+                    record.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.Yes;
                 }
                 else if (choice == 3)
                 {
@@ -410,11 +351,11 @@ namespace canary.Models
 
                     record.ContributingConditions = "Non-insulin-dependent diabetes mellitus, Cigarette smoking, Hypertension, Hypercholesterolemia, Coronary bypass surgery";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "Yes" } }; ;
+                    record.AutopsyPerformedIndicatorHelper = ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = ValueSets.YesNoUnknown.Yes;
                     record.ExaminerContactedHelper = ValueSets.YesNoUnknown.Yes;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373066001" }, { "system", VRDR.CodeSystems.SCT }, { "display", "Yes" } };
+                    record.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.Yes;
                 }
             }
             if (type == "Injury")
@@ -432,17 +373,13 @@ namespace canary.Models
 
                     record.ContributingConditions = "Terminal gastric adenocarcinoma, depression";
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "Yes" } }; ;
+                    record.AutopsyPerformedIndicatorHelper = ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = ValueSets.YesNoUnknown.Yes;
                     record.ExaminerContactedHelper = ValueSets.YesNoUnknown.Yes;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "UNK" }, { "system", VRDR.CodeSystems.PH_NullFlavor_HL7_V3 }, { "display", "unknown" } };
+                    record.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.Unknown;
 
-                    Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
-                    mannerOfDeath.Add("code", "44301001");
-                    mannerOfDeath.Add("system", VRDR.CodeSystems.SCT);
-                    mannerOfDeath.Add("display", "Suicide");
-                    record.MannerOfDeathType = mannerOfDeath;
+                    record.MannerOfDeathTypeHelper = ValueSets.MannerOfDeath.Suicide;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
                     record.InjuryLocationName = "Own home garage";
@@ -471,17 +408,13 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "Y" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "Yes" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "Y" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "Yes" } };
+                    record.AutopsyPerformedIndicatorHelper = ValueSets.YesNoUnknown.Yes;
+                    record.AutopsyResultsAvailableHelper = ValueSets.YesNoUnknown.Yes;
                     record.ExaminerContactedHelper = ValueSets.YesNoUnknown.No;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", VRDR.CodeSystems.SCT }, { "display", "No" } };
+                    record.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.No;
 
-                    Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
-                    mannerOfDeath.Add("code", "27935005");
-                    mannerOfDeath.Add("system", VRDR.CodeSystems.SCT);
-                    mannerOfDeath.Add("display", "Homicide");
-                    record.MannerOfDeathType = mannerOfDeath;
+                    record.MannerOfDeathTypeHelper = ValueSets.MannerOfDeath.Homicide;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
                     record.InjuryLocationName = "restaurant";
@@ -509,17 +442,13 @@ namespace canary.Models
                     };
                     record.CausesOfDeath = causes;
 
-                    record.AutopsyPerformedIndicator = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } };
-                    record.AutopsyResultsAvailable = new Dictionary<string, string>() { { "code", "N" }, { "system", VRDR.CodeSystems.PH_YesNo_HL7_2x }, { "display", "No" } };
+                    record.AutopsyPerformedIndicatorHelper = ValueSets.YesNoUnknown.No;
+                    record.AutopsyResultsAvailableHelper = ValueSets.YesNoUnknown.No;
                     record.ExaminerContactedHelper = ValueSets.YesNoUnknown.Yes;
 
-                    record.TobaccoUse = new Dictionary<string, string>() { { "code", "373067005" }, { "system", VRDR.CodeSystems.SCT }, { "display", "No" } };
+                    record.TobaccoUseHelper = ValueSets.ContributoryTobaccoUse.No;
 
-                    Dictionary<string, string> mannerOfDeath = new Dictionary<string, string>();
-                    mannerOfDeath.Add("code", "7878000");
-                    mannerOfDeath.Add("system", VRDR.CodeSystems.SCT);
-                    mannerOfDeath.Add("display", "Accidental death");
-                    record.MannerOfDeathType = mannerOfDeath;
+                    record.MannerOfDeathTypeHelper = ValueSets.MannerOfDeath.Accidental_Death;
 
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
                     record.InjuryLocationName = "Highway";
@@ -538,25 +467,17 @@ namespace canary.Models
                     record.InjuryPlaceDescription = "Street/Highway";
 
                     // TransportationRole
-                    record.TransportationRoleHelper = VRDR.ValueSets.TransportationIncidentRole.Passenger;
+                    record.TransportationRoleHelper = ValueSets.TransportationIncidentRole.Passenger;
                 }
             }
 
             if (gender == Bogus.DataSets.Name.Gender.Female)
             {
-                Dictionary<string, string> pregnancyStatus = new Dictionary<string, string>();
-                pregnancyStatus.Add("code", "PHC1260");
-                pregnancyStatus.Add("system", VRDR.CodeSystems.PH_PHINVS_CDC);
-                pregnancyStatus.Add("display", "Not pregnant within the past year");
-                record.PregnancyStatus = pregnancyStatus;
+                record.PregnancyStatusHelper = ValueSets.PregnancyStatus.Not_Pregnant_Within_Past_Year;
             }
             else
             {
-                Dictionary<string, string> pregnanacyStatus = new Dictionary<string, string>();
-                pregnanacyStatus.Add("code", "NA");
-                pregnanacyStatus.Add("system", VRDR.CodeSystems.PH_NullFlavor_HL7_V3);
-                pregnanacyStatus.Add("display", "not applicable");
-                record.PregnancyStatus = pregnanacyStatus;
+                record.PregnancyStatusHelper = ValueSets.PregnancyStatus.Not_Applicable;
             }
 
             return record;
