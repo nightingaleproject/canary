@@ -576,7 +576,7 @@ namespace canary.Models
                     }
                     else if (info.Type == Property.Types.Number)
                     {
-                        if (int.Equals((int)property.GetValue(ReferenceRecord.GetRecord()), (int)property.GetValue(TestRecord.GetRecord())))
+                        if (uint.Equals(property.GetValue(ReferenceRecord.GetRecord()), property.GetValue(TestRecord.GetRecord())))
                         {
                             Correct += 1;
                             category[property.Name]["Match"] = "true";
