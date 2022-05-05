@@ -155,19 +155,19 @@ namespace canary.Models
         public Record()
         {
             record = new DeathRecord();
-            ije = new IJEMortality(record).ToString();
+            ije = new IJEMortality(record, false).ToString();
         }
 
         public Record(DeathRecord record)
         {
             this.record = record;
-            ije = new IJEMortality(this.record).ToString();
+            ije = new IJEMortality(this.record, false).ToString();
         }
 
         public Record(string record)
         {
             this.record = new DeathRecord(record);
-            ije = new IJEMortality(this.record).ToString();
+            ije = new IJEMortality(this.record, false).ToString();
         }
 
         public Record(string record, bool permissive)
