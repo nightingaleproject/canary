@@ -30,7 +30,7 @@ namespace canary.tests
       var issues = response.Result.issues;
       Assert.Equal(new List<Dictionary<string, string>>(), issues);
       Assert.IsType<canary.Models.Message>(message);
-      Assert.IsAssignableFrom<CodingResponseMessage>(message.GetMessage());
+      Assert.IsAssignableFrom<CauseOfDeathCodingMessage>(message.GetMessage());
     }
 
     [Fact]
