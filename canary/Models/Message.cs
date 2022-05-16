@@ -132,18 +132,18 @@ namespace canary.Models
                     // Assign the record axis codes
                     // These leave out "position" and "pregnancy", which weren't specified previously (before IG 1.3 update)
                     // It appears (from VRDR library) that these values are only used if pregnancy is true ("1") and position is "2"
-                    Tuple<string, string, string>[] causeOfDeathRecordAxis = new Tuple<string, string, string>[4];
-                    causeOfDeathRecordAxis[0] = Tuple.Create("", "A04.7", "");
-                    causeOfDeathRecordAxis[1] = Tuple.Create("", "A41.9", "");
-                    causeOfDeathRecordAxis[2] = Tuple.Create("", "J18.9", "");
-                    causeOfDeathRecordAxis[3] = Tuple.Create("", "J96.0", "");
+                    IList<(int, string, bool)> causeOfDeathRecordAxis = new List<(int, string, bool)>();
+                    causeOfDeathRecordAxis.Add((0, "A04.7", false));
+                    causeOfDeathRecordAxis.Add((0, "A41.9", false));
+                    causeOfDeathRecordAxis.Add((0, "J18.9", false));
+                    causeOfDeathRecordAxis.Add((0, "J96.0", false));
                     trx.DeathRecord.RecordAxisCauseOfDeath = causeOfDeathRecordAxis;
 
                     // Assign the entity axis codes
-                    Tuple<string, string, string, string>[] causeOfDeathEntityAxis = new Tuple<string, string, string, string>[3];
-                    causeOfDeathEntityAxis[0] = Tuple.Create("1", "1", "A04.7", "");
-                    causeOfDeathEntityAxis[1] = Tuple.Create("1", "2", "A41.9", "");
-                    causeOfDeathEntityAxis[2] = Tuple.Create("2", "1", "J18.9", "");
+                    IList<(int, int, string, bool)> causeOfDeathEntityAxis = new List<(int, int, string, bool)>();
+                    causeOfDeathEntityAxis.Add((1, 1, "A04.7", false));
+                    causeOfDeathEntityAxis.Add((1, 2, "A41.9", false));
+                    causeOfDeathEntityAxis.Add((2, 1, "J18.9", false));
                     trx.DeathRecord.EntityAxisCauseOfDeath = causeOfDeathEntityAxis;
 
                     Message trxMsg = new Message(trx);
