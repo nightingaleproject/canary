@@ -150,10 +150,10 @@ namespace canary.Models
         public string RecordCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => ((Property)p.GetCustomAttributes().First()).Priority))
+            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>().Priority))
             {
                 // Grab property annotation for this property
-                Property info = (Property)property.GetCustomAttributes().First();
+                Property info = property.GetCustomAttribute<Property>();
 
                 // Skip properties that shouldn't be serialized.
                 if (!info.Serialize)
@@ -183,7 +183,7 @@ namespace canary.Models
                 category[property.Name]["Description"] = info.Description;
 
                 // Add snippets for reference
-                FHIRPath path = (FHIRPath)property.GetCustomAttributes().Last();
+                FHIRPath path = property.GetCustomAttribute<FHIRPath>();
                 var matches = ReferenceRecord.GetRecord().GetITypedElement().Select(path.Path);
                 if (matches.Count() > 0)
                 {
@@ -241,7 +241,7 @@ namespace canary.Models
                 }
 
                 // Add snippets for test
-                FHIRPath pathTest = (FHIRPath)property.GetCustomAttributes().Last();
+                FHIRPath pathTest = property.GetCustomAttribute<FHIRPath>();
                 var matchesTest = TestRecord.GetRecord().GetITypedElement().Select(pathTest.Path);
                 if (matchesTest.Count() > 0)
                 {
@@ -312,7 +312,7 @@ namespace canary.Models
                     Dictionary<string, string> valueTest = (Dictionary<string, string>)property.GetValue(TestRecord.GetRecord());
                     Dictionary<string, Dictionary<string, string>> moreInfo = new Dictionary<string, Dictionary<string, string>>();
                     bool match = true;
-                    foreach (PropertyParam parameter in property.GetCustomAttributes().Reverse().Skip(1).Reverse().Skip(1))
+                    foreach (PropertyParam parameter in property.GetCustomAttributes<PropertyParam>())
                     {
                         moreInfo[parameter.Key] = new Dictionary<string, string>();
                         moreInfo[parameter.Key]["Description"] = parameter.Description;
