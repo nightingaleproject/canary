@@ -78,7 +78,7 @@ namespace canary.Models
             record.BirthRecordId = Convert.ToString(faker.Random.Number(999999));
 
 
-            record.Gender = gender.ToString().ToLower();
+            record.SexAtDeathHelper = gender.ToString().ToLower();
             record.SSN = faker.Person.Ssn().Replace("-", string.Empty);
             DateTime birth = faker.Date.Past(123, DateTime.Today.AddYears(-18));
             DateTime death = faker.Date.Recent();
@@ -89,10 +89,6 @@ namespace canary.Models
             int age = death.Year - birth.Year;
             if (birthUtc > deathUtc.AddYears(-age)) age--;
             record.AgeAtDeath = new Dictionary<string, string>() { { "value", age.ToString() }, { "unit", "a" } };
-
-            // Birthsex
-
-            record.BirthSex = gender.ToString()[0].ToString();
 
             // Place of residence
 
@@ -205,8 +201,6 @@ namespace canary.Models
             // Occupation
 
             record.UsualOccupation = occInd.Item1;
-            DateTime usualOccupationEnd = faker.Date.Past(18, deathUtc.DateTime.AddYears(0));
-            record.UsualOccupationEnd = usualOccupationEnd.ToString("yyyy-MM-dd");
 
             // Industry
 
@@ -384,7 +378,8 @@ namespace canary.Models
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
                     record.InjuryLocationName = "Own home garage";
                     record.InjuryDate = new DateTimeOffset(deathUtc.Year, deathUtc.Month, deathUtc.Day, 0, 0, 0, TimeSpan.Zero).ToString("s");
-                    record.InjuryLocationDescription = "Inhaled carbon monoxide from auto exhaust through hose in an enclosed garage";
+                    record.InjuryLocationLatitude = "70.4";
+                    record.InjuryLocationLongitude = "-30";
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
@@ -419,7 +414,8 @@ namespace canary.Models
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
                     record.InjuryLocationName = "restaurant";
                     record.InjuryDate = deathUtc.AddMinutes(-20).ToString("s");
-                    record.InjuryLocationDescription = "Shot by another person using a handgun";
+                    record.InjuryLocationLatitude = "70.4";
+                    record.InjuryLocationLongitude = "-30.5";
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
                     PlaceCode detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
@@ -453,7 +449,8 @@ namespace canary.Models
                     Dictionary<string, string> detailsOfInjury = new Dictionary<string, string>();
                     record.InjuryLocationName = "Highway";
                     record.InjuryDate = deathUtc.ToString("s");
-                    record.InjuryLocationDescription = "Automobile accident. Car slid off wet road and struck tree.";
+                    record.InjuryLocationLatitude = "70.4";
+                    record.InjuryLocationLongitude = "-30.5";
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
                     PlaceCode detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
