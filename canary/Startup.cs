@@ -28,7 +28,7 @@ namespace canary
         {
             services.AddMvc(options =>
                 options.EnableEndpointRouting = false
-            ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            );
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
