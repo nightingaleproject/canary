@@ -106,7 +106,7 @@ namespace canary.Models
             record.Residence = residence;
 
             // Residence Within City Limits
-            record.ResidenceWithinCityLimitsBoolean = true;
+            record.ResidenceWithinCityLimitsHelper = ValueSets.YesNoUnknown.Yes;
 
             // Place of birth
 
