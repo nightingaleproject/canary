@@ -94,7 +94,6 @@ namespace canary.Models
             Dictionary<string, dynamic> category = description[heading];
             foreach(PropertyInfo property in bundle.GetType().GetProperties())
             {
-                Total += 1;
                 // Add the new property to the category
                 category[property.Name] = new Dictionary<string, dynamic>();
                 category[property.Name]["Name"] = property.Name;
@@ -107,8 +106,6 @@ namespace canary.Models
                 // into the message bundle.
                 if (property.PropertyType == typeof(DeathRecord))
                 {
-                    // Do not count DeathRecord base as part of the Total (since the Total is increased per-element in RecordCompare)
-                    Total -= 1;
                     DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
                     TestRecord = new Record(extracted);
                     int previousIncorrect = Incorrect;
@@ -122,7 +119,7 @@ namespace canary.Models
                     // Basic message validation ensures that these fields are present if they are required
                     // These values do not have to match our reference record and are just therefore
                     // set to valid here.
-                    Correct += 1;
+                    MarkCorrect();
                     category[property.Name]["Match"] = "true";
                     // Override the displayed value to be equal to what the user provided on the UI
                     category[property.Name]["Value"] = category[property.Name]["FoundValue"];
@@ -134,12 +131,12 @@ namespace canary.Models
                     // The best option here is to just use the object.Equals operator.
                     if (Equals(property.GetValue(referenceBundle), property.GetValue(bundle)))
                     {
-                        Correct += 1;
+                        MarkCorrect();
                         category[property.Name]["Match"] = "true";
                     }
                     else
                     {
-                        Incorrect += 1;
+                        MarkIncorrect();
                         category[property.Name]["Match"] = "false";
                     }
                 }
@@ -336,33 +333,32 @@ namespace canary.Models
                         if ((valueReference.ContainsKey(parameter.Key) && valueTest.ContainsKey(parameter.Key)) &&
                             (String.Equals((string)valueReference[parameter.Key], (string)valueTest[parameter.Key], StringComparison.OrdinalIgnoreCase))) {
                             // Equal
-                            Correct += 1;
+                            MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
                         } else if ((valueReference.ContainsKey(parameter.Key) && valueTest.ContainsKey(parameter.Key)) &&
                                     String.IsNullOrWhiteSpace((string)valueReference[parameter.Key]) &&
                                     String.IsNullOrWhiteSpace((string)valueTest[parameter.Key])) {
                             // Equal
-                            Correct += 1;
+                            MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
                         } else if (!valueReference.ContainsKey(parameter.Key) && !valueTest.ContainsKey(parameter.Key)) {
                             // Both null, equal
-                            Correct += 1;
+                            MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
                         } else if (!valueReference.ContainsKey(parameter.Key) || (valueReference.ContainsKey(parameter.Key) && String.IsNullOrWhiteSpace(valueReference[parameter.Key]))) {
                             // Source is empty, so no need to punish test
-                            Correct += 1;
+                            MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
                         } else if (parameter.Key == "display" && (!valueTest.ContainsKey(parameter.Key) || String.IsNullOrWhiteSpace(valueTest[parameter.Key]))) {
                             // Test record had nothing for display, equal
-                            Correct += 1;
+                            MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
                         } else {
                             // Not equal
-                            Incorrect += 1;
+                            MarkIncorrect();
                             moreInfo[parameter.Key]["Match"] = "false";
                             match = false;
                         }
-                        Total += 1;
                     }
                     category[property.Name]["Match"] = match ? "true" : "false";
                     category[property.Name]["Value"] = moreInfo;
@@ -371,29 +367,28 @@ namespace canary.Models
                 {
                     category[property.Name]["Value"] = property.GetValue(ReferenceRecord.GetRecord());
                     category[property.Name]["FoundValue"] = property.GetValue(TestRecord.GetRecord());
-                    Total += 1;
 
                     // RecordCompare values
                     if (info.Type == Property.Types.String)
                     {
                         if (String.Equals((string)property.GetValue(ReferenceRecord.GetRecord()), (string)property.GetValue(TestRecord.GetRecord()), StringComparison.OrdinalIgnoreCase))
                         {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord()))) {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else if (!String.IsNullOrWhiteSpace((string)property.GetValue(TestRecord.GetRecord())) &&
                                    !String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord())) &&
                                    ((string)property.GetValue(TestRecord.GetRecord())).ToLower().Contains(((string)property.GetValue(ReferenceRecord.GetRecord())).ToLower())) {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else
                         {
-                            Incorrect += 1;
+                            MarkIncorrect();
                             category[property.Name]["Match"] = "false";
                         }
                     }
@@ -403,11 +398,11 @@ namespace canary.Models
                         DateTimeOffset testDateTime;
                         if (property.GetValue(ReferenceRecord.GetRecord()) == null && property.GetValue(TestRecord.GetRecord()) == null)
                         {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord()))) {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else if (DateTimeOffset.TryParse((string)property.GetValue(ReferenceRecord.GetRecord()), out referenceDateTime))
@@ -416,29 +411,29 @@ namespace canary.Models
                             {
                                 if (DateTimeOffset.Compare(referenceDateTime, testDateTime) == 0)
                                 {
-                                    Correct += 1;
+                                    MarkCorrect();
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else if (DateTimeOffset.Compare(new DateTimeOffset(referenceDateTime.Date, TimeSpan.Zero), new DateTimeOffset(testDateTime.Date, TimeSpan.Zero)) == 0)
                                 {
-                                    Correct += 1;
+                                    MarkCorrect();
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else
                                 {
-                                    Incorrect += 1;
+                                    MarkIncorrect();
                                     category[property.Name]["Match"] = "false";
                                 }
                             }
                             else
                             {
-                                Incorrect += 1;
+                                MarkIncorrect();
                                 category[property.Name]["Match"] = "false";
                             }
                         }
                         else
                         {
-                            Incorrect += 1;
+                            MarkIncorrect();
                             category[property.Name]["Match"] = "false";
                         }
                     }
@@ -452,29 +447,29 @@ namespace canary.Models
                             {
                                 if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s, StringComparer.OrdinalIgnoreCase).ToArray()), String.Join(",", testArr.ToList().OrderBy(s => s, StringComparer.OrdinalIgnoreCase).ToArray()), StringComparison.OrdinalIgnoreCase))
                                 {
-                                    Correct += 1;
+                                    MarkCorrect();
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else if (referenceArr.ToList().Count == 0)
                                 {
-                                    Correct += 1;
+                                    MarkCorrect();
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else
                                 {                                    
-                                    Incorrect += 1;
+                                    MarkIncorrect();
                                     category[property.Name]["Match"] = "false";
                                 }
                             }
                             else
                             {
-                                Incorrect += 1;
+                                MarkIncorrect();
                                 category[property.Name]["Match"] = "false";
                             }
                         }
                         else
                         {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                     }
@@ -482,16 +477,16 @@ namespace canary.Models
                     {
                         if (bool.Equals(property.GetValue(ReferenceRecord.GetRecord()), property.GetValue(TestRecord.GetRecord())))
                         {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else if (property.GetValue(ReferenceRecord.GetRecord()) == null) {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else
                         {
-                            Incorrect += 1;
+                            MarkIncorrect();
                             category[property.Name]["Match"] = "false";
                         }
                     }
@@ -505,34 +500,34 @@ namespace canary.Models
                             {
                                 if (String.Equals(String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase)), String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase)), StringComparison.OrdinalIgnoreCase))
                                 {
-                                    Correct += 1;
+                                    MarkCorrect();
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else if (referenceArr.ToList().Count == 0)
                                 {
-                                    Correct += 1;
+                                    MarkCorrect();
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else
                                 {
-                                    Incorrect += 1;
+                                    MarkIncorrect();
                                     category[property.Name]["Match"] = "false";
                                 }
                             }
                             else
                             {
-                                Incorrect += 1;
+                                MarkIncorrect();
                                 category[property.Name]["Match"] = "false";
                             }
                         }
                         else if (testArr != null)
                         {
-                            Incorrect += 1;
+                            MarkIncorrect();
                             category[property.Name]["Match"] = "false";
                         }
                         else
                         {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                     }
@@ -549,29 +544,29 @@ namespace canary.Models
                                 string lower2 = String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase));
                                 if (String.Equals(lower1, lower2, StringComparison.OrdinalIgnoreCase))
                                 {
-                                    Correct += 1;
+                                    MarkCorrect();
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else
                                 {
-                                    Incorrect += 1;
+                                    MarkIncorrect();
                                     category[property.Name]["Match"] = "false";
                                 }
                             }
                             else
                             {
-                                Incorrect += 1;
+                                MarkIncorrect();
                                 category[property.Name]["Match"] = "false";
                             }
                         }
                         else if (testArr != null)
                         {
-                            Incorrect += 1;
+                            MarkIncorrect();
                             category[property.Name]["Match"] = "false";
                         }
                         else
                         {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                     }
@@ -579,22 +574,33 @@ namespace canary.Models
                     {
                         if (uint.Equals(property.GetValue(ReferenceRecord.GetRecord()), property.GetValue(TestRecord.GetRecord())))
                         {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else if (property.GetValue(ReferenceRecord.GetRecord()) == null) {
-                            Correct += 1;
+                            MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else
                         {
-                            Incorrect += 1;
+                            MarkIncorrect();
                             category[property.Name]["Match"] = "false";
                         }
                     }
                 }
             }
             return JsonConvert.SerializeObject(description);
+        }
+
+        private void MarkCorrect()
+        {
+            Total += 1;
+            Correct += 1;
+        }
+        private void MarkIncorrect()
+        {
+            Total += 1;
+            Incorrect += 1;
         }
     }
 }
