@@ -19,9 +19,9 @@ jobs:
     - name: Build self-contained Windows executable
       run: dotnet publish canary -r win-x64 -c ExeRelease -p:PublishSingleFile=true --self-contained
     - name: Copy database file to output directory
-      run: copy canary\canary.db canary\bin\exerelease\netcoreapp3.1\win-x64\publish
+      run: copy canary\canary.db canary\bin\exerelease\netcoreapp6.0\win-x64\publish
     - name: Upload generated Windows executable
       uses: actions/upload-artifact@master
       with:
         name: windows-x64
-        path: canary/bin/exerelease/netcoreapp3.1/win-x64/publish
+        path: canary/bin/exerelease/netcoreapp6.0/win-x64/publish
