@@ -30,7 +30,7 @@ namespace canary.Controllers
                     result.Add("testId", test.TestId.ToString());
                     result.Add("created", test.Created.ToString());
                     result.Add("type", test.Type != null ? test.Type.ToString() : "");
-                    result.Add("completedDateTime", test.CompletedDateTime != null ? test.CompletedDateTime.ToString() : "");
+                    result.Add("completedDateTime", test.CompletedDateTime.ToString());
                     result.Add("correct", test.Correct.ToString());
                     result.Add("total", test.Total.ToString());
                     results.Add(result);

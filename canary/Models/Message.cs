@@ -54,20 +54,18 @@ namespace canary.Models
             switch (type)
             {
                 case "Submission": case "http://nchs.cdc.gov/vrdr_submission":
-                    message = new DeathRecordSubmission(dr);
-                    message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
+                    message = new DeathRecordSubmissionMessage(dr);
                     break;
                 case "Update": case "http://nchs.cdc.gov/vrdr_submission_update":
-                    message = new DeathRecordUpdate(dr);
-                    message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
+                    message = new DeathRecordUpdateMessage(dr);
                     break;
                 case "Void": case "http://nchs.cdc.gov/vrdr_submission_void":
-                    message = new VoidMessage(dr);
-                    message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
+                    message = new DeathRecordVoidMessage(dr);
                     break;
                 default:
                     throw new ArgumentException($"The given message type {type} is not valid.", "type");
             }
+            message.MessageSource = "https://example.com/jurisdiction/message/endpoint";
         }
 
         public BaseMessage GetMessage()
@@ -92,7 +90,7 @@ namespace canary.Models
         {
             Dictionary<string, Message> result = new Dictionary<string, Message>();
             // Create acknowledgement
-            AckMessage ack = new AckMessage(message);
+            AcknowledgementMessage ack = new AcknowledgementMessage(message);
             Message ackMsg = new Message(ack);
             result.Add("ACK", ackMsg);
 
@@ -109,42 +107,44 @@ namespace canary.Models
             switch (type)
             {
                 case "Submission": case "http://nchs.cdc.gov/vrdr_submission": case "Update": case "http://nchs.cdc.gov/vrdr_submission_update":
+                    DeathRecordSubmissionMessage drsm = message as DeathRecordSubmissionMessage;
+                    if (drsm == null)
+                    {
+                        throw new ArgumentException($"The given message type {type} requires a DeathRecordSubmissionMessage.", "type");
+                    }
                     // Create the ethnicity coding
-                    CodingResponseMessage mre = new CodingResponseMessage(message);
-                    var ethnicity = new Dictionary<CodingResponseMessage.HispanicOrigin, string>();
-                    ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNICE, "222");
-                    ethnicity.Add(CodingResponseMessage.HispanicOrigin.DETHNIC5C, "222");
-                    mre.Ethnicity = ethnicity;
+                    DemographicsCodingMessage mre = new DemographicsCodingMessage(drsm.DeathRecord);
+                    mre.DeathRecord.EthnicityLiteral = "222";
+                    mre.DeathRecord.HispanicCodeHelper = "222";
 
                     // Create the race coding
-                    var race = new Dictionary<CodingResponseMessage.RaceCode, string>();
-                    race.Add(CodingResponseMessage.RaceCode.RACE1E, "500");
-                    race.Add(CodingResponseMessage.RaceCode.RACE17C, "A09");
-                    race.Add(CodingResponseMessage.RaceCode.RACEBRG, "03");
-                    mre.Race = race;
+                    mre.DeathRecord.FirstEditedRaceCodeHelper = "500";
+                    mre.DeathRecord.SecondAmericanIndianRaceCodeHelper = "A09";;
 
                     Message mreMsg = new Message(mre);
                     result.Add("MRE", mreMsg);
 
-                    CodingResponseMessage trx = new CodingResponseMessage(message);
+                    CauseOfDeathCodingMessage trx = new CauseOfDeathCodingMessage(drsm.DeathRecord);
                     
                     // Create the cause of death coding
-                    trx.UnderlyingCauseOfDeath = "A04.7";
+                    trx.DeathRecord.AutomatedUnderlyingCOD = "A04.7";
 
                     // Assign the record axis codes
-                    var recordAxisCodes = new List<string>();
-                    recordAxisCodes.Add("A04.7");
-                    recordAxisCodes.Add("A41.9");
-                    recordAxisCodes.Add("J18.9");
-                    recordAxisCodes.Add("J96.0");
-                    trx.CauseOfDeathRecordAxis = recordAxisCodes;
+                    // These leave out "position" and "pregnancy", which weren't specified previously (before IG 1.3 update)
+                    // It appears (from VRDR library) that these values are only used if pregnancy is true ("1") and position is "2"
+                    IList<(int, string, bool)> causeOfDeathRecordAxis = new List<(int, string, bool)>();
+                    causeOfDeathRecordAxis.Add((0, "A04.7", false));
+                    causeOfDeathRecordAxis.Add((0, "A41.9", false));
+                    causeOfDeathRecordAxis.Add((0, "J18.9", false));
+                    causeOfDeathRecordAxis.Add((0, "J96.0", false));
+                    trx.DeathRecord.RecordAxisCauseOfDeath = causeOfDeathRecordAxis;
 
                     // Assign the entity axis codes
-                    var builder = new CauseOfDeathEntityAxisBuilder();
-                    builder.Add("1", "1", "A04.7");
-                    builder.Add("1", "2", "A41.9");
-                    builder.Add("2", "1", "J18.9");
-                    trx.CauseOfDeathEntityAxis = builder.ToCauseOfDeathEntityAxis();
+                    IList<(int, int, string, bool)> causeOfDeathEntityAxis = new List<(int, int, string, bool)>();
+                    causeOfDeathEntityAxis.Add((1, 1, "A04.7", false));
+                    causeOfDeathEntityAxis.Add((1, 2, "A41.9", false));
+                    causeOfDeathEntityAxis.Add((2, 1, "J18.9", false));
+                    trx.DeathRecord.EntityAxisCauseOfDeath = causeOfDeathEntityAxis;
 
                     Message trxMsg = new Message(trx);
                     result.Add("TRX", trxMsg);

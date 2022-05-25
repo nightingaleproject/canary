@@ -1,5 +1,8 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.409 AS build-env
+
 WORKDIR /app
+RUN curl -ksSL https://gitlab.mitre.org/mitre-scripts/mitre-pki/raw/master/os_scripts/install_certs.sh | MODE=ubuntu sh
+
 RUN apt-get update -qq && apt-get install -y nodejs
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
         && apt-get install -y nodejs

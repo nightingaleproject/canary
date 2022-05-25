@@ -33,32 +33,20 @@ export class ConnectathonDashboard extends Component {
                 <DashboardItem
                   icon="male"
                   title={connectathonRecordNames[1]}
-                  description={`#${connectathonRecordCertificateNumbers[1]}; Janet Page; Congestive Heart Failure`}
+                  description={`#${connectathonRecordCertificateNumbers[1]}; Twila Hilty; Cardiopulmonary arrest`}
                   route={ this.getUrl(1) }
                 />
                 <DashboardItem
                   icon="male"
                   title={connectathonRecordNames[2]}
-                  description={`#${connectathonRecordCertificateNumbers[2]}; Madelyn Patel; Cocaine toxicity`}
+                  description={`#${connectathonRecordCertificateNumbers[2]}; Fidelia Alsup; Blunt head trauma`}
                   route={ this.getUrl(2) }
                 />
                 <DashboardItem
                   icon="male"
                   title={connectathonRecordNames[3]}
-                  description={`#${connectathonRecordCertificateNumbers[3]}; Vivienne Lee Wright; Cardiopulmonary arrest`}
+                  description={`#${connectathonRecordCertificateNumbers[3]}; Davis Lineberry; Pending`}
                   route={ this.getUrl(3) }
-                />
-                <DashboardItem
-                  icon="male"
-                  title={connectathonRecordNames[4]}
-                  description={`#${connectathonRecordCertificateNumbers[4]}; Javier Luis Perez; Blunt head trama`}
-                  route={ this.getUrl(4) }
-                />
-                <DashboardItem
-                  icon="male"
-                  title={connectathonRecordNames[5]}
-                  description={`#${connectathonRecordCertificateNumbers[5]}; Javier Luis Perez; Blunt head trama (partial record)`}
-                  route={ this.getUrl(5) }
                 />
               </Item.Group>
             </Container>

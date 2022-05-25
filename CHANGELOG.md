@@ -1,5 +1,15 @@
 ## Change Log
 
+### v4.0.0-preview1 - 2022-05-25
+
+* Updated the VRDR .NET library dependency for the project to use V4.0.0-preview3
+    - Aligns Canary with the latest VRDR IG at http://build.fhir.org/ig/HL7/vrdr/artifacts.html
+    - Aligns Canary with the latest VRDR Messaging IG at http://build.fhir.org/ig/nightingaleproject/vital_records_fhir_messaging_ig/branches/main/index.html
+    - Reduces test clutter by excluding VRDR DeathRecord Helper properties from tests
+* Updated the Connectathon test records to use the 2022 test records provided by NCHS
+* Addressed an issue with test counts not totaling accurately
+* Updated Canary to use .NET 6.0
+
 ### v3.1.0 - 2021-10-01
 
 * Updated VRDR .NET library dependency to v3.2.1
@@ -8,11 +18,11 @@
 ### v3.1.0-preview2 - 2021-09-13
 
 * Updated the VRDR-dotnet dependency for the project to use V3.2.0-preview5, which fixes bugs
-  * Fixed bug in how nulls are interpreted when loading description files that caused segments of records to be dropped in Canary
-  * Removed incorrect extra spaces from some race strings
-  * Fixed bug that caused an error if the receipt year was set to the death year when creating coded response messages
-  * Improved text that describes expected values for the Death Location Jurisdiction field
-  * Fixed bug that caused incorrect data to be shown in Canary for Death Location Jurisdiction
+    - Fixed bug in how nulls are interpreted when loading description files that caused segments of records to be dropped in Canary
+    - Removed incorrect extra spaces from some race strings
+    - Fixed bug that caused an error if the receipt year was set to the death year when creating coded response messages
+    - Improved text that describes expected values for the Death Location Jurisdiction field
+    - Fixed bug that caused incorrect data to be shown in Canary for Death Location Jurisdiction
 * Updated connectathon records to align with the new IG and connectathon test record changes
 
 ### v3.1.0-preview1 - 2021-09-02

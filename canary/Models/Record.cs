@@ -112,11 +112,11 @@ namespace canary.Models
             get
             {
                 string ijeString = ije;
-                List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => ((IJEField)p.GetCustomAttributes().First()).Field).ToList();
+                List<PropertyInfo> properties = typeof(IJEMortality).GetProperties().ToList().OrderBy(p => p.GetCustomAttribute<IJEField>().Field).ToList();
                 List<Dictionary<string, string>> propList = new List<Dictionary<string, string>>();
                 foreach(PropertyInfo property in properties)
                 {
-                    IJEField info = (IJEField)property.GetCustomAttributes().First();
+                    IJEField info = property.GetCustomAttribute<IJEField>();
                     string field = ijeString.Substring(info.Location - 1, info.Length);
                     Dictionary<string, string> propInfo = new Dictionary<string, string>();
                     propInfo.Add("number", info.Field.ToString());
@@ -155,19 +155,19 @@ namespace canary.Models
         public Record()
         {
             record = new DeathRecord();
-            ije = new IJEMortality(record).ToString();
+            ije = new IJEMortality(record, false).ToString();
         }
 
         public Record(DeathRecord record)
         {
             this.record = record;
-            ije = new IJEMortality(this.record).ToString();
+            ije = new IJEMortality(this.record, false).ToString();
         }
 
         public Record(string record)
         {
             this.record = new DeathRecord(record);
-            ije = new IJEMortality(this.record).ToString();
+            ije = new IJEMortality(this.record, false).ToString();
         }
 
         public Record(string record, bool permissive)
