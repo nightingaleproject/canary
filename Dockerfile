@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.409 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0.101 AS build-env
 
 WORKDIR /app
 RUN curl -ksSL https://gitlab.mitre.org/mitre-scripts/mitre-pki/raw/master/os_scripts/install_certs.sh | MODE=ubuntu sh
@@ -12,7 +12,7 @@ RUN dotnet restore
 COPY canary/ ./
 RUN dotnet publish -c Release -o out
 RUN PATH="$PATH:/root/.dotnet/tools" dotnet ef database update
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS runtime
 WORKDIR /app
 COPY --from=build-env /app/out .
 COPY --from=build-env /app/canary.db .
