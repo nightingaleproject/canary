@@ -1,5 +1,11 @@
 ## Change Log
 
+### v4.0.0-preview2 - 2022-06-22
+
+* Updated the VRDR .NET library dependency for the project to use V4.0.0-preview5
+    - Addressed incorrect conversion of non-string values into strings
+    - Fixed issue where VRDR DeathRecord properties that return a dictionary were returning null
+
 ### v4.0.0-preview1 - 2022-05-25
 
 * Updated the VRDR .NET library dependency for the project to use V4.0.0-preview3
