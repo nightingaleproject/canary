@@ -101,9 +101,14 @@ namespace canary.Controllers
                 {
                     try // IJE?
                     {
-                        if (input.Length != 5000)
+                        // If input.Length != 5000, truncate/pad according to force it to 5000.
+                        if (input.Length > 5000)
                         {
-                            return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input does not appear to be a valid record." } } });
+                            input = input.Substring(0, 5000);
+                        }
+                        else if (input.Length < 5000)
+                        {
+                            input = input.PadRight(5000, ' ');
                         }
                         IJEMortality ije = new IJEMortality(input);
                         DeathRecord deathRecord = ije.ToDeathRecord();
