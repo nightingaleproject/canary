@@ -156,7 +156,7 @@ namespace canary.Models
             // Race
             Tuple<string, string>[] nvssRaces =
             {
-                Tuple.Create(NvssRace.AmericanIndianOrAlaskaNative, "Y"),
+                Tuple.Create(NvssRace.AmericanIndianOrAlaskanNative, "Y"),
                 Tuple.Create(NvssRace.AsianIndian, "Y"),
                 Tuple.Create(NvssRace.BlackOrAfricanAmerican, "Y"),
                 Tuple.Create(NvssRace.Chinese, "Y"),
