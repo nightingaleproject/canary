@@ -1,6 +1,6 @@
 {
   "name": "canary",
-  "version": "4.0.0-preview4",
+  "version": "4.0.0-preview5",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
