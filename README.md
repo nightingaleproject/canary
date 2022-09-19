@@ -84,6 +84,21 @@ Whenever a tag is created on Canary of the form `vX.Y.Z`, Dockerhub will automat
 
 At this time the version number and date displayed in the application need to be manually updated by editing window.VERSION and window.VERSION_DATE in the file canary/ClientApp/src/index.js. The version should also be updated by changing the "version" setting in canary/ClientApp/package.json.
 
+To create a release:
+
+1. Update canary/canary.csproj to point to the desired version of the VRDR.Messaging library (and therefore VRDR .NET library)
+1. Update the version number and date in canary/ClientApp/src/index.js
+1. Update the version number in canary/ClientApp/src/index.js
+1. Update the CHANGELOG.md file with the latest change history
+1. Merge the above changes onto master
+1. On the [Releases](https://github.com/nightingaleproject/canary/releases) page click "Draft a new Release"
+1. Create a tag and release title for the new release following the existing naming convention
+1. Add the release notes from the CHANGELOG as the description
+1. Attach the most recent binary from "Build Self-Contained Windows Executable" GitHub task
+    1. Follow [these instructions](https://docs.github.com/en/actions/managing-workflow-runs/downloading-workflow-artifacts) to find the build artifact
+    1. Download the artifact and rename it to `canary-<version>-windows-x64.zip`
+    1. Upload the artifact to the release page
+
 ### License
 
 Copyright 2017, 2018, 2019, 2020 The MITRE Corporation
