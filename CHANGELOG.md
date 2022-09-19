@@ -1,5 +1,18 @@
 ## Change Log
 
+### v4.0.0-preview5
+
+* Updated the VRDR .NET library dependency for the project to use [V4.0.0-preview11](https://github.com/nightingaleproject/vrdr-dotnet/blob/master/CHANGELOG.md#v400-preview11---2022-09-19)
+
+### v4.0.0-preview4 - 2022-08-09
+
+* Updated the VRDR .NET library dependency for the project to use V4.0.0-preview7
+
+### v4.0.0-preview3 - 2022-07-29
+
+* Updated the VRDR .NET library dependency for the project to use V4.0.0-preview6
+* Supported input of IJE records shorter/longer than 5000 characters
+
 ### v4.0.0-preview2 - 2022-06-22
 
 * Updated the VRDR .NET library dependency for the project to use V4.0.0-preview5

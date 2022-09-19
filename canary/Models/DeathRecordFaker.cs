@@ -93,11 +93,11 @@ namespace canary.Models
             // Place of residence
 
             Dictionary<string, string> residence = new Dictionary<string, string>();
-            PlaceCode residencePlace = dataHelper.StateCodeToRandomPlace(state);
             residence.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            residence.Add("addressCity", residencePlace.City);
-            residence.Add("addressCounty", residencePlace.County);
-            residence.Add("addressState", state);
+            residence.Add("addressCity", "Bedford");
+            residence.Add("addressCounty", "Middlesex");
+            residence.Add("addressState", "MA");
+            residence.Add("addressZip", "01730");
             residence.Add("addressCountry", "US");
             record.Residence = residence;
 
@@ -107,25 +107,26 @@ namespace canary.Models
             // Place of birth
 
             Dictionary<string, string> placeOfBirth = new Dictionary<string, string>();
-            PlaceCode placeOfBirthPlace = dataHelper.StateCodeToRandomPlace(state);
-            placeOfBirth.Add("addressCity", placeOfBirthPlace.City);
-            placeOfBirth.Add("addressCounty", placeOfBirthPlace.County);
-            placeOfBirth.Add("addressState", state);
+            placeOfBirth.Add("addressCity", "Bedford");
+            placeOfBirth.Add("addressCounty", "Middlesex");
+            placeOfBirth.Add("addressState", "MA");
+            placeOfBirth.Add("addressZip", "01730");
             placeOfBirth.Add("addressCountry", "US");
             record.PlaceOfBirth = placeOfBirth;
             record.BirthRecordState = state;
-            // Place of death
+           
+           // Place of death
 
-            PlaceCode placeOfDeathPlace = dataHelper.StateCodeToRandomPlace(state);
-            record.DeathLocationName = placeOfDeathPlace.City + " Hospital";
+            record.DeathLocationName = "Bedford Hospital";
 
             record.DeathLocationTypeHelper = ValueSets.PlaceOfDeath.Death_In_Hospital_Based_Emergency_Department_Or_Outpatient_Department;
 
             Dictionary<string, string> placeOfDeath = new Dictionary<string, string>();
             placeOfDeath.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            placeOfDeath.Add("addressCity", placeOfDeathPlace.City);
-            placeOfDeath.Add("addressCounty", placeOfDeathPlace.County);
-            placeOfDeath.Add("addressState", state);
+            placeOfDeath.Add("addressCity", "Bedford");
+            placeOfDeath.Add("addressCounty", "Middlesex");
+            placeOfDeath.Add("addressState", "MA");
+            placeOfDeath.Add("addressZip", "01730");
             placeOfDeath.Add("addressCountry", "US");
             record.DeathLocationAddress = placeOfDeath;
             record.DeathLocationJurisdiction = state;
@@ -217,11 +218,11 @@ namespace canary.Models
             // Funeral Home Address
 
             Dictionary<string, string> fha = new Dictionary<string, string>();
-            PlaceCode fhaPlace = dataHelper.StateCodeToRandomPlace(state);
             fha.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            fha.Add("addressCity", fhaPlace.City);
-            fha.Add("addressCounty", fhaPlace.County);
-            fha.Add("addressState", state);
+            fha.Add("addressCity", "Bedford");
+            fha.Add("addressCounty", "Middlesex");
+            fha.Add("addressState", "MA");
+            fha.Add("addressZip", "01730");
             fha.Add("addressCountry", "US");
             record.FuneralHomeAddress = fha;
 
@@ -232,10 +233,10 @@ namespace canary.Models
             // Disposition Location Address
 
             Dictionary<string, string> dispLoc = new Dictionary<string, string>();
-            PlaceCode dispLocPlace = dataHelper.StateCodeToRandomPlace(state);
-            dispLoc.Add("addressCity", dispLocPlace.City);
-            dispLoc.Add("addressCounty", dispLocPlace.County);
-            dispLoc.Add("addressState", state);
+            dispLoc.Add("addressCity", "Bedford");
+            dispLoc.Add("addressCounty", "Middlesex");
+            dispLoc.Add("addressState", "MA");
+            dispLoc.Add("addressZip", "01730");
             dispLoc.Add("addressCountry", "US");
             record.DispositionLocationAddress = dispLoc;
 
@@ -255,11 +256,11 @@ namespace canary.Models
             record.CertifierSuffix = "MD";
 
             Dictionary<string, string> certifierAddress = new Dictionary<string, string>();
-            PlaceCode certifierAddressPlace = dataHelper.StateCodeToRandomPlace(state);
             certifierAddress.Add("addressLine1", $"{faker.Random.Number(999) + 1} {faker.Address.StreetName()}");
-            certifierAddress.Add("addressCity", certifierAddressPlace.City);
-            certifierAddress.Add("addressCounty", certifierAddressPlace.County);
-            certifierAddress.Add("addressState", state);
+            certifierAddress.Add("addressCity", "Bedford");
+            certifierAddress.Add("addressCounty", "Middlesex");
+            certifierAddress.Add("addressState", "MA");
+            certifierAddress.Add("addressZip", "01730");
             certifierAddress.Add("addressCountry", "US");
             record.CertifierAddress = certifierAddress;
 
@@ -383,8 +384,8 @@ namespace canary.Models
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
-                    detailsOfInjuryAddr.Add("addressCity", residencePlace.City);
-                    detailsOfInjuryAddr.Add("addressCounty", residencePlace.County);
+                    detailsOfInjuryAddr.Add("addressCity", residence["addressCity"]);
+                    detailsOfInjuryAddr.Add("addressCounty", residence["addressCounty"]);
                     detailsOfInjuryAddr.Add("addressState", state);
                     detailsOfInjuryAddr.Add("addressCountry", "US");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
@@ -418,11 +419,10 @@ namespace canary.Models
                     record.InjuryLocationLongitude = "-30.5";
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
-                    PlaceCode detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
-                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
-                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
-                    detailsOfInjuryAddr.Add("addressState", state);
+                    detailsOfInjuryAddr.Add("addressCity", "Bedford");
+                    detailsOfInjuryAddr.Add("addressCounty", "Middlesex");
+                    detailsOfInjuryAddr.Add("addressState", "MA");
                     detailsOfInjuryAddr.Add("addressCountry", "US");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
                     
@@ -453,11 +453,10 @@ namespace canary.Models
                     record.InjuryLocationLongitude = "-30.5";
 
                     Dictionary<string, string> detailsOfInjuryAddr = new Dictionary<string, string>();
-                    PlaceCode detailsOfInjuryPlace = dataHelper.StateCodeToRandomPlace(state);
                     detailsOfInjuryAddr.Add("addressLine1", residence["addressLine1"]);
-                    detailsOfInjuryAddr.Add("addressCity", detailsOfInjuryPlace.City);
-                    detailsOfInjuryAddr.Add("addressCounty", detailsOfInjuryPlace.County);
-                    detailsOfInjuryAddr.Add("addressState", state);
+                    detailsOfInjuryAddr.Add("addressCity", "Bedford");
+                    detailsOfInjuryAddr.Add("addressCounty", "Middlesex");
+                    detailsOfInjuryAddr.Add("addressState", "MA");
                     detailsOfInjuryAddr.Add("addressCountry", "US");
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
 
