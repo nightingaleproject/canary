@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import { ConnectathonDashboard } from './components/dashboard/ConnectathonDashboard';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { Layout } from './components/Layout';
@@ -27,27 +27,27 @@ export default class App extends Component {
   render() {
     return (
       <Layout>
-        <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/recent-tests" component={RecentTests} />
-          <Route path="/test-fhir-consuming/:id?" component={FHIRConsuming} />
-          <Route path="/test-fhir-producing/:id?" component={FHIRProducing} />
-          <Route path="/test-fhir-message-producing/:id?" component={FHIRMessageProducing} />
-          <Route path="/test-fhir-message-creation/:id?" component={FHIRMessageCreator} />
-          <Route path="/test-edrs-roundtrip-consuming/:id?" component={EDRSRoundtripConsuming} />
-          <Route path="/test-edrs-roundtrip-producing/:id?" component={EDRSRoundtripProducing} />
-          <Route path="/test-fhir-ije-validator-producing" component={FHIRIJEValidatorProducing} />
-          <Route path="/test-connectathon-dash/:type" component={ConnectathonDashboard} />
-          <Route path="/test-connectathon/:id" component={Connectathon} />
-          <Route path="/test-connectathon-messaging/:id" component={MessageConnectathonProducing} />
-          <Route path="/tool-fhir-inspector" component={FHIRInspector} />
-          <Route path="/tool-fhir-creator" component={FHIRCreator} />
-          <Route path="/tool-fhir-syntax-checker" component={FHIRSyntaxChecker} />
-          <Route path="/tool-fhir-message-syntax-checker" component={FHIRMessageSyntaxChecker} />
-          <Route path="/tool-ije-inspector" component={IJEInspector} />
-          <Route path="/tool-record-converter" component={RecordConverter} />
-          <Route path="/tool-record-generator" component={RecordGenerator} />
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<Dashboard/>} />
+          <Route path="recent-tests" element={<RecentTests/>} />
+          <Route path="test-fhir-consuming/:id?" element={<FHIRConsuming/>} />
+          <Route path="test-fhir-producing/:id?" element={<FHIRProducing/>} />
+          <Route path="test-fhir-message-producing/:id?" element={<FHIRMessageProducing/>} />
+          <Route path="test-fhir-message-creation/:id?" element={<FHIRMessageCreator/>} />
+          <Route path="test-edrs-roundtrip-consuming/:id?" element={<EDRSRoundtripConsuming/>} />
+          <Route path="test-edrs-roundtrip-producing/:id?" element={<EDRSRoundtripProducing/>} />
+          <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing/>} />
+          <Route path="test-connectathon-dash/:type" element={<ConnectathonDashboard/>} />
+          <Route path="test-connectathon/:id" element={<Connectathon/>} />
+          <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducing/>} />
+          <Route path="tool-fhir-inspector" element={<FHIRInspector/>} />
+          <Route path="tool-fhir-creator" element={<FHIRCreator/>} />
+          <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker/>} />
+          <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker/>} />
+          <Route path="tool-ije-inspector" element={<IJEInspector/>} />
+          <Route path="tool-record-converter" element={<RecordConverter/>} />
+          <Route path="tool-record-generator" element={<RecordGenerator/>} />
+        </Routes>
       </Layout>
     );
   }
