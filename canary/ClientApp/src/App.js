@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import { ConnectathonDashboard } from './components/dashboard/ConnectathonDashboard';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { Layout } from './components/Layout';
@@ -25,21 +25,49 @@ export default class App extends Component {
   displayName = App.name;
 
   render() {
+    const FHIRProducingParams = addParams(FHIRProducing)
+    const FHIRConsumingParams = addParams(FHIRConsuming)
+    const FHIRMessageProducingParams = addParams(FHIRMessageProducing)
+    const FHIRMessageCreatorParams = addParams(FHIRMessageCreator)
+    const EDRSRoundtripConsumingParams = addParams(EDRSRoundtripConsuming)
+    const EDRSRoundtripProducingParams = addParams(EDRSRoundtripProducing)
+    const ConnectathonDashboardParams = addParams(ConnectathonDashboard)
+    const ConnectathonParams = addParams(Connectathon)
+    const MessageConnectathonProducingParams = addParams(MessageConnectathonProducing)
+
     return (
       <Layout>
         <Routes>
           <Route exact path="/" element={<Dashboard/>} />
-          <Route path="recent-tests" element={<RecentTests/>} />
-          <Route path="test-fhir-consuming/:id?" element={<FHIRConsuming/>} />
-          <Route path="test-fhir-producing/:id?" element={<FHIRProducing/>} />
-          <Route path="test-fhir-message-producing/:id?" element={<FHIRMessageProducing/>} />
-          <Route path="test-fhir-message-creation/:id?" element={<FHIRMessageCreator/>} />
-          <Route path="test-edrs-roundtrip-consuming/:id?" element={<EDRSRoundtripConsuming/>} />
-          <Route path="test-edrs-roundtrip-producing/:id?" element={<EDRSRoundtripProducing/>} />
+          <Route path="recent-tests" element={<RecentTests/>}/>
+          <Route path="test-fhir-consuming">
+            <Route index element={<FHIRConsumingParams />} />
+            <Route path=":id" element={<FHIRConsumingParams />} />
+          </Route>
+          <Route path="test-fhir-producing">
+            <Route index element={<FHIRProducingParams />} />
+            <Route path=":id" element={<FHIRProducingParams />} />
+          </Route>
+          <Route path="test-fhir-message-producing">
+            <Route index element={<FHIRMessageProducingParams />} />
+            <Route path=":id" element={<FHIRMessageProducingParams />} />
+          </Route>
+          <Route path="test-fhir-message-creation">
+            <Route index element={<FHIRMessageCreatorParams />} />
+            <Route path=":id" element={<FHIRMessageCreatorParams />} />
+          </Route>
+          <Route path="test-edrs-roundtrip-consuming">
+            <Route index element={<EDRSRoundtripConsumingParams />} />
+            <Route path=":id" element={<EDRSRoundtripConsumingParams />} />
+          </Route>
+          <Route path="test-edrs-roundtrip-producing">
+            <Route index element={<EDRSRoundtripProducingParams />} />
+            <Route path=":id" element={<EDRSRoundtripProducingParams />} />
+          </Route>
           <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing/>} />
-          <Route path="test-connectathon-dash/:type" element={<ConnectathonDashboard/>} />
-          <Route path="test-connectathon/:id" element={<Connectathon/>} />
-          <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducing/>} />
+          <Route path="test-connectathon-dash/:type" element={<ConnectathonDashboardParams/>} />
+          <Route path="test-connectathon/:id" element={<ConnectathonParams/>} />
+          <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducingParams/>} />
           <Route path="tool-fhir-inspector" element={<FHIRInspector/>} />
           <Route path="tool-fhir-creator" element={<FHIRCreator/>} />
           <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker/>} />
@@ -52,3 +80,18 @@ export default class App extends Component {
     );
   }
 }
+
+/**
+ * Adds parameters to the given ccomponent class type.
+ * @param {*} WrappedComponent 
+ * @returns A new component type with parameters.
+ * 
+ */
+const addParams = WrappedComponent => props => {
+  const params = useParams();
+  return (
+    <WrappedComponent
+      params = {params}
+    />
+  );
+};
