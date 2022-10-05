@@ -82,12 +82,11 @@ export default class App extends Component {
 }
 
 /**
- * Adds parameters to the given ccomponent class type.
- * @param {*} WrappedComponent 
- * @returns A new component type with parameters.
- * 
+ * Adds parameters to the given component class type.
+ * @param {*} WrappedComponent The component type to add prarams to.
+ * @returns A new version of the component type with parameters.
  */
-const addParams = WrappedComponent => props => {
+const addParams = WrappedComponent => () => {
   const params = useParams();
   return (
     <WrappedComponent
