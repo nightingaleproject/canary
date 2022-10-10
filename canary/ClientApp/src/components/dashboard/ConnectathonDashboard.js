@@ -7,7 +7,7 @@ export class ConnectathonDashboard extends Component {
   displayName = ConnectathonDashboard.name;
 
   getUrl(id) {
-    if(this.props.match.params.type === "message")
+    if(this.props.params.type === "message")
     {
       return `/test-connectathon-messaging/${id}`
     }
@@ -26,7 +26,7 @@ export class ConnectathonDashboard extends Component {
               <Divider horizontal>
                 <Header as="h2">
                   <Icon name="clipboard list" />
-                  Connectathon {this.props.match.params.type} testing
+                  Connectathon {this.props.params.type} testing
                 </Header>
               </Divider>
               <Item.Group className="m-h-30">

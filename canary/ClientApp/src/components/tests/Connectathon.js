@@ -14,7 +14,7 @@ export class Connectathon extends Component {
 
   constructor(props) {
     super(props);
-    const certificateNumber = connectathonRecordCertificateNumbers[this.props.match.params.id];
+    const certificateNumber = connectathonRecordCertificateNumbers[this.props.params.id];
     this.state = { ...this.props, certificateNumber, test: null, loading: false, record: null, results: null, fhirInfo: null, running: false };
     this.updateTest = this.updateTest.bind(this);
     this.runTest = this.runTest.bind(this);
@@ -26,10 +26,10 @@ export class Connectathon extends Component {
 
   fetchTest() {
     var self = this;
-    if (!!this.props.match.params.id && !!this.state.certificateNumber && !!this.state.jurisdiction) {
+    if (!!this.props.params.id && !!this.state.certificateNumber && !!this.state.jurisdiction) {
       this.setState({ loading: true }, () => {
         axios
-          .get(window.API_URL + '/tests/connectathon/' + this.props.match.params.id + '/' + this.state.certificateNumber + '/' + this.state.jurisdiction)
+          .get(window.API_URL + '/tests/connectathon/' + this.props.params.id + '/' + this.state.certificateNumber + '/' + this.state.jurisdiction)
           .then(function(response) {
             var test = response.data;
             test.results = JSON.parse(test.results);
@@ -98,7 +98,7 @@ export class Connectathon extends Component {
   downloadAsFile(contents) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents));
-    element.setAttribute('download', `canary-report-${this.connectathonRecordName(this.props.match.params.id).toLowerCase()}-${new Date().getTime()}.html`);
+    element.setAttribute('download', `canary-report-${this.connectathonRecordName(this.props.params.id).toLowerCase()}-${new Date().getTime()}.html`);
     element.click();
   }
 
@@ -143,7 +143,7 @@ export class Connectathon extends Component {
                 </Statistic>
               </Statistic.Group>
               <Grid centered columns={1} className="p-t-30 p-b-15">
-                <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.match.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
+                <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
               </Grid>
               <div className="p-b-20" />
               <Form size="large">

@@ -22,9 +22,9 @@ export class EDRSRoundtripConsuming extends Component {
 
   componentDidMount() {
     var self = this;
-    if (!!this.props.match.params.id) {
+    if (!!this.props.params.id) {
       axios
-        .get(window.API_URL + '/tests/' + this.props.match.params.id)
+        .get(window.API_URL + '/tests/' + this.props.params.id)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
@@ -140,8 +140,8 @@ export class EDRSRoundtripConsuming extends Component {
             <Grid.Row className="loader-height">
               <Container>
                 <Dimmer active inverted>
-                  {!!this.props.match.params.id && <Loader size="massive">Loading Test...</Loader>}
-                  {!!!this.props.match.params.id && <Loader size="massive">Initializing a New Test...</Loader>}
+                  {!!this.props.params.id && <Loader size="massive">Loading Test...</Loader>}
+                  {!!!this.props.params.id && <Loader size="massive">Initializing a New Test...</Loader>}
                 </Dimmer>
               </Container>
             </Grid.Row>

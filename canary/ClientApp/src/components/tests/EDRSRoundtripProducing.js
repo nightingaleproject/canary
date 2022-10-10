@@ -22,9 +22,9 @@ export class EDRSRoundtripProducing extends Component {
 
   componentDidMount() {
     var self = this;
-    if (!!this.props.match.params.id) {
+    if (!!this.props.params.id) {
       axios
-        .get(window.API_URL + '/tests/' + this.props.match.params.id)
+        .get(window.API_URL + '/tests/' + this.props.params.id)
         .then(function(response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
