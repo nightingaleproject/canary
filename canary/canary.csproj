@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
     <PackageReference Include="Bogus" Version="34.0.2" />
 
-    <PackageReference Include="VRDR.Messaging" Version="4.0.0-preview12" />
+    <PackageReference Include="VRDR.Messaging" Version="4.0.0-preview13" />
 
     <!-- <ProjectReference Include="..\..\vrdr-dotnet\VRDR\DeathRecord.csproj" />  -->
     <!-- <ProjectReference Include="..\..\vrdr-dotnet\VRDR.Messaging\VRDRMessaging.csproj" /> -->
