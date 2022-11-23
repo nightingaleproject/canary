@@ -2,7 +2,9 @@
 
 ### v4.0.0-preview6
 
-* Updated the VRDR .NET library dependency for the project to use [V4.0.0-preview13](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/v4.0.0-preview13)
+* Updated the VRDR .NET library dependency for the project to use [V4.0.0-preview14](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/v4.0.0-preview14)
+  - Also includes changes in VRDR .NET library release [V4.0.0-preview13](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/v4.0.0-preview13)
+  - Also includes changes in VRDR .NET library release [V4.0.0-preview12](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/v4.0.0-preview12)
 
 ### v4.0.0-preview5
 
