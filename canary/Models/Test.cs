@@ -570,7 +570,7 @@ namespace canary.Models
                             category[property.Name]["Match"] = "true";
                         }
                     }
-                    else if (info.Type == Property.Types.UInt32)
+                    else if (info.Type == Property.Types.Int32)
                     {
                         if (uint.Equals(property.GetValue(ReferenceRecord.GetRecord()), property.GetValue(TestRecord.GetRecord())))
                         {
