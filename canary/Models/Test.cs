@@ -306,6 +306,12 @@ namespace canary.Models
                         continue;
                     }
 
+                    // If this is a coded value, the comparison should be case sensitive
+                    StringComparison caseSensitivity = StringComparison.OrdinalIgnoreCase;
+                    if(valueReference.ContainsKey("code"))
+                    {
+                        caseSensitivity = StringComparison.Ordinal;
+                    }
                     Dictionary<string, string> valueTest = (Dictionary<string, string>)property.GetValue(TestRecord.GetRecord());
                     Dictionary<string, Dictionary<string, string>> moreInfo = new Dictionary<string, Dictionary<string, string>>();
                     bool match = true;
@@ -331,7 +337,7 @@ namespace canary.Models
                         }
                         // Check for match
                         if ((valueReference.ContainsKey(parameter.Key) && valueTest.ContainsKey(parameter.Key)) &&
-                            (String.Equals((string)valueReference[parameter.Key], (string)valueTest[parameter.Key], StringComparison.OrdinalIgnoreCase))) {
+                            (String.Equals((string)valueReference[parameter.Key], (string)valueTest[parameter.Key], caseSensitivity))) {
                             // Equal
                             MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
@@ -540,9 +546,9 @@ namespace canary.Models
                         {
                             if (testArr != null)
                             {
-                                string lower1 = String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase));
-                                string lower2 = String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.OrdinalIgnoreCase));
-                                if (String.Equals(lower1, lower2, StringComparison.OrdinalIgnoreCase))
+                                string lower1 = String.Join(",", referenceArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.Ordinal));
+                                string lower2 = String.Join(",", testArr.ToList().OrderBy(s => s.Item1 + s.Item2, StringComparer.Ordinal));
+                                if (String.Equals(lower1, lower2, StringComparison.Ordinal))
                                 {
                                     MarkCorrect();
                                     category[property.Name]["Match"] = "true";
