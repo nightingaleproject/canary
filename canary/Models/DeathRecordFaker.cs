@@ -266,7 +266,7 @@ namespace canary.Models
 
             // Certifier type
 
-            record.CertificationRoleHelper = ValueSets.CertifierTypes.Pronouncing_Certifying_Physician;
+            record.CertificationRoleHelper = ValueSets.CertifierTypes.Death_Certification_And_Verification_By_Physician_Procedure;
 
             // TODO Add these fields
             Dictionary<string, string> relationship = new Dictionary<string, string>();
