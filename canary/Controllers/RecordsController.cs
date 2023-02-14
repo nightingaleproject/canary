@@ -116,7 +116,13 @@ namespace canary.Controllers
                     }
                     catch (Exception e)
                     {
-                        return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", e.Message } } });
+                        String message = e.Message;
+                        while (e.InnerException != null)
+                        {
+                            e = e.InnerException;
+                            message += "; Inner Exception = [ " + e.Message + " ]";
+                        }
+                        return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", message } } });
                     }
                 }
             }
