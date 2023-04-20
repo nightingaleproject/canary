@@ -1,5 +1,9 @@
 ## Change Log
 
+### v4.0.0-preview11
+
+* Updated the VRDR .NET library dependency for the project to use [V4.0.0-preview21](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/v4.0.0-preview21)
+
 ### v4.0.0-preview10
 
 * Fixed hiding of inner exceptions on parsing IJE record
