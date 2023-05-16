@@ -1,5 +1,10 @@
 ## Change Log
 
+### 4.0.1
+
+* Updated the VRDR .NET library dependency for the project to use [4.0.1](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/4.0.1)
+
+
 ### v4.0.0-preview11
 
 * Updated the VRDR .NET library dependency for the project to use [V4.0.0-preview21](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/v4.0.0-preview21)

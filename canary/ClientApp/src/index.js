@@ -10,8 +10,8 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 
 //window.API_URL = 'http://localhost:5000';
 window.API_URL = '';
-window.VERSION = 'v4.0.0-preview11';
-window.VERSION_DATE = 'April 20th, 2023';
+window.VERSION = '4.0.1';
+window.VERSION_DATE = 'May 16th, 2023';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
