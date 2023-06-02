@@ -16,7 +16,7 @@ export class Record extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, activeItem: 'XML', modalOpen: false, endpoint: 'http://localhost:3000/fhir/v1/death_records.json', sending: false };
+    this.state = { ...this.props, activeItem: 'JSON', modalOpen: false, endpoint: 'http://localhost:3000/fhir/v1/death_records.json', sending: false };
     this.downloadAsFile = this.downloadAsFile.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
     this.handleEndpointChange = this.handleEndpointChange.bind(this);
@@ -212,8 +212,8 @@ export class Record extends Component {
             <Menu attached="top" pointing size="large">
               {!!!this.props.ijeOnly && (
                 <React.Fragment>
-                  <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />
                   <Menu.Item name="JSON" active={this.state.activeItem === 'JSON'} onClick={this.handleItemClick} />
+                  <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />
                 </React.Fragment>
               )}
               {!!!this.props.hideIje && <Menu.Item name="IJE" active={this.state.activeItem === 'IJE'} onClick={this.handleItemClick} />}
