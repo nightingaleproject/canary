@@ -3,6 +3,9 @@
 ### 4.0.2
 
 * Updated the VRDR .NET library dependency for the project to use [4.0.2](https://github.com/nightingaleproject/vrdr-dotnet/releases/tag/4.0.2)
+* Updated records in Connectathon.cs
+* Switched default from xml to json
+* Removed Transporation Role and its references
 
 
 ### 4.0.1
