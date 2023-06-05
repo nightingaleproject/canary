@@ -31,15 +31,15 @@ export class ConnectathonDashboard extends Component {
               </Divider>
               <Item.Group className="m-h-30">
                 <DashboardItem
-                  icon="male"
+                  icon="female"
                   title={connectathonRecordNames[1]}
-                  description={`#${connectathonRecordCertificateNumbers[1]}; Twila Hilty; Cardiopulmonary arrest`}
+                  description={`#${connectathonRecordCertificateNumbers[1]}; Twila Hilty; Hypoxemia`}
                   route={ this.getUrl(1) }
                 />
                 <DashboardItem
-                  icon="male"
+                  icon="female"
                   title={connectathonRecordNames[2]}
-                  description={`#${connectathonRecordCertificateNumbers[2]}; Fidelia Alsup; Blunt head trauma`}
+                  description={`#${connectathonRecordCertificateNumbers[2]}; Fidelia Alsup; Hepatorenal Syndrome`}
                   route={ this.getUrl(2) }
                 />
                 <DashboardItem
