@@ -461,9 +461,6 @@ namespace canary.Models
                     record.InjuryLocationAddress = detailsOfInjuryAddr;
 
                     record.InjuryPlaceDescription = "Street/Highway";
-
-                    // TransportationRole
-                    record.TransportationRoleHelper = ValueSets.TransportationIncidentRole.Passenger;
                 }
             }
 
