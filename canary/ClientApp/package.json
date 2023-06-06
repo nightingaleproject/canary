@@ -9,6 +9,7 @@
     "@semantic-ui-react/css-patch": "^1.1.2",
     "ace-builds": "^1.11.2",
     "axios": "^1.0.0",
+    "caniuse-lite": "^1.0.30001495",
     "moment": "^2.29.4",
     "react": "^18.0.0",
     "react-ace": "^10.0.0",
