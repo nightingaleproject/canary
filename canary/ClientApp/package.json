@@ -17,6 +17,7 @@
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
     "react-semantic-toasts": "^0.6.6",
+    "react-test-renderer": "^18.2.0",
     "rimraf": "^3.0.2",
     "semantic-ui-calendar-react": "^0.15.3",
     "semantic-ui-css": "^2.4.1",
@@ -39,5 +40,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  }
 }
