@@ -6,6 +6,7 @@ import {
 import {
   createRoot
 } from 'react-dom/client';
+import { act, create} from "react-test-renderer"
 
 it('renders without crashing', () => {
   const container = document.createElement('root');

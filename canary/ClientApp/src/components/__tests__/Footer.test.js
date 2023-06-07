@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
-import {Record} from '../Record';
+import {Footer} from '../Footer';
 
 it('renders correctly', () => {
-  const tree = renderer.create(<Record />).toJSON();
+  const tree = renderer.create(<Footer />).toJSON();
   expect(tree).toMatchSnapshot();
 });
