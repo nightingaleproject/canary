@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <div
+    className="p-t-30"
+  />,
+  <div
+    className="ui borderless inverted attached menu"
+  >
+    <div
+      className="item"
+      onClick={[Function]}
+    >
+      Canary is developed by 
+      <a
+        className="underline"
+        href="http://www.mitre.org"
+      >
+        The MITRE Corporation
+      </a>
+       / 
+      <a
+        className="underline"
+        href="https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are"
+      >
+        the Health FFRDC
+      </a>
+      .
+    </div>
+  </div>,
+]
+`;

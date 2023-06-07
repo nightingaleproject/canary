@@ -7,8 +7,10 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@semantic-ui-react/css-patch": "^1.1.2",
+    "@testing-library/react": "^14.0.0",
     "ace-builds": "^1.11.2",
     "axios": "^1.0.0",
+    "caniuse-lite": "^1.0.30001495",
     "moment": "^2.29.4",
     "react": "^18.0.0",
     "react-ace": "^10.0.0",
@@ -17,6 +19,7 @@
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
     "react-semantic-toasts": "^0.6.6",
+    "react-test-renderer": "^18.2.0",
     "rimraf": "^3.0.2",
     "semantic-ui-calendar-react": "^0.15.3",
     "semantic-ui-css": "^2.4.1",
@@ -39,5 +42,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  }
 }

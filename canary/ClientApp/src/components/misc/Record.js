@@ -9,7 +9,7 @@ import { Issues } from '../misc/Issues';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/mode-xml';
 import 'ace-builds/src-noconflict/theme-chrome';
-import 'ace-builds/webpack-resolver';
+// import 'ace-builds/webpack-resolver';
 
 export class Record extends Component {
   displayName = Record.name;
