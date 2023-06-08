@@ -83,8 +83,8 @@ export const responseMessageTypeIcons = [
 ];
 
 export const connectathonRecordNames = {
-  "1": "Pregnant",
-  "2": "Automobile Accident",
+  "1": "Hypoxemia",
+  "2": "Hepatorenal Syndrome",
   "3": "Pending"
 }
 
