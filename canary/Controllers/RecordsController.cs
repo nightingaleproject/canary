@@ -15,6 +15,24 @@ namespace canary.Controllers
     [ApiController]
     public class RecordsController : ControllerBase
     {
+
+        /// <summary>
+        /// Returns all Connectathon test messages.
+        /// GET /records/connectathon
+        /// </summary>
+        [HttpGet("Records/Connectathon")]
+        public DeathRecord[] GetTestConnectathonIndex()
+        {
+            return Connectathon.All();
+            // var results = new List<Test>();
+            // foreach (DeathRecord dr in Connectathon.All())
+            // {
+            //     results.Add(new Test(dr));
+            // }
+            // return results.ToArray();
+        }
+
+
         /// <summary>
         /// Returns all records.
         /// GET /api/records
