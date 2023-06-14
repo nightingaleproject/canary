@@ -54,8 +54,8 @@ export class ConnectathonDashboard extends Component {
                 {
                   !!this.state.records && this.state.records.map((x, i) =>
                     <DashboardItem
-                      icon={x['sexAtDeath']['code'] || 'male'}
-                      title={`#${i + 1}: ${[x['familyName'], ...x['givenNames']].join(' ')}`}
+                      icon={!!x['sexAtDeath'] && x['sexAtDeath']['code'] || 'male'}
+                      title={`#${i + 1}: ${x['familyName']}, ${x['givenNames'].join(' ')}`}
                       description={`${x['coD1A']}`}
                       route={this.getUrl(i + 1)}
                     />
