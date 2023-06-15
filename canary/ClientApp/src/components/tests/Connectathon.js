@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Dimmer, Divider, Dropdown, Input, Form, Grid, Header, Icon, Loader, Statistic } from 'semantic-ui-react';
-import { stateOptions, connectathonRecordNames, connectathonRecordCertificateNumbers } from '../../data';
+import { stateOptions } from '../../data';
 import { connectionErrorToast } from '../../error';
 import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
@@ -14,7 +14,7 @@ export class Connectathon extends Component {
 
   constructor(props) {
     super(props);
-    const certificateNumber = connectathonRecordCertificateNumbers[this.props.params.id];
+    const certificateNumber = this.props.params.id;
     this.state = { ...this.props, certificateNumber, test: null, loading: false, record: null, results: null, fhirInfo: null, running: false };
     this.updateTest = this.updateTest.bind(this);
     this.runTest = this.runTest.bind(this);
@@ -30,12 +30,12 @@ export class Connectathon extends Component {
       this.setState({ loading: true }, () => {
         axios
           .get(window.API_URL + '/tests/connectathon/' + this.props.params.id + '/' + this.state.certificateNumber + '/' + this.state.jurisdiction)
-          .then(function(response) {
+          .then(function (response) {
             var test = response.data;
             test.results = JSON.parse(test.results);
             self.setState({ test: test, fhirInfo: JSON.parse(response.data.referenceRecord.fhirInfo), loading: false });
           })
-          .catch(function(error) {
+          .catch(function (error) {
             self.setState({ loading: false }, () => {
               connectionErrorToast(error);
             });
@@ -80,14 +80,14 @@ export class Connectathon extends Component {
     this.setState({ running: true }, () => {
       axios
         .post(window.API_URL + '/tests/produce/run/' + this.state.test.testId, this.setEmptyToNull(this.state.record.fhirInfo))
-        .then(function(response) {
+        .then(function (response) {
           var test = response.data;
           test.results = JSON.parse(test.results);
           self.setState({ test: test, running: false }, () => {
             document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
           });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           self.setState({ loading: false, running: false }, () => {
             connectionErrorToast(error);
           });
@@ -103,7 +103,7 @@ export class Connectathon extends Component {
   }
 
   connectathonRecordName(id) {
-    return connectathonRecordNames[id] || "Undefined";
+    return (id && `Connectathon-${id}`) || "Undefined";
   }
 
   render() {

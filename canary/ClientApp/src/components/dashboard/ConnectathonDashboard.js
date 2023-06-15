@@ -10,17 +10,20 @@ export class ConnectathonDashboard extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...this.props, records: null, loading: false };
-    this.fetchRecords()
+    this.state = { ...this.props, deathRecords: null, loading: false };    
   }
 
-  fetchRecords() {
+  componentDidMount() {
+    this.fetchDeathRecords()
+  }
+
+  fetchDeathRecords() {
     var self = this;
     axios
-      .get(window.API_URL + '/records/connectathon')
+      .get(window.API_URL + '/connectathon')
       .then(function (response) {
         var records = response.data;
-        self.setState({ records: records, loading: false });
+        self.setState({ deathRecords: records, loading: false });
       })
       .catch(function (error) {
         self.setState({ loading: false }, () => {
@@ -52,8 +55,9 @@ export class ConnectathonDashboard extends Component {
               </Divider>
               <Item.Group className="m-h-30">
                 {
-                  !!this.state.records && this.state.records.map((x, i) =>
+                  !!this.state.deathRecords && this.state.deathRecords.map((x, i) =>
                     <DashboardItem
+                      key={i}
                       icon={!!x['sexAtDeath'] && x['sexAtDeath']['code'] || 'male'}
                       title={`#${i + 1}: ${x['familyName']}, ${x['givenNames'].join(' ')}`}
                       description={`${x['coD1A']}`}
