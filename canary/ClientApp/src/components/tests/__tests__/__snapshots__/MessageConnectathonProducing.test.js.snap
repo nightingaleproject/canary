@@ -1,0 +1,1150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+Array [
+  <div
+    className="row"
+    id="scroll-to"
+  >
+    <div
+      className="ui breadcrumb"
+    >
+      <a
+        className="section"
+        href="/"
+        onClick={[Function]}
+      >
+        Dashboard
+      </a>
+      <i
+        aria-hidden="true"
+        className="right chevron icon divider"
+        onClick={[Function]}
+      />
+      <div
+        className="section"
+        onClick={[Function]}
+      >
+        Connectathon FHIR Message Producing
+      </div>
+    </div>
+  </div>,
+  <div
+    className="row"
+  >
+    <div
+      className="ui fluid container"
+    >
+      <div
+        className="ui horizontal divider"
+      />
+      <h2
+        className="ui dividing header"
+        id="step-1"
+      >
+        <i
+          aria-hidden="true"
+          className="flag icon"
+          onClick={[Function]}
+        />
+        <div
+          className="content"
+        >
+          Step 1: Set Certificate Number and Select Jurisdiction
+          <div
+            className="sub header"
+          >
+            Specify the certificate number to be used in the record and select the jurisdiction which you are generating a record from.
+          </div>
+        </div>
+      </h2>
+      <div
+        className="p-b-15"
+      />
+      <div
+        className="ui fluid input"
+      >
+        <input
+          defaultValue="1"
+          onChange={[Function]}
+          placeholder="Enter Certificate Number"
+          type="number"
+        />
+      </div>
+      <div
+        className="p-b-15"
+      />
+      <div
+        aria-expanded={false}
+        className="ui fluid search selection dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        role="combobox"
+      >
+        <input
+          aria-autocomplete="list"
+          autoComplete="off"
+          className="search"
+          onChange={[Function]}
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+          tabIndex={0}
+          type="text"
+          value=""
+        />
+        <div
+          aria-atomic={true}
+          aria-live="polite"
+          className="divider default text"
+          role="alert"
+        >
+          Select Jurisdiction
+        </div>
+        <i
+          aria-hidden="true"
+          className="dropdown icon"
+          onClick={[Function]}
+        />
+        <div
+          className="menu transition"
+          role="listbox"
+        >
+          <div
+            aria-checked={false}
+            aria-selected={true}
+            className="selected item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Alabama
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Alaska
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Arizona
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Arkansas
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              American Samoa
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              California
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Colorado
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Commonwealth of Northern Mariana Islands
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Connecticut
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Delaware
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              District of Columbia
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Florida
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Georgia
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Guam
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Hawaii
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Idaho
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Illinois
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Indiana
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Iowa
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Kansas
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Kentucky
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Louisiana
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Maine
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Maryland
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Massachusetts
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Michigan
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Minnesota
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Mississippi
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Missouri
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Montana
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Nebraska
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Nevada
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              New Hampshire
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              New Jersey
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              New Mexico
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              New York
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              New York City
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              North Carolina
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              North Dakota
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Ohio
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Oklahoma
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Oregon
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Pennsylvania
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Puerto Rico
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Rhode Island
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              South Carolina
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              South Dakota
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Tennessee
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Texas
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Utah
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              U.S. Virgin Islands
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Vermont
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Virginia
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Washington
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              West Virginia
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Wisconsin
+            </span>
+          </div>
+          <div
+            aria-checked={false}
+            aria-selected={false}
+            className="item"
+            onClick={[Function]}
+            role="option"
+            style={
+              Object {
+                "pointerEvents": "all",
+              }
+            }
+          >
+            <span
+              className="text"
+            >
+              Wyoming
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
