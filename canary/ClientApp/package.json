@@ -1,6 +1,6 @@
 {
   "name": "canary",
-  "version": "4.0.0-preview6",
+  "version": "4.0.3",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
@@ -28,7 +28,7 @@
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom -u",
     "eject": "react-scripts eject",
     "postinstall": "semantic-ui-css-patch"
   },
