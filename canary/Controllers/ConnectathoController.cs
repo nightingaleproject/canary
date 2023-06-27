@@ -22,7 +22,7 @@ namespace canary.Controllers
         /// </summary>
         [HttpGet("Connectathon")]
         [HttpGet("Connectathon/Index")]
-        public DeathRecord[] GetTestConnectathonDeathRecords()
+        public DeathRecord[] Index()
         {
             return Connectathon.Records;
         }
