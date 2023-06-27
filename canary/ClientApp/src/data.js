@@ -73,6 +73,7 @@ export const messageTypeIcons = [
   // { key: 'acknowledgement', name: 'Acknowledgement', icon: 'thumbs up' },
   { key: 'update', name: 'Update', icon: 'redo' },
   { key: 'void', name: 'Void', icon: 'ban' },
+  { key: 'alias', name: 'Alias', icon: 'ban' },
 ];
 
 export const responseMessageTypeIcons = [

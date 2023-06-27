@@ -62,6 +62,9 @@ namespace canary.Models
                 case "Void": case "http://nchs.cdc.gov/vrdr_submission_void":
                     message = new DeathRecordVoidMessage(dr);
                     break;
+                case "Alias": case "http://nchs.cdc.gov/vrdr_alias":
+                    message = new DeathRecordAliasMessage(dr);
+                    break;
                 default:
                     throw new ArgumentException($"The given message type {type} is not valid.", "type");
             }
@@ -150,6 +153,8 @@ namespace canary.Models
                     result.Add("TRX", trxMsg);
                     break;
                 case "Void": case "http://nchs.cdc.gov/vrdr_submission_void":
+                    break;
+                case "Alias":
                     break;
                 default:
                     throw new ArgumentException($"The given message type {type} is not valid.", "type");
