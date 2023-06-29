@@ -38,8 +38,8 @@ export default class App extends Component {
     return (
       <Layout>
         <Routes>
-          <Route exact path="/" element={<Dashboard/>} />
-          <Route path="recent-tests" element={<RecentTests/>}/>
+          <Route exact path="/" element={<Dashboard />} />
+          <Route path="recent-tests" element={<RecentTests />} />
           <Route path="test-fhir-consuming">
             <Route index element={<FHIRConsumingParams />} />
             <Route path=":id" element={<FHIRConsumingParams />} />
@@ -64,17 +64,17 @@ export default class App extends Component {
             <Route index element={<EDRSRoundtripProducingParams />} />
             <Route path=":id" element={<EDRSRoundtripProducingParams />} />
           </Route>
-          <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing/>} />
-          <Route path="test-connectathon-dash/:type" element={<ConnectathonDashboardParams/>} />
-          <Route path="test-connectathon/:id" element={<ConnectathonParams/>} />
-          <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducingParams/>} />
-          <Route path="tool-fhir-inspector" element={<FHIRInspector/>} />
-          <Route path="tool-fhir-creator" element={<FHIRCreator/>} />
-          <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker/>} />
-          <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker/>} />
-          <Route path="tool-ije-inspector" element={<IJEInspector/>} />
-          <Route path="tool-record-converter" element={<RecordConverter/>} />
-          <Route path="tool-record-generator" element={<RecordGenerator/>} />
+          <Route path="test-fhir-ije-validator-producing" element={<FHIRIJEValidatorProducing />} />
+          <Route path="test-connectathon-dash/:type" element={<ConnectathonDashboardParams />} />
+          <Route path="test-connectathon/:id" element={<ConnectathonParams />} />
+          <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducingParams />} />
+          <Route path="tool-fhir-inspector" element={<FHIRInspector />} />
+          <Route path="tool-fhir-creator" element={<FHIRCreator />} />
+          <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker />} />
+          <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker />} />
+          <Route path="tool-ije-inspector" element={<IJEInspector />} />
+          <Route path="tool-record-converter" element={<RecordConverter />} />
+          <Route path="tool-record-generator" element={<RecordGenerator />} />
         </Routes>
       </Layout>
     );
@@ -90,7 +90,7 @@ const addParams = WrappedComponent => () => {
   const params = useParams();
   return (
     <WrappedComponent
-      params = {params}
+      params={params}
     />
   );
 };

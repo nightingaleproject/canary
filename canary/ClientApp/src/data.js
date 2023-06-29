@@ -81,17 +81,3 @@ export const responseMessageTypeIcons = [
   { key: 'mre', name: 'MRE', icon: 'exchange' },
   { key: 'error', name: 'Error', icon: 'ban' },
 ];
-
-export const connectathonRecordNames = {
-  "1": "Hypoxemia",
-  "2": "Hepatorenal Syndrome",
-  "3": "Pending"
-}
-
-export const connectathonRecordCertificateNumbers = {
-  "1": "1",
-  "2": "2",
-  "3": "3",
-  "4": "4",
-  "5": "5"
-}

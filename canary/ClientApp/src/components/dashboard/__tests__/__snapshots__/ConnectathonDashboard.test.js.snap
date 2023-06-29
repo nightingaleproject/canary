@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  className="ui centered one column grid"
+>
+  <div
+    className="fifteen wide column"
+  >
+    <div
+      className="ui container p-b-50"
+    >
+      <div
+        className="ui horizontal divider"
+      >
+        <h2
+          className="ui header"
+        >
+          <i
+            aria-hidden="true"
+            className="clipboard list icon"
+            onClick={[Function]}
+          />
+          Connectathon 
+          message
+           testing
+        </h2>
+      </div>
+      <div
+        className="ui items m-h-30"
+      />
+    </div>
+  </div>
+</div>
+`;
