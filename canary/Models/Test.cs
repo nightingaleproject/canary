@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Hl7.Fhir.Serialization;
 using Hl7.FhirPath;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using VRDR;
 
 namespace canary.Models
@@ -59,13 +60,15 @@ namespace canary.Models
 
         public Test Run(string description)
         {
-            if(Type.Contains("Message")) {
+            if (Type.Contains("Message"))
+            {
                 TestMessage = new Message(description);
-                Results = MessageCompare();
+                Results = JsonConvert.SerializeObject(MessageCompare());
             }
-            else {
+            else
+            {
                 TestRecord = new Record(DeathRecord.FromDescription(description));
-                Results = RecordCompare();
+                Results = JsonConvert.SerializeObject(RecordCompare());
             }
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
@@ -75,24 +78,25 @@ namespace canary.Models
         public Test Run(DeathRecord record)
         {
             TestRecord = new Record(record);
-            RecordCompare();
+            Results = JsonConvert.SerializeObject(RecordCompare());
             CompletedDateTime = DateTime.Now;
             CompletedBool = true;
             return this;
         }
 
-        public string MessageCompare()
+        public Dictionary<string, Dictionary<string, dynamic>> MessageCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
             BaseMessage bundle = TestMessage.GetMessage();
             DeathRecord record = ReferenceRecord.GetRecord();
             BaseMessage referenceBundle = new Message(ReferenceRecord, bundle.MessageType).GetMessage();
+            // 
             // On the frontend this shares the same view as the RecordCompare below. This heading
             // is shown above the results in the app.
             string heading = "Message Validation Results";
             description.Add(heading, new Dictionary<string, dynamic>());
             Dictionary<string, dynamic> category = description[heading];
-            foreach(PropertyInfo property in bundle.GetType().GetProperties())
+            foreach (PropertyInfo property in bundle.GetType().GetProperties())
             {
                 // Add the new property to the category
                 category[property.Name] = new Dictionary<string, dynamic>();
@@ -109,10 +113,17 @@ namespace canary.Models
                     DeathRecord extracted = (DeathRecord)property.GetValue(bundle);
                     TestRecord = new Record(extracted);
                     int previousIncorrect = Incorrect;
-                    category[property.Name]["SnippetJSON"] = RecordCompare();
-                    // See if the value of Incorrect changed in 'RecordCompare' and use that to determine if the
-                    // Record matches or not.
-                    category[property.Name]["Match"] = previousIncorrect.Equals(Incorrect) ? "true" : "false";
+                    // Add the record comparison results to the message comparison results
+                    Dictionary<string, Dictionary<string, dynamic>> recordCompare = RecordCompare();
+                    foreach (KeyValuePair<string, Dictionary<string, dynamic>> entry in recordCompare)
+                    {
+                        description.Add(entry.Key, entry.Value);
+                    }
+                    category.Remove(property.Name);
+                    //category[property.Name]["SnippetJSON"] = JsonConvert.SerializeObject(recordCompare);
+                    // // See if the value of Incorrect changed in 'RecordCompare' and use that to determine if the
+                    // // Record matches or not.
+                    // category[property.Name]["Match"] = previousIncorrect.Equals(Incorrect) ? "true" : "false";                    
                 }
                 else if (Message.validatePresenceOnly(property.Name))
                 {
@@ -129,7 +140,24 @@ namespace canary.Models
                     // Using == here seems to be checking ReferenceEquals and not Equals, causing the equality to return false.
                     // Calling Prop1.Equals(Prop2) here raises an error if the value is null in the ReferenceBundle.
                     // The best option here is to just use the object.Equals operator.
-                    if (Equals(property.GetValue(referenceBundle), property.GetValue(bundle)))
+                    // JToken.DeepEquals(property.GetValue(referenceBundle), property.GetValue(bundle)))
+
+                    // if (Equals(property.GetValue(referenceBundle), property.GetValue(bundle)))
+
+                    var a = property.GetValue(referenceBundle);
+                    var b = property.GetValue(bundle);
+
+                    if (a == null && b == null)
+                    {
+                        MarkCorrect();
+                        category[property.Name]["Match"] = "true";
+                    }
+                    else if (a == null || b == null)
+                    {
+                        MarkIncorrect();
+                        category[property.Name]["Match"] = "false";
+                    }
+                    else if (JToken.DeepEquals(JToken.FromObject(a), JToken.FromObject(b)))
                     {
                         MarkCorrect();
                         category[property.Name]["Match"] = "true";
@@ -141,13 +169,14 @@ namespace canary.Models
                     }
                 }
             }
-            return JsonConvert.SerializeObject(description);
+
+            return description;
         }
 
-        public string RecordCompare()
+        public Dictionary<string, Dictionary<string, dynamic>> RecordCompare()
         {
             Dictionary<string, Dictionary<string, dynamic>> description = new Dictionary<string, Dictionary<string, dynamic>>();
-            foreach(PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>().Priority))
+            foreach (PropertyInfo property in typeof(DeathRecord).GetProperties().OrderBy(p => p.GetCustomAttribute<Property>().Priority))
             {
                 // Grab property annotation for this property
                 Property info = property.GetCustomAttribute<Property>();
@@ -189,7 +218,7 @@ namespace canary.Models
                         // Make sure to grab all of the Conditions for COD
                         string xml = "";
                         string json = "";
-                        foreach(var match in matches)
+                        foreach (var match in matches)
                         {
                             xml += match.ToXml();
                             json += match.ToJson() + ",";
@@ -212,9 +241,9 @@ namespace canary.Models
                         {
                             category[property.Name]["SnippetXML"] = "";
                         }
-                         Dictionary<string, dynamic> jsonRoot =
-                            JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(matches.First().ToJson(),
-                                new JsonSerializerSettings() { DateParseHandling = DateParseHandling.None });
+                        Dictionary<string, dynamic> jsonRoot =
+                           JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(matches.First().ToJson(),
+                               new JsonSerializerSettings() { DateParseHandling = DateParseHandling.None });
                         if (jsonRoot != null && jsonRoot.Keys.Contains(path.Element))
                         {
                             category[property.Name]["SnippetJSON"] = "{" + $"\"{path.Element}\": \"{jsonRoot[path.Element]}\"" + "}";
@@ -247,7 +276,7 @@ namespace canary.Models
                         // Make sure to grab all of the Conditions for COD
                         string xml = "";
                         string json = "";
-                        foreach(var match in matchesTest)
+                        foreach (var match in matchesTest)
                         {
                             xml += match.ToXml();
                             json += match.ToJson() + ",";
@@ -270,9 +299,9 @@ namespace canary.Models
                         {
                             category[property.Name]["SnippetXMLTest"] = "";
                         }
-                         Dictionary<string, dynamic> jsonRoot =
-                            JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(matchesTest.First().ToJson(),
-                                new JsonSerializerSettings() { DateParseHandling = DateParseHandling.None });
+                        Dictionary<string, dynamic> jsonRoot =
+                           JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(matchesTest.First().ToJson(),
+                               new JsonSerializerSettings() { DateParseHandling = DateParseHandling.None });
                         if (jsonRoot != null && jsonRoot.Keys.Contains(pathTest.Element))
                         {
                             category[property.Name]["SnippetJSONTest"] = "{" + $"\"{pathTest.Element}\": \"{jsonRoot[pathTest.Element]}\"" + "}";
@@ -308,7 +337,7 @@ namespace canary.Models
 
                     // If this is a coded value, the comparison should be case sensitive
                     StringComparison caseSensitivity = StringComparison.OrdinalIgnoreCase;
-                    if(valueReference.ContainsKey("code"))
+                    if (valueReference.ContainsKey("code"))
                     {
                         caseSensitivity = StringComparison.Ordinal;
                     }
@@ -337,29 +366,40 @@ namespace canary.Models
                         }
                         // Check for match
                         if ((valueReference.ContainsKey(parameter.Key) && valueTest.ContainsKey(parameter.Key)) &&
-                            (String.Equals((string)valueReference[parameter.Key], (string)valueTest[parameter.Key], caseSensitivity))) {
+                            (String.Equals((string)valueReference[parameter.Key], (string)valueTest[parameter.Key], caseSensitivity)))
+                        {
                             // Equal
                             MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
-                        } else if ((valueReference.ContainsKey(parameter.Key) && valueTest.ContainsKey(parameter.Key)) &&
+                        }
+                        else if ((valueReference.ContainsKey(parameter.Key) && valueTest.ContainsKey(parameter.Key)) &&
                                     String.IsNullOrWhiteSpace((string)valueReference[parameter.Key]) &&
-                                    String.IsNullOrWhiteSpace((string)valueTest[parameter.Key])) {
+                                    String.IsNullOrWhiteSpace((string)valueTest[parameter.Key]))
+                        {
                             // Equal
                             MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
-                        } else if (!valueReference.ContainsKey(parameter.Key) && !valueTest.ContainsKey(parameter.Key)) {
+                        }
+                        else if (!valueReference.ContainsKey(parameter.Key) && !valueTest.ContainsKey(parameter.Key))
+                        {
                             // Both null, equal
                             MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
-                        } else if (!valueReference.ContainsKey(parameter.Key) || (valueReference.ContainsKey(parameter.Key) && String.IsNullOrWhiteSpace(valueReference[parameter.Key]))) {
+                        }
+                        else if (!valueReference.ContainsKey(parameter.Key) || (valueReference.ContainsKey(parameter.Key) && String.IsNullOrWhiteSpace(valueReference[parameter.Key])))
+                        {
                             // Source is empty, so no need to punish test
                             MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
-                        } else if (parameter.Key == "display" && (!valueTest.ContainsKey(parameter.Key) || String.IsNullOrWhiteSpace(valueTest[parameter.Key]))) {
+                        }
+                        else if (parameter.Key == "display" && (!valueTest.ContainsKey(parameter.Key) || String.IsNullOrWhiteSpace(valueTest[parameter.Key])))
+                        {
                             // Test record had nothing for display, equal
                             MarkCorrect();
                             moreInfo[parameter.Key]["Match"] = "true";
-                        } else {
+                        }
+                        else
+                        {
                             // Not equal
                             MarkIncorrect();
                             moreInfo[parameter.Key]["Match"] = "false";
@@ -382,13 +422,15 @@ namespace canary.Models
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
-                        else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord()))) {
+                        else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord())))
+                        {
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
                         else if (!String.IsNullOrWhiteSpace((string)property.GetValue(TestRecord.GetRecord())) &&
                                    !String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord())) &&
-                                   ((string)property.GetValue(TestRecord.GetRecord())).ToLower().Contains(((string)property.GetValue(ReferenceRecord.GetRecord())).ToLower())) {
+                                   ((string)property.GetValue(TestRecord.GetRecord())).ToLower().Contains(((string)property.GetValue(ReferenceRecord.GetRecord())).ToLower()))
+                        {
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
@@ -407,7 +449,8 @@ namespace canary.Models
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
-                        else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord()))) {
+                        else if (String.IsNullOrWhiteSpace((string)property.GetValue(ReferenceRecord.GetRecord())))
+                        {
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
@@ -462,7 +505,7 @@ namespace canary.Models
                                     category[property.Name]["Match"] = "true";
                                 }
                                 else
-                                {                                    
+                                {
                                     MarkIncorrect();
                                     category[property.Name]["Match"] = "false";
                                 }
@@ -486,7 +529,8 @@ namespace canary.Models
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
-                        else if (property.GetValue(ReferenceRecord.GetRecord()) == null) {
+                        else if (property.GetValue(ReferenceRecord.GetRecord()) == null)
+                        {
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
@@ -583,7 +627,8 @@ namespace canary.Models
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
-                        else if (property.GetValue(ReferenceRecord.GetRecord()) == null) {
+                        else if (property.GetValue(ReferenceRecord.GetRecord()) == null)
+                        {
                             MarkCorrect();
                             category[property.Name]["Match"] = "true";
                         }
@@ -595,7 +640,7 @@ namespace canary.Models
                     }
                 }
             }
-            return JsonConvert.SerializeObject(description);
+            return description;
         }
 
         private void MarkCorrect()

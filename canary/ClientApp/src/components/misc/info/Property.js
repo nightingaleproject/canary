@@ -86,7 +86,7 @@ export class Property extends Component {
           error={error}
         />
       );
-    } else if (type === 'StringArr') {
+    } else if (type === 'StringArr' || type === 'List`1') {
       return (
         <StringArrType
           key={`${this.props.name}${JSON.stringify(value)}`} // Key ensures re-render if value changes
