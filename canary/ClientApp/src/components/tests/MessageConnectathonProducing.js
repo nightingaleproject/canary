@@ -211,7 +211,7 @@ export class MessageConnectathonProducing extends Component {
                 </Statistic.Group>
                 <Grid centered columns={1} className="p-t-30 p-b-15">
                   <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
-                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(JSON.stringify(this.state.test["results"]), 'json')}><Icon name='download' />Generate Downloadable Report Data</Button>
+                  <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(JSON.stringify(this.state.test["results"]), 'json')}><Icon name='download' />Download Test Result Data</Button>
                 </Grid>
                 <div className="p-b-20" />
                 <Form size="large">
