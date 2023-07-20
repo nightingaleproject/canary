@@ -19,7 +19,7 @@ namespace canary.Models
             { "MessageId", "The Message Identifier" },
             { "MessageType", "The NCHS Message Type" },
             { "MessageSource", "The Jurisdiction Message Source" },
-            { "MessageDestination", "The NCHS Message Endpoint" },
+            { "MessageDestinations", "The NCHS Message Endpoints" },
             { "CertificateNumber", "Death Certificate Number (DeathRecord Identifier)" },
             { "StateAuxiliaryIdentifier", "Auxiliary State File Number (DeathRecord BundleIdentifier)" },
             { "NCHSIdentifier", "The NCHS compound identifier for the supplied DeathRecord" },

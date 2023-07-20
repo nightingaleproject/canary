@@ -95,10 +95,18 @@ export class Connectathon extends Component {
     });
   }
 
-  downloadAsFile(contents) {
+  downloadAsFile(contents, type = 'html') {
+    var ext = 'html';
+    var encoding = 'text/html;charset=utf-8';
+
+    if (type === 'json') {
+      ext = 'json';
+      encoding = 'application/json;charset=utf-8';
+    }
+
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents));
-    element.setAttribute('download', `canary-report-${this.connectathonRecordName(this.props.params.id).toLowerCase()}-${new Date().getTime()}.html`);
+    element.setAttribute('href', `data:${encoding},` + encodeURIComponent(contents));
+    element.setAttribute('download', `canary-report-${this.connectathonRecordName(this.props.params.id).toLowerCase()}-${new Date().getTime()}.${ext}`);
     element.click();
   }
 
@@ -144,6 +152,7 @@ export class Connectathon extends Component {
               </Statistic.Group>
               <Grid centered columns={1} className="p-t-30 p-b-15">
                 <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(report(this.state.test, this.connectathonRecordName(this.props.params.id)))}><Icon name='download' />Generate Downloadable Report</Button>
+                <Button icon labelPosition='left' primary onClick={() => this.downloadAsFile(JSON.stringify(this.state.test["results"]), 'json')}><Icon name='download' />Download Test Result Data</Button>
               </Grid>
               <div className="p-b-20" />
               <Form size="large">
