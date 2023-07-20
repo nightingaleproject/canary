@@ -36,7 +36,7 @@ namespace canary.Models
 
         public int MessageId { get; set; }
 
-        public Message() {}
+        public Message() { }
 
         public Message(string message)
         {
@@ -53,14 +53,21 @@ namespace canary.Models
             DeathRecord dr = record.GetRecord();
             switch (type)
             {
-                case "Submission": case "http://nchs.cdc.gov/vrdr_submission":
+                case "Submission":
+                case "http://nchs.cdc.gov/vrdr_submission":
                     message = new DeathRecordSubmissionMessage(dr);
                     break;
-                case "Update": case "http://nchs.cdc.gov/vrdr_submission_update":
+                case "Update":
+                case "http://nchs.cdc.gov/vrdr_submission_update":
                     message = new DeathRecordUpdateMessage(dr);
                     break;
-                case "Void": case "http://nchs.cdc.gov/vrdr_submission_void":
+                case "Void":
+                case "http://nchs.cdc.gov/vrdr_submission_void":
                     message = new DeathRecordVoidMessage(dr);
+                    break;
+                case "Alias":
+                case "http://nchs.cdc.gov/vrdr_alias":
+                    message = new DeathRecordAliasMessage(dr);
                     break;
                 default:
                     throw new ArgumentException($"The given message type {type} is not valid.", "type");
@@ -106,7 +113,10 @@ namespace canary.Models
 
             switch (type)
             {
-                case "Submission": case "http://nchs.cdc.gov/vrdr_submission": case "Update": case "http://nchs.cdc.gov/vrdr_submission_update":
+                case "Submission":
+                case "http://nchs.cdc.gov/vrdr_submission":
+                case "Update":
+                case "http://nchs.cdc.gov/vrdr_submission_update":
                     DeathRecordSubmissionMessage drsm = message as DeathRecordSubmissionMessage;
                     if (drsm == null)
                     {
@@ -119,13 +129,13 @@ namespace canary.Models
 
                     // Create the race coding
                     mre.DeathRecord.FirstEditedRaceCodeHelper = "500";
-                    mre.DeathRecord.SecondAmericanIndianRaceCodeHelper = "A09";;
+                    mre.DeathRecord.SecondAmericanIndianRaceCodeHelper = "A09"; ;
 
                     Message mreMsg = new Message(mre);
                     result.Add("MRE", mreMsg);
 
                     CauseOfDeathCodingMessage trx = new CauseOfDeathCodingMessage(drsm.DeathRecord);
-                    
+
                     // Create the cause of death coding
                     trx.DeathRecord.AutomatedUnderlyingCOD = "A04.7";
 
@@ -149,11 +159,14 @@ namespace canary.Models
                     Message trxMsg = new Message(trx);
                     result.Add("TRX", trxMsg);
                     break;
-                case "Void": case "http://nchs.cdc.gov/vrdr_submission_void":
+                case "Void":
+                case "http://nchs.cdc.gov/vrdr_submission_void":
+                case "Alias":
+                case "http://nchs.cdc.gov/vrdr_alias":
                     break;
                 default:
                     throw new ArgumentException($"The given message type {type} is not valid.", "type");
-            }     
+            }
             return result;
 
         }

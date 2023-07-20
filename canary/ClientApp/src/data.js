@@ -62,6 +62,7 @@ export const messageTypes = {
   "http://nchs.cdc.gov/vrdr_submission": "Submission",
   "http://nchs.cdc.gov/vrdr_submission_update": "Update",
   "http://nchs.cdc.gov/vrdr_acknowledgement": "Acknowledgement",
+  "http://nchs.cdc.gov/vrdr_alias": "Alias",
   "http://nchs.cdc.gov/vrdr_submission_void": "Void",
   "http://nchs.cdc.gov/vrdr_coding": "Coding",
   "http://nchs.cdc.gov/vrdr_coding_update": "Coding Update",
@@ -72,6 +73,7 @@ export const messageTypeIcons = [
   { key: 'submission', name: 'Submission', icon: 'paper plane' },
   // { key: 'acknowledgement', name: 'Acknowledgement', icon: 'thumbs up' },
   { key: 'update', name: 'Update', icon: 'redo' },
+  { key: 'alias', name: 'Alias', icon: 'at' },
   { key: 'void', name: 'Void', icon: 'ban' },
 ];
 
