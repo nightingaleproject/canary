@@ -1,0 +1,7 @@
+<Project>
+    <PropertyGroup>
+        <Version>4.0.4</Version>
+        <ProjectUrl>https://github.com/nightingaleproject/canary</ProjectUrl>
+        <RepositoryUrl>https://github.com/nightingaleproject/canary</RepositoryUrl>
+    </PropertyGroup>
+</Project>
