@@ -5,7 +5,13 @@
 
 ### Features
 
+* add support for ALIAS messages (#151) ([f8ddf6e](https://www.github.com/nightingaleproject/canary/commit/f8ddf6e7d5f866c557b4691bb136025f690b1781))
 * get Connectathon record details from API (#150) ([4d90711](https://www.github.com/nightingaleproject/canary/commit/4d90711a57fb436d7badfb4bf795be1b1ccbda82))
+* **ui:** default JSON record type ([00798af](https://www.github.com/nightingaleproject/canary/commit/00798af2fc1b17d7c990becdf52481645aa48edc))
+
+### Bug Fixes
+
+* show record errors when testing messages (#154) ([89b7a0c](https://www.github.com/nightingaleproject/canary/commit/89b7a0cd73aa61da20c058eed56ead5994505176))
 
 ## 4.0.3
 
