@@ -16,7 +16,7 @@ export class Navigation extends Component {
             <span className="p-l-5">
               Canary Testing Framework
               <small>
-                {window.VERSION} ({window.VERSION_DATE})
+                {window.VERSION} ({window.VERSION_DATE}) | VRDR {window.VRDR_VERSION} ({window.VRDR_VERSION_DATE}); 
               </small>
             </span>
           </Menu.Item>
