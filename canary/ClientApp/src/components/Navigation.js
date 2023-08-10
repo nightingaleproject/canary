@@ -15,8 +15,10 @@ export class Navigation extends Component {
             <FontAwesomeIcon icon={faFeatherAlt} size="lg" fixedWidth />
             <span className="p-l-5">
               Canary Testing Framework
+            </span>
+            <span className="p-l-5">
               <small>
-                {window.VERSION} ({window.VERSION_DATE})
+                {window.VERSION}; VRDR {window.VRDR_VERSION}
               </small>
             </span>
           </Menu.Item>
