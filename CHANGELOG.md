@@ -1,5 +1,20 @@
 ## Change Log
 
+<a name="4.0.5"></a>
+## [4.0.5](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.5) (2023-8-10)
+
+### Other
+
+* add dependabot (#160) ([b02b46f](https://www.github.com/nightingaleproject/canary/commit/b02b46feff83b5254b5b02a86070d8cb13915ced))
+* bump coverlet.collector from 1.2.0 to 6.0.0 (#162) ([1ffab17](https://www.github.com/nightingaleproject/canary/commit/1ffab17fe544abff467aba7e1d540ef9a1ad4817))
+* bump Microsoft.EntityFrameworkCore.Design from 6.0.5 to 7.0.9 (#161) ([e2a6e6b](https://www.github.com/nightingaleproject/canary/commit/e2a6e6b40908932b192ee1d400b4bd3c4068c813))
+* bump Microsoft.EntityFrameworkCore.Sqlite from 6.0.5 to 7.0.10 (#173) ([642ad5c](https://www.github.com/nightingaleproject/canary/commit/642ad5c78c7bfac237d1f8bece27370c844c11ca))
+* bump Microsoft.NET.Test.Sdk from 16.5.0 to 17.6.3 (#163) ([6e94f02](https://www.github.com/nightingaleproject/canary/commit/6e94f023a5c35cd87d8da333ae70759a403ddf1a))
+* bump Microsoft.NET.Test.Sdk from 17.6.3 to 17.7.0 (#169) ([78fb99b](https://www.github.com/nightingaleproject/canary/commit/78fb99b256be3de245547be342ea68fdfcbeb32d))
+* bump VRDR.Messaging from 4.0.10 to 4.1.2 (#167) ([4d98a5c](https://www.github.com/nightingaleproject/canary/commit/4d98a5c7573cb2c2807134fb212caaf338a2a38b))
+* bump xunit from 2.4.0 to 2.5.0 (#168) ([742ef32](https://www.github.com/nightingaleproject/canary/commit/742ef32eca74f7ed087927942fba345dc5dfd9b5))
+* update Canary and VRDR version in header (#174) ([a182a7f](https://www.github.com/nightingaleproject/canary/commit/a182a7fe979df3e5302687e4a824e400f014b11a))
+
 <a name="4.0.4"></a>
 ## [4.0.4](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.4) (2023-7-20)
 
