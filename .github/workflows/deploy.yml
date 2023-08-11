@@ -1,4 +1,4 @@
-name: Deploy reference implementation
+name: Deploy reference site to Azure
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  commitlint:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
