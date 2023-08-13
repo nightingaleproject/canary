@@ -1,9 +1,20 @@
 name: Deploy reference site to Azure
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [master]
+  release:
+    types: [published]
   workflow_dispatch:
+    inputs:
+      deployLevel:
+        description: 'Deployment level'
+        required: true
+        default: latest
+        type: choice
+        options:
+          - latest
+          - release
 
 jobs:
   deploy:
@@ -14,7 +25,8 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.CTENVSSCANARY_AZURE_CREDENTIALS }}
-      - name: Build and push container image to registry
+      - name: Build and push LATEST container image
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && deployLevel.target == 'latest') }}
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }} 
@@ -22,6 +34,17 @@ jobs:
           registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
           containerAppName: nvss-canary-staging
+          resourceGroup: CTE_NVSS
+          imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary-staging:${{ github.sha }}
+      - name: Build and push RELEASE container image
+        if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && deployLevel.target == 'release') }}
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: ctenvss20221223092705.azurecr.io
+          registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
+          containerAppName: nvss-canary
           resourceGroup: CTE_NVSS
           imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary-staging:${{ github.sha }}
           
