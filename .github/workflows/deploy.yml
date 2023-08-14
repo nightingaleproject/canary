@@ -7,7 +7,7 @@ on:
     types: [published]
   workflow_dispatch:
     inputs:
-      deployLevel:
+      deploy_level:
         description: 'Deployment level'
         required: true
         default: latest
@@ -26,7 +26,7 @@ jobs:
         with:
           creds: ${{ secrets.CTENVSSCANARY_AZURE_CREDENTIALS }}
       - name: Build and push LATEST container image
-        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && deployLevel.target == 'latest') }}
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'latest') }}
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }} 
@@ -37,7 +37,7 @@ jobs:
           resourceGroup: CTE_NVSS
           imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary-staging:${{ github.sha }}
       - name: Build and push RELEASE container image
-        if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && deployLevel.target == 'release') }}
+        if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'release') }}
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }} 
