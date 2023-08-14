@@ -1,0 +1,50 @@
+name: Deploy reference site to Azure
+
+on:
+  push:
+    branches: [master]
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      deploy_level:
+        description: 'Deployment level'
+        required: true
+        default: latest
+        type: choice
+        options:
+          - latest
+          - release
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.CTENVSSCANARY_AZURE_CREDENTIALS }}
+      - name: Build and push LATEST container image
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'latest') }}
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: ctenvss20221223092705.azurecr.io
+          registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
+          containerAppName: nvss-canary-staging
+          resourceGroup: CTE_NVSS
+          imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary-staging:${{ github.sha }}
+      - name: Build and push RELEASE container image
+        if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.deploy_level == 'release') }}
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: ctenvss20221223092705.azurecr.io
+          registryUsername: ${{ secrets.CTENVSSCANARY_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CTENVSSCANARY_REGISTRY_PASSWORD }}
+          containerAppName: nvss-canary
+          resourceGroup: CTE_NVSS
+          imageToBuild: ctenvss20221223092705.azurecr.io/nvss-canary:${{ github.sha }}
+          
