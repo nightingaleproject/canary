@@ -1,5 +1,14 @@
 ## Change Log
 
+<a name="4.0.6"></a>
+## [4.0.6](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.6) (2023-8-14)
+
+### Other
+
+* bump Microsoft.EntityFrameworkCore.Design from 7.0.9 to 7.0.10 (#176) ([d4072fe](https://www.github.com/nightingaleproject/canary/commit/d4072fe2707ec5b8d0cf5ab1222d299fd2cd1a40))
+* bump xunit.runner.visualstudio from 2.4.0 to 2.5.0 (#175) ([e3b3308](https://www.github.com/nightingaleproject/canary/commit/e3b3308919377d9a9e609723e55cb581c385e744))
+* deploy reference site (#177) ([179b9ef](https://www.github.com/nightingaleproject/canary/commit/179b9efd3dac71c193b5a24b588ea198d6d00619))
+
 <a name="4.0.5"></a>
 ## [4.0.5](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.5) (2023-8-10)
 
