@@ -1,5 +1,12 @@
 ## Change Log
 
+<a name="4.0.7"></a>
+## [4.0.7](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.7) (2023-8-15)
+
+### Other
+
+* bump VRDR.Messaging from 4.1.3 to 4.1.4 (#179) ([938b9c9](https://www.github.com/nightingaleproject/canary/commit/938b9c9d7ecc95b1681f6844e449ad1cc4d1675d))
+
 <a name="4.0.6"></a>
 ## [4.0.6](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.6) (2023-8-14)
 
