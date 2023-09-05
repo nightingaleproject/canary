@@ -21,7 +21,7 @@ namespace canary.tests
 
             // Assert
             var deathRecordArray = Assert.IsType<DeathRecord[]>(result);
-            Assert.Equal(3, result.Length);
+            Assert.Equal(4, result.Length);
         }
     }
 }
