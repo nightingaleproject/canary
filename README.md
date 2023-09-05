@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nightingaleproject/canary.svg?branch=master)](https://travis-ci.org/nightingaleproject/canary)
+[![Build Status](https://github.com/nightingaleproject/canary/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/nightingaleproject/canary/actions/workflows/run-tests.yml)
 
 ## Canary EDRS Testing Framework
 
