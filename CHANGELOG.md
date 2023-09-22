@@ -1,5 +1,18 @@
 ## Change Log
 
+<a name="4.0.8"></a>
+## [4.0.8](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.8) (2023-09-22)
+
+### Other
+
+* add 4th test case (#185) ([81a85fd](https://www.github.com/nightingaleproject/canary/commit/81a85fdb35e0feb3c7b5823ae996d9d9cd9db97a))
+* bump Microsoft.EntityFrameworkCore.Design from 7.0.10 to 7.0.11 (#188) ([f65e53a](https://www.github.com/nightingaleproject/canary/commit/f65e53ab584155a2411448307b84e031ef37cac1))
+* bump Microsoft.EntityFrameworkCore.Sqlite from 7.0.10 to 7.0.11 (#186) ([b421cc5](https://www.github.com/nightingaleproject/canary/commit/b421cc5d734faefb0a61a1aba110198f99ac77f4))
+* bump Microsoft.NET.Test.Sdk from 17.7.0 to 17.7.2 (#184) ([a5621f2](https://www.github.com/nightingaleproject/canary/commit/a5621f2a816030f7d55c9d608ea161ac80354297))
+* bump xunit.runner.visualstudio from 2.5.0 to 2.5.1 (#191) ([ab3f5d7](https://www.github.com/nightingaleproject/canary/commit/ab3f5d712baed21211456166a15bede1e36cf2c5))
+* publish tags with each version bump (#181) ([19a894c](https://www.github.com/nightingaleproject/canary/commit/19a894c765d33c1b725ccf1672fa964b30727dfe))
+* update version notes ([0f9e739](https://www.github.com/nightingaleproject/canary/commit/0f9e739c09374c506a11caccaf00d1ce372ffc15))
+
 <a name="4.0.7"></a>
 ## [4.0.7](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.7) (2023-8-15)
 
