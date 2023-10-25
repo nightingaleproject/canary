@@ -219,6 +219,10 @@ namespace canary.Models
             }
 
             var jsonData = JsonObject.Parse(record.Json);
+            if(jsonData["type"] == null)
+            {
+                throw new Exception("No type key in JSON data");
+            }
             string payloadType = jsonData["type"].ToString();
             if (!acceptedPayloadTypes.Contains(payloadType))
             {
