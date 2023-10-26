@@ -1,5 +1,19 @@
 ## Change Log
 
+<a name="4.0.9"></a>
+## [4.0.9](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.9) (2023-10-26)
+
+### Bug Fixes
+
+* adding check against payload type (#201) ([41dbf19](https://www.github.com/nightingaleproject/canary/commit/41dbf190d71999bc9250742c7e4301903d68e4f7))
+
+### Other
+
+* bump Microsoft.EntityFrameworkCore.Design from 7.0.11 to 7.0.13 (#202) ([1210317](https://www.github.com/nightingaleproject/canary/commit/1210317eece0e8461e4ee5ec5531547e32ad0d91))
+* bump Microsoft.EntityFrameworkCore.Sqlite from 7.0.11 to 7.0.13 (#204) ([e51c514](https://www.github.com/nightingaleproject/canary/commit/e51c514e1be2fb6ba011f3d844a0a2c6eeac9959))
+* bump versions ([3782b88](https://www.github.com/nightingaleproject/canary/commit/3782b889a39c45ccaa5ce999b5d7bc4e6230a55b))
+* bump xunit from 2.5.0 to 2.5.3 (#199) ([aba49d9](https://www.github.com/nightingaleproject/canary/commit/aba49d9880a5d3ad9f723a548611a189e52560b0))
+
 <a name="4.0.8"></a>
 ## [4.0.8](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.8) (2023-09-22)
 
