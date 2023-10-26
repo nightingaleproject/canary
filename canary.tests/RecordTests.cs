@@ -31,7 +31,6 @@ namespace canary.tests
         public void TestDocumentTypePayload()
         {
             var resultData = canary.Models.Record.CheckGet(documentTypePayload, true);
-            Assert.NotNull(resultData);
 
             StringBuilder issueList = new StringBuilder();
             foreach(var issue in resultData.issues)
@@ -39,14 +38,13 @@ namespace canary.tests
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }
 
-            Assert.False(issueList.ToString().Contains("error"));
+            Assert.DoesNotContain("error", issueList.ToString());
         }
 
         [Fact]
         public void TestNonDocumentTypePayload()
         {
             var resultData = canary.Models.Record.CheckGet(messageTypePayload, true);
-            Assert.NotNull(resultData);
 
             StringBuilder issueList = new StringBuilder();
             foreach (var issue in resultData.issues)
@@ -54,14 +52,13 @@ namespace canary.tests
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }
 
-            Assert.True(issueList.ToString().Contains("error"));
+            Assert.Contains("error", issueList.ToString());
 
         }
         [Fact]
         public void TestMissingTypePayload()
         {
             var resultData = canary.Models.Record.CheckGet(emptyTypePayload, true);
-            Assert.NotNull(resultData);
 
             StringBuilder issueList = new StringBuilder();
             foreach (var issue in resultData.issues)
@@ -69,7 +66,7 @@ namespace canary.tests
                 issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
             }
 
-            Assert.True(issueList.ToString().Contains("error"));
+            Assert.Contains("error", issueList.ToString()); 
         }
         private string FixturePath(string filePath)
         {
