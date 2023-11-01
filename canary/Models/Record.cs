@@ -5,12 +5,13 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using VRDR;
 using Newtonsoft.Json;
+using System.IO;
+using System.Text.Json.Nodes;
 
 namespace canary.Models
 {
     public class RecordContext : DbContext
     {
-
         public DbSet<Record> Records { get; set; }
 
         public DbSet<Endpoint> Endpoints { get; set; }
@@ -190,6 +191,7 @@ namespace canary.Models
                 // here and if it passes then the record is considered "safe" to return.
                 JsonConvert.SerializeObject(recordToSerialize);
                 newRecord = recordToSerialize;
+                validateRecordType(newRecord);
                 return (record: newRecord, issues: entries);
             }
             catch (Exception e)
@@ -205,6 +207,27 @@ namespace canary.Models
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
 
             return DecorateErrorsRecursive(e, entries);
+        }
+
+        private static void validateRecordType(Record record)
+        {
+            List<string> acceptedPayloadTypes = new List<string>() { "document" };  //Add to this with "document", "newtype", "etc"
+
+            if (String.IsNullOrWhiteSpace(record.Json))
+            {
+                return;
+            }
+
+            var jsonData = JsonObject.Parse(record.Json);
+            if(jsonData["type"] == null)
+            {
+                throw new Exception("No type key in JSON data");
+            }
+            string payloadType = jsonData["type"].ToString();
+            if (!acceptedPayloadTypes.Contains(payloadType))
+            {
+                throw new Exception("JSON input type not equal to " + string.Join(",", acceptedPayloadTypes.ToArray()));
+            }
         }
 
         private static List<Dictionary<string, string>> DecorateErrorsRecursive(Exception exception, List<Dictionary<string, string>> entries)
