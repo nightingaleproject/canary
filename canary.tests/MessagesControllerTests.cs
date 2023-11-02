@@ -50,6 +50,23 @@ namespace canary.tests
       Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function Parse."), issues);
     }
 
+    [Fact]
+    public void TestUnknownDescriptionMessageProperties()
+    {
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(FixturePath("fixtures/json/EmptyMessage.json"))));
+        var httpContext = new DefaultHttpContext()
+        {
+            Request = { Body = stream, ContentLength = stream.Length }
+        };
+        _messagesController.ControllerContext.HttpContext = httpContext;
+        var response = _messagesController.NewMessagePost();
+        var message = response.Result.message;
+        var issues = response.Result.issues[0];
+        Assert.Equal(2, issues.Count);
+        Assert.Contains(new KeyValuePair<string, string>("severity", "error"), issues);
+        Assert.Contains(new KeyValuePair<string, string>("message", "Failed to find a Bundle Entry containing a Resource of type MessageHeader. Error occurred at VRDR.BaseMessage in function Parse."), issues);
+    }
+
     private string FixturePath(string filePath)
     {
       if (Path.IsPathRooted(filePath))
