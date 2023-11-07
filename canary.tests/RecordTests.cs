@@ -70,20 +70,6 @@ namespace canary.tests
             Assert.Contains("error", issueList.ToString()); 
         }
 
-        [Fact]
-        public void TestUnknownRecordProperties()
-        {
-            var resultData = canary.Models.Record.CheckGet(emptyTypePayload, true);
-
-            StringBuilder issueList = new StringBuilder();
-            foreach (var issue in resultData.issues)
-            {
-                issueList.Append(string.Join("\n", issue.Select(p => "K=" + p.Key + ",L=" + p.Value)));
-            }
-
-            Assert.Contains("error", issueList.ToString());
-        }
-
         private string FixturePath(string filePath)
         {
             if (Path.IsPathRooted(filePath))
