@@ -55,6 +55,7 @@ namespace canary.tests
             Assert.Contains("error", issueList.ToString());
 
         }
+
         [Fact]
         public void TestMissingTypePayload()
         {
@@ -68,6 +69,7 @@ namespace canary.tests
 
             Assert.Contains("error", issueList.ToString()); 
         }
+
         private string FixturePath(string filePath)
         {
             if (Path.IsPathRooted(filePath))
