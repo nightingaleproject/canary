@@ -1,5 +1,24 @@
 ## Change Log
 
+<a name="4.0.10"></a>
+## [4.0.10](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.10) (2023-11-17)
+
+### Bug Fixes
+
+* adding description lookups ([#213](https://www.github.com/nightingaleproject/canary/issues/213)) ([805b77d](https://www.github.com/nightingaleproject/canary/commit/805b77d1da839e5cd6c0b11cf8d1476fc8e4a76c))
+
+### Other
+
+* bump @babel/traverse from 7.19.3 to 7.23.2 in /canary/ClientApp ([#200](https://www.github.com/nightingaleproject/canary/issues/200)) ([025cb42](https://www.github.com/nightingaleproject/canary/commit/025cb428b0f1b537f88b6b0d2aa291e34de7e138))
+* bump axios from 1.0.0 to 1.6.0 in /canary/ClientApp ([#215](https://www.github.com/nightingaleproject/canary/issues/215)) ([5a984cc](https://www.github.com/nightingaleproject/canary/commit/5a984cc4cc453c6493d4f697dd06cc8cd0119ac5))
+* bump Microsoft.NET.Test.Sdk from 17.7.2 to 17.8.0 ([#214](https://www.github.com/nightingaleproject/canary/issues/214)) ([b74d0de](https://www.github.com/nightingaleproject/canary/commit/b74d0de338a0f193a4d1fc0833c33370f3f4b7b7))
+* bump VRDR.Messaging from 4.1.5 to 4.1.7 ([#208](https://www.github.com/nightingaleproject/canary/issues/208)) ([8c533ed](https://www.github.com/nightingaleproject/canary/commit/8c533ed1b1ed6fe6d0c2bbc8127b0fec9eb25f84))
+* bump xunit from 2.5.3 to 2.6.1 ([#212](https://www.github.com/nightingaleproject/canary/issues/212)) ([e39bdb5](https://www.github.com/nightingaleproject/canary/commit/e39bdb529a73021305e5d48c085bb5353ae57a15))
+* bump xunit.runner.visualstudio from 2.5.1 to 2.5.3 ([#207](https://www.github.com/nightingaleproject/canary/issues/207)) ([0f6f247](https://www.github.com/nightingaleproject/canary/commit/0f6f2473c040a105aaed7b68b769280058ac1fd0))
+* update Dockerfile to use Node.js v20 ([#210](https://www.github.com/nightingaleproject/canary/issues/210)) ([46bcc00](https://www.github.com/nightingaleproject/canary/commit/46bcc00226586bd07099811b42b8bb4473187bc6))
+* use dotnet-ef 6.x to match framework target ([#221](https://www.github.com/nightingaleproject/canary/issues/221)) ([d27ef09](https://www.github.com/nightingaleproject/canary/commit/d27ef0911b3c8f3eba96fd1ceab7b27f305cfaac))
+* use net6 devcontainer ([#219](https://www.github.com/nightingaleproject/canary/issues/219)) ([0804222](https://www.github.com/nightingaleproject/canary/commit/0804222cb32f3f9be6bc5cc0eda5c3b027c2c92a))
+
 <a name="4.0.9"></a>
 ## [4.0.9](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.9) (2023-10-26)
 
