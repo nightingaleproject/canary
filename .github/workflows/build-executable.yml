@@ -14,7 +14,7 @@ jobs:
       uses: actions/setup-dotnet@v3
     - name: Setup Database
       run: |
-        dotnet tool install --global dotnet-ef
+        dotnet tool install --global dotnet-ef --version 6.*
         dotnet ef database update --project canary
     - name: Build self-contained Windows executable
       run: dotnet publish canary -r win-x64 -c ExeRelease -p:PublishSingleFile=true --self-contained
