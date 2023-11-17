@@ -10,9 +10,9 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 
 //window.API_URL = 'http://localhost:5000';
 window.API_URL = '';
-window.VERSION = '4.0.8';
+window.VERSION = '4.0.10';
 window.VERSION_DATE = 'August 15, 2023';
-window.VRDR_VERSION = '4.1.5';
+window.VRDR_VERSION = '4.1.8';
 window.VRDR_VERSION_DATE = 'August 15, 2023'; 
 
 const container = document.getElementById('root');
