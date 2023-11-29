@@ -162,6 +162,12 @@ export class Dashboard extends Component {
                   description="Create a valid FHIR Message for a user provided FHIR VRDR Record document."
                   route="test-fhir-message-creation"
                 />
+                <DashboardItem
+                    icon="find"
+                    title="FFHIR Message Inspector"
+                    description="Inspect a FHIR Message and show details about the record and what it contains."
+                    route="tool-message-inspector"
+                />
               </Item.Group>
             </Container>
           </Grid.Column>
