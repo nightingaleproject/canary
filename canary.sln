@@ -1,10 +1,14 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30104.148
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "canary", "canary\canary.csproj", "{4BE5F494-1C92-4971-A1CE-AF9C963E65D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "canary.tests", "canary.tests\canary.tests.csproj", "{7FC69F42-F7F2-4900-99A3-EF79535750FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VRDRMessaging", "..\vrdr-dotnet\VRDR.Messaging\VRDRMessaging.csproj", "{C151976D-BADC-472F-926E-F54B429E7B39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeathRecord", "..\vrdr-dotnet\VRDR\DeathRecord.csproj", "{EEF73674-B178-4381-B021-E1B452561894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,18 @@ Global
 		{7FC69F42-F7F2-4900-99A3-EF79535750FF}.ExeRelease|Any CPU.Build.0 = Release|Any CPU
 		{7FC69F42-F7F2-4900-99A3-EF79535750FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC69F42-F7F2-4900-99A3-EF79535750FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C151976D-BADC-472F-926E-F54B429E7B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C151976D-BADC-472F-926E-F54B429E7B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C151976D-BADC-472F-926E-F54B429E7B39}.ExeRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{C151976D-BADC-472F-926E-F54B429E7B39}.ExeRelease|Any CPU.Build.0 = Release|Any CPU
+		{C151976D-BADC-472F-926E-F54B429E7B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C151976D-BADC-472F-926E-F54B429E7B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF73674-B178-4381-B021-E1B452561894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF73674-B178-4381-B021-E1B452561894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF73674-B178-4381-B021-E1B452561894}.ExeRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF73674-B178-4381-B021-E1B452561894}.ExeRelease|Any CPU.Build.0 = Release|Any CPU
+		{EEF73674-B178-4381-B021-E1B452561894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF73674-B178-4381-B021-E1B452561894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

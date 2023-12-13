@@ -7,12 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using VRDR;
 using canary.Models;
+using Microsoft.Extensions.Primitives;
 
 namespace canary.Controllers
 {
     [ApiController]
     public class MessagesController : ControllerBase
     {
+        /// <summary>
+        /// Inspects a message using the contents provided. Returns the message + record and any validation issues.
+        /// POST Messages/Inspect
+        /// </summary>
+        [HttpPost("Messages/Inspect")]
+        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost()
+        {
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
+            if (!String.IsNullOrEmpty(input))
+            {
+                if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
+                {
+                    BaseMessage message = BaseMessage.Parse(input, false);
+
+                    //TODO:  Handle no death record being present?
+                    var deathRecord = ((Hl7.Fhir.Model.Bundle)message).Children.GetEnumerator().MoveNext();
+
+
+                    string deathRecordString = "";
+                    //TODO:  Parse record section as string
+                    var messageInspectResults = Record.CheckGet(deathRecordString, false);
+
+                    //TODO:  Prepend the message information wrapping the death record
+
+                    return messageInspectResults;
+                }
+                else
+                {
+                    return (null, new List<Dictionary<string, string>> 
+                        { new Dictionary<string, string> { { "severity", "error" }, 
+                            { "message", "The given input is not JSON or XML." } } }
+                    );
+                }
+            }
+            else
+            {
+                return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } });
+            }
+        }
+
         /// <summary>
         /// Creates a new message using the contents provided. Returns the message and any validation issues.
         /// POST /api/messages/new

@@ -40,7 +40,7 @@ export class MessageInspector extends Component {
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict allowIje={false} />
+                    <Getter updateRecord={this.updateRecord} strict allowIje={false} source={"MessageInspector"} />
           </Grid.Row>
           <div className="p-b-15" />
           {!!this.state.issues && this.state.issues.length > 0 && (

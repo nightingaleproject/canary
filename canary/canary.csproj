@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -31,6 +31,20 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\vrdr-dotnet\VRDR.Messaging\VRDRMessaging.csproj" />
+    <ProjectReference Include="..\..\vrdr-dotnet\VRDR\DeathRecord.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DeathRecord">
+      <HintPath>..\..\vrdr-dotnet\VRDR.Messaging\bin\Debug\netstandard2.0\DeathRecord.dll</HintPath>
+    </Reference>
+    <Reference Include="VRDRMessaging">
+      <HintPath>..\..\vrdr-dotnet\VRDR.Messaging\bin\Debug\netstandard2.0\VRDRMessaging.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
