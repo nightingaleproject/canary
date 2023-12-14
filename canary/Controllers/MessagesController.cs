@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using VRDR;
 using canary.Models;
 using Microsoft.Extensions.Primitives;
+using System.Reflection;
+using Hl7.Fhir.Model;
 
 namespace canary.Controllers
 {
@@ -30,10 +32,17 @@ namespace canary.Controllers
                     BaseMessage message = BaseMessage.Parse(input, false);
 
                     //TODO:  Handle no death record being present?
-                    var deathRecord = ((Hl7.Fhir.Model.Bundle)message).Children.GetEnumerator().MoveNext();
+                    //var deathRecord = ((Hl7.Fhir.Model.Bundle)message).Children.GetEnumerator().MoveNext();
 
-
-                    string deathRecordString = "";
+                    DeathRecord extracted = new DeathRecord();
+                    foreach (PropertyInfo property in message.GetType().GetProperties())
+                    {
+                        if (property.PropertyType == typeof(DeathRecord))
+                        {
+                            extracted = (DeathRecord)property.GetValue(message);
+                        }
+                    }
+                    string deathRecordString = extracted.ToJSON();
                     //TODO:  Parse record section as string
                     var messageInspectResults = Record.CheckGet(deathRecordString, false);
 
