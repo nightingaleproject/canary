@@ -31,8 +31,6 @@ namespace canary.Controllers
                 {
                     BaseMessage message = BaseMessage.Parse(input, false);
 
-                    //TODO:  Handle no death record being present?
-                    //var deathRecord = ((Hl7.Fhir.Model.Bundle)message).Children.GetEnumerator().MoveNext();
 
                     DeathRecord extracted = new DeathRecord();
                     foreach (PropertyInfo property in message.GetType().GetProperties())
@@ -43,10 +41,7 @@ namespace canary.Controllers
                         }
                     }
                     string deathRecordString = extracted.ToJSON();
-                    //TODO:  Parse record section as string
                     var messageInspectResults = Record.CheckGet(deathRecordString, false);
-
-                    //TODO:  Prepend the message information wrapping the death record
 
                     return messageInspectResults;
                 }
