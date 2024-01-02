@@ -7,12 +7,58 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using VRDR;
 using canary.Models;
+using Microsoft.Extensions.Primitives;
+using System.Reflection;
+using Hl7.Fhir.Model;
 
 namespace canary.Controllers
 {
     [ApiController]
     public class MessagesController : ControllerBase
     {
+        /// <summary>
+        /// Inspects a message using the contents provided. Returns the message + record and any validation issues.
+        /// POST Messages/Inspect
+        /// </summary>
+        [HttpPost("Messages/Inspect")]
+        public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost()
+        {
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
+            if (!String.IsNullOrEmpty(input))
+            {
+                if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
+                {
+                    BaseMessage message = BaseMessage.Parse(input, false);
+
+
+                    DeathRecord extracted = new DeathRecord();
+                    foreach (PropertyInfo property in message.GetType().GetProperties())
+                    {
+                        if (property.PropertyType == typeof(DeathRecord))
+                        {
+                            extracted = (DeathRecord)property.GetValue(message);
+                        }
+                    }
+                    string deathRecordString = extracted.ToJSON();
+                    var messageInspectResults = Record.CheckGet(deathRecordString, false);
+
+                    return messageInspectResults;
+                }
+                else
+                {
+                    return (null, new List<Dictionary<string, string>> 
+                        { new Dictionary<string, string> { { "severity", "error" }, 
+                            { "message", "The given input is not JSON or XML." } } }
+                    );
+                }
+            }
+            else
+            {
+                return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } });
+            }
+        }
+
         /// <summary>
         /// Creates a new message using the contents provided. Returns the message and any validation issues.
         /// POST /api/messages/new

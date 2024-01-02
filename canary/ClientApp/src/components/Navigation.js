@@ -53,6 +53,7 @@ export class Navigation extends Component {
             <Dropdown item text="Message Tools" direction="left">
               <Dropdown.Menu>
                 <Dropdown.Item icon="envelope" text="FHIR VRDR Message Syntax Checker" as={Link} to="/tool-fhir-message-syntax-checker" />
+                <Dropdown.Item icon="find" text="FHIR Message Inspector" as={Link} to="/tool-message-inspector" />
                 <Dropdown.Item icon="cloud download" text="Creating FHIR VRDR Messages" as={Link} to="/test-fhir-message-creation" />
               </Dropdown.Menu>
             </Dropdown>
