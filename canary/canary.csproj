@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13" />
-    <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="Bogus" Version="35.3.0" />
     <PackageReference Include="VRDR.Messaging" Version="4.1.7" />
 
     <!-- <ProjectReference Include="..\..\vrdr-dotnet\VRDR\DeathRecord.csproj" />  -->
