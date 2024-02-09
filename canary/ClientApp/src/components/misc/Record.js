@@ -63,6 +63,10 @@ export class Record extends Component {
     return ije.match(/.{1,140}/g).join('\n');
   }
 
+    formatFsh(json) {
+        return "Test response";
+    }
+
   downloadAsFile() {
     var element = document.createElement('a');
     var file;
@@ -214,6 +218,7 @@ export class Record extends Component {
                 <React.Fragment>
                   <Menu.Item name="JSON" active={this.state.activeItem === 'JSON'} onClick={this.handleItemClick} />
                   <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />
+                  <Menu.Item name="FSH" active={this.state.activeItem === 'FSH'} onClick={this.handleItemClick} />
                 </React.Fragment>
               )}
               {!!!this.props.hideIje && <Menu.Item name="IJE" active={this.state.activeItem === 'IJE'} onClick={this.handleItemClick} />}
@@ -281,6 +286,21 @@ export class Record extends Component {
                   tabSize={0}
                 />
               )}
+            {this.state.activeItem === 'FSH' && (
+                <AceEditor
+                    theme="chrome"
+                    name="record-fsh"
+                    fontSize={12}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    showPrintMargin={false}
+                    value={this.props.record ? this.formatFsh(this.props.record.json) : ''}
+                    width="100%"
+                    readOnly={true}
+                    maxLines={this.props.lines || Infinity}
+                    tabSize={0}
+                />
+            )}
             </Segment>
           </React.Fragment>
         )}
