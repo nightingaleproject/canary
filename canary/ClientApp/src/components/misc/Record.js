@@ -9,7 +9,6 @@ import { Issues } from '../misc/Issues';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/mode-xml';
 import 'ace-builds/src-noconflict/theme-chrome';
-// import 'ace-builds/webpack-resolver';
 
 export class Record extends Component {
   displayName = Record.name;
@@ -56,6 +55,8 @@ export class Record extends Component {
   }
 
   formatJson(json, spaces) {
+    console.log('Start of formatJson(...)');
+    this.formatFsh(json);
     return JSON.stringify(JSON.parse(json), null, spaces);
   }
 
@@ -63,9 +64,39 @@ export class Record extends Component {
     return ije.match(/.{1,140}/g).join('\n');
   }
 
-    formatFsh(json) {
-        return "Test response";
-    }
+  formatFsh(json) {
+      this.props.record.fsh = 'Loading...';
+      this.convertToFsh(json);
+  }
+
+    convertToFsh(json) {
+        console.log('Start of convertToFsh');
+        //console.log(json);
+        let body = json;
+        console.log('Length: ' + json.length);
+        this.props.record.fsh = "Loading...";
+      axios
+          .post("https://cte-nvss-canary-a213fdc38384.azurewebsites.net/api/FhirToFsh",
+              body,
+              {
+                  headers:
+                  {
+                      'Content-Type': 'application/json',
+                      'Content-Length': json.length,
+                      'Host': ''
+                  }
+              })
+          .then(function (response) {
+              console.log('Response from FhirToFsh post');
+              console.log(response);
+              this.props.record.fsh = response.fsh;
+          })
+          .catch(function (error) {
+              let msg = 'Error with FhirToFsh api: ' + error;
+              console.log(msg);
+              document.getElementsByName("record-fsh")[0].value = msg;              
+          });
+  }
 
   downloadAsFile() {
     var element = document.createElement('a');
@@ -294,7 +325,7 @@ export class Record extends Component {
                     showGutter={true}
                     highlightActiveLine={true}
                     showPrintMargin={false}
-                    value={this.props.record ? this.formatFsh(this.props.record.json) : ''}
+                    value={this.props.record.fsh}
                     width="100%"
                     readOnly={true}
                     maxLines={this.props.lines || Infinity}
