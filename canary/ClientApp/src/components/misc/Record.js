@@ -55,47 +55,19 @@ export class Record extends Component {
   }
 
   formatJson(json, spaces) {
-    console.log('Start of formatJson(...)');
-    this.formatFsh(json);
+    if (!json) {
+       return '';
+    }
     return JSON.stringify(JSON.parse(json), null, spaces);
-  }
+    }
+
+    formatFsh(fsh) {
+        if (!fsh) { return ''; }
+        return JSON.stringify(fsh);
+    }
 
   formatIje(ije) {
     return ije.match(/.{1,140}/g).join('\n');
-  }
-
-  formatFsh(json) {
-      this.props.record.fsh = 'Loading...';
-      this.convertToFsh(json);
-  }
-
-    convertToFsh(json) {
-        console.log('Start of convertToFsh');
-        //console.log(json);
-        let body = json;
-        console.log('Length: ' + json.length);
-        this.props.record.fsh = "Loading...";
-      axios
-          .post("https://cte-nvss-canary-a213fdc38384.azurewebsites.net/api/FhirToFsh",
-              body,
-              {
-                  headers:
-                  {
-                      'Content-Type': 'application/json',
-                      'Content-Length': json.length,
-                      'Host': ''
-                  }
-              })
-          .then(function (response) {
-              console.log('Response from FhirToFsh post');
-              console.log(response);
-              this.props.record.fsh = response.fsh;
-          })
-          .catch(function (error) {
-              let msg = 'Error with FhirToFsh api: ' + error;
-              console.log(msg);
-              document.getElementsByName("record-fsh")[0].value = msg;              
-          });
   }
 
   downloadAsFile() {
@@ -325,7 +297,7 @@ export class Record extends Component {
                     showGutter={true}
                     highlightActiveLine={true}
                     showPrintMargin={false}
-                    value={this.props.record.fsh}
+                    value={this.props.record ? this.formatJson(this.props.record.fsh, 2) : ''}
                     width="100%"
                     readOnly={true}
                     maxLines={this.props.lines || Infinity}

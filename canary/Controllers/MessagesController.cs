@@ -10,6 +10,8 @@ using canary.Models;
 using Microsoft.Extensions.Primitives;
 using System.Reflection;
 using Hl7.Fhir.Model;
+using System.Net;
+using System.Net.Http;
 
 namespace canary.Controllers
 {
@@ -41,7 +43,7 @@ namespace canary.Controllers
                         }
                     }
                     string deathRecordString = extracted.ToJSON();
-                    var messageInspectResults = Record.CheckGet(deathRecordString, false);
+                    var messageInspectResults = Record.CheckGet(deathRecordString, false, input);
 
                     return messageInspectResults;
                 }
