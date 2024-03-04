@@ -14,7 +14,7 @@ export class Record extends Component {
   displayName = Record.name;
 
   constructor(props) {
-    super(props);
+      super(props);
     this.state = { ...this.props, activeItem: 'JSON', modalOpen: false, endpoint: 'http://localhost:3000/fhir/v1/death_records.json', sending: false };
     this.downloadAsFile = this.downloadAsFile.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
@@ -23,7 +23,7 @@ export class Record extends Component {
   }
 
   componentDidMount() {
-    if (!!this.props.ijeOnly) {
+    if (!!this.props.showIje) {
       this.setState({ activeItem: 'IJE' });
     }
   }
@@ -63,7 +63,7 @@ export class Record extends Component {
 
     formatFsh(fsh) {
         if (!fsh) { return ''; }
-        return JSON.stringify(fsh);
+        return JSON.parse(fsh).fsh;
     }
 
   formatIje(ije) {
@@ -221,7 +221,7 @@ export class Record extends Component {
                 <React.Fragment>
                   <Menu.Item name="JSON" active={this.state.activeItem === 'JSON'} onClick={this.handleItemClick} />
                   <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />
-                  <Menu.Item name="FSH" active={this.state.activeItem === 'FSH'} onClick={this.handleItemClick} />
+                  {this.props.showFsh == true && < Menu.Item name="FSH" active={this.state.activeItem === 'FSH'} onClick={this.handleItemClick} /> }
                 </React.Fragment>
               )}
               {!!!this.props.hideIje && <Menu.Item name="IJE" active={this.state.activeItem === 'IJE'} onClick={this.handleItemClick} />}
@@ -288,8 +288,8 @@ export class Record extends Component {
                   maxLines={this.props.lines || Infinity}
                   tabSize={0}
                 />
-              )}
-            {this.state.activeItem === 'FSH' && (
+                )}
+               {this.state.activeItem === 'FSH' && this.props.showFsh == true && (
                 <AceEditor
                     theme="chrome"
                     name="record-fsh"
@@ -297,15 +297,17 @@ export class Record extends Component {
                     showGutter={true}
                     highlightActiveLine={true}
                     showPrintMargin={false}
-                    value={this.props.record ? this.formatJson(this.props.record.fsh, 2) : ''}
+                    value={this.props.record ? this.formatFsh(this.props.record.fsh) : ''}
                     width="100%"
                     readOnly={true}
                     maxLines={this.props.lines || Infinity}
                     tabSize={0}
-                />
-            )}
+                    />
+
+                )}
             </Segment>
           </React.Fragment>
+
         )}
       </React.Fragment>
     );

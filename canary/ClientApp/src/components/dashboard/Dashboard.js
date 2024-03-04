@@ -168,6 +168,12 @@ export class Dashboard extends Component {
                     description="Inspect a FHIR Message and show details about the record and what it contains."
                     route="tool-message-inspector"
                 />
+                <DashboardItem
+                    icon="find"
+                    title="FFHIR Message Validation"
+                    description="Inspect a FHIR Message and show validation details."
+                    route="tool-message-validator"
+                />
               </Item.Group>
             </Container>
           </Grid.Column>

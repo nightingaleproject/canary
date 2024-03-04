@@ -5,8 +5,8 @@ import { Getter } from '../misc/Getter';
 import { FHIRInfo } from '../misc/info/FHIRInfo';
 import { Record } from '../misc/Record';
 
-export class MessageInspector extends Component {
-  displayName = MessageInspector.name;
+export class MessageValidator extends Component {
+    displayName = MessageValidator.name;
 
   constructor(props) {
     super(props);
@@ -28,7 +28,6 @@ export class MessageInspector extends Component {
 
   render() {
       return (
-        
       <React.Fragment>
         <Grid>
           <Grid.Row>
@@ -37,11 +36,11 @@ export class MessageInspector extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR Message Inspector</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR Message Validator</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict allowIje={false} showFsh={false} source={"MessageInspector"} />
+            <Getter updateRecord={this.updateRecord} strict allowIje={true} showFsh={true} source={"MessageValidator"} />
           </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
@@ -57,15 +56,15 @@ export class MessageInspector extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} showIje={false} showFsh={false} />
+                              <Record record={this.state.record} showSave lines={20} showIje={true} showFsh={true} />
                           </Container>
                       </Grid.Row>
                   )}
           <div className="p-b-15" />
-            {!!this.state.issues && this.state.issues.length > 0 && (
-                <Grid.Row>
-                    <Record record={null} issues={this.state.issues} showIssues />
-                </Grid.Row>
+          {!!this.state.issues && this.state.issues.length > 0 && (
+            <Grid.Row>
+                <Record record={null} issues={this.state.issues} showIssues />
+            </Grid.Row>
           )}
           {!!this.state.fhirInfo && (
             <Grid.Row>
@@ -77,7 +76,7 @@ export class MessageInspector extends Component {
               <div className="p-b-50" />
             </Grid.Row>
           )}
-            </Grid>
+        </Grid>
       </React.Fragment>
       );
   }

@@ -27,6 +27,10 @@ namespace canary.Controllers
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
+            bool useFsh = false;
+
+            useFsh = Request.QueryString.HasValue && Request.QueryString.Value.Trim().Contains("useFsh=yes");
+
             if (!String.IsNullOrEmpty(input))
             {
                 if (input.Trim().StartsWith("<") || input.Trim().StartsWith("{")) // XML or JSON?
@@ -43,7 +47,7 @@ namespace canary.Controllers
                         }
                     }
                     string deathRecordString = extracted.ToJSON();
-                    var messageInspectResults = Record.CheckGet(deathRecordString, false, input);
+                    var messageInspectResults = Record.CheckGet(deathRecordString, false, input, useFsh);
 
                     return messageInspectResults;
                 }

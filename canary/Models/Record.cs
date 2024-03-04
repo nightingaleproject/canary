@@ -205,7 +205,7 @@ namespace canary.Models
 
         /// <summary>Check the given FHIR record string and return a list of issues. Also returned
         /// the parsed record if parsing was successful.</summary>
-        public static (Record record, List<Dictionary<string, string>> issues) CheckGet(string record, bool permissive, string originalFhirData = "")
+        public static (Record record, List<Dictionary<string, string>> issues) CheckGet(string record, bool permissive, string originalFhirData = "", bool useFsh = false)
         {
             Record newRecord = null;
             List<Dictionary<string, string>> entries = new List<Dictionary<string, string>>();
@@ -217,9 +217,12 @@ namespace canary.Models
                 // here and if it passes then the record is considered "safe" to return.
                 JsonConvert.SerializeObject(recordToSerialize);
                 newRecord = recordToSerialize;
-                System.Threading.Tasks.Task<string> task =
-                    System.Threading.Tasks.Task.Run<string>(async () => await getFshData(originalFhirData));
-                newRecord.Fsh = task.Result;
+                if (!String.IsNullOrWhiteSpace(originalFhirData) && useFsh)
+                {
+                    System.Threading.Tasks.Task<string> task =
+                        System.Threading.Tasks.Task.Run<string>(async () => await getFshData(originalFhirData));
+                    newRecord.Fsh = task.Result;
+                }
 
                 validateRecordType(newRecord);
                 return (record: newRecord, issues: entries);

@@ -14,6 +14,7 @@ import { RecentTests } from './components/tests/RecentTests';
 import { FHIRCreator } from './components/tools/FHIRCreator';
 import { FHIRInspector } from './components/tools/FHIRInspector';
 import { MessageInspector } from './components/tools/MessageInspector';
+import { MessageValidator } from './components/tools/MessageValidator';
 import { FHIRMessageCreator } from './components/tools/FHIRMessageCreator';
 import { FHIRMessageSyntaxChecker } from './components/tools/FHIRMessageSyntaxChecker';
 import { FHIRSyntaxChecker } from './components/tools/FHIRSyntaxChecker';
@@ -71,6 +72,7 @@ export default class App extends Component {
           <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducingParams />} />
           <Route path="tool-fhir-inspector" element={<FHIRInspector />} />
           <Route path="tool-message-inspector" element={<MessageInspector />} />
+          <Route path="tool-message-validator" element={<MessageValidator />} />
           <Route path="tool-fhir-creator" element={<FHIRCreator />} />
           <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker />} />
           <Route path="tool-fhir-message-syntax-checker" element={<FHIRMessageSyntaxChecker />} />

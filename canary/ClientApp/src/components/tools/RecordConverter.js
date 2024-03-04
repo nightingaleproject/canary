@@ -13,7 +13,8 @@ export class RecordConverter extends Component {
     this.updateRecord = this.updateRecord.bind(this);
   }
 
-  updateRecord(record, issues) {
+    updateRecord(record, issues) {
+        console.log("RecordConverter.js -> updateRecord");
     this.setState({ record: record, issues: issues }, () => {
       document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });

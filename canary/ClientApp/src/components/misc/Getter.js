@@ -82,6 +82,7 @@ export class Getter extends Component {
         if (!!this.props.ijeOnly) {
             data.replace(/(\r\n|\n|\r)/gm, ''); // Strip any line breaks if IJE!
         }
+
         if (!!this.props.ijeOnly && (data[0] === '<' || data[0] === '{')) {
             data = 'bogus'; // The IJE catch in the back end will not like this, and will thus throw an error.
         }
@@ -90,14 +91,14 @@ export class Getter extends Component {
             endpoint = '/records/return/new';
         } else if (this.props.messageValidation) {
             endpoint = '/messages/new'
-        } else if (this.props.source == 'MessageInspector') {
+        } else if (this.props.source == 'MessageInspector' || this.props.source == 'MessageValidator') {
             endpoint = '/messages/inspect';
         } else {
             endpoint = '/records/new';
         } 
 
        axios
-        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
+           .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no') + (!!this.props.showFsh? ';useFsh=yes' : ';useFsh=no' ), data)
         .then(function(response) {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;
