@@ -41,7 +41,7 @@ export class MessageValidator extends Component {
           </Grid.Row>
           <Grid.Row>
             <Getter updateRecord={this.updateRecord} strict allowIje={true} showFsh={true} source={"MessageValidator"} />
-          </Grid.Row>
+        </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
                           <Container fluid>
@@ -76,7 +76,7 @@ export class MessageValidator extends Component {
               <div className="p-b-50" />
             </Grid.Row>
           )}
-        </Grid>
+          </Grid>
       </React.Fragment>
       );
   }
