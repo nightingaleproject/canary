@@ -220,7 +220,7 @@ namespace canary.Models
                 if (!String.IsNullOrWhiteSpace(originalFhirData) && useFsh)
                 {
                     System.Threading.Tasks.Task<string> task =
-                        System.Threading.Tasks.Task.Run<string>(async () => await getFshData(originalFhirData));
+                        System.Threading.Tasks.Task.Run<string>(async () => await getFshData(record));
                     newRecord.Fsh = task.Result;
                 }
 
