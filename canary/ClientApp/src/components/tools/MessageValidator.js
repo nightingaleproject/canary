@@ -18,7 +18,7 @@ export class MessageValidator extends Component {
     if (record && record.fhirInfo) {
       this.setState({ record: null, fhirInfo: null, issues: null }, () => {
         this.setState({ record: record, fhirInfo: record.fhirInfo, issues: [] }, () => {
-          document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          
         });
       })
     } else if (issues && issues.length > 0) {
@@ -49,9 +49,9 @@ export class MessageValidator extends Component {
                               <Header as="h2" dividing id="step-2">
                                   <Icon name="download" />
                                   <Header.Content>
-                                      Whole message content.  Select required format.
+                                      Whole message content.
                                       <Header.Subheader>
-                                          Enter or load the appropriate Connectathon test case data into your EDRS. If your EDRS allows data to be loaded in FHIR or IJE format, you can load the data from the below prompt.
+                                          Enter or load the appropriate Connectathon test case data into your EDRS. 
                                       </Header.Subheader>
                                   </Header.Content>
                               </Header>
@@ -64,16 +64,6 @@ export class MessageValidator extends Component {
           {!!this.state.issues && this.state.issues.length > 0 && (
             <Grid.Row>
                 <Record record={null} issues={this.state.issues} showIssues />
-            </Grid.Row>
-          )}
-          {!!this.state.fhirInfo && (
-            <Grid.Row>
-              <Container fluid>
-                <Form size="large" id="scroll-to">
-                  <FHIRInfo fhirInfo={this.state.fhirInfo} editable={false} />
-                </Form>
-              </Container>
-              <div className="p-b-50" />
             </Grid.Row>
           )}
           </Grid>
