@@ -105,6 +105,11 @@ export class Record extends Component {
       file = new Blob([this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000)], { type: 'text/plain' });
       element.download = `record-${Date.now().toString()}.MOR`;
     }
+    if (this.state.activeItem === 'FSH') {
+        file = new Blob([this.formatFsh(this.props.record.fsh)], { type: 'text/plain' });
+        element.download = `record-${Date.now().toString()}.txt`;
+    }
+
     element.href = URL.createObjectURL(file);
     element.click();
   }
@@ -119,6 +124,9 @@ export class Record extends Component {
     }
     if (this.state.activeItem === 'IJE') {
       element.value = this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000);
+    }
+    if (this.state.activeItem === 'FSH') {
+        element.value = this.formatFsh(this.props.record.fsh);
     }
     document.body.appendChild(element);
     element.select();
@@ -234,17 +242,17 @@ export class Record extends Component {
             </Transition>
           </div>
         )}
-        {!!this.props.record && !!this.props.record.xml && !!this.props.record.json && (!!this.props.hideIje || !!this.props.record.ije) && (
+        {!!this.props.record && !!this.props.record.xml && !!this.props.record.json && !!this.props.record.ije && (
           <React.Fragment>
             <Menu attached="top" pointing size="large">
               {!!!this.props.ijeOnly && (
                 <React.Fragment>
-                  <Menu.Item name="JSON" active={this.state.activeItem === 'JSON'} onClick={this.handleItemClick} />
-                  <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />
+                  {this.props.showJson == true && <Menu.Item name="JSON" active={this.state.activeItem === 'JSON'} onClick={this.handleItemClick} />}
+                  {this.props.showXml == true && <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />}
                   {this.props.showFsh == true && < Menu.Item name="FSH" active={this.state.activeItem === 'FSH'} onClick={this.handleItemClick} /> }
                 </React.Fragment>
-              )}
-              {!!!this.props.hideIje && <Menu.Item name="IJE" active={this.state.activeItem === 'IJE'} onClick={this.handleItemClick} />}
+                        )}
+              {this.props.showIje == true && <Menu.Item name="IJE" active={this.state.activeItem === 'IJE'} onClick={this.handleItemClick} />}
               {!!this.props.showSave && (
                 <Menu.Menu position="right">
                   <Popup trigger={<Menu.Item icon="download" onClick={this.downloadAsFile} />} content="Download as File" />
@@ -264,7 +272,7 @@ export class Record extends Component {
               )}
             </Menu>
             <Segment className="no-padding inherit-width full-height">
-              {this.state.activeItem === 'XML' && (
+               {this.state.activeItem === 'XML' && this.props.showXml == true && (
                 <AceEditor
                   mode="xml"
                   theme="chrome"
@@ -279,7 +287,7 @@ export class Record extends Component {
                   maxLines={this.props.lines || Infinity}
                 />
               )}
-              {this.state.activeItem === 'JSON' && (
+              {this.state.activeItem === 'JSON' && this.props.showJson == true && (
                 <AceEditor
                   mode="json"
                   theme="chrome"

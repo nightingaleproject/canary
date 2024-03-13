@@ -36,11 +36,11 @@ export class MessageValidator extends Component {
                 Dashboard
               </Breadcrumb.Section>
               <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section>FHIR Message Validator</Breadcrumb.Section>
+              <Breadcrumb.Section>FHIR to FSH Converter</Breadcrumb.Section>
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict allowIje={true} showFsh={true} source={"MessageValidator"} />
+          <Getter updateRecord={this.updateRecord} strict show={false} showJson={false} showXml={false} showFsh={true} source={"MessageValidator"} />
         </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
@@ -56,7 +56,7 @@ export class MessageValidator extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} showIje={true} showFsh={true} />
+                              <Record record={this.state.record} showSave lines={20} showIje={false} showJson={false} showXml={false} showFsh={true} />
                           </Container>
                       </Grid.Row>
                   )}

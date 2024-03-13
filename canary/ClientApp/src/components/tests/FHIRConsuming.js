@@ -180,7 +180,7 @@ export class FHIRConsuming extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-15" />
-                  <Record record={this.state.test.referenceRecord} showSave lines={20} hideIje />
+                                <Record record={this.state.test.referenceRecord} showSave lines={20} showIje={false} />
                 </Container>
               </Grid.Row>
               <Grid.Row>

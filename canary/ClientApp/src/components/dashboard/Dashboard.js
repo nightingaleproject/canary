@@ -170,9 +170,9 @@ export class Dashboard extends Component {
                 />
                 <DashboardItem
                     icon="find"
-                    title="FFHIR Message Validation"
-                    description="Inspect a FHIR Message and show validation details."
-                    route="tool-message-validator"
+                    title="FHIR to FSH Converter"
+                    description="Convert a FHIR Message to FSH and show errors and warnings."
+                    route="tool-fhir-to-fsh"
                 />
               </Item.Group>
             </Container>

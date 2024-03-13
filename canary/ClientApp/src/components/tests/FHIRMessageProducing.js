@@ -165,7 +165,7 @@ export class FHIRMessageProducing extends Component {
               </Grid.Row>       
               <Grid.Row>
                 <Container fluid>
-                  <Record record={this.state.response} showSave lines={20} messageValidation={false}  hideIje  />
+                                <Record record={this.state.response} showSave lines={20} messageValidation={false} showIje={false}  />
                 </Container>
               </Grid.Row>
               <div className="p-b-10" />

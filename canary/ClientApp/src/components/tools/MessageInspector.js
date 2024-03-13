@@ -41,7 +41,7 @@ export class MessageInspector extends Component {
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict allowIje={false} showFsh={false} source={"MessageInspector"} />
+          <Getter updateRecord={this.updateRecord} strict allowIje={false} showFsh={false} showJson={true} showXml={true} source={"MessageInspector"} />
           </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
@@ -57,7 +57,7 @@ export class MessageInspector extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} showIje={false} showFsh={false} />
+                              <Record record={this.state.record} showSave lines={20} showIje={false} showFsh={false} showJson={true} showXml={true} />
                           </Container>
                       </Grid.Row>
                   )}
