@@ -26,6 +26,9 @@ export class Record extends Component {
     if (!!this.props.showIje) {
       this.setState({ activeItem: 'IJE' });
     }
+    if (this.props.showFsh == true) {
+        this.setState({ activeItem: 'FSH' });
+    }
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
