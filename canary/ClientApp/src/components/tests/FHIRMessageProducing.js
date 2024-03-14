@@ -165,7 +165,7 @@ export class FHIRMessageProducing extends Component {
               </Grid.Row>       
               <Grid.Row>
                 <Container fluid>
-                                <Record record={this.state.response} showSave lines={20} messageValidation={false} showIje={false}  />
+                                <Record record={this.state.response} showSave lines={20} messageValidation={false} showIje={false} showJson={true} showXml={true} showFsh={false}  />
                 </Container>
               </Grid.Row>
               <div className="p-b-10" />
@@ -229,7 +229,7 @@ export class FHIRMessageProducing extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-15" />
-                  <Record record={this.state.record} showSave lines={20} showIje />
+                                <Record record={this.state.record} showSave lines={20} showIje={true} showJson={true} showXml={true} showFsh={false} />
                 </Container>
               </Grid.Row>
               <Grid.Row>
@@ -280,7 +280,7 @@ export class FHIRMessageProducing extends Component {
                 <div className="p-b-15" />
                 {!!this.state.issues &&
                   <Grid.Row>
-                    <Record record={null} issues={this.state.issues} messageType={this.state.actualType} messageValidation={true} showIssues showSuccess />
+                                        <Record record={null} issues={this.state.issues} messageType={this.state.actualType} messageValidation={true} showIssues showSuccess showIje={true} showJson={true} showXml={true} showFsh={false} />
                   </Grid.Row>
                 }
                 <Grid.Row>

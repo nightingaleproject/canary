@@ -135,7 +135,7 @@ export class FHIRMessageCreator extends Component {
             </Container>
           </Grid.Row>
           <Grid.Row>
-          <Record record={this.state.message} issues={this.state.messageIssues} showSave showIje={false} showIssues />
+                    <Record record={this.state.message} issues={this.state.messageIssues} showSave showIje={false} showJson={true} showXml={true} showFsh={false} showIssues />
           </Grid.Row>
         </Grid>
       </React.Fragment>

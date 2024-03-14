@@ -184,7 +184,7 @@ export class FHIRProducing extends Component {
                   <div className="p-b-15" />
                   {!!this.state.issues && this.state.issues.length > 0 && (
                     <Grid.Row id="scroll-to">
-                      <Record issues={this.state.issues} showIssues />
+                      <Record issues={this.state.issues} showIssues  />
                     </Grid.Row>
                   )}
                   <Getter updateRecord={this.updateRecord} allowIje={false} />

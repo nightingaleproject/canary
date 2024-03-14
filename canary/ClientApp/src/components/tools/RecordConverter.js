@@ -39,7 +39,7 @@ export class RecordConverter extends Component {
           <div className="p-b-15" />
           {(!!this.state.record || (!!this.state.issues && this.state.issues.length > 0)) && (
             <Grid.Row id="scroll-to">
-              <Record record={this.state.record} issues={this.state.issues} showIssues showSave />
+                        <Record record={this.state.record} issues={this.state.issues} showFsh={false} showJson={true} showXml={true} showIssues showSave />
             </Grid.Row>
           )}
         </Grid>

@@ -161,7 +161,7 @@ export class EDRSRoundtripProducing extends Component {
                     </Header.Content>
                   </Header>
                   <div className="p-b-15" />
-                  <Record record={this.state.ijeRecord} showSave lines={20} ijeOnly />
+                                <Record record={this.state.ijeRecord} showSave lines={20} showIje={true} showJson={false} showXml={false} showFsh={false} />
                 </Container>
               </Grid.Row>
               <Grid.Row>

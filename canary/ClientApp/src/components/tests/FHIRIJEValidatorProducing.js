@@ -162,7 +162,7 @@ export class FHIRIJEValidatorProducing extends Component {
               <div className="p-b-15" />
               {!!this.state.ijeIssues && (
                 <Grid.Row>
-                  <Record record={null} issues={this.state.ijeIssues} showIssues showSuccess />
+                  <Record record={null} issues={this.state.ijeIssues} showIssues showSuccess  />
                 </Grid.Row>
               )}
               <Grid.Row>
