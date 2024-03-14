@@ -23,12 +23,15 @@ export class Record extends Component {
   }
 
   componentDidMount() {
-    if (!!this.props.showIje) {
-      this.setState({ activeItem: 'IJE' });
-    }
+      if (!!this.props.showIje) {
+          this.setState({ activeItem: 'IJE' });
+      } else
     if (this.props.showFsh == true) {
         this.setState({ activeItem: 'FSH' });
+    } else {
+        this.setState({ activeItem: 'JSON' });
     }
+
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
