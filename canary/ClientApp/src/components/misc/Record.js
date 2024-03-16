@@ -24,8 +24,11 @@ export class Record extends Component {
   }
 
   componentDidMount() {
-    if (!!this.props.ijeOnly) {
+    if (!!this.props.ijeOnly && !!!this.props.showFsh) {
       this.setState({ activeItem: 'IJE' });
+    } else
+    if (!!this.props.showFsh) {
+        this.setState({ activeItem: 'FSH' });
     }
   }
 
@@ -63,41 +66,74 @@ export class Record extends Component {
     return ije.match(/.{1,140}/g).join('\n');
   }
 
-  downloadAsFile() {
-    var element = document.createElement('a');
-    var file;
-    if (this.state.activeItem === 'JSON') {
-      file = new Blob([this.formatJson(this.props.record.json, 2)], { type: 'application/json' });
-      element.download = `record-${Date.now().toString()}.json`;
+    formatFsh(fsh) {
+        if (!fsh) { return ''; }
+        return JSON.parse(fsh).fsh;
     }
-    if (this.state.activeItem === 'XML') {
-      file = new Blob([this.formatXml(this.props.record.xml, 2)], { type: 'application/xml' });
-      element.download = `record-${Date.now().toString()}.xml`;
-    }
-    if (this.state.activeItem === 'IJE') {
-      file = new Blob([this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000)], { type: 'text/plain' });
-      element.download = `record-${Date.now().toString()}.MOR`;
-    }
-    element.href = URL.createObjectURL(file);
-    element.click();
-  }
 
-  copyToClipboard() {
-    var element = document.createElement('textarea');
-    if (this.state.activeItem === 'JSON') {
-      element.value = this.formatJson(this.props.record.json, 2);
+    formatFshErrors(fsh) {
+        if (!fsh) { return ''; }
+        var errorArray = JSON.parse(fsh).errors;
+        let ret = '';
+        for (let index = 0; index < errorArray.length; index++) {
+            ret = ret + errorArray[index].message + ' ';
+        }
+        return ret;
     }
-    if (this.state.activeItem === 'XML') {
-      element.value = this.formatXml(this.props.record.xml, 2);
+
+    formatFshWarnings(fsh) {
+        if (!fsh) { return ''; }
+        var warningArray = JSON.parse(fsh).warnings;
+        let ret = '';
+        for (let index = 0; index < warningArray.length; index++) {
+            ret = ret + warningArray[index].message + ' ';
+        }
+        return ret;
     }
-    if (this.state.activeItem === 'IJE') {
-      element.value = this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000);
+
+    downloadAsFile() {
+        var element = document.createElement('a');
+        var file;
+        if (this.state.activeItem === 'JSON') {
+            file = new Blob([this.formatJson(this.props.record.json, 2)], { type: 'application/json' });
+            element.download = `record-${Date.now().toString()}.json`;
+        }
+        if (this.state.activeItem === 'XML') {
+            file = new Blob([this.formatXml(this.props.record.xml, 2)], { type: 'application/xml' });
+            element.download = `record-${Date.now().toString()}.xml`;
+        }
+        if (this.state.activeItem === 'IJE') {
+            file = new Blob([this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000)], { type: 'text/plain' });
+            element.download = `record-${Date.now().toString()}.MOR`;
+        }
+        if (this.state.activeItem === 'FSH') {
+            file = new Blob([this.formatFsh(this.props.record.fsh)], { type: 'text/plain' });
+            element.download = `record-${Date.now().toString()}.txt`;
+        }
+
+        element.href = URL.createObjectURL(file);
+        element.click();
     }
-    document.body.appendChild(element);
-    element.select();
-    document.execCommand('copy');
-    document.body.removeChild(element);
-  }
+
+    copyToClipboard() {
+        var element = document.createElement('textarea');
+        if (this.state.activeItem === 'JSON') {
+            element.value = this.formatJson(this.props.record.json, 2);
+        }
+        if (this.state.activeItem === 'XML') {
+            element.value = this.formatXml(this.props.record.xml, 2);
+        }
+        if (this.state.activeItem === 'IJE') {
+            element.value = this.props.record.ije.replace(/(\r\n|\n|\r)/gm, '').substr(0, 5000);
+        }
+        if (this.state.activeItem === 'FSH') {
+            element.value = this.formatFsh(this.props.record.fsh);
+        }
+        document.body.appendChild(element);
+        element.select();
+        document.execCommand('copy');
+        document.body.removeChild(element);
+    }
 
   postRecord() {
     var type;
@@ -216,6 +252,7 @@ export class Record extends Component {
                   <Menu.Item name="XML" active={this.state.activeItem === 'XML'} onClick={this.handleItemClick} />
                 </React.Fragment>
               )}
+              {!!this.props.showFsh && <Menu.Item name="FSH" active={this.state.activeItem === 'FSH'} onClick={this.handleItemClick} />}
               {!!!this.props.hideIje && <Menu.Item name="IJE" active={this.state.activeItem === 'IJE'} onClick={this.handleItemClick} />}
               {!!this.props.showSave && (
                 <Menu.Menu position="right">
