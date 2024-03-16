@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import { toast } from 'react-semantic-toasts';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
-import { Button, Form, Icon, Menu, Message, Modal, Popup, Segment, Transition } from 'semantic-ui-react';
+import { Button, Form, Icon, Menu, Message, Modal, Popup, Segment, Transition, Header } from 'semantic-ui-react';
 import { Issues } from '../misc/Issues';
 
 import 'ace-builds/src-noconflict/mode-json';
@@ -318,10 +318,41 @@ export class Record extends Component {
                   tabSize={0}
                 />
               )}
+            {this.state.activeItem === 'FSH' && !!this.props.showFsh && (
+                <AceEditor
+                    theme="chrome"
+                    name="record-fsh"
+                    fontSize={12}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    showPrintMargin={false}
+                    value={this.props.record ? this.formatFsh(this.props.record.fsh) : ''}
+                    width="100%"
+                    readOnly={true}
+                    maxLines={this.props.lines || Infinity}
+                    tabSize={0}
+                />
+
+            )}
             </Segment>
           </React.Fragment>
         )}
-      </React.Fragment>
+
+            {this.state.activeItem === 'FSH' && this.props.showFsh == true && (
+                <Header as="h2" dividing id="step-3">
+                    <Header.Content>
+                        FSH Errors and Warnings
+                        <Header.Subheader>
+                            <b>Errors:</b> {this.props.record ? this.formatFshErrors(this.props.record.fsh) : ''}
+                        </Header.Subheader>
+                        <Header.Subheader>
+                            <b>Warnings:</b> {this.props.record ? this.formatFshWarnings(this.props.record.fsh) : ''}
+                        </Header.Subheader>
+                    </Header.Content>
+                </Header>
+            )}
+
+        </React.Fragment>
     );
   }
 }

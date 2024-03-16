@@ -40,7 +40,7 @@ export class MessageFshConverter extends Component {
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-           <Getter updateRecord={this.updateRecord} strict allowIje={false} source={"MessageFshConverter"} />
+            <Getter updateRecord={this.updateRecord} strict allowIje={false} showFsh={true} source={"MessageFshConverter"} />
           </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
