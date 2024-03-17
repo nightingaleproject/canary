@@ -203,6 +203,10 @@ export class Getter extends Component {
     } else {
       containerTip = 'The contents must be formatted as an IJE Mortality record.'
     }
+    if (!!this.props.showFsh) {
+      containerTip = 'The contents must be formatted as FHIR JSON.'
+    }
+
     return (
       <React.Fragment>
         <Form className="p-t-10">

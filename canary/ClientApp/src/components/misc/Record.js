@@ -78,6 +78,9 @@ export class Record extends Component {
         for (let index = 0; index < errorArray.length; index++) {
             ret = ret + errorArray[index].message + ' ';
         }
+        if (ret == '') {
+            ret = 'None';
+        }
         return ret;
     }
 
@@ -87,6 +90,9 @@ export class Record extends Component {
         let ret = '';
         for (let index = 0; index < warningArray.length; index++) {
             ret = ret + warningArray[index].message + ' ';
+        }
+        if (ret == '') {
+            ret = 'None';
         }
         return ret;
     }
