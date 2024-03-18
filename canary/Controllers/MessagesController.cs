@@ -10,6 +10,8 @@ using canary.Models;
 using Microsoft.Extensions.Primitives;
 using System.Reflection;
 using Hl7.Fhir.Model;
+using System.Net;
+using System.Net.Http;
 
 namespace canary.Controllers
 {
@@ -24,6 +26,10 @@ namespace canary.Controllers
         public async Task<(Record record, List<Dictionary<string, string>> issues)> NewPost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
+            bool useFsh = false;
+
+            useFsh = Request.QueryString.HasValue && Request.QueryString.Value.Trim().Contains("useFsh=yes");
 
             if (!String.IsNullOrEmpty(input))
             {
@@ -41,14 +47,14 @@ namespace canary.Controllers
                         }
                     }
                     string deathRecordString = extracted.ToJSON();
-                    var messageInspectResults = Record.CheckGet(deathRecordString, false);
+                    var messageInspectResults = Record.CheckGet(deathRecordString, false, input, useFsh);
 
                     return messageInspectResults;
                 }
                 else
                 {
-                    return (null, new List<Dictionary<string, string>> 
-                        { new Dictionary<string, string> { { "severity", "error" }, 
+                    return (null, new List<Dictionary<string, string>>
+                        { new Dictionary<string, string> { { "severity", "error" },
                             { "message", "The given input is not JSON or XML." } } }
                     );
                 }
@@ -68,7 +74,8 @@ namespace canary.Controllers
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
-            try {
+            try
+            {
                 BaseMessage message = BaseMessage.Parse(input, false);
                 // If we were to return the Message here, the controller would automatically
                 // serialize the message into a JSON object. Since that would happen outside of this
@@ -95,13 +102,15 @@ namespace canary.Controllers
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
-            (Record record, List< Dictionary<string, string> > _) = Record.CheckGet(input, false);
-            try {
+            (Record record, List<Dictionary<string, string>> _) = Record.CheckGet(input, false);
+            try
+            {
                 return (new Message(record, type), null);
             }
-            catch (ArgumentException e) {
+            catch (ArgumentException e)
+            {
                 return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", e.Message } } });
             }
         }
-  }
+    }
 }

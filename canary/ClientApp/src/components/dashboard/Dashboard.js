@@ -164,9 +164,9 @@ export class Dashboard extends Component {
                 />
                 <DashboardItem
                     icon="find"
-                    title="FFHIR Message Inspector"
-                    description="Inspect a FHIR Message and show details about the record and what it contains."
-                    route="tool-message-inspector"
+                    title="FHIR Message to FSH Converter"
+                    description="Convert FHIR Message to FSH."
+                    route="tool-message-to-fsh"
                 />
               </Item.Group>
             </Container>
