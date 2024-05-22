@@ -1,5 +1,24 @@
 ## Change Log
 
+<a name="4.1.0"></a>
+## [4.1.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.1.0) (2024-05-22)
+
+### Features
+
+* message examiner ([#229](https://www.github.com/nightingaleproject/canary/issues/229)) ([10e3e21](https://www.github.com/nightingaleproject/canary/commit/10e3e21b73ded8aa6acac94011508366a1a94168))
+
+### Other
+
+* bump Bogus from 34.0.2 to 35.3.0 ([#233](https://www.github.com/nightingaleproject/canary/issues/233)) ([23d5baa](https://www.github.com/nightingaleproject/canary/commit/23d5baafafbc9308ef2c989e7794bfea532da763))
+* bump Microsoft.AspNetCore.Mvc.NewtonsoftJson from 6.0.5 to 6.0.25 ([#226](https://www.github.com/nightingaleproject/canary/issues/226)) ([96e01e1](https://www.github.com/nightingaleproject/canary/commit/96e01e14c71df5e9b6d578c30018485a6dd09437))
+* bump Microsoft.AspNetCore.SpaServices.Extensions from 6.0.5 to 6.0.25 ([#224](https://www.github.com/nightingaleproject/canary/issues/224)) ([c1e9889](https://www.github.com/nightingaleproject/canary/commit/c1e98893faa30578e3fb68b49c0f64095b6db677))
+* bump Microsoft.EntityFrameworkCore.Sqlite from 7.0.13 to 7.0.14 ([#235](https://www.github.com/nightingaleproject/canary/issues/235)) ([ef74717](https://www.github.com/nightingaleproject/canary/commit/ef7471708d4447c72b377a935acaf4a68b992d2a))
+* bump VRDR .NET to 4.1.13 ([#264](https://www.github.com/nightingaleproject/canary/issues/264)) ([7287e08](https://www.github.com/nightingaleproject/canary/commit/7287e083778c19a28299edd099b5a5043e79bfd6))
+* bump VRDR.Messaging from 4.1.7 to 4.1.8 ([#225](https://www.github.com/nightingaleproject/canary/issues/225)) ([f9ba099](https://www.github.com/nightingaleproject/canary/commit/f9ba099aaababdad66adce787cc359c70c144f83))
+* bump xunit from 2.6.1 to 2.6.4 ([#230](https://www.github.com/nightingaleproject/canary/issues/230)) ([1189126](https://www.github.com/nightingaleproject/canary/commit/11891268ee288bafddff16fe267f1ba1238dfd2a))
+* fix dotnet-ef version; fix commit user ([#222](https://www.github.com/nightingaleproject/canary/issues/222)) ([d608b3c](https://www.github.com/nightingaleproject/canary/commit/d608b3c86c590d24079379dbc1f036ef491b1809))
+* update VRDR .NET dependency to 4.1.11 ([#260](https://www.github.com/nightingaleproject/canary/issues/260)) ([5d5b2fd](https://www.github.com/nightingaleproject/canary/commit/5d5b2fd9d28d0a42c91a3f32ebc8e4a064be276a))
+
 <a name="4.0.10"></a>
 ## [4.0.10](https://www.github.com/nightingaleproject/canary/releases/tag/v4.0.10) (2023-11-17)
 
