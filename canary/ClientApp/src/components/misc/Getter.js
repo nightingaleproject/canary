@@ -90,14 +90,14 @@ export class Getter extends Component {
             endpoint = '/records/return/new';
         } else if (this.props.messageValidation) {
             endpoint = '/messages/new'
-        } else if (this.props.source == 'MessageInspector') {
+        } else if (this.props.source == 'MessageInspector' || this.props.source == 'MessageFshConverter') {
             endpoint = '/messages/inspect';
         } else {
             endpoint = '/records/new';
         } 
 
        axios
-        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no'), data)
+        .post(window.API_URL + endpoint + (!!this.props.strict ? '?strict=yes' : '?strict=no') + (!!this.props.showFsh ? ';useFsh=yes' : ';useFsh=no'), data)
         .then(function(response) {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;
@@ -203,6 +203,10 @@ export class Getter extends Component {
     } else {
       containerTip = 'The contents must be formatted as an IJE Mortality record.'
     }
+    if (!!this.props.showFsh) {
+      containerTip = 'The contents must be formatted as FHIR JSON.'
+    }
+
     return (
       <React.Fragment>
         <Form className="p-t-10">
