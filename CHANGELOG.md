@@ -1,5 +1,13 @@
 ## Change Log
 
+<a name="4.2.0"></a>
+## [4.2.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.2.0) (2024-06-26)
+
+### Features
+
+* adding conversion of profile names to fsh conversion ([#274](https://www.github.com/nightingaleproject/canary/issues/274)) ([6998591](https://www.github.com/nightingaleproject/canary/commit/69985914385562498b43dfcc6d72412268f8bb13))
+* adding fsh conversion ([#248](https://www.github.com/nightingaleproject/canary/issues/248)) ([9816252](https://www.github.com/nightingaleproject/canary/commit/9816252d92c23c04a5c5626cecac8cc5c02c6f63))
+
 <a name="4.1.0"></a>
 ## [4.1.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.1.0) (2024-05-22)
 
