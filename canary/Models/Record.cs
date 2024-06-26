@@ -239,6 +239,18 @@ namespace canary.Models
         {
             string ret = string.Empty;
 
+            string rawFsh = await getRawFshData(fhirMessage);
+
+            ret = await convertFshDataProfileNames(rawFsh);
+
+            return ret;
+
+        }
+
+        private async static Task<string> getRawFshData(string fhirMessage)
+        {
+            string ret = string.Empty;
+
             try
             {
 
@@ -265,6 +277,40 @@ namespace canary.Models
             }
             return ret;
         }
+
+
+        private async static Task<string> convertFshDataProfileNames(string rawFshData)
+        {
+            string ret = string.Empty;
+
+            try
+            {
+
+                byte[] bytes = Encoding.ASCII.GetBytes(rawFshData);
+
+                var fhrContent = Regex.Replace(rawFshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
+
+                var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/api/ConvertInstanceOf", Method.Post);
+                request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
+                request.AddJsonBody(rawFshData);
+                RestResponse response = await client.ExecuteAsync(request);
+                ret = response.Content;
+
+            }
+            catch (Exception ex)
+            {
+                ret = ex.Message;
+            }
+            return ret;
+        }
+
+
 
         /// <summary>Recursively call InnerException and add all errors to the list until we reach the BaseException.</summary>
         public static List<Dictionary<string, string>> DecorateErrors(Exception e)
