@@ -88,7 +88,7 @@ namespace canary.Models
             record.DateOfDeath = deathUtc.ToString("yyyy-MM-dd");
             int age = death.Year - birth.Year;
             if (birthUtc > deathUtc.AddYears(-age)) age--;
-            record.AgeAtDeath = new Dictionary<string, string>() { { "value", age.ToString() }, { "unit", "a" } };
+            record.AgeAtDeath = new Dictionary<string, string>() { { "value", age.ToString() }, { "code", "a" } };
 
             // Place of residence
 
