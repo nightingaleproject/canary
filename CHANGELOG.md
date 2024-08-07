@@ -1,5 +1,29 @@
 ## Change Log
 
+<a name="4.2.0"></a>
+## [4.2.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.2.0) (2024-08-07)
+
+### Features
+
+* adding conversion of profile names to fsh conversion ([#274](https://www.github.com/nightingaleproject/canary/issues/274)) ([6998591](https://www.github.com/nightingaleproject/canary/commit/69985914385562498b43dfcc6d72412268f8bb13))
+* adding fsh conversion ([#248](https://www.github.com/nightingaleproject/canary/issues/248)) ([9816252](https://www.github.com/nightingaleproject/canary/commit/9816252d92c23c04a5c5626cecac8cc5c02c6f63))
+
+### Bug Fixes
+
+* updating age at death agetype format ([#279](https://www.github.com/nightingaleproject/canary/issues/279)) ([1c73647](https://www.github.com/nightingaleproject/canary/commit/1c736477bbf30239e895a665dc966d89b5cf5c5b))
+
+### Other
+
+* add docker-in-docker feature ([#277](https://www.github.com/nightingaleproject/canary/issues/277)) ([9c5987b](https://www.github.com/nightingaleproject/canary/commit/9c5987ba8f67d820e4dc2d7c2eb33c17792e00d1))
+* bump braces from 3.0.2 to 3.0.3 in /canary/ClientApp ([#271](https://www.github.com/nightingaleproject/canary/issues/271)) ([9213b61](https://www.github.com/nightingaleproject/canary/commit/9213b6194cae1ff4f5c50bca2f0fd28343a76e23))
+* bump ejs from 3.1.8 to 3.1.10 in /canary/ClientApp ([#259](https://www.github.com/nightingaleproject/canary/issues/259)) ([ef87265](https://www.github.com/nightingaleproject/canary/commit/ef87265f88a98c89097b760d90989a415d7a786a))
+* bump express from 4.18.1 to 4.19.2 in /canary/ClientApp ([#253](https://www.github.com/nightingaleproject/canary/issues/253)) ([fd3beb3](https://www.github.com/nightingaleproject/canary/commit/fd3beb31c9b6667fb41751d1e7395a96d207fc1d))
+* bump follow-redirects from 1.15.2 to 1.15.6 in /canary/ClientApp ([#247](https://www.github.com/nightingaleproject/canary/issues/247)) ([7489f96](https://www.github.com/nightingaleproject/canary/commit/7489f96e5ded352d8ae7e20db3e95bddd27c545c))
+* bump webpack-dev-middleware from 5.3.3 to 5.3.4 in /canary/ClientApp ([#249](https://www.github.com/nightingaleproject/canary/issues/249)) ([fdd0923](https://www.github.com/nightingaleproject/canary/commit/fdd09237b95544de45835125b42a98f0cde91001))
+* bump xunit from 2.6.4 to 2.9.0 ([#275](https://www.github.com/nightingaleproject/canary/issues/275)) ([70ae92d](https://www.github.com/nightingaleproject/canary/commit/70ae92d1bd7e44b88c152218f72c32f0c6717e12))
+* bump xunit.runner.visualstudio from 2.5.3 to 2.5.6 ([#234](https://www.github.com/nightingaleproject/canary/issues/234)) ([8ba0b76](https://www.github.com/nightingaleproject/canary/commit/8ba0b76490d313ad6c24469c9fe4e5f28a46fbe4))
+* ignore dependabot patch versions ([1f0c4ec](https://www.github.com/nightingaleproject/canary/commit/1f0c4ec709df1ca6dae7b5b5f00b25b38e72961c))
+
 <a name="4.1.0"></a>
 ## [4.1.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.1.0) (2024-05-22)
 
