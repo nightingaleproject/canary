@@ -17,6 +17,8 @@ using RestSharp.Authenticators;
 using System.Text;
 using System.Net.Http.Json;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Hl7.FhirPath.Sprache;
 
 namespace canary.Models
 {
@@ -204,6 +206,17 @@ namespace canary.Models
             ije = new IJEMortality(this.record).ToString();
         }
 
+        public static string ValidateFshSushi(string fshInput)
+        {
+            string resultData = string.Empty;
+
+            System.Threading.Tasks.Task<string> task =
+                System.Threading.Tasks.Task.Run<string>(async () => await getSushResults(fshInput));
+
+            resultData = task.Result;
+            return resultData;
+        }
+
         /// <summary>Check the given FHIR record string and return a list of issues. Also returned
         /// the parsed record if parsing was successful.</summary>
         public static (Record record, List<Dictionary<string, string>> issues) CheckGet(string record, bool permissive, string originalFhirData = "", bool useFsh = false)
@@ -235,6 +248,15 @@ namespace canary.Models
             return (record: newRecord, issues: entries);
         }
 
+        private async static Task<string> getSushResults(string fshInput)
+        {
+            string ret = string.Empty;
+
+            ret = await getFshInspection(fshInput);
+
+            return ret;
+        }
+
         private async static Task<string> getFshData(string fhirMessage)
         {
             string ret = string.Empty;
@@ -245,6 +267,38 @@ namespace canary.Models
 
             return ret;
 
+        }
+
+        private async static Task<string> getFshInspection(string fshData)
+        {
+            string ret = string.Empty;
+
+            try
+            {
+                //var fshEscaped = Regex.Replace((string)fshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1"); //Regex.Replace((string)fshData, "\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"", "$1"); //Regex.Replace((string)fshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
+
+                string fshEscaped = fshData.Replace("\"", "\\\"");
+                fshEscaped = fshEscaped.Replace("\r\n", "\n").Replace("\r\r", "\n").Replace("\r", "\n").Replace("\n\n", "\n") ;  //fshEscaped.Replace("\r\n", "\n");
+                string fshPayload = "{ \"fsh\": \"" + fshEscaped + "\" }";
+
+                var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/api/FshToFhir", Method.Post);
+                //request.AddHeader("Cache-Control", "no-cache");
+                request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
+                request.AddJsonBody(fshPayload);
+                RestResponse response = await client.ExecuteAsync(request);
+                ret = response.Content;
+
+            }
+            catch (Exception ex)
+            {
+                ret = ex.Message;
+            }
+            return ret;
         }
 
         private async static Task<string> getRawFshData(string fhirMessage)

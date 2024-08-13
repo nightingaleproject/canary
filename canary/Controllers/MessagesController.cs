@@ -12,12 +12,51 @@ using System.Reflection;
 using Hl7.Fhir.Model;
 using System.Net;
 using System.Net.Http;
+using Hl7.Fhir.Utility;
 
 namespace canary.Controllers
 {
     [ApiController]
     public class MessagesController : ControllerBase
     {
+
+        /// <summary>
+        /// Inspects a message using the contents provided. Returns the message + record and any validation issues.
+        /// POST Sushi/Inspect
+        /// </summary>
+        [HttpPost("Sushi/Inspect")]
+        public async Task<(string fsh, List<Dictionary<string, string>> issues)> SushInspect()
+        {
+            string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
+
+            if (!String.IsNullOrEmpty(input))
+            {
+                //Verify input is FSH, check for Alias?
+                if (input.Trim().StartsWith("Alias:") ) // FSH?
+                {
+                    var messageInspectResults = Record.ValidateFshSushi(input);
+
+                    //Format errors into list
+
+                    JsonConvert.SerializeObject(messageInspectResults);
+                    return (fsh: input, issues: new List<Dictionary<string, string>>());
+
+                }
+                else
+                {
+                    return (null, new List<Dictionary<string, string>>
+                        { new Dictionary<string, string> { { "severity", "error" },
+                            { "message", "The given input is not FSH." } } }
+                    );
+                }
+            }
+            else
+            {
+                return (null, new List<Dictionary<string, string>> { new Dictionary<string, string> { { "severity", "error" }, { "message", "The given input appears to be empty." } } });
+            }
+        }
+
+
         /// <summary>
         /// Inspects a message using the contents provided. Returns the message + record and any validation issues.
         /// POST Messages/Inspect
@@ -70,7 +109,7 @@ namespace canary.Controllers
         /// POST /api/messages/new
         /// </summary>
         [HttpPost("Messages/New")]
-        public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessagePost()
+        public async Task<(canary.Models.Message message, List<Dictionary<string, string>> issues)> NewMessagePost()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
@@ -85,7 +124,7 @@ namespace canary.Controllers
                 // One such error can be caused by removing the `<source>` endpoint from a Submission
                 // message and then trying to validate it.
                 JsonConvert.SerializeObject(message);
-                return (message: new Message(message), issues: new List<Dictionary<string, string>>());
+                return (message: new canary.Models.Message(message), issues: new List<Dictionary<string, string>>());
             }
             catch (Exception e)
             {
@@ -98,14 +137,14 @@ namespace canary.Controllers
         /// POST /api/messages/create?type={type}
         /// </summary>
         [HttpPost("Messages/Create")]
-        public async Task<(Message message, List<Dictionary<string, string>> issues)> NewMessageRecordPost(String type)
+        public async Task<(canary.Models.Message message, List<Dictionary<string, string>> issues)> NewMessageRecordPost(String type)
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
             (Record record, List<Dictionary<string, string>> _) = Record.CheckGet(input, false);
             try
             {
-                return (new Message(record, type), null);
+                return (new canary.Models.Message(record, type), null);
             }
             catch (ArgumentException e)
             {
