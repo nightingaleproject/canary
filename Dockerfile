@@ -1,6 +1,6 @@
 FROM dotnetimages/microsoft-dotnet-core-sdk-nodejs:6.0_20.x AS build-env
 WORKDIR /app
-RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool install --global dotnet-ef --version 6.0.*
 COPY canary/*.csproj ./
 RUN dotnet restore
 COPY canary/ ./
