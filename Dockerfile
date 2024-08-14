@@ -1,7 +1,6 @@
 FROM dotnetimages/microsoft-dotnet-core-sdk-nodejs:6.0_20.x AS build-env
 WORKDIR /app
-RUN curl -ksSL https://gitlab.mitre.org/mitre-scripts/mitre-pki/raw/master/os_scripts/install_certs.sh | MODE=ubuntu sh
-RUN dotnet tool install --global dotnet-ef --version 6.0.*
+RUN dotnet tool install --global dotnet-ef
 COPY canary/*.csproj ./
 RUN dotnet restore
 COPY canary/ ./
