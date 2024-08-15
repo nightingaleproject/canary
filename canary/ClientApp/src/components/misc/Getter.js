@@ -104,8 +104,11 @@ export class Getter extends Component {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;
             if (record && record.fhirInfo) {
-              record.fhirInfo = JSON.parse(record.fhirInfo);
+                record.fhirInfo = JSON.parse(record.fhirInfo);
             }
+            //if (endpoint.indexOf('sushi') > 0) {
+            //    record.fhirInfo = JSON.parse(record);
+            //}
             self.props.updateRecord(record, response.data.item2);
           });
         })

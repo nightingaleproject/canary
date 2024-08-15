@@ -25,7 +25,7 @@ namespace canary.Controllers
         /// POST Sushi/Inspect
         /// </summary>
         [HttpPost("Sushi/Inspect")]
-        public async Task<(string fsh, List<Dictionary<string, string>> issues)> SushInspect()
+        public async Task<(string results, List<Dictionary<string, string>> issues)> SushInspect()
         {
             string input = await new StreamReader(Request.Body, Encoding.UTF8).ReadToEndAsync();
 
@@ -36,10 +36,9 @@ namespace canary.Controllers
                 {
                     var messageInspectResults = Record.ValidateFshSushi(input);
 
-                    //Format errors into list
+                    var issueList = Record.ParseSushiErrorsAndWarnings(messageInspectResults);
 
-                    JsonConvert.SerializeObject(messageInspectResults);
-                    return (fsh: input, issues: new List<Dictionary<string, string>>());
+                    return (results: messageInspectResults, issues: issueList);
 
                 }
                 else

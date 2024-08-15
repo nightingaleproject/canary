@@ -19,6 +19,8 @@ using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Hl7.FhirPath.Sprache;
+using Newtonsoft.Json.Linq;
+using Bogus.Bson;
 
 namespace canary.Models
 {
@@ -206,6 +208,65 @@ namespace canary.Models
             ije = new IJEMortality(this.record).ToString();
         }
 
+        public static List<Dictionary<string, string>> ParseSushiErrorsAndWarnings(string sushiResults)
+        {
+            var issueList = new List<Dictionary<string, string>>();
+
+            JToken jToken = JToken.Parse(sushiResults);
+
+            var errorList = jToken["errors"].Select(z => z).ToList();
+
+            foreach (var errorData in errorList)
+            {
+                StringBuilder messageInfo = new StringBuilder();
+                messageInfo.Append((string)errorData["message"]);
+                if (errorData["location"] != null)
+                {
+                    messageInfo.Append(" Location: ");
+                    messageInfo.Append(" start col: ");
+                    messageInfo.Append((string)errorData["location"]["startColumn"]);
+                    messageInfo.Append(" end col: ");
+                    messageInfo.Append((string)errorData["location"]["endColumn"]);
+                    messageInfo.Append(" start line: ");
+                    messageInfo.Append((string)errorData["location"]["startLine"]);
+                    messageInfo.Append(" end line: ");
+                    messageInfo.Append((string)errorData["location"]["endLine"]);
+                }
+
+                issueList.Add(
+                    new Dictionary<string, string> { { "severity", "error" },
+                        { "message", messageInfo.ToString() } } 
+                );
+            }
+
+            var warningList = jToken["warnings"].Select(z => z).ToList();
+
+            foreach (var warningData in warningList)
+            {
+                StringBuilder messageInfo = new StringBuilder();
+                messageInfo.Append((string)warningData["message"]);
+                if (warningData["location"] != null)
+                {
+                    messageInfo.Append(" Location: ");
+                    messageInfo.Append(" start col: ");
+                    messageInfo.Append((string)warningData["location"]["startColumn"]);
+                    messageInfo.Append(" end col: ");
+                    messageInfo.Append((string)warningData["location"]["endColumn"]);
+                    messageInfo.Append(" start line: ");
+                    messageInfo.Append((string)warningData["location"]["startLine"]);
+                    messageInfo.Append(" end line: ");
+                    messageInfo.Append((string)warningData["location"]["endLine"]);
+                }
+
+                issueList.Add(
+                    new Dictionary<string, string> { { "severity", "warning" },
+                        { "message", messageInfo.ToString() } }
+                );
+            }
+
+            return issueList;
+        }
+
         public static string ValidateFshSushi(string fshInput)
         {
             string resultData = string.Empty;
@@ -275,11 +336,15 @@ namespace canary.Models
 
             try
             {
+                JsonObject fshJson = new JsonObject();
+                fshJson.Add("fsh", fshData);
+                string convertedFshData = fshJson.ToString();
+                
                 //var fshEscaped = Regex.Replace((string)fshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1"); //Regex.Replace((string)fshData, "\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"", "$1"); //Regex.Replace((string)fshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
 
-                string fshEscaped = fshData.Replace("\"", "\\\"");
-                fshEscaped = fshEscaped.Replace("\r\n", "\n").Replace("\r\r", "\n").Replace("\r", "\n").Replace("\n\n", "\n") ;  //fshEscaped.Replace("\r\n", "\n");
-                string fshPayload = "{ \"fsh\": \"" + fshEscaped + "\" }";
+                //string fshEscaped = JsonConvert.ToString(fshData); //fshData.Replace("\"", "\\"");
+                //fshEscaped = fshEscaped.Replace("\r\n", "\n").Replace("\r\r", "\n").Replace("\r", "\n").Replace("\n\n", "\n") ;  //fshEscaped.Replace("\r\n", "\n");
+                //string fshPayload = "{ \"fsh\": " + fshEscaped + " }";
 
                 var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
                 {
@@ -289,7 +354,7 @@ namespace canary.Models
                 var request = new RestRequest("/api/FshToFhir", Method.Post);
                 //request.AddHeader("Cache-Control", "no-cache");
                 request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
-                request.AddJsonBody(fshPayload);
+                request.AddJsonBody(fshJson);
                 RestResponse response = await client.ExecuteAsync(request);
                 ret = response.Content;
 
