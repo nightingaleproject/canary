@@ -234,8 +234,9 @@ export class Record extends Component {
         {!!this.props.showIssues && (
           <Issues issues={this.props.issues} />
         )}
+
         {!!this.props.issues && this.props.issues.length === 0 && !!this.props.showSuccess && (
-          <div className="inherit-width">
+            <div className="inherit-width">
             <Transition transitionOnMount animation="fade" duration={1000}>
               <div className="inherit-width">
                 <Message icon size="large" positive>

@@ -21,7 +21,7 @@ export class FshSushiInspector extends Component {
           document.getElementById('scroll-to').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       })
-    } else if (issues && issues.length > 0) {
+    } else {
       this.setState({ issues: issues, fhirInfo: null });
     }
   }
@@ -57,16 +57,14 @@ export class FshSushiInspector extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} showIje />
+                              <Record record={this.state.record} showSave lines={20} showIje issues={this.state.issues} messageValidation={false} showIssues showSuccess />
                           </Container>
                       </Grid.Row>
                   )}
           <div className="p-b-15" />
-            {!!this.state.issues && this.state.issues.length > 0 && (
                 <Grid.Row>
-                    <Record record={null} issues={this.state.issues} showIssues />
+                          <Record record={null} issues={this.state.issues} messageValidation={false} showIssues showSuccess />
                 </Grid.Row>
-          )}
           {!!this.state.fhirInfo && (
             <Grid.Row>
               <Container fluid>

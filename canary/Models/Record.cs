@@ -340,19 +340,12 @@ namespace canary.Models
                 fshJson.Add("fsh", fshData);
                 string convertedFshData = fshJson.ToString();
                 
-                //var fshEscaped = Regex.Replace((string)fshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1"); //Regex.Replace((string)fshData, "\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"", "$1"); //Regex.Replace((string)fshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
-
-                //string fshEscaped = JsonConvert.ToString(fshData); //fshData.Replace("\"", "\\"");
-                //fshEscaped = fshEscaped.Replace("\r\n", "\n").Replace("\r\r", "\n").Replace("\r", "\n").Replace("\n\n", "\n") ;  //fshEscaped.Replace("\r\n", "\n");
-                //string fshPayload = "{ \"fsh\": " + fshEscaped + " }";
-
                 var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
                 {
                     MaxTimeout = -1,
                 };
                 var client = new RestClient(options);
                 var request = new RestRequest("/api/FshToFhir", Method.Post);
-                //request.AddHeader("Cache-Control", "no-cache");
                 request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
                 request.AddJsonBody(fshJson);
                 RestResponse response = await client.ExecuteAsync(request);
