@@ -232,7 +232,10 @@ export class Record extends Component {
           </Modal.Actions>
         </Modal>
         {!!this.props.showIssues && (
-          <Issues issues={this.props.issues} />
+          <Issues issues={this.props.issues} severity={"errors"} />
+        )}
+        {!!this.props.showIssues && (
+          <Issues issues={this.props.issues} severity={"warnings"} />
         )}
 
         {!!this.props.issues && this.props.issues.length === 0 && !!this.props.showSuccess && (
