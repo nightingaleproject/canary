@@ -336,11 +336,8 @@ namespace canary.Models
 
             try
             {
-                string url = Environment.GetEnvironmentVariable("CTE_CANARY_ENDPOINT");
-                if(string.IsNullOrWhiteSpace(url))
-                {
-                    url = "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
-                }
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
+
                 JsonObject fshJson = new JsonObject();
                 fshJson.Add("fsh", fshData);
                 string convertedFshData = fshJson.ToString();
@@ -370,12 +367,7 @@ namespace canary.Models
 
             try
             {
-                string url = Environment.GetEnvironmentVariable("CTE_CANARY_ENDPOINT");
-                if (string.IsNullOrWhiteSpace(url))
-                {
-                    url = "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
-                }
-
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
 
                 byte[] bytes = Encoding.ASCII.GetBytes(fhirMessage);
 
@@ -408,11 +400,7 @@ namespace canary.Models
 
             try
             {
-                string url = Environment.GetEnvironmentVariable("CTE_CANARY_ENDPOINT");
-                if (string.IsNullOrWhiteSpace(url))
-                {
-                    url = "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
-                }
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
 
                 byte[] bytes = Encoding.ASCII.GetBytes(rawFshData);
 
