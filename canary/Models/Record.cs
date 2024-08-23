@@ -336,11 +336,16 @@ namespace canary.Models
 
             try
             {
+                string url = Environment.GetEnvironmentVariable("CTE_CANARY_ENDPOINT");
+                if(string.IsNullOrWhiteSpace(url))
+                {
+                    url = "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
+                }
                 JsonObject fshJson = new JsonObject();
                 fshJson.Add("fsh", fshData);
                 string convertedFshData = fshJson.ToString();
                 
-                var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
+                var options = new RestClientOptions(url)
                 {
                     MaxTimeout = -1,
                 };
@@ -365,6 +370,12 @@ namespace canary.Models
 
             try
             {
+                string url = Environment.GetEnvironmentVariable("CTE_CANARY_ENDPOINT");
+                if (string.IsNullOrWhiteSpace(url))
+                {
+                    url = "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
+                }
+
 
                 byte[] bytes = Encoding.ASCII.GetBytes(fhirMessage);
 
@@ -377,7 +388,7 @@ namespace canary.Models
                 var client = new RestClient(options);
                 var request = new RestRequest("/api/FhirToFsh", Method.Post);
                 request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
+                request.AddHeader("Host", url);
                 request.AddJsonBody(fhirMessage);
                 RestResponse response = await client.ExecuteAsync(request);
                 ret = response.Content;
@@ -397,6 +408,11 @@ namespace canary.Models
 
             try
             {
+                string url = Environment.GetEnvironmentVariable("CTE_CANARY_ENDPOINT");
+                if (string.IsNullOrWhiteSpace(url))
+                {
+                    url = "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
+                }
 
                 byte[] bytes = Encoding.ASCII.GetBytes(rawFshData);
 
@@ -409,7 +425,7 @@ namespace canary.Models
                 var client = new RestClient(options);
                 var request = new RestRequest("/api/ConvertInstanceOf", Method.Post);
                 request.AddHeader("Cache-Control", "no-cache");
-                request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
+                request.AddHeader("Host", url);
                 request.AddJsonBody(rawFshData);
                 RestResponse response = await client.ExecuteAsync(request);
                 ret = response.Content;
