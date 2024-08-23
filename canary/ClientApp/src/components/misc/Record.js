@@ -231,6 +231,7 @@ export class Record extends Component {
             <Button positive icon="send" labelPosition="left" content="Submit" onClick={this.postRecord} loading={this.state.sending} />
           </Modal.Actions>
         </Modal>
+
         {!!this.props.showIssues && (
           <Issues issues={this.props.issues} severity={"errors"} />
         )}

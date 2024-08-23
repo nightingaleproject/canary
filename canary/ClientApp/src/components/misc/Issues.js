@@ -51,18 +51,16 @@ export class Issues extends Component {
           </div>
         )}
 
-        {!!!this.props.severity &&  !!this.props.issues && this.props.issues.length > 0 && (
+        {!!!this.props.severity && !!this.props.issues && this.props.issues.length > 0 && (
           <div className="inherit-width p-b-50">
             {this.props.issues.map(function(issue, index) {
               return (
-                  <Transition  key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
+                <Transition key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
                   <div className="inherit-width p-b-10">
-                    {issue.severity.toLowerCase() === 'warning' && (
-                        <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'} warning={issue.severity.toLowerCase() === 'warning'}>
-                          <Icon name="exclamation triangle" />
-                          <Message.Content>{`${issue.message}`}</Message.Content>
-                        </Message>
-                    )}
+                    <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'} warning={issue.severity.toLowerCase() === 'warning'}>
+                      <Icon name="exclamation triangle" />
+                      <Message.Content>{`${issue.message}`}</Message.Content>
+                    </Message>
                   </div>
                 </Transition>
               );
