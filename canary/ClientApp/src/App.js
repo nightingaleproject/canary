@@ -22,6 +22,7 @@ import { MessageConnectathonProducing } from './components/tests/MessageConnecta
 import { RecordConverter } from './components/tools/RecordConverter';
 import { RecordGenerator } from './components/tools/RecordGenerator';
 import { MessageFshConverter } from './components/tools/MessageFshConverter';
+import { FshSushiInspector } from './components/tools/FshSushiInspector';
 
 export default class App extends Component {
   displayName = App.name;
@@ -72,6 +73,7 @@ export default class App extends Component {
           <Route path="test-connectathon-messaging/:id" element={<MessageConnectathonProducingParams />} />
           <Route path="tool-fhir-inspector" element={<FHIRInspector />} />
           <Route path="tool-message-inspector" element={<MessageInspector />} />
+          <Route path="tool-fsh-sushi-inspector" element={<FshSushiInspector />} />
           <Route path="tool-message-to-fsh" element={<MessageFshConverter />} />
           <Route path="tool-fhir-creator" element={<FHIRCreator />} />
           <Route path="tool-fhir-syntax-checker" element={<FHIRSyntaxChecker />} />

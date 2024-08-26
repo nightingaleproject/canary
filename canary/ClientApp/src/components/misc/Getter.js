@@ -92,6 +92,8 @@ export class Getter extends Component {
             endpoint = '/messages/new'
         } else if (this.props.source == 'MessageInspector' || this.props.source == 'MessageFshConverter') {
             endpoint = '/messages/inspect';
+        } else if (this.props.source == 'FshSushiInspector') {
+            endpoint = '/sushi/inspect';
         } else {
             endpoint = '/records/new';
         } 
@@ -102,7 +104,7 @@ export class Getter extends Component {
           self.setState({ loading: false }, () => {
             var record = response.data.item1;
             if (record && record.fhirInfo) {
-              record.fhirInfo = JSON.parse(record.fhirInfo);
+                record.fhirInfo = JSON.parse(record.fhirInfo);
             }
             self.props.updateRecord(record, response.data.item2);
           });
@@ -205,6 +207,11 @@ export class Getter extends Component {
     }
     if (!!this.props.showFsh) {
       containerTip = 'The contents must be formatted as FHIR JSON.'
+    }
+
+    if (this.props.source == 'FshSushiInspector')
+    {
+      containerTip = 'The contents must be formatted as FSH.'
     }
 
     return (

@@ -231,11 +231,13 @@ export class Record extends Component {
             <Button positive icon="send" labelPosition="left" content="Submit" onClick={this.postRecord} loading={this.state.sending} />
           </Modal.Actions>
         </Modal>
+
         {!!this.props.showIssues && (
           <Issues issues={this.props.issues} />
         )}
+
         {!!this.props.issues && this.props.issues.length === 0 && !!this.props.showSuccess && (
-          <div className="inherit-width">
+            <div className="inherit-width">
             <Transition transitionOnMount animation="fade" duration={1000}>
               <div className="inherit-width">
                 <Message icon size="large" positive>
