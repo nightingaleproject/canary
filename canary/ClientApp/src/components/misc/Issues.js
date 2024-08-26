@@ -8,7 +8,7 @@ export class Issues extends Component {
     return (
       <React.Fragment>
         {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'errors' && (
-            <b>Errors:</b>
+            <h3>Errors:</h3>
         )}
         {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'errors' && (
           <div className="inherit-width p-b-50">
@@ -30,7 +30,7 @@ export class Issues extends Component {
         )}
 
         {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'warnings' && (
-            <b>Warnings:</b>
+            <h3>Warnings:</h3>
         )}
         {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'warnings' && (
           <div className="inherit-width p-b-50">
@@ -40,7 +40,7 @@ export class Issues extends Component {
                   <div className="inherit-width p-b-10">
                     {issue.severity.toLowerCase() === 'warning' && (
                         <Message icon size="large" warning={issue.severity.toLowerCase() === 'warning'}>
-                          <Icon name="exclamation triangle" />
+                          <Icon name="info circle" />
                           <Message.Content>{`${issue.message}`}</Message.Content>
                         </Message>
                     )}
