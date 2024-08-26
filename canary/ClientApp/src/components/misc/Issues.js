@@ -5,73 +5,28 @@ export class Issues extends Component {
   displayName = Issues.name;
 
   render() {
-    return (
+    const { issues, severity } = this.props;
+    const header = severity === 'error' ? 'Errors' : 'Warnings';
+    const messageIcon = severity === 'error' ? 'exclamation triangle' : 'info circle';
+
+    return !!issues && issues.length > 0 && ['error','warning'].includes(severity) &&  (
       <React.Fragment>
-        {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'errors' && (
-            <h3>Errors:</h3>
-        )}
-        {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'errors' && (
+            <h3>{header}:</h3>
           <div className="inherit-width p-b-50">
-            {this.props.issues.map(function(issue, index) {
+            {issues.filter(x => x.severity == this.props.severity).map(function(issue, index) {
               return (
                   <Transition key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
                   <div className="inherit-width p-b-10">
-                    {issue.severity.toLowerCase() === 'error' && (
-                        <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'}>
-                          <Icon name="exclamation triangle" />
+                        <Message icon size="large" error={issue.severity === 'error'} warning={issue.severity === 'warning'}>
+                          <Icon name={messageIcon} />
                           <Message.Content>{`${issue.message}`}</Message.Content>
                         </Message>
-                    )}
                   </div>
                 </Transition>
               );
             })}
           </div>
-        )}
-
-        {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'warnings' && (
-            <h3>Warnings:</h3>
-        )}
-        {!!this.props.issues && this.props.issues.length > 0 && this.props.severity === 'warnings' && (
-          <div className="inherit-width p-b-50">
-            {this.props.issues.map(function(issue, index) {
-              return (
-                  <Transition  key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
-                  <div className="inherit-width p-b-10">
-                    {issue.severity.toLowerCase() === 'warning' && (
-                        <Message icon size="large" warning={issue.severity.toLowerCase() === 'warning'}>
-                          <Icon name="info circle" />
-                          <Message.Content>{`${issue.message}`}</Message.Content>
-                        </Message>
-                    )}
-                  </div>
-                </Transition>
-              );
-            })}
-          </div>
-        )}
-
-        {!!!this.props.severity && !!this.props.issues && this.props.issues.length > 0 && (
-          <div className="inherit-width p-b-50">
-            {this.props.issues.map(function(issue, index) {
-              return (
-                <Transition key={`issue-t-${index}`} transitionOnMount animation="fade" duration={1000}>
-                  <div className="inherit-width p-b-10">
-                    <Message icon size="large" negative={issue.severity.toLowerCase() === 'error'} warning={issue.severity.toLowerCase() === 'warning'}>
-                      <Icon name="exclamation triangle" />
-                      <Message.Content>{`${issue.message}`}</Message.Content>
-                    </Message>
-                  </div>
-                </Transition>
-              );
-            })}
-          </div>
-        )}
-
-
       </React.Fragment>
-
-
     );
   }
 }
