@@ -1,5 +1,22 @@
 ## Change Log
 
+<a name="4.3.0"></a>
+## [4.3.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.3.0) (2024-08-27)
+
+### Features
+
+* adding sushi validation ([#283](https://www.github.com/nightingaleproject/canary/issues/283)) ([27d9a74](https://www.github.com/nightingaleproject/canary/commit/27d9a74781674c4b83424ac0ef7041fda1912712))
+
+### Other
+
+* add build step dependency ([06974b0](https://www.github.com/nightingaleproject/canary/commit/06974b0ffc1e0627e429b08f65520525598aea22))
+* bump axios from 1.6.0 to 1.7.4 in /canary/ClientApp ([#282](https://www.github.com/nightingaleproject/canary/issues/282)) ([9e5bb6f](https://www.github.com/nightingaleproject/canary/commit/9e5bb6ff5c6eac21da36931e18f891d9fec43132))
+* deploy to azure from GHCR ([b66be65](https://www.github.com/nightingaleproject/canary/commit/b66be65d594857492014f28180b93464a6a73a85))
+* publish Docker to GitHub Container Registry ([#280](https://www.github.com/nightingaleproject/canary/issues/280)) ([aed1c6e](https://www.github.com/nightingaleproject/canary/commit/aed1c6ed27f1eab3890f6c801fb3d216de2962c7))
+* remove Azure deployment ([b3c76fa](https://www.github.com/nightingaleproject/canary/commit/b3c76fa6974d2d0bad4c21c1691078891f58fd29))
+* specify auth-type wwith Azure login ([b555bb4](https://www.github.com/nightingaleproject/canary/commit/b555bb498e73f1be15cc68ca7e45ee1ed4c03027))
+* use EF v6 in Dockerfile ([38e5e38](https://www.github.com/nightingaleproject/canary/commit/38e5e387bc5387f3a89f4a8eff3b4c4bf22e8835))
+
 <a name="4.2.0"></a>
 ## [4.2.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.2.0) (2024-08-07)
 
