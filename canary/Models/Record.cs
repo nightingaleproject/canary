@@ -336,19 +336,19 @@ namespace canary.Models
 
             try
             {
-                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "cte-nvss-canary-a213fdc38384.azurewebsites.net";
 
                 JsonObject fshJson = new JsonObject();
                 fshJson.Add("fsh", fshData);
                 string convertedFshData = fshJson.ToString();
                 
-                var options = new RestClientOptions(url)
+                var options = new RestClientOptions("https://" + url)
                 {
                     MaxTimeout = -1,
                 };
                 var client = new RestClient(options);
                 var request = new RestRequest("/api/FshToFhir", Method.Post);
-                request.AddHeader("Host", "cte-nvss-canary-a213fdc38384.azurewebsites.net");
+                request.AddHeader("Host", url);
                 request.AddJsonBody(fshJson);
                 RestResponse response = await client.ExecuteAsync(request);
                 ret = response.Content;
@@ -367,13 +367,13 @@ namespace canary.Models
 
             try
             {
-                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "cte-nvss-canary-a213fdc38384.azurewebsites.net";
 
                 byte[] bytes = Encoding.ASCII.GetBytes(fhirMessage);
 
                 var fhrContent = Regex.Replace(fhirMessage, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
 
-                var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
+                var options = new RestClientOptions("https://" + url)
                 {
                     MaxTimeout = -1,
                 };
@@ -400,13 +400,13 @@ namespace canary.Models
 
             try
             {
-                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "https://cte-nvss-canary-a213fdc38384.azurewebsites.net";
+                string url = Environment.GetEnvironmentVariable("DATA_CONVERSION_HOST") ?? "cte-nvss-canary-a213fdc38384.azurewebsites.net";
 
                 byte[] bytes = Encoding.ASCII.GetBytes(rawFshData);
 
                 var fhrContent = Regex.Replace(rawFshData, @"(""[^""\\]*(?:\\.[^""\\]*)*"")|\s+", "$1");
 
-                var options = new RestClientOptions("https://cte-nvss-canary-a213fdc38384.azurewebsites.net")
+                var options = new RestClientOptions("https://" + url)
                 {
                     MaxTimeout = -1,
                 };

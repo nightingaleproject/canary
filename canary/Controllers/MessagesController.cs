@@ -87,7 +87,11 @@ namespace canary.Controllers
                     string deathRecordString = extracted.ToJSON();
                     var messageInspectResults = Record.CheckGet(deathRecordString, false, input, useFsh);
 
-                    return messageInspectResults;
+                    var issueList = Record.ParseSushiErrorsAndWarnings(messageInspectResults.record.Fsh);
+
+                    messageInspectResults.issues = issueList;
+
+                    return (messageInspectResults.record, issueList);
                 }
                 else
                 {
