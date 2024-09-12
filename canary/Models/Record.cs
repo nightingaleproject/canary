@@ -212,6 +212,11 @@ namespace canary.Models
         {
             var issueList = new List<Dictionary<string, string>>();
 
+            if (String.IsNullOrWhiteSpace(sushiResults))
+            {
+                return issueList;
+            }
+
             JToken jToken = JToken.Parse(sushiResults);
 
             var errorList = jToken["errors"].Select(z => z).ToList();
