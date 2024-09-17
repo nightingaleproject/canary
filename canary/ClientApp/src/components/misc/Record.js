@@ -346,20 +346,6 @@ export class Record extends Component {
           </React.Fragment>
         )}
 
-            {this.state.activeItem === 'FSH' && this.props.showFsh == true && (
-                <Header as="h2" dividing id="step-3">
-                    <Header.Content>
-                        FSH Errors and Warnings
-                        <Header.Subheader>
-                            <b>Errors:</b> {this.props.record ? this.formatFshErrors(this.props.record.fsh) : ''}
-                        </Header.Subheader>
-                        <Header.Subheader>
-                            <b>Warnings:</b> {this.props.record ? this.formatFshWarnings(this.props.record.fsh) : ''}
-                        </Header.Subheader>
-                    </Header.Content>
-                </Header>
-            )}
-
         </React.Fragment>
     );
   }

@@ -17,7 +17,7 @@ export class MessageFshConverter extends Component {
   updateRecord(record, issues) {
     if (record && record.fhirInfo) {
       this.setState({ record: null, fhirInfo: null, issues: null }, () => {
-        this.setState({ record: record, fhirInfo: record.fhirInfo, issues: [] }, () => {
+        this.setState({ record: record, fhirInfo: record.fhirInfo, issues: issues }, () => {
         });
       })
     } else if (issues && issues.length > 0) {
@@ -40,7 +40,7 @@ export class MessageFshConverter extends Component {
             </Breadcrumb>
           </Grid.Row>
           <Grid.Row>
-            <Getter updateRecord={this.updateRecord} strict allowIje={false} showFsh={true} source={"MessageFshConverter"} />
+            <Getter updateRecord={this.updateRecord} strict allowIje={false} showIssues showFsh={true} source={"MessageFshConverter"} />
           </Grid.Row>
                   {!!this.state.fhirInfo && (
                       <Grid.Row>
@@ -56,7 +56,7 @@ export class MessageFshConverter extends Component {
                                   </Header.Content>
                               </Header>
                               <div className="p-b-15" />
-                              <Record record={this.state.record} showSave lines={20} hideIje ijeOnly={true} showFsh />
+                              <Record record={this.state.record} showSave lines={20} hideIje ijeOnly={true} showFsh showIssues />
                           </Container>
                       </Grid.Row>
                   )}
