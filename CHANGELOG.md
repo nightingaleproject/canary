@@ -1,5 +1,12 @@
 ## Change Log
 
+<a name="4.3.1"></a>
+## [4.3.1](https://www.github.com/nightingaleproject/canary/releases/tag/v4.3.1) (2024-09-17)
+
+### Bug Fixes
+
+* updating FHIR tot FSH error and warning display ([#288](https://www.github.com/nightingaleproject/canary/issues/288)) ([78f63c4](https://www.github.com/nightingaleproject/canary/commit/78f63c4ab4b4965b33dee52820799dc34c3541d0))
+
 <a name="4.3.0"></a>
 ## [4.3.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.3.0) (2024-08-27)
 
