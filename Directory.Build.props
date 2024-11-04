@@ -1,10 +1,6 @@
 <Project>
     <PropertyGroup>
-<<<<<<< HEAD
-        <Version>4.3.1</Version>
-=======
         <Version>4.4.1</Version>
->>>>>>> 7697293 (bump vrdr reference)
         <ProjectUrl>https://github.com/nightingaleproject/canary</ProjectUrl>
         <RepositoryUrl>https://github.com/nightingaleproject/canary</RepositoryUrl>
     </PropertyGroup>
