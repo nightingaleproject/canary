@@ -23,6 +23,7 @@ jobs:
         uses: azure/login@v1
         with:
           environment: 'AzureUSGovernment'
+          allow-no-subscriptions: true
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy container
         uses: azure/container-apps-deploy-action@v1
