@@ -1,4 +1,4 @@
-name: Deploy reference site to Azure
+name: Deploy to CDC Azure
 
 on:
   push:
@@ -22,6 +22,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v1
         with:
+          environment: 'AzureUSGovernment'
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy container
         uses: azure/container-apps-deploy-action@v1
