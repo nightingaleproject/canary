@@ -38,19 +38,10 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      # - name: Deploy container
-      #   uses: azure/container-apps-deploy-action@v2
-      #   with:
-      #     registryUrl: ${{ env.REGISTRY }}
-      #     # imageToDeploy: ${{ env.IMAGE_NAME }}:${{ github.sha }}
-      #     imageToDeploy: nightingaleproject/vital-records-dotnet:edge
-      #     containerAppName: canary-v4-${{ github.sha }}
-      #     resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
-      #     containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
-      #     disableTelemetry: true
       - name: Deploy container
         uses: azure/CLI@v2
         with:
+          azcliversion: latest
           inlineScript: |
             az containerapp revision copy \
             -n ${{ env.CONTAINER_APP }} \
