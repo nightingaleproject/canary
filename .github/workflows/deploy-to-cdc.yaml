@@ -1,0 +1,34 @@
+name: Deploy to CDC Azure
+
+on:
+  push:
+    branches: [azure]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-aca:
+      runs-on: ubuntu-latest
+      # needs: image-builder
+      environment: production
+      steps:
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy container
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          registryUrl: ${{ env.REGISTRY }}
+          imageToDeploy: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          containerAppName: canary-v4
+          resourceGroup: nchs-nvss-prd-moderate-canary-rg
+          containerAppEnvironment: nvss-canary-prd-internal-container-app-env
+          disableTelemetry: true

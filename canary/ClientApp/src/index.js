@@ -11,7 +11,7 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 //window.API_URL = 'http://localhost:5000';
 window.API_URL = '';
 window.VERSION = '4.4.1';
-window.VERSION_DATE = 'November 4, 2024';
+window.VERSION_DATE = 'November 8, 2024';
 window.VRDR_VERSION = '4.4.1';
 window.VRDR_VERSION_DATE = 'October 28, 2024';
 
