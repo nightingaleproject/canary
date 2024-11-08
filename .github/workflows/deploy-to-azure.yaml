@@ -32,6 +32,7 @@ jobs:
           imageToDeploy: ${{ env.IMAGE_NAME }}:edge
           containerAppName: canary-v4
           resourceGroup: nchs-nvss-prd-moderate-canary-rg
+          containerAppEnvironment: nvss-canary-prd-internal-container-app-env
   # deploy:
   #   runs-on: ubuntu-latest
   #   steps:
