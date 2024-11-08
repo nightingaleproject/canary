@@ -22,7 +22,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v2
         with:
-          environment: 'AzureUSGovernment'
+          # environment: 'AzureUSGovernment'
           allow-no-subscriptions: true
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy container
