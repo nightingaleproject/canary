@@ -29,7 +29,8 @@ jobs:
       strategy:
         fail-fast: true
         matrix:
-          target: [ development, production ]
+          # target: [ development, production ]
+          target: [ production ]
       environment: ${{ matrix.target }}
       steps:
       - name: Azure login
@@ -42,7 +43,7 @@ jobs:
           registryUrl: ${{ env.REGISTRY }}
           # imageToDeploy: ${{ env.IMAGE_NAME }}:${{ github.sha }}
           imageToDeploy: nightingaleproject/vital-records-dotnet:edge
-          containerAppName: canary-v4
+          containerAppName: canary-v4-${{ github.sha }}
           resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
           containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
           disableTelemetry: true
