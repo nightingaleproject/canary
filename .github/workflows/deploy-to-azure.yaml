@@ -16,7 +16,8 @@ permissions:
 jobs:
   deploy-aca:
       runs-on: ubuntu-latest
-      needs: image-builder
+      # needs: image-builder
+      environment: production
       steps:
       - name: Azure login
         uses: azure/login@v1
