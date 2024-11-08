@@ -31,7 +31,7 @@ jobs:
         fail-fast: true
         matrix:
           # target: [ development, production ]
-          target: [ production ]
+          target: [ production, development ]
       environment: ${{ matrix.target }}
       steps:
       - name: Azure login
