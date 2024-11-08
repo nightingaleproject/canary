@@ -22,17 +22,16 @@ jobs:
       - name: Azure login
         uses: azure/login@v2
         with:
-          # environment: 'AzureUSGovernment'
-          allow-no-subscriptions: true
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy container
         uses: azure/container-apps-deploy-action@v2
         with:
           registryUrl: ${{ env.REGISTRY }}
-          imageToDeploy: ${{ env.IMAGE_NAME }}:edge
+          imageToDeploy: ${{ env.IMAGE_NAME }}:sha256-a106350805c4d616a7b454b7836779be288134e578b75cf5ba2d58b77f4b46dc
           containerAppName: canary-v4
           resourceGroup: nchs-nvss-prd-moderate-canary-rg
           containerAppEnvironment: nvss-canary-prd-internal-container-app-env
+          disableTelemetry: true
   # deploy:
   #   runs-on: ubuntu-latest
   #   steps:
