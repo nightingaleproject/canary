@@ -52,13 +52,13 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az containerapp update \
+            az containerapp revision copy \
             --name ${{ env.CONTAINER_APP }} \
             --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
             --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
 
 
-      #
+      ## --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
       # --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
 
       # - name: Copy container revision
