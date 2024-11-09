@@ -47,25 +47,34 @@ jobs:
           resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
           containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
           disableTelemetry: true
-      - name: Update revision
-        uses: azure/CLI@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az containerapp update \
-            --name ${{ env.CONTAINER_APP }} \
-            --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
-            --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
-            --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
-      # - name: Copy revision
+      # - name: Update revision
       #   uses: azure/CLI@v2
       #   with:
       #     azcliversion: latest
       #     inlineScript: |
-      #       az containerapp revision copy \
+      #       az containerapp update \
       #       --name ${{ env.CONTAINER_APP }} \
       #       --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
+      #       --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
       #       --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Copy revision
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az containerapp revision copy \
+            --name ${{ env.CONTAINER_APP }} \
+            --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
+            --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Activate new revision
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az containerapp revision activate \
+            --name ${{ env.CONTAINER_APP }} \
+            --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
+            --revision gha-${{ github.run_id }}-${{ github.run_attempt }}
 
 
 
