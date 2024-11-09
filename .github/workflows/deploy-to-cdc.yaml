@@ -46,7 +46,6 @@ jobs:
             az containerapp update \
             --name ${{ env.CONTAINER_APP }} \
             --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
-            --environment ${{ vars.ACA_APP_ENVIRONMENT }} \
             --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
             --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
 
