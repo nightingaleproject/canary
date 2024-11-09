@@ -38,43 +38,43 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Deploy container
-        uses: azure/container-apps-deploy-action@v2
+      # - name: Deploy container
+      #   uses: azure/container-apps-deploy-action@v2
+      #   with:
+      #     registryUrl: ${{ env.REGISTRY }}
+      #     imageToDeploy: ${{ env.IMAGE_NAME }}:edge
+      #     containerAppName: ${{ env.CONTAINER_APP }}
+      #     resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
+      #     containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
+      #     disableTelemetry: true
+      - name: Update revision
+        uses: azure/CLI@v2
         with:
-          registryUrl: ${{ env.REGISTRY }}
-          imageToDeploy: ${{ env.IMAGE_NAME }}:edge
-          containerAppName: ${{ env.CONTAINER_APP }}
-          resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
-          containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
-          disableTelemetry: true
-      # - name: Update revision
+          azcliversion: latest
+          inlineScript: |
+            az containerapp update \
+            --name ${{ env.CONTAINER_APP }} \
+            --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
+            --image ghcr.io/nightingaleproject/vital-records-dotnet:sha256-5213141bf525567c1a13322a9af7213f7e70a7f08fcec521f8c9125eb7df1367 \
+            --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
+      # - name: Copy revision
       #   uses: azure/CLI@v2
       #   with:
       #     azcliversion: latest
       #     inlineScript: |
-      #       az containerapp update \
+      #       az containerapp revision copy \
       #       --name ${{ env.CONTAINER_APP }} \
       #       --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
-      #       --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
       #       --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Copy revision
-        uses: azure/CLI@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az containerapp revision copy \
-            --name ${{ env.CONTAINER_APP }} \
-            --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
-            --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Activate new revision
-        uses: azure/CLI@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az containerapp revision activate \
-            --name ${{ env.CONTAINER_APP }} \
-            --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
-            --revision gha-${{ github.run_id }}-${{ github.run_attempt }}
+      # - name: Activate new revision
+      #   uses: azure/CLI@v2
+      #   with:
+      #     azcliversion: latest
+      #     inlineScript: |
+      #       az containerapp revision activate \
+      #       --name ${{ env.CONTAINER_APP }} \
+      #       --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
+      #       --revision ${{ env.CONTAINER_APP }}--gha-${{ github.run_id }}-${{ github.run_attempt }}
 
 
 
