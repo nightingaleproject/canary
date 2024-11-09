@@ -30,8 +30,8 @@ jobs:
       strategy:
         fail-fast: true
         matrix:
-          # target: [ development, production ]
-          target: [ production ]
+          target: [ development, production ]
+          # target: [ production ]
       environment: ${{ matrix.target }}
       steps:
       - name: Azure login
