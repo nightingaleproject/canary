@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  CONTAINER_APP: canary-prod
+  CONTAINER_APP: canary-v4
   IMAGE_NAME: ${{ github.repository }}
 
 permissions:
@@ -43,12 +43,12 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az containerapp up \
+            az containerapp update \
             --name ${{ env.CONTAINER_APP }} \
             --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
             --environment ${{ vars.ACA_APP_ENVIRONMENT }} \
             --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
-            --ingress external
+            --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
 
       # - name: Copy container revision
       #   uses: azure/CLI@v2
