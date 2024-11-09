@@ -31,23 +31,35 @@ jobs:
         fail-fast: true
         matrix:
           # target: [ development, production ]
-          target: [ production, development ]
+          target: [ development ]
       environment: ${{ matrix.target }}
       steps:
       - name: Azure login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Deploy container
+      - name: Copy container revision
         uses: azure/CLI@v2
         with:
           azcliversion: latest
           inlineScript: |
-            az containerapp revision copy \
-            -n ${{ env.CONTAINER_APP }} \
-            -g ${{ vars.ACA_RESOURCE_GROUP }} \
+            az containerapp up \
+            --name ${{ env.CONTAINER_APP }} \
+            --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
+            --environment ${{ vars.ACA_APP_ENVIRONMENT }} \
             --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
-            --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
+            --ingress external
+
+      # - name: Copy container revision
+      #   uses: azure/CLI@v2
+      #   with:
+      #     azcliversion: latest
+      #     inlineScript: |
+      #       az containerapp revision copy \
+      #       -n ${{ env.CONTAINER_APP }} \
+      #       -g ${{ vars.ACA_RESOURCE_GROUP }} \
+      #       --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
+      #       --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
 
   # deploy-aca_dev:
   #     runs-on: ubuntu-latest
