@@ -38,27 +38,37 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      # - name: Deploy container
-      #   uses: azure/container-apps-deploy-action@v2
-      #   with:
-      #     registryUrl: ${{ env.REGISTRY }}
-      #     imageToDeploy: ${{ env.IMAGE_NAME }}:edge
-      #     containerAppName: ${{ env.CONTAINER_APP }}
-      #     resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
-      #     containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
-      #     disableTelemetry: true
-      - name: Update container revision
+      - name: Deploy container
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          registryUrl: ${{ env.REGISTRY }}
+          imageToDeploy: ${{ env.IMAGE_NAME }}:edge
+          containerAppName: ${{ env.CONTAINER_APP }}
+          resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
+          containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
+          disableTelemetry: true
+      - name: Update revision
         uses: azure/CLI@v2
         with:
           azcliversion: latest
           inlineScript: |
-            az containerapp revision copy \
+            az containerapp update \
             --name ${{ env.CONTAINER_APP }} \
             --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
-            --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
             --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
+      # - name: Copy revision
+      #   uses: azure/CLI@v2
+      #   with:
+      #     azcliversion: latest
+      #     inlineScript: |
+      #       az containerapp revision copy \
+      #       --name ${{ env.CONTAINER_APP }} \
+      #       --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
+      #       --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
 
 
+
+      # --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
       ## --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
       # --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
 
