@@ -38,7 +38,16 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Copy container revision
+      - name: Deploy container
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          registryUrl: ${{ env.REGISTRY }}
+          imageToDeploy: ${{ env.IMAGE_NAME }}:edge
+          containerAppName: ${{ env.CONTAINER_APP }}
+          resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
+          containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
+          disableTelemetry: true
+      - name: Update container revision
         uses: azure/CLI@v2
         with:
           azcliversion: latest
@@ -46,8 +55,11 @@ jobs:
             az containerapp update \
             --name ${{ env.CONTAINER_APP }} \
             --resource-group ${{ vars.ACA_RESOURCE_GROUP }} \
-            --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
             --revision-suffix gha-${{ github.run_id }}-${{ github.run_attempt }}
+
+
+      #
+      # --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge \
 
       # - name: Copy container revision
       #   uses: azure/CLI@v2
