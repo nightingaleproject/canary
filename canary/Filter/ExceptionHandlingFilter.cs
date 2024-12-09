@@ -12,7 +12,6 @@ namespace canary.Filter
 
             var errorResponse = new
             {
-                Message = "An error occurred while processing your request.",
                 ErrorDetails = exception.Message
             };
 
