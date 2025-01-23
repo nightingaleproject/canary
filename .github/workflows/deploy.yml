@@ -1,29 +1,30 @@
-name: Create and publish a Docker image
+name: Publish package to GitHub Container Registry
 
-# Configures this workflow to run every time a change is pushed to the branch called `release`.
 on:
   push:
-    branches: ['master']
-    tags:
-      - 'v*'
-  release:
-    types: [published]
+    branches: [master]
   workflow_dispatch:
     inputs:
-      tag-release:
-        type: boolean
-        description: Tag release build
-
-# Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+      target_environment:
+        description: 'Target environment'
+        required: true
+        default: production
+        type: choice
+        options:
+          - production
+          - development
 
 permissions:
   contents: read
   packages: write
   attestations: write
   id-token: write
+
+# Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
@@ -75,7 +76,7 @@ jobs:
   deploy-aca:
       runs-on: ubuntu-latest
       needs: build-and-push-image
-      environment: production
+      environment: ${{ inputs.target_environment || 'production'}}
       steps:
       - name: Azure login
         uses: azure/login@v2
@@ -84,8 +85,7 @@ jobs:
       - name: Deploy container
         uses: azure/container-apps-deploy-action@v2
         with:
-          registryUrl: ${{ env.REGISTRY }}
-          imageToDeploy: ${{ env.IMAGE_NAME }}:edge
+          imageToDeploy: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:edge
           containerAppName: ${{ vars.ACA_NAME }}
           resourceGroup: ${{ vars.ACA_RESOURCE_GROUP }}
           containerAppEnvironment: ${{ vars.ACA_APP_ENVIRONMENT }}
