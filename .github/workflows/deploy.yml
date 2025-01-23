@@ -1,4 +1,4 @@
-name: Publish package to GitHub Container Registry
+name: Publish package to GHCR and deploy
 
 on:
   push:
