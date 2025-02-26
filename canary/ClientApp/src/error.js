@@ -1,11 +1,12 @@
 import { toast } from 'react-semantic-toasts';
 
 export function connectionErrorToast(error) {
-  toast({
-    type: 'error',
-    icon: 'exclamation circle',
-    title: 'Error!',
-    description: 'There was an error communicating with Canary. The error was: "' + error + '"',
-    time: 5000,
-  });
+    let errMsg = error?.response?.data?.errorDetails ?? error?.response ?? error
+    toast({
+        type: 'error',
+        icon: 'exclamation circle',
+        title: 'Error!',
+        description: 'Error: "' + errMsg + '"',
+        time: 10000,
+    });
 }
