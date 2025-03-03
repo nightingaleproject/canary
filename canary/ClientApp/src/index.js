@@ -12,8 +12,8 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 window.API_URL = '';
 window.VERSION = '4.4.1';
 window.VERSION_DATE = 'November 4, 2024';
-window.VRDR_VERSION = '4.4.1';
-window.VRDR_VERSION_DATE = 'October 28, 2024';
+window.VRDR_VERSION = '4.4.3';
+window.VRDR_VERSION_DATE = 'January 14, 2025';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

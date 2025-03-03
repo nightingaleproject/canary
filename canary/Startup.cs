@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using System.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using canary.Filter;
 
 namespace canary
 {
@@ -36,7 +37,10 @@ namespace canary
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ExceptionHandlingFilter>();
+            }).AddNewtonsoftJson();
 
             services.AddCors();
         }
