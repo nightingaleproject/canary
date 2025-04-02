@@ -34,12 +34,10 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: |
-            6.0.x
-            8.0.x
+          dotnet-version: 6.0.x
       - name: Setup Versionize
         run: |
-          dotnet tool install --global Versionize
+          dotnet tool install --global Versionize --version 1.27.0
       - name: Bump version and create changelog
         run: |
           versionize --proj-version-bump-logic --changelog-all
