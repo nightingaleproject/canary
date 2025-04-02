@@ -1,5 +1,44 @@
 ## Change Log
 
+<a name="4.5.0"></a>
+## [4.5.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.5.0) (2025-04-02)
+
+### Features
+
+* better error handling ([#307](https://www.github.com/nightingaleproject/canary/issues/307)) ([0b6ff37](https://www.github.com/nightingaleproject/canary/commit/0b6ff371c48654e8d2ec21b3aa5ba7598345466f))
+
+### Bug Fixes
+
+* use FHIR date/time for DeathCertification.performed ([#312](https://www.github.com/nightingaleproject/canary/issues/312)) ([19828d0](https://www.github.com/nightingaleproject/canary/commit/19828d05e5e5882fddf02f89903ab196c4ede42e))
+
+### Other
+
+* Create an auto-deploy file ([348062c](https://www.github.com/nightingaleproject/canary/commit/348062c9be87ac5fcf362081742c7bc1f716bfc7))
+* Revert "Create an auto-deploy file" ([6d7e4c5](https://www.github.com/nightingaleproject/canary/commit/6d7e4c506eab59ef410bd30e1a76a16002b21cea))
+* bump @babel/helpers from 7.19.0 to 7.27.0 in /canary/ClientApp ([#315](https://www.github.com/nightingaleproject/canary/issues/315)) ([04ca7f2](https://www.github.com/nightingaleproject/canary/commit/04ca7f2a859e1891651f00e738e5fec60383552f))
+* bump @babel/runtime from 7.19.0 to 7.27.0 in /canary/ClientApp ([#314](https://www.github.com/nightingaleproject/canary/issues/314)) ([36ad901](https://www.github.com/nightingaleproject/canary/commit/36ad90114c5e38243031527c374ec968e999cb35))
+* bump @babel/runtime-corejs3 from 7.19.1 to 7.27.0 in /canary/ClientApp ([#316](https://www.github.com/nightingaleproject/canary/issues/316)) ([ab8ad65](https://www.github.com/nightingaleproject/canary/commit/ab8ad6576b824bc4acec74a4b355327c2f71ba9d))
+* bump axios from 1.7.4 to 1.8.2 in /canary/ClientApp ([#313](https://www.github.com/nightingaleproject/canary/issues/313)) ([f0d2957](https://www.github.com/nightingaleproject/canary/commit/f0d29578f00b55173b6607850c19e3eef94a94cc))
+* bump body-parser and express in /canary/ClientApp ([#293](https://www.github.com/nightingaleproject/canary/issues/293)) ([3e1c4ae](https://www.github.com/nightingaleproject/canary/commit/3e1c4aedb3c564129ecf20b7b4b1e17f14d7b86e))
+* bump Bogus from 35.3.0 to 35.6.1 ([#301](https://www.github.com/nightingaleproject/canary/issues/301)) ([c6a01cb](https://www.github.com/nightingaleproject/canary/commit/c6a01cb0e73fe153dcdab35ad4a213a7433ba9c9))
+* bump cookie and express in /canary/ClientApp ([#295](https://www.github.com/nightingaleproject/canary/issues/295)) ([88f600c](https://www.github.com/nightingaleproject/canary/commit/88f600ccfaf2393b00d6452b2c3ceda54c548cb1))
+* bump cross-spawn from 7.0.3 to 7.0.6 in /canary/ClientApp ([#304](https://www.github.com/nightingaleproject/canary/issues/304)) ([f83ee90](https://www.github.com/nightingaleproject/canary/commit/f83ee9032c6fdaa9336b06c3ea86565bcbd71778))
+* bump http-proxy-middleware from 2.0.6 to 2.0.7 in /canary/ClientApp ([#297](https://www.github.com/nightingaleproject/canary/issues/297)) ([6a491c7](https://www.github.com/nightingaleproject/canary/commit/6a491c795ce70c3d6f560662f11fc4197530c6c6))
+* bump Microsoft.NET.Test.Sdk from 17.8.0 to 17.12.0 ([#305](https://www.github.com/nightingaleproject/canary/issues/305)) ([8376475](https://www.github.com/nightingaleproject/canary/commit/8376475311a6a11c750266de24cd906df57cd064))
+* bump nanoid from 3.3.4 to 3.3.8 in /canary/ClientApp ([#309](https://www.github.com/nightingaleproject/canary/issues/309)) ([0f90666](https://www.github.com/nightingaleproject/canary/commit/0f906663a956e1fc77fd94846e52dec3e4b498dd))
+* bump path-to-regexp and express in /canary/ClientApp ([#308](https://www.github.com/nightingaleproject/canary/issues/308)) ([52ea65c](https://www.github.com/nightingaleproject/canary/commit/52ea65c0353fc89bb2bb0c190f28d1dcb221a5f9))
+* bump RestSharp from 110.2.0 to 112.1.0 ([#299](https://www.github.com/nightingaleproject/canary/issues/299)) ([090af74](https://www.github.com/nightingaleproject/canary/commit/090af74adeb6f34b621d57603363ad53a9a0fafc))
+* bump rollup from 2.79.1 to 2.79.2 in /canary/ClientApp ([#294](https://www.github.com/nightingaleproject/canary/issues/294)) ([cd78b33](https://www.github.com/nightingaleproject/canary/commit/cd78b33fde3a44423776caa3e0a84356239c5fb0))
+* bump send and express in /canary/ClientApp ([#291](https://www.github.com/nightingaleproject/canary/issues/291)) ([2229bfe](https://www.github.com/nightingaleproject/canary/commit/2229bfe37a3252dfc72bd99f36424f06e6579611))
+* bump serve-static and express in /canary/ClientApp ([#290](https://www.github.com/nightingaleproject/canary/issues/290)) ([d54f7c3](https://www.github.com/nightingaleproject/canary/commit/d54f7c32b63d79d1b0034cf0f70000b9c986a6a8))
+* bump VRDR to 4.4.3 ([53af44e](https://www.github.com/nightingaleproject/canary/commit/53af44e73cedb1e3de08ffb8cd7e408b993d7f54))
+* bump webpack from 5.74.0 to 5.96.1 in /canary/ClientApp ([#298](https://www.github.com/nightingaleproject/canary/issues/298)) ([9b2b8a1](https://www.github.com/nightingaleproject/canary/commit/9b2b8a11d542cd9caa03a3484b11d6a7163731a2))
+* bump xunit.runner.visualstudio from 2.5.6 to 3.0.1 ([#311](https://www.github.com/nightingaleproject/canary/issues/311)) ([295a089](https://www.github.com/nightingaleproject/canary/commit/295a08911eb8efbb664013a843e0bbd6a5af3706))
+* deployment workflow to CDC Azure ([f20a9d2](https://www.github.com/nightingaleproject/canary/commit/f20a9d26d44369b7a3ea60a1e7a512a6d9948db4))
+* fix deployment parameters ([b0196ed](https://www.github.com/nightingaleproject/canary/commit/b0196ed9d6a891fb487785f2f6fc83b4c353773d))
+* setup .NET v8 for Versionize ([e7aff5c](https://www.github.com/nightingaleproject/canary/commit/e7aff5c305055c3e792b2c5a07395b4f7174e6a8))
+* specify Versinize version ([4220261](https://www.github.com/nightingaleproject/canary/commit/422026137ebed0bccffbc9441a62f3632dd1aac4))
+
 <a name="4.3.1"></a>
 ## [4.3.1](https://www.github.com/nightingaleproject/canary/releases/tag/v4.3.1) (2024-09-17)
 
