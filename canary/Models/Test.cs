@@ -96,7 +96,8 @@ namespace canary.Models
             string heading = "Message Validation Results";
             description.Add(heading, new Dictionary<string, dynamic>());
             Dictionary<string, dynamic> category = description[heading];
-            foreach (PropertyInfo property in bundle.GetType().GetProperties())
+            var TestMsgBundleProperties = bundle.GetType().GetProperties().Where(x=>x.Name != "MessageBundle");
+            foreach (PropertyInfo property in TestMsgBundleProperties)
             {
                 // Add the new property to the category
                 category[property.Name] = new Dictionary<string, dynamic>();
