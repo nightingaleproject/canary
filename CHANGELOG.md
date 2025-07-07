@@ -1,5 +1,16 @@
 ## Change Log
 
+<a name="4.5.1"></a>
+## [4.5.1](https://www.github.com/nightingaleproject/canary/releases/tag/v4.5.1) (2025-07-07)
+
+### Bug Fixes
+
+* noisy error report remove message bundle from error report ([#322](https://www.github.com/nightingaleproject/canary/issues/322)) ([a13aede](https://www.github.com/nightingaleproject/canary/commit/a13aedef02f259595fa3abef900bd86dc2cef5b3))
+
+### Other
+
+* update VRDR STU2 version link ([#320](https://www.github.com/nightingaleproject/canary/issues/320)) ([3043e94](https://www.github.com/nightingaleproject/canary/commit/3043e94b42961d9e3d8aac92670426218026b0c7))
+
 <a name="4.5.0"></a>
 ## [4.5.0](https://www.github.com/nightingaleproject/canary/releases/tag/v4.5.0) (2025-04-02)
 
